@@ -1,0 +1,373 @@
+﻿namespace ShowUIApp
+{
+    partial class showUI
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.WriteSPC = new System.Windows.Forms.Timer(this.components);
+            this.lblShowUI = new System.Windows.Forms.Label();
+            this.lblTR = new System.Windows.Forms.Label();
+            this.lblTotalRate = new System.Windows.Forms.Label();
+            this.lblRR = new System.Windows.Forms.Label();
+            this.lblRetestRate = new System.Windows.Forms.Label();
+            this.lblYR = new System.Windows.Forms.Label();
+            this.lblYeildRate = new System.Windows.Forms.Label();
+            this.lblVers = new System.Windows.Forms.Label();
+            this.lblVer = new System.Windows.Forms.Label();
+            this.lblChk = new System.Windows.Forms.Label();
+            this.lblChecksum = new System.Windows.Forms.Label();
+            this.lblSta = new System.Windows.Forms.Label();
+            this.lblStation = new System.Windows.Forms.Label();
+            this.lblDat = new System.Windows.Forms.Label();
+            this.lblDate = new System.Windows.Forms.Label();
+            this.UpdateYR = new System.Windows.Forms.Timer(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.rightMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mnChart = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnCall = new System.Windows.Forms.Button();
+            this.panel1.SuspendLayout();
+            this.rightMenu.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // WriteSPC
+            // 
+            this.WriteSPC.Interval = 30000;
+            this.WriteSPC.Tick += new System.EventHandler(this.CheckSPC_Tick);
+            // 
+            // lblShowUI
+            // 
+            this.lblShowUI.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.lblShowUI.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblShowUI.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblShowUI.ForeColor = System.Drawing.Color.MintCream;
+            this.lblShowUI.Location = new System.Drawing.Point(1325, 0);
+            this.lblShowUI.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblShowUI.Name = "lblShowUI";
+            this.lblShowUI.Size = new System.Drawing.Size(37, 30);
+            this.lblShowUI.TabIndex = 1;
+            this.lblShowUI.Text = "V4.2";
+            this.lblShowUI.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblShowUI.DoubleClick += new System.EventHandler(this.lblShowUI_DoubleClick);
+            // 
+            // lblTR
+            // 
+            this.lblTR.AutoSize = true;
+            this.lblTR.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTR.ForeColor = System.Drawing.Color.Lime;
+            this.lblTR.Location = new System.Drawing.Point(498, 6);
+            this.lblTR.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblTR.Name = "lblTR";
+            this.lblTR.Size = new System.Drawing.Size(49, 18);
+            this.lblTR.TabIndex = 4;
+            this.lblTR.Text = "T.R.R";
+            // 
+            // lblTotalRate
+            // 
+            this.lblTotalRate.BackColor = System.Drawing.Color.Lime;
+            this.lblTotalRate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalRate.ForeColor = System.Drawing.Color.Blue;
+            this.lblTotalRate.Location = new System.Drawing.Point(550, 5);
+            this.lblTotalRate.Margin = new System.Windows.Forms.Padding(5);
+            this.lblTotalRate.Name = "lblTotalRate";
+            this.lblTotalRate.Size = new System.Drawing.Size(60, 20);
+            this.lblTotalRate.TabIndex = 5;
+            this.lblTotalRate.Text = "0.0%";
+            this.lblTotalRate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblTotalRate.TextChanged += new System.EventHandler(this.lblTotalRate_TextChanged);
+            this.lblTotalRate.Click += new System.EventHandler(this.lblTotalRate_Click);
+            // 
+            // lblRR
+            // 
+            this.lblRR.AutoSize = true;
+            this.lblRR.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRR.ForeColor = System.Drawing.Color.Lime;
+            this.lblRR.Location = new System.Drawing.Point(618, 5);
+            this.lblRR.Name = "lblRR";
+            this.lblRR.Size = new System.Drawing.Size(50, 18);
+            this.lblRR.TabIndex = 6;
+            this.lblRR.Text = "S.R.R";
+            // 
+            // lblRetestRate
+            // 
+            this.lblRetestRate.BackColor = System.Drawing.Color.Lime;
+            this.lblRetestRate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRetestRate.ForeColor = System.Drawing.Color.Blue;
+            this.lblRetestRate.Location = new System.Drawing.Point(667, 5);
+            this.lblRetestRate.Name = "lblRetestRate";
+            this.lblRetestRate.Size = new System.Drawing.Size(60, 20);
+            this.lblRetestRate.TabIndex = 7;
+            this.lblRetestRate.Text = "0.0%";
+            this.lblRetestRate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblRetestRate.TextChanged += new System.EventHandler(this.lblRetestRate_TextChanged);
+            this.lblRetestRate.Click += new System.EventHandler(this.lblRetestRate_Click);
+            // 
+            // lblYR
+            // 
+            this.lblYR.AutoSize = true;
+            this.lblYR.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblYR.ForeColor = System.Drawing.Color.Lime;
+            this.lblYR.Location = new System.Drawing.Point(734, 6);
+            this.lblYR.Name = "lblYR";
+            this.lblYR.Size = new System.Drawing.Size(35, 18);
+            this.lblYR.TabIndex = 8;
+            this.lblYR.Text = "Y.R";
+            // 
+            // lblYeildRate
+            // 
+            this.lblYeildRate.BackColor = System.Drawing.Color.Lime;
+            this.lblYeildRate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblYeildRate.ForeColor = System.Drawing.Color.Blue;
+            this.lblYeildRate.Location = new System.Drawing.Point(770, 5);
+            this.lblYeildRate.Name = "lblYeildRate";
+            this.lblYeildRate.Size = new System.Drawing.Size(60, 20);
+            this.lblYeildRate.TabIndex = 9;
+            this.lblYeildRate.Text = "100.0%";
+            this.lblYeildRate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblYeildRate.TextChanged += new System.EventHandler(this.lblYeildRate_TextChanged);
+            // 
+            // lblVers
+            // 
+            this.lblVers.AutoSize = true;
+            this.lblVers.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVers.ForeColor = System.Drawing.Color.LightGoldenrodYellow;
+            this.lblVers.Location = new System.Drawing.Point(5, 6);
+            this.lblVers.Name = "lblVers";
+            this.lblVers.Size = new System.Drawing.Size(73, 18);
+            this.lblVers.TabIndex = 10;
+            this.lblVers.Text = "TPG Ver:";
+            // 
+            // lblVer
+            // 
+            this.lblVer.AutoSize = true;
+            this.lblVer.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVer.ForeColor = System.Drawing.Color.Yellow;
+            this.lblVer.Location = new System.Drawing.Point(75, 6);
+            this.lblVer.Name = "lblVer";
+            this.lblVer.Size = new System.Drawing.Size(33, 18);
+            this.lblVer.TabIndex = 11;
+            this.lblVer.Text = "1.0";
+            // 
+            // lblChk
+            // 
+            this.lblChk.AutoSize = true;
+            this.lblChk.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChk.ForeColor = System.Drawing.Color.LightGoldenrodYellow;
+            this.lblChk.Location = new System.Drawing.Point(176, 6);
+            this.lblChk.Name = "lblChk";
+            this.lblChk.Size = new System.Drawing.Size(62, 18);
+            this.lblChk.TabIndex = 12;
+            this.lblChk.Text = "Cksum:";
+            // 
+            // lblChecksum
+            // 
+            this.lblChecksum.AutoSize = true;
+            this.lblChecksum.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChecksum.ForeColor = System.Drawing.Color.Yellow;
+            this.lblChecksum.Location = new System.Drawing.Point(236, 6);
+            this.lblChecksum.Name = "lblChecksum";
+            this.lblChecksum.Size = new System.Drawing.Size(88, 18);
+            this.lblChecksum.TabIndex = 13;
+            this.lblChecksum.Text = "XXXXXXXX";
+            // 
+            // lblSta
+            // 
+            this.lblSta.AutoSize = true;
+            this.lblSta.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSta.ForeColor = System.Drawing.Color.LightGoldenrodYellow;
+            this.lblSta.Location = new System.Drawing.Point(324, 6);
+            this.lblSta.Name = "lblSta";
+            this.lblSta.Size = new System.Drawing.Size(38, 18);
+            this.lblSta.TabIndex = 14;
+            this.lblSta.Text = "Sta:";
+            // 
+            // lblStation
+            // 
+            this.lblStation.AutoSize = true;
+            this.lblStation.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStation.ForeColor = System.Drawing.Color.Yellow;
+            this.lblStation.Location = new System.Drawing.Point(358, 6);
+            this.lblStation.Name = "lblStation";
+            this.lblStation.Size = new System.Drawing.Size(48, 18);
+            this.lblStation.TabIndex = 15;
+            this.lblStation.Text = "Jerry";
+            // 
+            // lblDat
+            // 
+            this.lblDat.AutoSize = true;
+            this.lblDat.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDat.ForeColor = System.Drawing.Color.Yellow;
+            this.lblDat.Location = new System.Drawing.Point(833, 8);
+            this.lblDat.Name = "lblDat";
+            this.lblDat.Size = new System.Drawing.Size(52, 14);
+            this.lblDat.TabIndex = 16;
+            this.lblDat.Text = "B.Date:";
+            // 
+            // lblDate
+            // 
+            this.lblDate.AutoSize = true;
+            this.lblDate.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDate.ForeColor = System.Drawing.Color.White;
+            this.lblDate.Location = new System.Drawing.Point(886, 8);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(85, 14);
+            this.lblDate.TabIndex = 17;
+            this.lblDate.Text = "12/12/2013";
+            // 
+            // UpdateYR
+            // 
+            this.UpdateYR.Interval = 1000;
+            this.UpdateYR.Tick += new System.EventHandler(this.UpdateYR_Tick);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.RoyalBlue;
+            this.panel1.Controls.Add(this.lblShowUI);
+            this.panel1.Controls.Add(this.lblVers);
+            this.panel1.Controls.Add(this.lblVer);
+            this.panel1.Controls.Add(this.lblDate);
+            this.panel1.Controls.Add(this.lblChk);
+            this.panel1.Controls.Add(this.lblDat);
+            this.panel1.Controls.Add(this.lblChecksum);
+            this.panel1.Controls.Add(this.lblYeildRate);
+            this.panel1.Controls.Add(this.lblStation);
+            this.panel1.Controls.Add(this.lblYR);
+            this.panel1.Controls.Add(this.lblSta);
+            this.panel1.Controls.Add(this.lblRetestRate);
+            this.panel1.Controls.Add(this.lblTR);
+            this.panel1.Controls.Add(this.lblRR);
+            this.panel1.Controls.Add(this.lblTotalRate);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1362, 30);
+            this.panel1.TabIndex = 19;
+            this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
+            // 
+            // rightMenu
+            // 
+            this.rightMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnChart,
+            this.mnHelp,
+            this.exitToolStripMenuItem});
+            this.rightMenu.Name = "rightMenu";
+            this.rightMenu.Size = new System.Drawing.Size(156, 70);
+            // 
+            // mnChart
+            // 
+            this.mnChart.Name = "mnChart";
+            this.mnChart.Size = new System.Drawing.Size(155, 22);
+            this.mnChart.Text = "Chart (Đồ thị)";
+            this.mnChart.Click += new System.EventHandler(this.chartToolStripMenuItem_Click);
+            // 
+            // mnHelp
+            // 
+            this.mnHelp.Name = "mnHelp";
+            this.mnHelp.Size = new System.Drawing.Size(155, 22);
+            this.mnHelp.Text = "Help (Trợ giúp)";
+            this.mnHelp.Click += new System.EventHandler(this.helpMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // btnCall
+            // 
+            this.btnCall.BackColor = System.Drawing.Color.Red;
+            this.btnCall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCall.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCall.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnCall.Location = new System.Drawing.Point(1283, 33);
+            this.btnCall.Name = "btnCall";
+            this.btnCall.Size = new System.Drawing.Size(75, 24);
+            this.btnCall.TabIndex = 18;
+            this.btnCall.Text = "Gọi TE";
+            this.btnCall.UseVisualStyleBackColor = false;
+            this.btnCall.Click += new System.EventHandler(this.btnCall_Click);
+            this.btnCall.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnCall_Click);
+            // 
+            // showUI
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Black;
+            this.ClientSize = new System.Drawing.Size(1362, 60);
+            this.Controls.Add(this.btnCall);
+            this.Controls.Add(this.panel1);
+            this.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.Name = "showUI";
+            this.ShowInTaskbar = false;
+            this.Text = "Showinfo V1.0";
+            this.TopMost = true;
+            this.TransparencyKey = System.Drawing.Color.Black;
+            this.Load += new System.EventHandler(this.showUI_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.showUI_FormClosing);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.showUI_KeyDown);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.rightMenu.ResumeLayout(false);
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Timer WriteSPC;
+        private System.Windows.Forms.Label lblShowUI;
+        private System.Windows.Forms.Label lblTR;
+        private System.Windows.Forms.Label lblTotalRate;
+        private System.Windows.Forms.Label lblRR;
+        private System.Windows.Forms.Label lblRetestRate;
+        private System.Windows.Forms.Label lblYR;
+        private System.Windows.Forms.Label lblYeildRate;
+        private System.Windows.Forms.Label lblVers;
+        private System.Windows.Forms.Label lblVer;
+        private System.Windows.Forms.Label lblChk;
+        private System.Windows.Forms.Label lblChecksum;
+        private System.Windows.Forms.Label lblSta;
+        private System.Windows.Forms.Label lblStation;
+        private System.Windows.Forms.Label lblDat;
+        private System.Windows.Forms.Label lblDate;
+        private System.Windows.Forms.Timer UpdateYR;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ContextMenuStrip rightMenu;
+        private System.Windows.Forms.ToolStripMenuItem mnChart;
+        private System.Windows.Forms.ToolStripMenuItem mnHelp;
+        private System.Windows.Forms.Button btnCall;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+    }
+}
+

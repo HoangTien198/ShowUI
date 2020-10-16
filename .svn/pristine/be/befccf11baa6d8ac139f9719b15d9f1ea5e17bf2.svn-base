@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <configSections>
+        <sectionGroup name="applicationSettings" type="System.Configuration.ApplicationSettingsGroup, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+            <section name="ShowUI.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false"/>
+        </sectionGroup>
+    </configSections>
+    <applicationSettings>
+        <ShowUI.Properties.Settings>
+            <setting name="ShowUI4_6_ATE_CHECKLIST_WebService" serializeAs="String">
+                <value>http://10.224.81.63/PCKPI_te/Service/WebService.asmx</value>
+            </setting>
+            <setting name="ShowUI4_6_GET_ATE_SUM_TESTED_DUT_Servicepostdata"
+                serializeAs="String">
+                <value>http://10.224.81.53/service/Servicepostdata.asmx</value>
+            </setting>
+            <setting name="ShowUI4_6_SvFPS_WebService" serializeAs="String">
+                <value>http://10.224.81.63/FPS/WebService.asmx</value>
+            </setting>
+            <setting name="ShowUI4_8_B05_SERVICE_CENTER_B05_Service" serializeAs="String">
+                <value>http://10.224.81.63/Servicecenter/Services/B05_Service.asmx</value>
+            </setting>
+            <setting name="ShowUI5_3_SFISB05_SV_Servicepostdata" serializeAs="String">
+                <value>http://10.224.81.64/B05/Servicepostdata.asmx</value>
+            </setting>
+            <setting name="ShowUI5_3_SFISB05_SQL_SV_Service" serializeAs="String">
+                <value>http://10.224.81.64/webservicesql/webservicesql.asmx</value>
+            </setting>
+            <setting name="ISC" serializeAs="String">
+                <value>http://10.228.110.45/ISCService/Servicepostdata.asmx</value>
+            </setting>
+            <setting name="ShowUI_ISC_Service" serializeAs="String">
+                <value>http://10.228.110.45/ISCService/Servicepostdata.asmx</value>
+            </setting>
+            <setting name="ShowUI_ISCService_Servicepostdata" serializeAs="String">
+                <value>http://10.228.110.45/ISCService/Servicepostdata.asmx</value>
+            </setting>
+        </ShowUI.Properties.Settings>
+    </applicationSettings>
+<startup><supportedRuntime version="v2.0.50727"/></startup></configuration>

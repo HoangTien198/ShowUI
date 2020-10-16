@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="Show UI">
+</Property><Property Name="Solution File" Value="E:\Tool\ShowUI\Show UI.sln">
+</Property><Property Name="User Options File" Value="E:\Tool\ShowUI\Show UI.suo">
+</Property><Property Name="Date" Value="Friday, June 27, 2014">
+</Property><Property Name="Time" Value="10:27">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="Show UI.sln" Description="File successfully backed up as E:\Tool\ShowUI\Backup\Show UI.sln">
+</Event><Event ErrorLevel="0" Project="" Source="Show UI.suo" Description="File successfully backed up as E:\Tool\ShowUI\Backup\Show UI.suo">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\ShowUI.csproj" Description="Project file successfully backed up as E:\Tool\ShowUI\Backup\ShowUI\ShowUI.csproj">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\ShowUI.csproj.user" Description="Project user file successfully backed up as E:\Tool\ShowUI\Backup\ShowUI\ShowUI.csproj.user">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\frmChart.cs" Description="File successfully backed up as E:\Tool\ShowUI\Backup\ShowUI\frmChart.cs">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\frmChart.Designer.cs" Description="File successfully backed up as E:\Tool\ShowUI\Backup\ShowUI\frmChart.Designer.cs">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\frmShowUI.cs" Description="File successfully backed up as E:\Tool\ShowUI\Backup\ShowUI\frmShowUI.cs">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\frmShowUI.Designer.cs" Description="File successfully backed up as E:\Tool\ShowUI\Backup\ShowUI\frmShowUI.Designer.cs">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\IniFile.cs" Description="File successfully backed up as E:\Tool\ShowUI\Backup\ShowUI\IniFile.cs">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\Program.cs" Description="File successfully backed up as E:\Tool\ShowUI\Backup\ShowUI\Program.cs">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\Properties\AssemblyInfo.cs" Description="File successfully backed up as E:\Tool\ShowUI\Backup\ShowUI\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\Properties\Resources.Designer.cs" Description="File successfully backed up as E:\Tool\ShowUI\Backup\ShowUI\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\Properties\Settings.Designer.cs" Description="File successfully backed up as E:\Tool\ShowUI\Backup\ShowUI\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\WarningButton.cs" Description="File successfully backed up as E:\Tool\ShowUI\Backup\ShowUI\WarningButton.cs">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\WarningButton.Designer.cs" Description="File successfully backed up as E:\Tool\ShowUI\Backup\ShowUI\WarningButton.Designer.cs">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\Properties\Settings.settings" Description="File successfully backed up as E:\Tool\ShowUI\Backup\ShowUI\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\showUI.ico" Description="File successfully backed up as E:\Tool\ShowUI\Backup\ShowUI\showUI.ico">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\frmChart.resx" Description="File successfully backed up as E:\Tool\ShowUI\Backup\ShowUI\frmChart.resx">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\frmShowUI.resx" Description="File successfully backed up as E:\Tool\ShowUI\Backup\ShowUI\frmShowUI.resx">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\Properties\Resources.resx" Description="File successfully backed up as E:\Tool\ShowUI\Backup\ShowUI\Properties\Resources.resx">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\WarningButton.resx" Description="File successfully backed up as E:\Tool\ShowUI\Backup\ShowUI\WarningButton.resx">
+</Event><Event ErrorLevel="1" Project="ShowUI" Source="ShowUI\ShowUI.csproj" Description="Your project is targeting .NET Framework 2.0 or 3.0. If your project uses assemblies requiring a newer .NET Framework, your project will fail to build. You can change the .NET Framework version by clicking Properties on the project menu and then selecting a new version in the '.NET Framework' dropdown box. (In Visual Basic, this is located on the Compile tab by clicking the 'Advanced Compiler Options...' button.)">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\ShowUI.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="ShowUI" Source="ShowUI\ShowUI.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="Show UI.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="Show UI.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="ShowUI" Source="ShowUI\ShowUI.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

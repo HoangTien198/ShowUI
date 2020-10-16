@@ -1,0 +1,454 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FCCA47C6-F7C8-4BED-861D-F36EDBE52A21}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ShowUI</RootNamespace>
+    <AssemblyName>ShowUI</AssemblyName>
+    <ApplicationIcon>showUI.ico</ApplicationIcon>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ZedGraph, Version=5.1.5.28844, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Release\ZedGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing">
+      <HintPath>..\..\..\..\THU VIEN\zxing.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutoClosingMessageBox.cs" />
+    <Compile Include="CRC32Calc.cs" />
+    <Compile Include="Fii.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmChangePass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChangePass.Designer.cs">
+      <DependentUpon>frmChangePass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmChart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChart.Designer.cs">
+      <DependentUpon>frmChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDebug.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDebug.Designer.cs">
+      <DependentUpon>frmDebug.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmEmpAuthentication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEmpAuthentication.Designer.cs">
+      <DependentUpon>frmEmpAuthentication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLocking.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLocking.Designer.cs">
+      <DependentUpon>frmLocking.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmReport.Designer.cs">
+      <DependentUpon>FrmReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSamplingControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSamplingControl.Designer.cs">
+      <DependentUpon>frmSamplingControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmScanID.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmScanID.Designer.cs">
+      <DependentUpon>frmScanID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmShowUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmShowUI.Designer.cs">
+      <DependentUpon>frmShowUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTextBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTextBox.Designer.cs">
+      <DependentUpon>frmTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmUnlockRequirements.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUnlockRequirements.Designer.cs">
+      <DependentUpon>frmUnlockRequirements.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IniFile.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistryKey.cs" />
+    <Compile Include="ToDB.cs" />
+    <Compile Include="ToSSO.cs" />
+    <Compile Include="Utilities.cs" />
+    <Compile Include="Web References\ATE_CHECKLIST\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\B05_SERVICE_CENTER\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\GET_ATE_SUM_TESTED_DUT\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\ISCB05_Service\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\ISC_Service\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SFISB05_SQL_SV\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SFISB05_SV\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SvFPS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="frmChangePass.resx">
+      <DependentUpon>frmChangePass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmChart.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDebug.resx">
+      <DependentUpon>frmDebug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEmpAuthentication.resx">
+      <DependentUpon>frmEmpAuthentication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLocking.resx">
+      <DependentUpon>frmLocking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmReport.resx">
+      <DependentUpon>FrmReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSamplingControl.resx">
+      <DependentUpon>frmSamplingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmScanID.resx">
+      <DependentUpon>frmScanID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmShowUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmShowUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTextBox.resx">
+      <DependentUpon>frmTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUnlockRequirements.resx">
+      <DependentUpon>frmUnlockRequirements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WarningButton.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WarningButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="WarningButton.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WarningButton.Designer.cs">
+      <DependentUpon>WarningButton.cs</DependentUpon>
+    </Compile>
+    <None Include="Web References\ATE_CHECKLIST\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\ATE_CHECKLIST\WebService.wsdl" />
+    <None Include="Web References\B05_SERVICE_CENTER\B05_Service.wsdl" />
+    <None Include="Web References\B05_SERVICE_CENTER\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\GET_ATE_SUM_TESTED_DUT\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\GET_ATE_SUM_TESTED_DUT\Servicepostdata.wsdl" />
+    <None Include="Web References\ISCB05_Service\B05_Service.wsdl" />
+    <None Include="Web References\ISCB05_Service\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\ISC_Service\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\ISC_Service\Servicepostdata.wsdl" />
+    <None Include="Web References\SFISB05_SQL_SV\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SFISB05_SQL_SV\webservicesql.wsdl" />
+    <None Include="Web References\SFISB05_SV\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SFISB05_SV\Servicepostdata.wsdl" />
+    <None Include="Web References\SvFPS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SvFPS\WebService.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\ISCB05_Service\B05_Service.disco" />
+    <None Include="Web References\ISC_Service\Servicepostdata.disco" />
+    <None Include="Web References\SFISB05_SQL_SV\webservicesql.disco" />
+    <None Include="Web References\SFISB05_SV\Servicepostdata.disco" />
+    <None Include="Web References\B05_SERVICE_CENTER\B05_Service.disco" />
+    <None Include="Web References\SvFPS\WebService.disco" />
+    <None Include="Web References\GET_ATE_SUM_TESTED_DUT\Servicepostdata.disco" />
+    <None Include="Web References\ATE_CHECKLIST\WebService.disco" />
+    <None Include="images\green.png" />
+    <None Include="images\red.png" />
+    <None Include="images\triangle-red.png" />
+    <None Include="images\triangle-yellow.png" />
+    <None Include="images\yellow.png" />
+    <None Include="Resources\usb-green.png" />
+    <None Include="Resources\usb-red.png" />
+    <None Include="Resources\green.png" />
+    <None Include="Resources\red.png" />
+    <None Include="Resources\yellow.png" />
+    <None Include="Resources\usb_red.png" />
+    <None Include="Resources\usb_green.png" />
+    <None Include="Resources\security_off.png" />
+    <None Include="Resources\security_on.png" />
+    <None Include="Resources\security_offyellow.png" />
+    <None Include="Resources\grey.png" />
+    <None Include="images\blink.gif" />
+    <Content Include="showUI.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://10.224.81.53/service/Servicepostdata.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\GET_ATE_SUM_TESTED_DUT\</RelPath>
+      <UpdateFromURL>http://10.224.81.53/service/Servicepostdata.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>ShowUI4_6_GET_ATE_SUM_TESTED_DUT_Servicepostdata</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://10.224.81.63/FPS/WebService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SvFPS\</RelPath>
+      <UpdateFromURL>http://10.224.81.63/FPS/WebService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>ShowUI4_6_SvFPS_WebService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://10.224.81.63/PCKPI/Service/WebService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ATE_CHECKLIST\</RelPath>
+      <UpdateFromURL>http://10.224.81.63/PCKPI/Service/WebService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>ShowUI4_6_ATE_CHECKLIST_WebService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://10.224.81.63/Servicecenter/Services/B05_Service.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\B05_SERVICE_CENTER\</RelPath>
+      <UpdateFromURL>http://10.224.81.63/Servicecenter/Services/B05_Service.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>ShowUI4_8_B05_SERVICE_CENTER_B05_Service</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://10.224.81.64/B05/Servicepostdata.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SFISB05_SV\</RelPath>
+      <UpdateFromURL>http://10.224.81.64/B05/Servicepostdata.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>ShowUI5_3_SFISB05_SV_Servicepostdata</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://10.224.81.64/webservicesql/webservicesql.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SFISB05_SQL_SV\</RelPath>
+      <UpdateFromURL>http://10.224.81.64/webservicesql/webservicesql.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>ShowUI5_3_SFISB05_SQL_SV_Service</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://10.224.81.99/ServiceCenter/Services/B05_Service.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ISCB05_Service\</RelPath>
+      <UpdateFromURL>http://10.224.81.99/ServiceCenter/Services/B05_Service.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>ShowUI_ISCB05_Service_B05_Service</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://10.228.110.45/ISCService/Servicepostdata.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ISC_Service\</RelPath>
+      <UpdateFromURL>http://10.228.110.45/ISCService/Servicepostdata.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>ShowUI_ISC_Service_Servicepostdata</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

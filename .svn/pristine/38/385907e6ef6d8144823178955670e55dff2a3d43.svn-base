@@ -1,0 +1,963 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="HelloWorld">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dept" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HelloWorldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSendMessage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EmployeeId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSendMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSendMessageResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateSendMessageStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendMessageID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="SendMessageStatus" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateSendMessageStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateSendMessageStatusResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateMainMessageActionStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="MainmessageID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="MainmessageActionStatus" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateMainMessageActionStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateMainMessageActionStatusResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertMainMessage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Item_Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="MessageTittle" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MessageContent" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ItemDetailLink" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SendToEmployeeId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MessageComment" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertMainMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InsertMainMessageResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSystemItemID">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetSystemItemIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSystemItemIDResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserInfo">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetUserInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="App_NoticeStopMachine_Add">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Line" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Station" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ATE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ModelName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Error" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="App_NoticeStopMachine_AddResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="App_NoticeStopMachine_UpdateMsgActionStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ATE" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="App_NoticeStopMachine_UpdateMsgActionStatusResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="SMTReflow_Add">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Line" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ModelName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Error" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SMTReflow_AddResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateLockStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="STATION_NAME" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateLockStatusResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="ShowUI_SaveSolvedError">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ATE_NAME" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LINE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="STATION" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MODEL_NAME" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ERROR" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SOLVED_EMP" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="START_TIME" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="END_TIME" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ACTION" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ShowUI_SaveSolvedErrorResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CheckFixtureNo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Model" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Station" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckFixtureNoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckFixtureNoResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateExpiredStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Model" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Station" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateExpiredStatusResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetTestingModelByLine">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="line" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTestingModelByLineResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTestingModelByLineResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ATE_INFO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ATE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IP" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MAC" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="STATION" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LINE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LOCK_STATUS" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ON_STATUS" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IDLE_STATUS" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IQSN" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ON_TIME" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OFF_TIME" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TEST_TIME" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IDLE_TIME" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ATE_INFOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ATE_INFOResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AutoSendEmail">
+        <s:complexType />
+      </s:element>
+      <s:element name="AutoSendEmailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AutoSendEmailResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="TestSendHugeData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="start" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="end" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TestSendHugeDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TestSendHugeDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QA_IPQC_AUTO_EMAIL">
+        <s:complexType />
+      </s:element>
+      <s:element name="QA_IPQC_AUTO_EMAILResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QA_IPQC_AUTO_EMAILResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QA_IPQC_UPDATE_SENDNOW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="recordid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QA_IPQC_UPDATE_SENDNOWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="QA_IPQC_UPDATE_SENDNOWResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QA_IPQC_GET_DEPT_EMAIL">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QA_IPQC_GET_DEPT_EMAILResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QA_IPQC_GET_DEPT_EMAILResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QA_IPQC_GET_RES_DEPT">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="site" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QA_IPQC_GET_RES_DEPTResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QA_IPQC_GET_RES_DEPTResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloWorldSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloWorld" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSendMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSendMessage" />
+  </wsdl:message>
+  <wsdl:message name="GetSendMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSendMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateSendMessageStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateSendMessageStatus" />
+  </wsdl:message>
+  <wsdl:message name="UpdateSendMessageStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateSendMessageStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateMainMessageActionStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateMainMessageActionStatus" />
+  </wsdl:message>
+  <wsdl:message name="UpdateMainMessageActionStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateMainMessageActionStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertMainMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertMainMessage" />
+  </wsdl:message>
+  <wsdl:message name="InsertMainMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertMainMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSystemItemIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSystemItemID" />
+  </wsdl:message>
+  <wsdl:message name="GetSystemItemIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSystemItemIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="App_NoticeStopMachine_AddSoapIn">
+    <wsdl:part name="parameters" element="tns:App_NoticeStopMachine_Add" />
+  </wsdl:message>
+  <wsdl:message name="App_NoticeStopMachine_AddSoapOut">
+    <wsdl:part name="parameters" element="tns:App_NoticeStopMachine_AddResponse" />
+  </wsdl:message>
+  <wsdl:message name="App_NoticeStopMachine_UpdateMsgActionStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:App_NoticeStopMachine_UpdateMsgActionStatus" />
+  </wsdl:message>
+  <wsdl:message name="App_NoticeStopMachine_UpdateMsgActionStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:App_NoticeStopMachine_UpdateMsgActionStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="SMTReflow_AddSoapIn">
+    <wsdl:part name="parameters" element="tns:SMTReflow_Add" />
+  </wsdl:message>
+  <wsdl:message name="SMTReflow_AddSoapOut">
+    <wsdl:part name="parameters" element="tns:SMTReflow_AddResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateLockStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateLockStatus" />
+  </wsdl:message>
+  <wsdl:message name="UpdateLockStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateLockStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="ShowUI_SaveSolvedErrorSoapIn">
+    <wsdl:part name="parameters" element="tns:ShowUI_SaveSolvedError" />
+  </wsdl:message>
+  <wsdl:message name="ShowUI_SaveSolvedErrorSoapOut">
+    <wsdl:part name="parameters" element="tns:ShowUI_SaveSolvedErrorResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckFixtureNoSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckFixtureNo" />
+  </wsdl:message>
+  <wsdl:message name="CheckFixtureNoSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckFixtureNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateExpiredStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateExpiredStatus" />
+  </wsdl:message>
+  <wsdl:message name="UpdateExpiredStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateExpiredStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTestingModelByLineSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTestingModelByLine" />
+  </wsdl:message>
+  <wsdl:message name="GetTestingModelByLineSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTestingModelByLineResponse" />
+  </wsdl:message>
+  <wsdl:message name="ATE_INFOSoapIn">
+    <wsdl:part name="parameters" element="tns:ATE_INFO" />
+  </wsdl:message>
+  <wsdl:message name="ATE_INFOSoapOut">
+    <wsdl:part name="parameters" element="tns:ATE_INFOResponse" />
+  </wsdl:message>
+  <wsdl:message name="AutoSendEmailSoapIn">
+    <wsdl:part name="parameters" element="tns:AutoSendEmail" />
+  </wsdl:message>
+  <wsdl:message name="AutoSendEmailSoapOut">
+    <wsdl:part name="parameters" element="tns:AutoSendEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="TestSendHugeDataSoapIn">
+    <wsdl:part name="parameters" element="tns:TestSendHugeData" />
+  </wsdl:message>
+  <wsdl:message name="TestSendHugeDataSoapOut">
+    <wsdl:part name="parameters" element="tns:TestSendHugeDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="QA_IPQC_AUTO_EMAILSoapIn">
+    <wsdl:part name="parameters" element="tns:QA_IPQC_AUTO_EMAIL" />
+  </wsdl:message>
+  <wsdl:message name="QA_IPQC_AUTO_EMAILSoapOut">
+    <wsdl:part name="parameters" element="tns:QA_IPQC_AUTO_EMAILResponse" />
+  </wsdl:message>
+  <wsdl:message name="QA_IPQC_UPDATE_SENDNOWSoapIn">
+    <wsdl:part name="parameters" element="tns:QA_IPQC_UPDATE_SENDNOW" />
+  </wsdl:message>
+  <wsdl:message name="QA_IPQC_UPDATE_SENDNOWSoapOut">
+    <wsdl:part name="parameters" element="tns:QA_IPQC_UPDATE_SENDNOWResponse" />
+  </wsdl:message>
+  <wsdl:message name="QA_IPQC_GET_DEPT_EMAILSoapIn">
+    <wsdl:part name="parameters" element="tns:QA_IPQC_GET_DEPT_EMAIL" />
+  </wsdl:message>
+  <wsdl:message name="QA_IPQC_GET_DEPT_EMAILSoapOut">
+    <wsdl:part name="parameters" element="tns:QA_IPQC_GET_DEPT_EMAILResponse" />
+  </wsdl:message>
+  <wsdl:message name="QA_IPQC_GET_RES_DEPTSoapIn">
+    <wsdl:part name="parameters" element="tns:QA_IPQC_GET_RES_DEPT" />
+  </wsdl:message>
+  <wsdl:message name="QA_IPQC_GET_RES_DEPTSoapOut">
+    <wsdl:part name="parameters" element="tns:QA_IPQC_GET_RES_DEPTResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WebServiceSoap">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldSoapIn" />
+      <wsdl:output message="tns:HelloWorldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSendMessage">
+      <wsdl:input message="tns:GetSendMessageSoapIn" />
+      <wsdl:output message="tns:GetSendMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSendMessageStatus">
+      <wsdl:input message="tns:UpdateSendMessageStatusSoapIn" />
+      <wsdl:output message="tns:UpdateSendMessageStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMainMessageActionStatus">
+      <wsdl:input message="tns:UpdateMainMessageActionStatusSoapIn" />
+      <wsdl:output message="tns:UpdateMainMessageActionStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertMainMessage">
+      <wsdl:input message="tns:InsertMainMessageSoapIn" />
+      <wsdl:output message="tns:InsertMainMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSystemItemID">
+      <wsdl:input message="tns:GetSystemItemIDSoapIn" />
+      <wsdl:output message="tns:GetSystemItemIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo">
+      <wsdl:input message="tns:GetUserInfoSoapIn" />
+      <wsdl:output message="tns:GetUserInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="App_NoticeStopMachine_Add">
+      <wsdl:input message="tns:App_NoticeStopMachine_AddSoapIn" />
+      <wsdl:output message="tns:App_NoticeStopMachine_AddSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="App_NoticeStopMachine_UpdateMsgActionStatus">
+      <wsdl:input message="tns:App_NoticeStopMachine_UpdateMsgActionStatusSoapIn" />
+      <wsdl:output message="tns:App_NoticeStopMachine_UpdateMsgActionStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SMTReflow_Add">
+      <wsdl:input message="tns:SMTReflow_AddSoapIn" />
+      <wsdl:output message="tns:SMTReflow_AddSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateLockStatus">
+      <wsdl:input message="tns:UpdateLockStatusSoapIn" />
+      <wsdl:output message="tns:UpdateLockStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ShowUI_SaveSolvedError">
+      <wsdl:input message="tns:ShowUI_SaveSolvedErrorSoapIn" />
+      <wsdl:output message="tns:ShowUI_SaveSolvedErrorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckFixtureNo">
+      <wsdl:input message="tns:CheckFixtureNoSoapIn" />
+      <wsdl:output message="tns:CheckFixtureNoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateExpiredStatus">
+      <wsdl:input message="tns:UpdateExpiredStatusSoapIn" />
+      <wsdl:output message="tns:UpdateExpiredStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTestingModelByLine">
+      <wsdl:input message="tns:GetTestingModelByLineSoapIn" />
+      <wsdl:output message="tns:GetTestingModelByLineSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ATE_INFO">
+      <wsdl:input message="tns:ATE_INFOSoapIn" />
+      <wsdl:output message="tns:ATE_INFOSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AutoSendEmail">
+      <wsdl:input message="tns:AutoSendEmailSoapIn" />
+      <wsdl:output message="tns:AutoSendEmailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TestSendHugeData">
+      <wsdl:input message="tns:TestSendHugeDataSoapIn" />
+      <wsdl:output message="tns:TestSendHugeDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QA_IPQC_AUTO_EMAIL">
+      <wsdl:input message="tns:QA_IPQC_AUTO_EMAILSoapIn" />
+      <wsdl:output message="tns:QA_IPQC_AUTO_EMAILSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QA_IPQC_UPDATE_SENDNOW">
+      <wsdl:input message="tns:QA_IPQC_UPDATE_SENDNOWSoapIn" />
+      <wsdl:output message="tns:QA_IPQC_UPDATE_SENDNOWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QA_IPQC_GET_DEPT_EMAIL">
+      <wsdl:input message="tns:QA_IPQC_GET_DEPT_EMAILSoapIn" />
+      <wsdl:output message="tns:QA_IPQC_GET_DEPT_EMAILSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QA_IPQC_GET_RES_DEPT">
+      <wsdl:input message="tns:QA_IPQC_GET_RES_DEPTSoapIn" />
+      <wsdl:output message="tns:QA_IPQC_GET_RES_DEPTSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WebServiceSoap" type="tns:WebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSendMessage">
+      <soap:operation soapAction="http://tempuri.org/GetSendMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSendMessageStatus">
+      <soap:operation soapAction="http://tempuri.org/UpdateSendMessageStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMainMessageActionStatus">
+      <soap:operation soapAction="http://tempuri.org/UpdateMainMessageActionStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertMainMessage">
+      <soap:operation soapAction="http://tempuri.org/InsertMainMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSystemItemID">
+      <soap:operation soapAction="http://tempuri.org/GetSystemItemID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo">
+      <soap:operation soapAction="http://tempuri.org/GetUserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="App_NoticeStopMachine_Add">
+      <soap:operation soapAction="http://tempuri.org/App_NoticeStopMachine_Add" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="App_NoticeStopMachine_UpdateMsgActionStatus">
+      <soap:operation soapAction="http://tempuri.org/App_NoticeStopMachine_UpdateMsgActionStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SMTReflow_Add">
+      <soap:operation soapAction="http://tempuri.org/SMTReflow_Add" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateLockStatus">
+      <soap:operation soapAction="http://tempuri.org/UpdateLockStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShowUI_SaveSolvedError">
+      <soap:operation soapAction="http://tempuri.org/ShowUI_SaveSolvedError" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckFixtureNo">
+      <soap:operation soapAction="http://tempuri.org/CheckFixtureNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateExpiredStatus">
+      <soap:operation soapAction="http://tempuri.org/UpdateExpiredStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTestingModelByLine">
+      <soap:operation soapAction="http://tempuri.org/GetTestingModelByLine" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ATE_INFO">
+      <soap:operation soapAction="http://tempuri.org/ATE_INFO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AutoSendEmail">
+      <soap:operation soapAction="http://tempuri.org/AutoSendEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestSendHugeData">
+      <soap:operation soapAction="http://tempuri.org/TestSendHugeData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QA_IPQC_AUTO_EMAIL">
+      <soap:operation soapAction="http://tempuri.org/QA_IPQC_AUTO_EMAIL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QA_IPQC_UPDATE_SENDNOW">
+      <soap:operation soapAction="http://tempuri.org/QA_IPQC_UPDATE_SENDNOW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QA_IPQC_GET_DEPT_EMAIL">
+      <soap:operation soapAction="http://tempuri.org/QA_IPQC_GET_DEPT_EMAIL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QA_IPQC_GET_RES_DEPT">
+      <soap:operation soapAction="http://tempuri.org/QA_IPQC_GET_RES_DEPT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WebServiceSoap12" type="tns:WebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSendMessage">
+      <soap12:operation soapAction="http://tempuri.org/GetSendMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSendMessageStatus">
+      <soap12:operation soapAction="http://tempuri.org/UpdateSendMessageStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMainMessageActionStatus">
+      <soap12:operation soapAction="http://tempuri.org/UpdateMainMessageActionStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertMainMessage">
+      <soap12:operation soapAction="http://tempuri.org/InsertMainMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSystemItemID">
+      <soap12:operation soapAction="http://tempuri.org/GetSystemItemID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetUserInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="App_NoticeStopMachine_Add">
+      <soap12:operation soapAction="http://tempuri.org/App_NoticeStopMachine_Add" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="App_NoticeStopMachine_UpdateMsgActionStatus">
+      <soap12:operation soapAction="http://tempuri.org/App_NoticeStopMachine_UpdateMsgActionStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SMTReflow_Add">
+      <soap12:operation soapAction="http://tempuri.org/SMTReflow_Add" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateLockStatus">
+      <soap12:operation soapAction="http://tempuri.org/UpdateLockStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShowUI_SaveSolvedError">
+      <soap12:operation soapAction="http://tempuri.org/ShowUI_SaveSolvedError" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckFixtureNo">
+      <soap12:operation soapAction="http://tempuri.org/CheckFixtureNo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateExpiredStatus">
+      <soap12:operation soapAction="http://tempuri.org/UpdateExpiredStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTestingModelByLine">
+      <soap12:operation soapAction="http://tempuri.org/GetTestingModelByLine" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ATE_INFO">
+      <soap12:operation soapAction="http://tempuri.org/ATE_INFO" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AutoSendEmail">
+      <soap12:operation soapAction="http://tempuri.org/AutoSendEmail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestSendHugeData">
+      <soap12:operation soapAction="http://tempuri.org/TestSendHugeData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QA_IPQC_AUTO_EMAIL">
+      <soap12:operation soapAction="http://tempuri.org/QA_IPQC_AUTO_EMAIL" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QA_IPQC_UPDATE_SENDNOW">
+      <soap12:operation soapAction="http://tempuri.org/QA_IPQC_UPDATE_SENDNOW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QA_IPQC_GET_DEPT_EMAIL">
+      <soap12:operation soapAction="http://tempuri.org/QA_IPQC_GET_DEPT_EMAIL" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QA_IPQC_GET_RES_DEPT">
+      <soap12:operation soapAction="http://tempuri.org/QA_IPQC_GET_RES_DEPT" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WebService">
+    <wsdl:port name="WebServiceSoap" binding="tns:WebServiceSoap">
+      <soap:address location="http://10.224.81.63/FPS/WebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WebServiceSoap12" binding="tns:WebServiceSoap12">
+      <soap12:address location="http://10.224.81.63/FPS/WebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
