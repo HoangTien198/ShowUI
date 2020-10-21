@@ -949,7 +949,7 @@
             // SamplingThroughtput
             // 
             this.SamplingThroughtput.Enabled = true;
-            this.SamplingThroughtput.Interval = 3000;
+            this.SamplingThroughtput.Interval = 3600000;
             this.SamplingThroughtput.Tick += new System.EventHandler(this.SamplingThroughtput_Tick);
             // 
             // showUI
