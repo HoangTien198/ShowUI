@@ -10177,7 +10177,7 @@ namespace ShowUIApp
                     {
                         ul.SetValueByKey("StopMachine", "1");
                         _IsExistErrorr = true;
-                        ShowWarningMessage($"Lỗi: Sampling control langer than rate: {rate}, call TE-SETUP,TE-PRO Check", "Sampling Rate Issue");
+                        ShowWarningMessage($"Lỗi: Sampling control bigger than rate: {rate}, call TE-SETUP,TE-PRO Check", "Sampling Rate Issue");
                     }
                 }
 
@@ -10185,9 +10185,9 @@ namespace ShowUIApp
             catch (Exception ex)
             {
 
-                MessageBox.Show(ex.Message);
+               
             }
-            MessageBox.Show("Done");
+           
             
         }
 
