@@ -31,6 +31,7 @@ using ShowUI.Helper;
 using ShowUI;
 using ShowUI.AutomationHelper;
 using ShowUI.Common;
+using ShowUI.ThroughtputService;
 
 namespace ShowUIApp
 {
@@ -10141,7 +10142,9 @@ namespace ShowUIApp
         }
         private void SamplingThroughtput_Tick(object sender, EventArgs e)
         {
-            ShowUI.ThroughtputService.ThroughtputServiceSoapClient getDataFromService = new ShowUI.ThroughtputService.ThroughtputServiceSoapClient();
+            SamplingThroughtput.Enabled = false;
+            //ShowUI.ThroughtputService.ThroughtputServiceSoapClient getDataFromService = new ShowUI.ThroughtputService.ThroughtputServiceSoapClient();
+            ThroughtputService getDataFromService = new ThroughtputService();
             string ModelName = ul.GetModel();
             string Station = ul.GetStation();
             string Product = ul.GetProduct();
@@ -10155,13 +10158,14 @@ namespace ShowUIApp
                 double rate = double.Parse(IniFile.ReadIniFile("SamplingThroughtput", "Rate_"+Station, "101", srPath).Replace("%",""));
                 string lockPC = IniFile.ReadIniFile("SamplingThroughtput", "Lock", "0", srPath);
                 
-                List<WipPCModel> lstData = getDataFromService.GetDataThroughtputSampling(ModelName.ToUpper(), Station.ToUpper(), shift, date)
-                                        .ToList().ConvertSamplingThroughtputFunc(new List<WipPCModel>());
-                if (lstData.Count == 0 || lstPC.Count == 0 || rate > 100)
+               
+                if (lstPC.Count == 0 || rate > 100)
                 {
                     return;
                 }
-
+                List<ShowUI.Common.WipPCModel> lstData = getDataFromService.GetDataThroughtputSampling(ModelName.ToUpper(), Station.ToUpper(), shift, date)
+                                       .ToList().ConvertSamplingThroughtputFunc(new List<ShowUI.Common.WipPCModel>());
+                if (lstData.Count == 0) return;
                 var total = Convert.ToDouble(lstData.Sum(x => x.WIPTOTAL));
                 var dataSampling = (from pc in lstPC
                                     join dt in lstData
@@ -10181,8 +10185,10 @@ namespace ShowUIApp
             catch (Exception ex)
             {
 
-
+                MessageBox.Show(ex.Message);
             }
+            MessageBox.Show("Done");
+            
         }
 
         public void SamplingWarningDiaglog()

@@ -70,10 +70,10 @@
   </wsdl:binding>
   <wsdl:service name="ThroughtputService">
     <wsdl:port name="ThroughtputServiceSoap" binding="tns:ThroughtputServiceSoap">
-      <soap:address location="http://10.224.81.49/sampling/services/ThroughtputService.asmx" />
+      <soap:address location="http://10.224.81.49/sampling/Services/ThroughtputService.asmx" />
     </wsdl:port>
     <wsdl:port name="ThroughtputServiceSoap12" binding="tns:ThroughtputServiceSoap12">
-      <soap12:address location="http://10.224.81.49/sampling/services/ThroughtputService.asmx" />
+      <soap12:address location="http://10.224.81.49/sampling/Services/ThroughtputService.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

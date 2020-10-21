@@ -214,11 +214,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistryKey.cs" />
-    <Compile Include="Service References\ThroughtputService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="TimeDoNotUse.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -264,6 +259,11 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\SvFPS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\ThroughtputService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -345,10 +345,6 @@
     <Compile Include="WarningButton.Designer.cs">
       <DependentUpon>WarningButton.cs</DependentUpon>
     </Compile>
-    <None Include="Service References\ThroughtputService\ShowUI.ThroughtputService.WipPCModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ThroughtputService\ThroughtputService.wsdl" />
     <None Include="Web References\ATE_CHECKLIST\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -389,8 +385,17 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\SvFPS\WebService.wsdl" />
+    <None Include="Web References\ThroughtputService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\ThroughtputService\ThroughtputService.wsdl" />
+    <None Include="Web References\ThroughtputService\WipPCModel.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Web References\ThroughtputService\ThroughtputService.disco" />
     <None Include="Web References\ISCB05_Service\B05_Service.disco" />
     <None Include="Web References\ISC_Service\Servicepostdata.disco" />
     <None Include="Web References\SFISB05_SQL_SV\webservicesql.disco" />
@@ -416,13 +421,6 @@
     <None Include="Resources\security_offyellow.png" />
     <None Include="Resources\grey.png" />
     <None Include="images\blink.gif" />
-    <None Include="Service References\ThroughtputService\ThroughtputService.disco" />
-    <None Include="Service References\ThroughtputService\configuration91.svcinfo" />
-    <None Include="Service References\ThroughtputService\configuration.svcinfo" />
-    <None Include="Service References\ThroughtputService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="showUI.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -441,6 +439,17 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
+    <WebReferenceUrl Include="http://10.224.81.49/sampling/Services/ThroughtputService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ThroughtputService\</RelPath>
+      <UpdateFromURL>http://10.224.81.49/sampling/Services/ThroughtputService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>ShowUI_ThroughtputService_ThroughtputService</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="http://10.224.81.64/service/Servicepostdata.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\GET_ATE_SUM_TESTED_DUT\</RelPath>
@@ -532,9 +541,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\ThroughtputService\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

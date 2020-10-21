@@ -32,5 +32,8 @@
     <Setting Name="ShowUI_ISCB05_Service_B05_Service" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://10.224.81.99/ServiceCenter/Services/B05_Service.asmx</Value>
     </Setting>
+    <Setting Name="ShowUI_ThroughtputService_ThroughtputService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://10.224.81.49/sampling/Services/ThroughtputService.asmx</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -609,7 +609,7 @@
             this.cableCtrlThayCápToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.rightMenu.Name = "rightMenu";
-            this.rightMenu.Size = new System.Drawing.Size(182, 70);
+            this.rightMenu.Size = new System.Drawing.Size(183, 70);
             this.rightMenu.Opening += new System.ComponentModel.CancelEventHandler(this.rightMenu_Opening);
             // 
             // mnTool
@@ -627,7 +627,7 @@
             this.pathlossErrorListToolStripMenuItem});
             this.mnTool.Image = ((System.Drawing.Image)(resources.GetObject("mnTool.Image")));
             this.mnTool.Name = "mnTool";
-            this.mnTool.Size = new System.Drawing.Size(181, 22);
+            this.mnTool.Size = new System.Drawing.Size(182, 22);
             this.mnTool.Text = "Utilities (Tiện ích)";
             this.mnTool.Click += new System.EventHandler(this.mnTool_Click);
             // 
@@ -726,7 +726,7 @@
             // 
             this.cableCtrlThayCápToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("cableCtrlThayCápToolStripMenuItem.Image")));
             this.cableCtrlThayCápToolStripMenuItem.Name = "cableCtrlThayCápToolStripMenuItem";
-            this.cableCtrlThayCápToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.cableCtrlThayCápToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.cableCtrlThayCápToolStripMenuItem.Text = "CableCtrl (Thay cáp)";
             this.cableCtrlThayCápToolStripMenuItem.Click += new System.EventHandler(this.CableChange_Click);
             // 
@@ -734,7 +734,7 @@
             // 
             this.exitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exitToolStripMenuItem.Image")));
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 

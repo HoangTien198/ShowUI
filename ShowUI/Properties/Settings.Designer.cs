@@ -120,5 +120,15 @@ namespace ShowUI.Properties {
                 return ((string)(this["ShowUI_ISCB05_Service_B05_Service"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.224.81.49/sampling/Services/ThroughtputService.asmx")]
+        public string ShowUI_ThroughtputService_ThroughtputService {
+            get {
+                return ((string)(this["ShowUI_ThroughtputService_ThroughtputService"]));
+            }
+        }
     }
 }
