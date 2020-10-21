@@ -10142,7 +10142,7 @@ namespace ShowUIApp
         }
         private void SamplingThroughtput_Tick(object sender, EventArgs e)
         {
-            SamplingThroughtput.Enabled = false;
+            //SamplingThroughtput.Enabled = false;
             //ShowUI.ThroughtputService.ThroughtputServiceSoapClient getDataFromService = new ShowUI.ThroughtputService.ThroughtputServiceSoapClient();
             ThroughtputService getDataFromService = new ThroughtputService();
             string ModelName = ul.GetModel();
