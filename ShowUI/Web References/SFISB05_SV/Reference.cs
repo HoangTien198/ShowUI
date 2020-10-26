@@ -24,15 +24,13 @@ namespace ShowUI.SFISB05_SV {
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="ServicepostdataSoap", Namespace="http://tempuri.org/")]
     public partial class Servicepostdata : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
         private System.Threading.SendOrPostCallback SHOWUI_TESTOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback SHOWUIOperationCompleted;
         
         private System.Threading.SendOrPostCallback R_NETG_PRIN_ALL_TOperationCompleted;
         
@@ -88,6 +86,8 @@ namespace ShowUI.SFISB05_SV {
         
         private System.Threading.SendOrPostCallback GET_SUM_PASSFAILOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GET_SUM_PASSFAIL_NEWOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GET_TOTAL_PASSFAILOperationCompleted;
         
         private System.Threading.SendOrPostCallback GET_STATION_PASS_FAILOperationCompleted;
@@ -140,9 +140,6 @@ namespace ShowUI.SFISB05_SV {
         
         /// <remarks/>
         public event SHOWUI_TESTCompletedEventHandler SHOWUI_TESTCompleted;
-        
-        /// <remarks/>
-        public event SHOWUICompletedEventHandler SHOWUICompleted;
         
         /// <remarks/>
         public event R_NETG_PRIN_ALL_TCompletedEventHandler R_NETG_PRIN_ALL_TCompleted;
@@ -226,6 +223,9 @@ namespace ShowUI.SFISB05_SV {
         public event GET_SUM_PASSFAILCompletedEventHandler GET_SUM_PASSFAILCompleted;
         
         /// <remarks/>
+        public event GET_SUM_PASSFAIL_NEWCompletedEventHandler GET_SUM_PASSFAIL_NEWCompleted;
+        
+        /// <remarks/>
         public event GET_TOTAL_PASSFAILCompletedEventHandler GET_TOTAL_PASSFAILCompleted;
         
         /// <remarks/>
@@ -271,37 +271,6 @@ namespace ShowUI.SFISB05_SV {
             if ((this.SHOWUI_TESTCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.SHOWUI_TESTCompleted(this, new SHOWUI_TESTCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SHOWUI", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string SHOWUI(string dulieu, string mygroup) {
-            object[] results = this.Invoke("SHOWUI", new object[] {
-                        dulieu,
-                        mygroup});
-            return ((string)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void SHOWUIAsync(string dulieu, string mygroup) {
-            this.SHOWUIAsync(dulieu, mygroup, null);
-        }
-        
-        /// <remarks/>
-        public void SHOWUIAsync(string dulieu, string mygroup, object userState) {
-            if ((this.SHOWUIOperationCompleted == null)) {
-                this.SHOWUIOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSHOWUIOperationCompleted);
-            }
-            this.InvokeAsync("SHOWUI", new object[] {
-                        dulieu,
-                        mygroup}, this.SHOWUIOperationCompleted, userState);
-        }
-        
-        private void OnSHOWUIOperationCompleted(object arg) {
-            if ((this.SHOWUICompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.SHOWUICompleted(this, new SHOWUICompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -1159,6 +1128,45 @@ namespace ShowUI.SFISB05_SV {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GET_SUM_PASSFAIL_NEW", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataTable GET_SUM_PASSFAIL_NEW(string line_name, string group_name, string start_time, string end_time, string work_date, string model_name) {
+            object[] results = this.Invoke("GET_SUM_PASSFAIL_NEW", new object[] {
+                        line_name,
+                        group_name,
+                        start_time,
+                        end_time,
+                        work_date,
+                        model_name});
+            return ((System.Data.DataTable)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GET_SUM_PASSFAIL_NEWAsync(string line_name, string group_name, string start_time, string end_time, string work_date, string model_name) {
+            this.GET_SUM_PASSFAIL_NEWAsync(line_name, group_name, start_time, end_time, work_date, model_name, null);
+        }
+        
+        /// <remarks/>
+        public void GET_SUM_PASSFAIL_NEWAsync(string line_name, string group_name, string start_time, string end_time, string work_date, string model_name, object userState) {
+            if ((this.GET_SUM_PASSFAIL_NEWOperationCompleted == null)) {
+                this.GET_SUM_PASSFAIL_NEWOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGET_SUM_PASSFAIL_NEWOperationCompleted);
+            }
+            this.InvokeAsync("GET_SUM_PASSFAIL_NEW", new object[] {
+                        line_name,
+                        group_name,
+                        start_time,
+                        end_time,
+                        work_date,
+                        model_name}, this.GET_SUM_PASSFAIL_NEWOperationCompleted, userState);
+        }
+        
+        private void OnGET_SUM_PASSFAIL_NEWOperationCompleted(object arg) {
+            if ((this.GET_SUM_PASSFAIL_NEWCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GET_SUM_PASSFAIL_NEWCompleted(this, new GET_SUM_PASSFAIL_NEWCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GET_TOTAL_PASSFAIL", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public System.Data.DataTable GET_TOTAL_PASSFAIL(string group_name, string shift, string start_date, string end_date, string mo_number) {
             object[] results = this.Invoke("GET_TOTAL_PASSFAIL", new object[] {
@@ -1382,11 +1390,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void SHOWUI_TESTCompletedEventHandler(object sender, SHOWUI_TESTCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class SHOWUI_TESTCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1408,37 +1416,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
-    public delegate void SHOWUICompletedEventHandler(object sender, SHOWUICompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class SHOWUICompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal SHOWUICompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public string Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void R_NETG_PRIN_ALL_TCompletedEventHandler(object sender, R_NETG_PRIN_ALL_TCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class R_NETG_PRIN_ALL_TCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1460,11 +1442,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void H_STATION_REC_TCompletedEventHandler(object sender, H_STATION_REC_TCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class H_STATION_REC_TCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1486,11 +1468,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void C_ROUTE_CONTROL_TCompletedEventHandler(object sender, C_ROUTE_CONTROL_TCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class C_ROUTE_CONTROL_TCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1512,11 +1494,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void C_GROUP_NOROUTE_TCompletedEventHandler(object sender, C_GROUP_NOROUTE_TCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class C_GROUP_NOROUTE_TCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1538,11 +1520,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void Get_SN_DETAILCompletedEventHandler(object sender, Get_SN_DETAILCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class Get_SN_DETAILCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1564,11 +1546,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void R_BPCS_MOPLAN_TCompletedEventHandler(object sender, R_BPCS_MOPLAN_TCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class R_BPCS_MOPLAN_TCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1590,11 +1572,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void FIND_STATION_FROM_IPCompletedEventHandler(object sender, FIND_STATION_FROM_IPCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FIND_STATION_FROM_IPCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1616,11 +1598,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void SEND_MAIL_PARAMCompletedEventHandler(object sender, SEND_MAIL_PARAMCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class SEND_MAIL_PARAMCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1642,11 +1624,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void R_WIP_TRACKING_TCompletedEventHandler(object sender, R_WIP_TRACKING_TCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class R_WIP_TRACKING_TCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1668,11 +1650,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void FIND_MO_NUMBERCompletedEventHandler(object sender, FIND_MO_NUMBERCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FIND_MO_NUMBERCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1694,11 +1676,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void AUTO_SEND_MAILCompletedEventHandler(object sender, AUTO_SEND_MAILCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class AUTO_SEND_MAILCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1720,11 +1702,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void Z_WIP_TRACKING_TCompletedEventHandler(object sender, Z_WIP_TRACKING_TCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class Z_WIP_TRACKING_TCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1746,11 +1728,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void R_MO_BASE_TCompletedEventHandler(object sender, R_MO_BASE_TCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class R_MO_BASE_TCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1772,11 +1754,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void CHECK_PQE_CONFIGCompletedEventHandler(object sender, CHECK_PQE_CONFIGCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class CHECK_PQE_CONFIGCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1798,11 +1780,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void GET_R_REPAIR_T_BY_TESTTIMECompletedEventHandler(object sender, GET_R_REPAIR_T_BY_TESTTIMECompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GET_R_REPAIR_T_BY_TESTTIMECompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1824,11 +1806,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void GET_R_REPAIR_T_BY_REPAIRTIMECompletedEventHandler(object sender, GET_R_REPAIR_T_BY_REPAIRTIMECompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GET_R_REPAIR_T_BY_REPAIRTIMECompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1850,11 +1832,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void BOX_LABEL_QTYCompletedEventHandler(object sender, BOX_LABEL_QTYCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class BOX_LABEL_QTYCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1876,11 +1858,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void PACK_CTN_LABEL_COUNTCompletedEventHandler(object sender, PACK_CTN_LABEL_COUNTCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class PACK_CTN_LABEL_COUNTCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1902,11 +1884,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void INSERT_TE_LABEL_QTYCompletedEventHandler(object sender, INSERT_TE_LABEL_QTYCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class INSERT_TE_LABEL_QTYCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1928,11 +1910,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void GET_R_ATE_ERRCODE_TCompletedEventHandler(object sender, GET_R_ATE_ERRCODE_TCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GET_R_ATE_ERRCODE_TCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1954,11 +1936,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void GET_FULL_R_STATION_ATE_TCompletedEventHandler(object sender, GET_FULL_R_STATION_ATE_TCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GET_FULL_R_STATION_ATE_TCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1980,11 +1962,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void GET_R_REPAIR_TCompletedEventHandler(object sender, GET_R_REPAIR_TCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GET_R_REPAIR_TCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2006,11 +1988,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void GET_R_STATION_REC_TCompletedEventHandler(object sender, GET_R_STATION_REC_TCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GET_R_STATION_REC_TCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2032,11 +2014,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void GET_R_TMP_ATEDATA_T_BAKCompletedEventHandler(object sender, GET_R_TMP_ATEDATA_T_BAKCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GET_R_TMP_ATEDATA_T_BAKCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2058,11 +2040,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void GET_TOTAL_SN_STATIONCompletedEventHandler(object sender, GET_TOTAL_SN_STATIONCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GET_TOTAL_SN_STATIONCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2084,11 +2066,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void GET_WARE_HOUSECompletedEventHandler(object sender, GET_WARE_HOUSECompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GET_WARE_HOUSECompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2110,11 +2092,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void GET_SUM_PASSFAILCompletedEventHandler(object sender, GET_SUM_PASSFAILCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GET_SUM_PASSFAILCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2136,11 +2118,37 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void GET_SUM_PASSFAIL_NEWCompletedEventHandler(object sender, GET_SUM_PASSFAIL_NEWCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GET_SUM_PASSFAIL_NEWCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GET_SUM_PASSFAIL_NEWCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataTable Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataTable)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void GET_TOTAL_PASSFAILCompletedEventHandler(object sender, GET_TOTAL_PASSFAILCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GET_TOTAL_PASSFAILCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2162,11 +2170,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void GET_STATION_PASS_FAILCompletedEventHandler(object sender, GET_STATION_PASS_FAILCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GET_STATION_PASS_FAILCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2188,11 +2196,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void GET_INFO_FIRSTPCBCompletedEventHandler(object sender, GET_INFO_FIRSTPCBCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GET_INFO_FIRSTPCBCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2214,11 +2222,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void GET_GROUP_NAMECompletedEventHandler(object sender, GET_GROUP_NAMECompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GET_GROUP_NAMECompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2240,11 +2248,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void GET_MODEL_DAYCompletedEventHandler(object sender, GET_MODEL_DAYCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GET_MODEL_DAYCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2266,11 +2274,11 @@ namespace ShowUI.SFISB05_SV {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void GET_MONUMBERCompletedEventHandler(object sender, GET_MONUMBERCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GET_MONUMBERCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {

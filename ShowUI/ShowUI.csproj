@@ -450,10 +450,10 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>ShowUI_ThroughtputService_ThroughtputService</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://10.224.81.64/service/Servicepostdata.asmx">
+    <WebReferenceUrl Include="http://10.224.81.154/service/Servicepostdata.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\GET_ATE_SUM_TESTED_DUT\</RelPath>
-      <UpdateFromURL>http://10.224.81.64/service/Servicepostdata.asmx</UpdateFromURL>
+      <UpdateFromURL>http://10.224.81.154/service/Servicepostdata.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
@@ -494,10 +494,10 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>ShowUI4_8_B05_SERVICE_CENTER_B05_Service</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://10.224.81.64/B05/Servicepostdata.asmx">
+    <WebReferenceUrl Include="http://10.224.81.154/B05/Servicepostdata.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\SFISB05_SV\</RelPath>
-      <UpdateFromURL>http://10.224.81.64/B05/Servicepostdata.asmx</UpdateFromURL>
+      <UpdateFromURL>http://10.224.81.154/B05/Servicepostdata.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
@@ -505,10 +505,10 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>ShowUI5_3_SFISB05_SV_Servicepostdata</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://10.224.81.64/webservicesql/webservicesql.asmx">
+    <WebReferenceUrl Include="http://10.224.81.154/webservicesql/webservicesql.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\SFISB05_SQL_SV\</RelPath>
-      <UpdateFromURL>http://10.224.81.64/webservicesql/webservicesql.asmx</UpdateFromURL>
+      <UpdateFromURL>http://10.224.81.154/webservicesql/webservicesql.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

@@ -119,16 +119,16 @@
   </wsdl:binding>
   <wsdl:service name="Servicepostdata">
     <wsdl:port name="ServicepostdataSoap" binding="tns:ServicepostdataSoap">
-      <soap:address location="http://10.224.81.64/service/Servicepostdata.asmx" />
+      <soap:address location="http://10.224.81.154/service/Servicepostdata.asmx" />
     </wsdl:port>
     <wsdl:port name="ServicepostdataSoap12" binding="tns:ServicepostdataSoap12">
-      <soap12:address location="http://10.224.81.64/service/Servicepostdata.asmx" />
+      <soap12:address location="http://10.224.81.154/service/Servicepostdata.asmx" />
     </wsdl:port>
     <wsdl:port name="ServicepostdataHttpGet" binding="tns:ServicepostdataHttpGet">
-      <http:address location="http://10.224.81.64/service/Servicepostdata.asmx" />
+      <http:address location="http://10.224.81.154/service/Servicepostdata.asmx" />
     </wsdl:port>
     <wsdl:port name="ServicepostdataHttpPost" binding="tns:ServicepostdataHttpPost">
-      <http:address location="http://10.224.81.64/service/Servicepostdata.asmx" />
+      <http:address location="http://10.224.81.154/service/Servicepostdata.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

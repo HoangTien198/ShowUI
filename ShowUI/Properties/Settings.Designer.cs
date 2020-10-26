@@ -36,7 +36,7 @@ namespace ShowUI.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://10.224.81.64/service/Servicepostdata.asmx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.224.81.154/service/Servicepostdata.asmx")]
         public string ShowUI4_6_GET_ATE_SUM_TESTED_DUT_Servicepostdata {
             get {
                 return ((string)(this["ShowUI4_6_GET_ATE_SUM_TESTED_DUT_Servicepostdata"]));
@@ -66,7 +66,7 @@ namespace ShowUI.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://10.224.81.64/B05/Servicepostdata.asmx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.224.81.154/B05/Servicepostdata.asmx")]
         public string ShowUI5_3_SFISB05_SV_Servicepostdata {
             get {
                 return ((string)(this["ShowUI5_3_SFISB05_SV_Servicepostdata"]));

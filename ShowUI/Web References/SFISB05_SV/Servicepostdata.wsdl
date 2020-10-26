@@ -17,21 +17,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="SHOWUI">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="dulieu" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="mygroup" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="SHOWUIResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="SHOWUIResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="R_NETG_PRIN_ALL_T">
         <s:complexType>
           <s:sequence>
@@ -603,6 +588,32 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GET_SUM_PASSFAIL_NEW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="line_name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="group_name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="start_time" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="end_time" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="work_date" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="model_name" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GET_SUM_PASSFAIL_NEWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GET_SUM_PASSFAIL_NEWResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GET_TOTAL_PASSFAIL">
         <s:complexType>
           <s:sequence>
@@ -737,6 +748,17 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="DataTable" nillable="true">
+        <s:complexType>
+          <s:sequence>
+            <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+            <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="boolean" type="s:boolean" />
+      <s:element name="int" type="s:int" />
     </s:schema>
   </wsdl:types>
   <wsdl:message name="SHOWUI_TESTSoapIn">
@@ -744,12 +766,6 @@
   </wsdl:message>
   <wsdl:message name="SHOWUI_TESTSoapOut">
     <wsdl:part name="parameters" element="tns:SHOWUI_TESTResponse" />
-  </wsdl:message>
-  <wsdl:message name="SHOWUISoapIn">
-    <wsdl:part name="parameters" element="tns:SHOWUI" />
-  </wsdl:message>
-  <wsdl:message name="SHOWUISoapOut">
-    <wsdl:part name="parameters" element="tns:SHOWUIResponse" />
   </wsdl:message>
   <wsdl:message name="R_NETG_PRIN_ALL_TSoapIn">
     <wsdl:part name="parameters" element="tns:R_NETG_PRIN_ALL_T" />
@@ -913,6 +929,12 @@
   <wsdl:message name="GET_SUM_PASSFAILSoapOut">
     <wsdl:part name="parameters" element="tns:GET_SUM_PASSFAILResponse" />
   </wsdl:message>
+  <wsdl:message name="GET_SUM_PASSFAIL_NEWSoapIn">
+    <wsdl:part name="parameters" element="tns:GET_SUM_PASSFAIL_NEW" />
+  </wsdl:message>
+  <wsdl:message name="GET_SUM_PASSFAIL_NEWSoapOut">
+    <wsdl:part name="parameters" element="tns:GET_SUM_PASSFAIL_NEWResponse" />
+  </wsdl:message>
   <wsdl:message name="GET_TOTAL_PASSFAILSoapIn">
     <wsdl:part name="parameters" element="tns:GET_TOTAL_PASSFAIL" />
   </wsdl:message>
@@ -949,14 +971,540 @@
   <wsdl:message name="GET_MONUMBERSoapOut">
     <wsdl:part name="parameters" element="tns:GET_MONUMBERResponse" />
   </wsdl:message>
+  <wsdl:message name="SHOWUI_TESTHttpGetIn">
+    <wsdl:part name="dulieu" type="s:string" />
+    <wsdl:part name="mygroup" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SHOWUI_TESTHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="R_NETG_PRIN_ALL_THttpGetIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="R_NETG_PRIN_ALL_THttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="H_STATION_REC_THttpGetIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="H_STATION_REC_THttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="C_ROUTE_CONTROL_THttpGetIn">
+    <wsdl:part name="start" type="s:string" />
+    <wsdl:part name="end" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="C_ROUTE_CONTROL_THttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="C_GROUP_NOROUTE_THttpGetIn" />
+  <wsdl:message name="C_GROUP_NOROUTE_THttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="Get_SN_DETAILHttpGetIn">
+    <wsdl:part name="serial_number" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="Get_SN_DETAILHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="R_BPCS_MOPLAN_THttpGetIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="R_BPCS_MOPLAN_THttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="FIND_STATION_FROM_IPHttpGetIn">
+    <wsdl:part name="ip" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="FIND_STATION_FROM_IPHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="SEND_MAIL_PARAMHttpGetIn">
+    <wsdl:part name="mailto" type="s:string" />
+    <wsdl:part name="maifrom" type="s:string" />
+    <wsdl:part name="mailcc" type="s:string" />
+    <wsdl:part name="mailsubject" type="s:string" />
+    <wsdl:part name="mailcontent" type="s:string" />
+    <wsdl:part name="mailprogram" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SEND_MAIL_PARAMHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="R_WIP_TRACKING_THttpGetIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="R_WIP_TRACKING_THttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="FIND_MO_NUMBERHttpGetIn">
+    <wsdl:part name="serial" type="s:string" />
+    <wsdl:part name="mac" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="FIND_MO_NUMBERHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="AUTO_SEND_MAILHttpGetIn">
+    <wsdl:part name="LISTSTATION" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AUTO_SEND_MAILHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="Z_WIP_TRACKING_THttpGetIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="Z_WIP_TRACKING_THttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="R_MO_BASE_THttpGetIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="R_MO_BASE_THttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="CHECK_PQE_CONFIGHttpGetIn">
+    <wsdl:part name="path_name" type="s:string" />
+    <wsdl:part name="web" type="s:string" />
+    <wsdl:part name="flag" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CHECK_PQE_CONFIGHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_REPAIR_T_BY_TESTTIMEHttpGetIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_REPAIR_T_BY_TESTTIMEHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_REPAIR_T_BY_REPAIRTIMEHttpGetIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_REPAIR_T_BY_REPAIRTIMEHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="BOX_LABEL_QTYHttpGetIn">
+    <wsdl:part name="work_begin" type="s:string" />
+    <wsdl:part name="work_end" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="BOX_LABEL_QTYHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="PACK_CTN_LABEL_COUNTHttpGetIn">
+    <wsdl:part name="work_begin" type="s:string" />
+    <wsdl:part name="work_end" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PACK_CTN_LABEL_COUNTHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="INSERT_TE_LABEL_QTYHttpGetIn">
+    <wsdl:part name="mo_number" type="s:string" />
+    <wsdl:part name="model_name" type="s:string" />
+    <wsdl:part name="line_name" type="s:string" />
+    <wsdl:part name="group_name" type="s:string" />
+    <wsdl:part name="print_qty" type="s:string" />
+    <wsdl:part name="reprint_qty" type="s:string" />
+    <wsdl:part name="tmp1" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="INSERT_TE_LABEL_QTYHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_ATE_ERRCODE_THttpGetIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_ATE_ERRCODE_THttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_FULL_R_STATION_ATE_THttpGetIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_FULL_R_STATION_ATE_THttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_REPAIR_THttpGetIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_REPAIR_THttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_STATION_REC_THttpGetIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_STATION_REC_THttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_TMP_ATEDATA_T_BAKHttpGetIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_TMP_ATEDATA_T_BAKHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_TOTAL_SN_STATIONHttpGetIn">
+    <wsdl:part name="Model_name" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_TOTAL_SN_STATIONHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_WARE_HOUSEHttpGetIn">
+    <wsdl:part name="Model_name" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_WARE_HOUSEHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_SUM_PASSFAILHttpGetIn">
+    <wsdl:part name="line_name" type="s:string" />
+    <wsdl:part name="group_name" type="s:string" />
+    <wsdl:part name="shift" type="s:string" />
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+    <wsdl:part name="work_date" type="s:string" />
+    <wsdl:part name="model_name" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_SUM_PASSFAILHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_SUM_PASSFAIL_NEWHttpGetIn">
+    <wsdl:part name="line_name" type="s:string" />
+    <wsdl:part name="group_name" type="s:string" />
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+    <wsdl:part name="work_date" type="s:string" />
+    <wsdl:part name="model_name" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_SUM_PASSFAIL_NEWHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_TOTAL_PASSFAILHttpGetIn">
+    <wsdl:part name="group_name" type="s:string" />
+    <wsdl:part name="shift" type="s:string" />
+    <wsdl:part name="start_date" type="s:string" />
+    <wsdl:part name="end_date" type="s:string" />
+    <wsdl:part name="mo_number" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_TOTAL_PASSFAILHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_STATION_PASS_FAILHttpGetIn">
+    <wsdl:part name="model_name" type="s:string" />
+    <wsdl:part name="station_name" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_STATION_PASS_FAILHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="GET_INFO_FIRSTPCBHttpGetIn">
+    <wsdl:part name="StartTime" type="s:string" />
+    <wsdl:part name="EndTime" type="s:string" />
+    <wsdl:part name="group_name" type="s:string" />
+    <wsdl:part name="line_name" type="s:string" />
+    <wsdl:part name="model" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_INFO_FIRSTPCBHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_GROUP_NAMEHttpGetIn">
+    <wsdl:part name="work_date" type="s:string" />
+    <wsdl:part name="line_name" type="s:string" />
+    <wsdl:part name="shift" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_GROUP_NAMEHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_MODEL_DAYHttpGetIn">
+    <wsdl:part name="work_date" type="s:string" />
+    <wsdl:part name="line_name" type="s:string" />
+    <wsdl:part name="shift" type="s:string" />
+    <wsdl:part name="group_name" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_MODEL_DAYHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_MONUMBERHttpGetIn">
+    <wsdl:part name="work_date" type="s:string" />
+    <wsdl:part name="line_name" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_MONUMBERHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="SHOWUI_TESTHttpPostIn">
+    <wsdl:part name="dulieu" type="s:string" />
+    <wsdl:part name="mygroup" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SHOWUI_TESTHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="R_NETG_PRIN_ALL_THttpPostIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="R_NETG_PRIN_ALL_THttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="H_STATION_REC_THttpPostIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="H_STATION_REC_THttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="C_ROUTE_CONTROL_THttpPostIn">
+    <wsdl:part name="start" type="s:string" />
+    <wsdl:part name="end" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="C_ROUTE_CONTROL_THttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="C_GROUP_NOROUTE_THttpPostIn" />
+  <wsdl:message name="C_GROUP_NOROUTE_THttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="Get_SN_DETAILHttpPostIn">
+    <wsdl:part name="serial_number" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="Get_SN_DETAILHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="R_BPCS_MOPLAN_THttpPostIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="R_BPCS_MOPLAN_THttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="FIND_STATION_FROM_IPHttpPostIn">
+    <wsdl:part name="ip" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="FIND_STATION_FROM_IPHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="SEND_MAIL_PARAMHttpPostIn">
+    <wsdl:part name="mailto" type="s:string" />
+    <wsdl:part name="maifrom" type="s:string" />
+    <wsdl:part name="mailcc" type="s:string" />
+    <wsdl:part name="mailsubject" type="s:string" />
+    <wsdl:part name="mailcontent" type="s:string" />
+    <wsdl:part name="mailprogram" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SEND_MAIL_PARAMHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="R_WIP_TRACKING_THttpPostIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="R_WIP_TRACKING_THttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="FIND_MO_NUMBERHttpPostIn">
+    <wsdl:part name="serial" type="s:string" />
+    <wsdl:part name="mac" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="FIND_MO_NUMBERHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="AUTO_SEND_MAILHttpPostIn">
+    <wsdl:part name="LISTSTATION" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AUTO_SEND_MAILHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="Z_WIP_TRACKING_THttpPostIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="Z_WIP_TRACKING_THttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="R_MO_BASE_THttpPostIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="R_MO_BASE_THttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="CHECK_PQE_CONFIGHttpPostIn">
+    <wsdl:part name="path_name" type="s:string" />
+    <wsdl:part name="web" type="s:string" />
+    <wsdl:part name="flag" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CHECK_PQE_CONFIGHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_REPAIR_T_BY_TESTTIMEHttpPostIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_REPAIR_T_BY_TESTTIMEHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_REPAIR_T_BY_REPAIRTIMEHttpPostIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_REPAIR_T_BY_REPAIRTIMEHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="BOX_LABEL_QTYHttpPostIn">
+    <wsdl:part name="work_begin" type="s:string" />
+    <wsdl:part name="work_end" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="BOX_LABEL_QTYHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="PACK_CTN_LABEL_COUNTHttpPostIn">
+    <wsdl:part name="work_begin" type="s:string" />
+    <wsdl:part name="work_end" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PACK_CTN_LABEL_COUNTHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="INSERT_TE_LABEL_QTYHttpPostIn">
+    <wsdl:part name="mo_number" type="s:string" />
+    <wsdl:part name="model_name" type="s:string" />
+    <wsdl:part name="line_name" type="s:string" />
+    <wsdl:part name="group_name" type="s:string" />
+    <wsdl:part name="print_qty" type="s:string" />
+    <wsdl:part name="reprint_qty" type="s:string" />
+    <wsdl:part name="tmp1" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="INSERT_TE_LABEL_QTYHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_ATE_ERRCODE_THttpPostIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_ATE_ERRCODE_THttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_FULL_R_STATION_ATE_THttpPostIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_FULL_R_STATION_ATE_THttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_REPAIR_THttpPostIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_REPAIR_THttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_STATION_REC_THttpPostIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_STATION_REC_THttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_TMP_ATEDATA_T_BAKHttpPostIn">
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_R_TMP_ATEDATA_T_BAKHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_TOTAL_SN_STATIONHttpPostIn">
+    <wsdl:part name="Model_name" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_TOTAL_SN_STATIONHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_WARE_HOUSEHttpPostIn">
+    <wsdl:part name="Model_name" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_WARE_HOUSEHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_SUM_PASSFAILHttpPostIn">
+    <wsdl:part name="line_name" type="s:string" />
+    <wsdl:part name="group_name" type="s:string" />
+    <wsdl:part name="shift" type="s:string" />
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+    <wsdl:part name="work_date" type="s:string" />
+    <wsdl:part name="model_name" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_SUM_PASSFAILHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_SUM_PASSFAIL_NEWHttpPostIn">
+    <wsdl:part name="line_name" type="s:string" />
+    <wsdl:part name="group_name" type="s:string" />
+    <wsdl:part name="start_time" type="s:string" />
+    <wsdl:part name="end_time" type="s:string" />
+    <wsdl:part name="work_date" type="s:string" />
+    <wsdl:part name="model_name" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_SUM_PASSFAIL_NEWHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_TOTAL_PASSFAILHttpPostIn">
+    <wsdl:part name="group_name" type="s:string" />
+    <wsdl:part name="shift" type="s:string" />
+    <wsdl:part name="start_date" type="s:string" />
+    <wsdl:part name="end_date" type="s:string" />
+    <wsdl:part name="mo_number" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_TOTAL_PASSFAILHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_STATION_PASS_FAILHttpPostIn">
+    <wsdl:part name="model_name" type="s:string" />
+    <wsdl:part name="station_name" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_STATION_PASS_FAILHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="GET_INFO_FIRSTPCBHttpPostIn">
+    <wsdl:part name="StartTime" type="s:string" />
+    <wsdl:part name="EndTime" type="s:string" />
+    <wsdl:part name="group_name" type="s:string" />
+    <wsdl:part name="line_name" type="s:string" />
+    <wsdl:part name="model" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_INFO_FIRSTPCBHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_GROUP_NAMEHttpPostIn">
+    <wsdl:part name="work_date" type="s:string" />
+    <wsdl:part name="line_name" type="s:string" />
+    <wsdl:part name="shift" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_GROUP_NAMEHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_MODEL_DAYHttpPostIn">
+    <wsdl:part name="work_date" type="s:string" />
+    <wsdl:part name="line_name" type="s:string" />
+    <wsdl:part name="shift" type="s:string" />
+    <wsdl:part name="group_name" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_MODEL_DAYHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_MONUMBERHttpPostIn">
+    <wsdl:part name="work_date" type="s:string" />
+    <wsdl:part name="line_name" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_MONUMBERHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
   <wsdl:portType name="ServicepostdataSoap">
     <wsdl:operation name="SHOWUI_TEST">
       <wsdl:input message="tns:SHOWUI_TESTSoapIn" />
       <wsdl:output message="tns:SHOWUI_TESTSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="SHOWUI">
-      <wsdl:input message="tns:SHOWUISoapIn" />
-      <wsdl:output message="tns:SHOWUISoapOut" />
     </wsdl:operation>
     <wsdl:operation name="R_NETG_PRIN_ALL_T">
       <wsdl:input message="tns:R_NETG_PRIN_ALL_TSoapIn" />
@@ -1066,6 +1614,10 @@
       <wsdl:input message="tns:GET_SUM_PASSFAILSoapIn" />
       <wsdl:output message="tns:GET_SUM_PASSFAILSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GET_SUM_PASSFAIL_NEW">
+      <wsdl:input message="tns:GET_SUM_PASSFAIL_NEWSoapIn" />
+      <wsdl:output message="tns:GET_SUM_PASSFAIL_NEWSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GET_TOTAL_PASSFAIL">
       <wsdl:input message="tns:GET_TOTAL_PASSFAILSoapIn" />
       <wsdl:output message="tns:GET_TOTAL_PASSFAILSoapOut" />
@@ -1091,19 +1643,294 @@
       <wsdl:output message="tns:GET_MONUMBERSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
+  <wsdl:portType name="ServicepostdataHttpGet">
+    <wsdl:operation name="SHOWUI_TEST">
+      <wsdl:input message="tns:SHOWUI_TESTHttpGetIn" />
+      <wsdl:output message="tns:SHOWUI_TESTHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="R_NETG_PRIN_ALL_T">
+      <wsdl:input message="tns:R_NETG_PRIN_ALL_THttpGetIn" />
+      <wsdl:output message="tns:R_NETG_PRIN_ALL_THttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="H_STATION_REC_T">
+      <wsdl:input message="tns:H_STATION_REC_THttpGetIn" />
+      <wsdl:output message="tns:H_STATION_REC_THttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="C_ROUTE_CONTROL_T">
+      <wsdl:input message="tns:C_ROUTE_CONTROL_THttpGetIn" />
+      <wsdl:output message="tns:C_ROUTE_CONTROL_THttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="C_GROUP_NOROUTE_T">
+      <wsdl:input message="tns:C_GROUP_NOROUTE_THttpGetIn" />
+      <wsdl:output message="tns:C_GROUP_NOROUTE_THttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_SN_DETAIL">
+      <wsdl:input message="tns:Get_SN_DETAILHttpGetIn" />
+      <wsdl:output message="tns:Get_SN_DETAILHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="R_BPCS_MOPLAN_T">
+      <wsdl:input message="tns:R_BPCS_MOPLAN_THttpGetIn" />
+      <wsdl:output message="tns:R_BPCS_MOPLAN_THttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FIND_STATION_FROM_IP">
+      <wsdl:input message="tns:FIND_STATION_FROM_IPHttpGetIn" />
+      <wsdl:output message="tns:FIND_STATION_FROM_IPHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SEND_MAIL_PARAM">
+      <wsdl:input message="tns:SEND_MAIL_PARAMHttpGetIn" />
+      <wsdl:output message="tns:SEND_MAIL_PARAMHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="R_WIP_TRACKING_T">
+      <wsdl:input message="tns:R_WIP_TRACKING_THttpGetIn" />
+      <wsdl:output message="tns:R_WIP_TRACKING_THttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FIND_MO_NUMBER">
+      <wsdl:input message="tns:FIND_MO_NUMBERHttpGetIn" />
+      <wsdl:output message="tns:FIND_MO_NUMBERHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AUTO_SEND_MAIL">
+      <wsdl:input message="tns:AUTO_SEND_MAILHttpGetIn" />
+      <wsdl:output message="tns:AUTO_SEND_MAILHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Z_WIP_TRACKING_T">
+      <wsdl:input message="tns:Z_WIP_TRACKING_THttpGetIn" />
+      <wsdl:output message="tns:Z_WIP_TRACKING_THttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="R_MO_BASE_T">
+      <wsdl:input message="tns:R_MO_BASE_THttpGetIn" />
+      <wsdl:output message="tns:R_MO_BASE_THttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CHECK_PQE_CONFIG">
+      <wsdl:input message="tns:CHECK_PQE_CONFIGHttpGetIn" />
+      <wsdl:output message="tns:CHECK_PQE_CONFIGHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_REPAIR_T_BY_TESTTIME">
+      <wsdl:input message="tns:GET_R_REPAIR_T_BY_TESTTIMEHttpGetIn" />
+      <wsdl:output message="tns:GET_R_REPAIR_T_BY_TESTTIMEHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_REPAIR_T_BY_REPAIRTIME">
+      <wsdl:input message="tns:GET_R_REPAIR_T_BY_REPAIRTIMEHttpGetIn" />
+      <wsdl:output message="tns:GET_R_REPAIR_T_BY_REPAIRTIMEHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BOX_LABEL_QTY">
+      <wsdl:input message="tns:BOX_LABEL_QTYHttpGetIn" />
+      <wsdl:output message="tns:BOX_LABEL_QTYHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PACK_CTN_LABEL_COUNT">
+      <wsdl:input message="tns:PACK_CTN_LABEL_COUNTHttpGetIn" />
+      <wsdl:output message="tns:PACK_CTN_LABEL_COUNTHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="INSERT_TE_LABEL_QTY">
+      <wsdl:input message="tns:INSERT_TE_LABEL_QTYHttpGetIn" />
+      <wsdl:output message="tns:INSERT_TE_LABEL_QTYHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_ATE_ERRCODE_T">
+      <wsdl:input message="tns:GET_R_ATE_ERRCODE_THttpGetIn" />
+      <wsdl:output message="tns:GET_R_ATE_ERRCODE_THttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_FULL_R_STATION_ATE_T">
+      <wsdl:input message="tns:GET_FULL_R_STATION_ATE_THttpGetIn" />
+      <wsdl:output message="tns:GET_FULL_R_STATION_ATE_THttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_REPAIR_T">
+      <wsdl:input message="tns:GET_R_REPAIR_THttpGetIn" />
+      <wsdl:output message="tns:GET_R_REPAIR_THttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_STATION_REC_T">
+      <wsdl:input message="tns:GET_R_STATION_REC_THttpGetIn" />
+      <wsdl:output message="tns:GET_R_STATION_REC_THttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_TMP_ATEDATA_T_BAK">
+      <wsdl:input message="tns:GET_R_TMP_ATEDATA_T_BAKHttpGetIn" />
+      <wsdl:output message="tns:GET_R_TMP_ATEDATA_T_BAKHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_TOTAL_SN_STATION">
+      <wsdl:input message="tns:GET_TOTAL_SN_STATIONHttpGetIn" />
+      <wsdl:output message="tns:GET_TOTAL_SN_STATIONHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_WARE_HOUSE">
+      <wsdl:input message="tns:GET_WARE_HOUSEHttpGetIn" />
+      <wsdl:output message="tns:GET_WARE_HOUSEHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_SUM_PASSFAIL">
+      <wsdl:input message="tns:GET_SUM_PASSFAILHttpGetIn" />
+      <wsdl:output message="tns:GET_SUM_PASSFAILHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_SUM_PASSFAIL_NEW">
+      <wsdl:input message="tns:GET_SUM_PASSFAIL_NEWHttpGetIn" />
+      <wsdl:output message="tns:GET_SUM_PASSFAIL_NEWHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_TOTAL_PASSFAIL">
+      <wsdl:input message="tns:GET_TOTAL_PASSFAILHttpGetIn" />
+      <wsdl:output message="tns:GET_TOTAL_PASSFAILHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_STATION_PASS_FAIL">
+      <wsdl:input message="tns:GET_STATION_PASS_FAILHttpGetIn" />
+      <wsdl:output message="tns:GET_STATION_PASS_FAILHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_INFO_FIRSTPCB">
+      <wsdl:input message="tns:GET_INFO_FIRSTPCBHttpGetIn" />
+      <wsdl:output message="tns:GET_INFO_FIRSTPCBHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_GROUP_NAME">
+      <wsdl:input message="tns:GET_GROUP_NAMEHttpGetIn" />
+      <wsdl:output message="tns:GET_GROUP_NAMEHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_MODEL_DAY">
+      <wsdl:input message="tns:GET_MODEL_DAYHttpGetIn" />
+      <wsdl:output message="tns:GET_MODEL_DAYHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_MONUMBER">
+      <wsdl:input message="tns:GET_MONUMBERHttpGetIn" />
+      <wsdl:output message="tns:GET_MONUMBERHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ServicepostdataHttpPost">
+    <wsdl:operation name="SHOWUI_TEST">
+      <wsdl:input message="tns:SHOWUI_TESTHttpPostIn" />
+      <wsdl:output message="tns:SHOWUI_TESTHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="R_NETG_PRIN_ALL_T">
+      <wsdl:input message="tns:R_NETG_PRIN_ALL_THttpPostIn" />
+      <wsdl:output message="tns:R_NETG_PRIN_ALL_THttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="H_STATION_REC_T">
+      <wsdl:input message="tns:H_STATION_REC_THttpPostIn" />
+      <wsdl:output message="tns:H_STATION_REC_THttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="C_ROUTE_CONTROL_T">
+      <wsdl:input message="tns:C_ROUTE_CONTROL_THttpPostIn" />
+      <wsdl:output message="tns:C_ROUTE_CONTROL_THttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="C_GROUP_NOROUTE_T">
+      <wsdl:input message="tns:C_GROUP_NOROUTE_THttpPostIn" />
+      <wsdl:output message="tns:C_GROUP_NOROUTE_THttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_SN_DETAIL">
+      <wsdl:input message="tns:Get_SN_DETAILHttpPostIn" />
+      <wsdl:output message="tns:Get_SN_DETAILHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="R_BPCS_MOPLAN_T">
+      <wsdl:input message="tns:R_BPCS_MOPLAN_THttpPostIn" />
+      <wsdl:output message="tns:R_BPCS_MOPLAN_THttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FIND_STATION_FROM_IP">
+      <wsdl:input message="tns:FIND_STATION_FROM_IPHttpPostIn" />
+      <wsdl:output message="tns:FIND_STATION_FROM_IPHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SEND_MAIL_PARAM">
+      <wsdl:input message="tns:SEND_MAIL_PARAMHttpPostIn" />
+      <wsdl:output message="tns:SEND_MAIL_PARAMHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="R_WIP_TRACKING_T">
+      <wsdl:input message="tns:R_WIP_TRACKING_THttpPostIn" />
+      <wsdl:output message="tns:R_WIP_TRACKING_THttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FIND_MO_NUMBER">
+      <wsdl:input message="tns:FIND_MO_NUMBERHttpPostIn" />
+      <wsdl:output message="tns:FIND_MO_NUMBERHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AUTO_SEND_MAIL">
+      <wsdl:input message="tns:AUTO_SEND_MAILHttpPostIn" />
+      <wsdl:output message="tns:AUTO_SEND_MAILHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Z_WIP_TRACKING_T">
+      <wsdl:input message="tns:Z_WIP_TRACKING_THttpPostIn" />
+      <wsdl:output message="tns:Z_WIP_TRACKING_THttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="R_MO_BASE_T">
+      <wsdl:input message="tns:R_MO_BASE_THttpPostIn" />
+      <wsdl:output message="tns:R_MO_BASE_THttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CHECK_PQE_CONFIG">
+      <wsdl:input message="tns:CHECK_PQE_CONFIGHttpPostIn" />
+      <wsdl:output message="tns:CHECK_PQE_CONFIGHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_REPAIR_T_BY_TESTTIME">
+      <wsdl:input message="tns:GET_R_REPAIR_T_BY_TESTTIMEHttpPostIn" />
+      <wsdl:output message="tns:GET_R_REPAIR_T_BY_TESTTIMEHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_REPAIR_T_BY_REPAIRTIME">
+      <wsdl:input message="tns:GET_R_REPAIR_T_BY_REPAIRTIMEHttpPostIn" />
+      <wsdl:output message="tns:GET_R_REPAIR_T_BY_REPAIRTIMEHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BOX_LABEL_QTY">
+      <wsdl:input message="tns:BOX_LABEL_QTYHttpPostIn" />
+      <wsdl:output message="tns:BOX_LABEL_QTYHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PACK_CTN_LABEL_COUNT">
+      <wsdl:input message="tns:PACK_CTN_LABEL_COUNTHttpPostIn" />
+      <wsdl:output message="tns:PACK_CTN_LABEL_COUNTHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="INSERT_TE_LABEL_QTY">
+      <wsdl:input message="tns:INSERT_TE_LABEL_QTYHttpPostIn" />
+      <wsdl:output message="tns:INSERT_TE_LABEL_QTYHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_ATE_ERRCODE_T">
+      <wsdl:input message="tns:GET_R_ATE_ERRCODE_THttpPostIn" />
+      <wsdl:output message="tns:GET_R_ATE_ERRCODE_THttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_FULL_R_STATION_ATE_T">
+      <wsdl:input message="tns:GET_FULL_R_STATION_ATE_THttpPostIn" />
+      <wsdl:output message="tns:GET_FULL_R_STATION_ATE_THttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_REPAIR_T">
+      <wsdl:input message="tns:GET_R_REPAIR_THttpPostIn" />
+      <wsdl:output message="tns:GET_R_REPAIR_THttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_STATION_REC_T">
+      <wsdl:input message="tns:GET_R_STATION_REC_THttpPostIn" />
+      <wsdl:output message="tns:GET_R_STATION_REC_THttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_TMP_ATEDATA_T_BAK">
+      <wsdl:input message="tns:GET_R_TMP_ATEDATA_T_BAKHttpPostIn" />
+      <wsdl:output message="tns:GET_R_TMP_ATEDATA_T_BAKHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_TOTAL_SN_STATION">
+      <wsdl:input message="tns:GET_TOTAL_SN_STATIONHttpPostIn" />
+      <wsdl:output message="tns:GET_TOTAL_SN_STATIONHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_WARE_HOUSE">
+      <wsdl:input message="tns:GET_WARE_HOUSEHttpPostIn" />
+      <wsdl:output message="tns:GET_WARE_HOUSEHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_SUM_PASSFAIL">
+      <wsdl:input message="tns:GET_SUM_PASSFAILHttpPostIn" />
+      <wsdl:output message="tns:GET_SUM_PASSFAILHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_SUM_PASSFAIL_NEW">
+      <wsdl:input message="tns:GET_SUM_PASSFAIL_NEWHttpPostIn" />
+      <wsdl:output message="tns:GET_SUM_PASSFAIL_NEWHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_TOTAL_PASSFAIL">
+      <wsdl:input message="tns:GET_TOTAL_PASSFAILHttpPostIn" />
+      <wsdl:output message="tns:GET_TOTAL_PASSFAILHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_STATION_PASS_FAIL">
+      <wsdl:input message="tns:GET_STATION_PASS_FAILHttpPostIn" />
+      <wsdl:output message="tns:GET_STATION_PASS_FAILHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_INFO_FIRSTPCB">
+      <wsdl:input message="tns:GET_INFO_FIRSTPCBHttpPostIn" />
+      <wsdl:output message="tns:GET_INFO_FIRSTPCBHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_GROUP_NAME">
+      <wsdl:input message="tns:GET_GROUP_NAMEHttpPostIn" />
+      <wsdl:output message="tns:GET_GROUP_NAMEHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_MODEL_DAY">
+      <wsdl:input message="tns:GET_MODEL_DAYHttpPostIn" />
+      <wsdl:output message="tns:GET_MODEL_DAYHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_MONUMBER">
+      <wsdl:input message="tns:GET_MONUMBERHttpPostIn" />
+      <wsdl:output message="tns:GET_MONUMBERHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
   <wsdl:binding name="ServicepostdataSoap" type="tns:ServicepostdataSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="SHOWUI_TEST">
       <soap:operation soapAction="http://tempuri.org/SHOWUI_TEST" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SHOWUI">
-      <soap:operation soapAction="http://tempuri.org/SHOWUI" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1354,6 +2181,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GET_SUM_PASSFAIL_NEW">
+      <soap:operation soapAction="http://tempuri.org/GET_SUM_PASSFAIL_NEW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GET_TOTAL_PASSFAIL">
       <soap:operation soapAction="http://tempuri.org/GET_TOTAL_PASSFAIL" style="document" />
       <wsdl:input>
@@ -1413,15 +2249,6 @@
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="SHOWUI_TEST">
       <soap12:operation soapAction="http://tempuri.org/SHOWUI_TEST" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SHOWUI">
-      <soap12:operation soapAction="http://tempuri.org/SHOWUI" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -1672,6 +2499,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GET_SUM_PASSFAIL_NEW">
+      <soap12:operation soapAction="http://tempuri.org/GET_SUM_PASSFAIL_NEW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GET_TOTAL_PASSFAIL">
       <soap12:operation soapAction="http://tempuri.org/GET_TOTAL_PASSFAIL" style="document" />
       <wsdl:input>
@@ -1727,12 +2563,654 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
+  <wsdl:binding name="ServicepostdataHttpGet" type="tns:ServicepostdataHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="SHOWUI_TEST">
+      <http:operation location="/SHOWUI_TEST" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="R_NETG_PRIN_ALL_T">
+      <http:operation location="/R_NETG_PRIN_ALL_T" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="H_STATION_REC_T">
+      <http:operation location="/H_STATION_REC_T" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="C_ROUTE_CONTROL_T">
+      <http:operation location="/C_ROUTE_CONTROL_T" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="C_GROUP_NOROUTE_T">
+      <http:operation location="/C_GROUP_NOROUTE_T" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_SN_DETAIL">
+      <http:operation location="/Get_SN_DETAIL" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="R_BPCS_MOPLAN_T">
+      <http:operation location="/R_BPCS_MOPLAN_T" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FIND_STATION_FROM_IP">
+      <http:operation location="/FIND_STATION_FROM_IP" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SEND_MAIL_PARAM">
+      <http:operation location="/SEND_MAIL_PARAM" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="R_WIP_TRACKING_T">
+      <http:operation location="/R_WIP_TRACKING_T" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FIND_MO_NUMBER">
+      <http:operation location="/FIND_MO_NUMBER" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AUTO_SEND_MAIL">
+      <http:operation location="/AUTO_SEND_MAIL" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Z_WIP_TRACKING_T">
+      <http:operation location="/Z_WIP_TRACKING_T" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="R_MO_BASE_T">
+      <http:operation location="/R_MO_BASE_T" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CHECK_PQE_CONFIG">
+      <http:operation location="/CHECK_PQE_CONFIG" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_REPAIR_T_BY_TESTTIME">
+      <http:operation location="/GET_R_REPAIR_T_BY_TESTTIME" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_REPAIR_T_BY_REPAIRTIME">
+      <http:operation location="/GET_R_REPAIR_T_BY_REPAIRTIME" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BOX_LABEL_QTY">
+      <http:operation location="/BOX_LABEL_QTY" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PACK_CTN_LABEL_COUNT">
+      <http:operation location="/PACK_CTN_LABEL_COUNT" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="INSERT_TE_LABEL_QTY">
+      <http:operation location="/INSERT_TE_LABEL_QTY" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_ATE_ERRCODE_T">
+      <http:operation location="/GET_R_ATE_ERRCODE_T" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_FULL_R_STATION_ATE_T">
+      <http:operation location="/GET_FULL_R_STATION_ATE_T" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_REPAIR_T">
+      <http:operation location="/GET_R_REPAIR_T" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_STATION_REC_T">
+      <http:operation location="/GET_R_STATION_REC_T" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_TMP_ATEDATA_T_BAK">
+      <http:operation location="/GET_R_TMP_ATEDATA_T_BAK" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_TOTAL_SN_STATION">
+      <http:operation location="/GET_TOTAL_SN_STATION" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_WARE_HOUSE">
+      <http:operation location="/GET_WARE_HOUSE" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_SUM_PASSFAIL">
+      <http:operation location="/GET_SUM_PASSFAIL" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_SUM_PASSFAIL_NEW">
+      <http:operation location="/GET_SUM_PASSFAIL_NEW" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_TOTAL_PASSFAIL">
+      <http:operation location="/GET_TOTAL_PASSFAIL" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_STATION_PASS_FAIL">
+      <http:operation location="/GET_STATION_PASS_FAIL" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_INFO_FIRSTPCB">
+      <http:operation location="/GET_INFO_FIRSTPCB" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_GROUP_NAME">
+      <http:operation location="/GET_GROUP_NAME" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_MODEL_DAY">
+      <http:operation location="/GET_MODEL_DAY" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_MONUMBER">
+      <http:operation location="/GET_MONUMBER" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServicepostdataHttpPost" type="tns:ServicepostdataHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="SHOWUI_TEST">
+      <http:operation location="/SHOWUI_TEST" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="R_NETG_PRIN_ALL_T">
+      <http:operation location="/R_NETG_PRIN_ALL_T" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="H_STATION_REC_T">
+      <http:operation location="/H_STATION_REC_T" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="C_ROUTE_CONTROL_T">
+      <http:operation location="/C_ROUTE_CONTROL_T" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="C_GROUP_NOROUTE_T">
+      <http:operation location="/C_GROUP_NOROUTE_T" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_SN_DETAIL">
+      <http:operation location="/Get_SN_DETAIL" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="R_BPCS_MOPLAN_T">
+      <http:operation location="/R_BPCS_MOPLAN_T" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FIND_STATION_FROM_IP">
+      <http:operation location="/FIND_STATION_FROM_IP" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SEND_MAIL_PARAM">
+      <http:operation location="/SEND_MAIL_PARAM" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="R_WIP_TRACKING_T">
+      <http:operation location="/R_WIP_TRACKING_T" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FIND_MO_NUMBER">
+      <http:operation location="/FIND_MO_NUMBER" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AUTO_SEND_MAIL">
+      <http:operation location="/AUTO_SEND_MAIL" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Z_WIP_TRACKING_T">
+      <http:operation location="/Z_WIP_TRACKING_T" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="R_MO_BASE_T">
+      <http:operation location="/R_MO_BASE_T" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CHECK_PQE_CONFIG">
+      <http:operation location="/CHECK_PQE_CONFIG" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_REPAIR_T_BY_TESTTIME">
+      <http:operation location="/GET_R_REPAIR_T_BY_TESTTIME" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_REPAIR_T_BY_REPAIRTIME">
+      <http:operation location="/GET_R_REPAIR_T_BY_REPAIRTIME" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BOX_LABEL_QTY">
+      <http:operation location="/BOX_LABEL_QTY" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PACK_CTN_LABEL_COUNT">
+      <http:operation location="/PACK_CTN_LABEL_COUNT" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="INSERT_TE_LABEL_QTY">
+      <http:operation location="/INSERT_TE_LABEL_QTY" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_ATE_ERRCODE_T">
+      <http:operation location="/GET_R_ATE_ERRCODE_T" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_FULL_R_STATION_ATE_T">
+      <http:operation location="/GET_FULL_R_STATION_ATE_T" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_REPAIR_T">
+      <http:operation location="/GET_R_REPAIR_T" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_STATION_REC_T">
+      <http:operation location="/GET_R_STATION_REC_T" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_R_TMP_ATEDATA_T_BAK">
+      <http:operation location="/GET_R_TMP_ATEDATA_T_BAK" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_TOTAL_SN_STATION">
+      <http:operation location="/GET_TOTAL_SN_STATION" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_WARE_HOUSE">
+      <http:operation location="/GET_WARE_HOUSE" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_SUM_PASSFAIL">
+      <http:operation location="/GET_SUM_PASSFAIL" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_SUM_PASSFAIL_NEW">
+      <http:operation location="/GET_SUM_PASSFAIL_NEW" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_TOTAL_PASSFAIL">
+      <http:operation location="/GET_TOTAL_PASSFAIL" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_STATION_PASS_FAIL">
+      <http:operation location="/GET_STATION_PASS_FAIL" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_INFO_FIRSTPCB">
+      <http:operation location="/GET_INFO_FIRSTPCB" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_GROUP_NAME">
+      <http:operation location="/GET_GROUP_NAME" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_MODEL_DAY">
+      <http:operation location="/GET_MODEL_DAY" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_MONUMBER">
+      <http:operation location="/GET_MONUMBER" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
   <wsdl:service name="Servicepostdata">
     <wsdl:port name="ServicepostdataSoap" binding="tns:ServicepostdataSoap">
-      <soap:address location="http://10.224.81.64/B05/Servicepostdata.asmx" />
+      <soap:address location="http://10.224.81.154/B05/Servicepostdata.asmx" />
     </wsdl:port>
     <wsdl:port name="ServicepostdataSoap12" binding="tns:ServicepostdataSoap12">
-      <soap12:address location="http://10.224.81.64/B05/Servicepostdata.asmx" />
+      <soap12:address location="http://10.224.81.154/B05/Servicepostdata.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServicepostdataHttpGet" binding="tns:ServicepostdataHttpGet">
+      <http:address location="http://10.224.81.154/B05/Servicepostdata.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServicepostdataHttpPost" binding="tns:ServicepostdataHttpPost">
+      <http:address location="http://10.224.81.154/B05/Servicepostdata.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
