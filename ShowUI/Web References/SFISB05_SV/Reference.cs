@@ -121,6 +121,7 @@ namespace ShowUI.SFISB05_SV {
 
                 this.Url = "http://10.224.81.156/B05/Servicepostdata.asmx";
             }
+
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;

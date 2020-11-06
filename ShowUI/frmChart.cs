@@ -136,5 +136,10 @@ namespace ShowUIApp
         {
 
         }
+
+        private void YRChart_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

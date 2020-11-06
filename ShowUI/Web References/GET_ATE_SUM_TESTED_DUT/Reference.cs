@@ -21,8 +21,9 @@ namespace ShowUI.GET_ATE_SUM_TESTED_DUT {
     using System.Xml.Serialization;
     using System.ComponentModel;
     using System.Data;
-    
-    
+    using System.Net;
+
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -37,6 +38,25 @@ namespace ShowUI.GET_ATE_SUM_TESTED_DUT {
         /// <remarks/>
         public Servicepostdata() {
             this.Url = global::ShowUI.Properties.Settings.Default.ShowUI4_6_GET_ATE_SUM_TESTED_DUT_Servicepostdata;
+
+            //===== add ====
+            try
+            {
+                var myrequest = (HttpWebRequest)WebRequest.Create(this.Url);
+                myrequest.Timeout = 3000;
+                var response = (HttpWebResponse)myrequest.GetResponse();
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    this.Url = "http://10.224.81.156/B05/Servicepostdata.asmx";
+                }
+            }
+            catch (Exception)
+            {
+
+                this.Url = "http://10.224.81.156/B05/Servicepostdata.asmx";
+            }
+
+            //==================
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;

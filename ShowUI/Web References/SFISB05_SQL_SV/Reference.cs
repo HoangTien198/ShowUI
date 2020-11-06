@@ -21,8 +21,9 @@ namespace ShowUI.SFISB05_SQL_SV {
     using System.Xml.Serialization;
     using System.ComponentModel;
     using System.Data;
-    
-    
+    using System.Net;
+
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -37,6 +38,24 @@ namespace ShowUI.SFISB05_SQL_SV {
         /// <remarks/>
         public Service() {
             this.Url = global::ShowUI.Properties.Settings.Default.ShowUI5_3_SFISB05_SQL_SV_Service;
+            //=============add ============
+            try
+            {
+                var myrequest = (HttpWebRequest)WebRequest.Create(this.Url);
+                myrequest.Timeout = 3000;
+                var response = (HttpWebResponse)myrequest.GetResponse();
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    this.Url = "http://10.224.81.156/B05/Servicepostdata.asmx";
+                }
+            }
+            catch (Exception)
+            {
+
+                this.Url = "http://10.224.81.156/B05/Servicepostdata.asmx";
+            }
+            //=============================
+
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;

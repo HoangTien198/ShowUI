@@ -10191,6 +10191,11 @@ namespace ShowUIApp
             
         }
 
+        private void lblRetestRate_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
         public void SamplingWarningDiaglog()
         {
             try
