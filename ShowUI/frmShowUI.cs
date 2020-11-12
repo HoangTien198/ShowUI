@@ -304,6 +304,24 @@ namespace ShowUIApp
                 }
             }
         }
+        public void CheckStationCorrectPCName()
+        {
+            try
+            {
+                string station = ul.GetStation();
+                if (!Environment.MachineName.Contains(station))
+                {
+                    frmStationWarning frmWarn = new frmStationWarning();
+                    frmWarn.ShowDialog();
+                }
+            }
+            catch (Exception)
+            {
+
+               
+            }
+           
+        }
         public void CheckFixture()
         {
             //string fixture = ul.GetValueByKey("FIXTURE_NAME").ToString();
@@ -456,6 +474,7 @@ namespace ShowUIApp
             }
         }
 
+
         private void CheckSPC_Tick(object sender, EventArgs e)
         {
             //sync time server
@@ -524,17 +543,21 @@ namespace ShowUIApp
         private void showUI_Load(object sender, EventArgs e)
         {
             // CopyServerAuto.Enabled = true;
-            try
-            {
-                TextWriter tw = new StreamWriter("SavedList.txt");
-                tw.Dispose();
-                tw.Close();
-            }
-            catch (Exception)
-            {
+            //try
+            //{
+            //    TextWriter tw = new StreamWriter("SavedList.txt");
+            //    tw.Dispose();
+            //    tw.Close();
+            //}
+            //catch (Exception)
+            //{
 
 
-            }
+
+            //}
+            Thread _checkCorrectStation = new Thread(CheckStationCorrectPCName);
+            _checkCorrectStation.IsBackground = true;
+            _checkCorrectStation.Start();
             #region timerCounter
             //Thread _tDU = new Thread(ShowTimeDontTest);
             //_tDU.IsBackground = true;
@@ -1383,7 +1406,10 @@ namespace ShowUIApp
         {
             try
             {
-                File.Copy(@"F:\lsy\Test\DownloadConfig\AutoDL\Newtonsoft.Json.dll", ".//Newtonsoft.Json.dll", true);
+                if (!File.Exists(".//Newtonsoft.Json.dll"))
+                {
+                    File.Copy(@"F:\lsy\Test\DownloadConfig\AutoDL\Newtonsoft.Json.dll", ".//Newtonsoft.Json.dll", true);
+                }
             }
             catch (Exception)
             {

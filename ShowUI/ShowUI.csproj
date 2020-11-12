@@ -195,6 +195,12 @@
     <Compile Include="frmShowUI.Designer.cs">
       <DependentUpon>frmShowUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmStationWarning.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmStationWarning.Designer.cs">
+      <DependentUpon>frmStationWarning.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTextBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -302,6 +308,9 @@
     <EmbeddedResource Include="frmShowUI.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmShowUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStationWarning.resx">
+      <DependentUpon>frmStationWarning.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTextBox.resx">
       <DependentUpon>frmTextBox.cs</DependentUpon>

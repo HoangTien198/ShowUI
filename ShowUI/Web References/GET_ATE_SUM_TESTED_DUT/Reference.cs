@@ -43,7 +43,7 @@ namespace ShowUI.GET_ATE_SUM_TESTED_DUT {
             try
             {
                 var myrequest = (HttpWebRequest)WebRequest.Create(this.Url);
-                myrequest.Timeout = 3000;
+                myrequest.Timeout = 1000;
                 var response = (HttpWebResponse)myrequest.GetResponse();
                 if (response.StatusCode != HttpStatusCode.OK)
                 {

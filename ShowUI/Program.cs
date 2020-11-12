@@ -20,6 +20,7 @@ namespace ShowUIApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new showUI());
+           // Application.Run(new frmStationWarning());
             //Application.Run(new Form1());
             //frm = new Form1();
             //SingleInstanceApplication.Run(frm, NewInstanceHandler);
