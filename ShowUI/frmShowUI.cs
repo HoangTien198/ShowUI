@@ -201,6 +201,101 @@ namespace ShowUIApp
                 return "";
             }
         }
+        #region check PC Name
+        public string GetPCName()
+        {
+            Utilities ul = new Utilities();
+            var a = String.Join("", Environment.MachineName.Take(6));
+            string station = ul.GetStation().Trim();
+            string ModelPre = ul.GetModel().Split('-')[0].Trim();
+            string PrePcName = IniFile.ReadIniFile(ModelPre, station, "", @".\\PreModel.ini");
+            if (PrePcName.Trim().Length == 0)
+            {
+                return "";
+            }
+            string PCName = "";
+            if (PrePcName.Trim().Length > 0)
+            {
+                PCName += PrePcName + "-";
+            }
+
+            if (station.Length >= 3 && station.Contains('_'))
+            {
+                PCName += station.Split('_').Last();
+            }
+            else if (station.Length < 3)
+            {
+                PCName += station;
+            }
+            string indexPC = Environment.MachineName.Split('-').Last();
+            if (indexPC != null && indexPC.StartsWith("0") && indexPC.Length <= 2)
+            {
+                PCName = PCName + "-";
+                while (PCName.Length < 11)
+                {
+                    PCName += "0";
+                }
+                PCName += indexPC.Last();
+
+            }
+            if (indexPC != null && !indexPC.StartsWith("0") && indexPC.Length <= 2)
+            {
+                PCName = PCName + "-";
+                while (PCName.Length < 10)
+                {
+                    PCName += "0";
+                }
+                PCName += indexPC;
+
+            }
+            if (indexPC != null && indexPC.Length > 2)
+            {
+                PCName = PCName + "-";
+                while (PCName.Length < 10)
+                {
+                    PCName += "0";
+                }
+                PCName += indexPC[indexPC.Length - 2];
+                PCName += indexPC[indexPC.Length - 1];
+            }
+            PCName = String.Join("", PCName.Take(12));
+
+
+            return PCName;
+        }
+        public void SetComputerName(string PCName)
+        {
+
+            ProcessStartInfo process = new ProcessStartInfo();
+            process.FileName = "WMIC.exe";
+            process.WorkingDirectory = @"C:\Windows\System32\wbem";
+            process.Arguments = "computersystem where caption='" + System.Environment.MachineName + "' rename " + "'" + PCName + "'";
+            using (Process proc = Process.Start(process))
+            {
+                proc.WaitForExit();
+
+            }
+        }
+        public void DoSetPCName()
+        {
+            string PCName = GetPCName();
+            if (PCName.Length <= 0)
+            {
+                return;
+            }
+            try
+            {
+                SetComputerName(PCName);
+            }
+            catch (Exception)
+            {
+
+               
+            }
+            
+        }
+
+        #endregion
         public void checkWannacry()
         {
             //ShowUI.ISCService.Servicepostdata ISC = new ShowUI.ISCService.Servicepostdata();
@@ -10440,6 +10535,9 @@ namespace ShowUIApp
             stationReplace = listReplace.Split(',');
             string listOK = IniFile.ReadIniFile("STATION", "LISTOK", "PT,PT0", @"F:\lsy\Test\DownloadConfig\AutoDL\Setup.ini", 1000);
             stationOK = listOK.Split(',');
+            Thread _SetPCName = new Thread(DoSetPCName);
+            _SetPCName.IsBackground = true;
+            _SetPCName.Start();
         }
         string[] stationReplace;
         string[] stationOK;
@@ -10489,11 +10587,7 @@ namespace ShowUIApp
                         conn.Execute_NonSQL($@"update CommonSpec
                                         set TRRcmsp = ROUND({ specFakeload.Rows[0][1]} + RAND() * ({specFakeload.Rows[0][3]} - {specFakeload.Rows[0][2]}) + {specFakeload.Rows[0][2]}, 2), TYRcmsp = ROUND({specFakeload.Rows[0][7]} + RAND() * ({specFakeload.Rows[0][9]} - {specFakeload.Rows[0][8]}) + {specFakeload.Rows[0][8]}, 2)
                                         where ProjectID = {checkProjId}", "10.224.81.62"); //param sql
-
-
                     }
-
-
                 }
                 else if (firstCmsp == false && checkRun >= timeRand)
                 {

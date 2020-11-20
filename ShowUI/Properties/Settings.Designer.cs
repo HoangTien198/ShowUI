@@ -26,7 +26,7 @@ namespace ShowUI.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://10.224.81.63/PCKPI/Service/WebService.asmx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.224.81.75/PCKPI/Service/WebService.asmx")]
         public string ShowUI4_6_ATE_CHECKLIST_WebService {
             get {
                 return ((string)(this["ShowUI4_6_ATE_CHECKLIST_WebService"]));

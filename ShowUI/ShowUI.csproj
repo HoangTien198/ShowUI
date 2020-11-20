@@ -481,10 +481,10 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>ShowUI4_6_SvFPS_WebService</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://10.224.81.63/PCKPI/Service/WebService.asmx">
+    <WebReferenceUrl Include="http://10.224.81.75/PCKPI/Service/WebService.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\ATE_CHECKLIST\</RelPath>
-      <UpdateFromURL>http://10.224.81.63/PCKPI/Service/WebService.asmx</UpdateFromURL>
+      <UpdateFromURL>http://10.224.81.75/PCKPI/Service/WebService.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

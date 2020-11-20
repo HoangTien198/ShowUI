@@ -47,13 +47,13 @@ namespace ShowUI.GET_ATE_SUM_TESTED_DUT {
                 var response = (HttpWebResponse)myrequest.GetResponse();
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
-                    this.Url = "http://10.224.81.156/B05/Servicepostdata.asmx";
+                    this.Url = "http://10.224.81.156/service/Servicepostdata.asmx";
                 }
             }
             catch (Exception)
             {
 
-                this.Url = "http://10.224.81.156/B05/Servicepostdata.asmx";
+                this.Url = "http://10.224.81.156/service/Servicepostdata.asmx";
             }
 
             //==================

@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="ShowUI4_6_ATE_CHECKLIST_WebService" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://10.224.81.63/PCKPI/Service/WebService.asmx</Value>
+      <Value Profile="(Default)">http://10.224.81.75/PCKPI/Service/WebService.asmx</Value>
     </Setting>
     <Setting Name="ShowUI4_6_GET_ATE_SUM_TESTED_DUT_Servicepostdata" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://10.224.81.154/service/Servicepostdata.asmx</Value>

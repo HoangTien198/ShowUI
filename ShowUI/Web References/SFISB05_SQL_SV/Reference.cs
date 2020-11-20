@@ -46,13 +46,13 @@ namespace ShowUI.SFISB05_SQL_SV {
                 var response = (HttpWebResponse)myrequest.GetResponse();
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
-                    this.Url = "http://10.224.81.156/B05/Servicepostdata.asmx";
+                    this.Url = "http://10.224.81.156/webservicesql/webservicesql.asmx";
                 }
             }
             catch (Exception)
             {
 
-                this.Url = "http://10.224.81.156/B05/Servicepostdata.asmx";
+                this.Url = "http://10.224.81.156/webservicesql/webservicesql.asmx";
             }
             //=============================
 
