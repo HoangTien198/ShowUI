@@ -41,11 +41,8 @@ namespace ShowUI.AutomationHelper
 			}
 			catch (Exception ex)
 			{
-
-
 				return 0;
 			}
-
 		}
 		public dynamic ExecuteAndGetData(string sql, string serverIp)
 		{

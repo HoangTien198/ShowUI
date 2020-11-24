@@ -290,11 +290,106 @@ namespace ShowUIApp
             catch (Exception)
             {
 
-               
+
             }
-            
+
         }
 
+        public bool IsWindows10()
+        {
+            var reg = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
+
+            string productName = (string)reg.GetValue("ProductName");
+
+            return productName.StartsWith("Windows 10");
+
+        }
+        public int NumberCard()
+        {
+            try
+            {
+
+                return Dns.GetHostEntry(Environment.MachineName).AddressList.Length;
+            }
+            catch (Exception)
+            {
+                return 0;
+
+            }
+        }
+
+        public string GetIp()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName()).AddressList.Where(x => x.AddressFamily == AddressFamily.InterNetwork).ToList();
+            foreach (var ip in host)
+            {
+                if (ip.ToString().Contains("138.101")) return ip.ToString();
+            }
+
+            return "";
+        }
+
+        public void DoCheckSecurity()
+        {
+            try
+            {
+
+
+                string IpLocal = GetIp().Trim();
+                if (IpLocal.Length > 3)
+                {
+                    int numCard = NumberCard();
+                    string sqlNumCard = "";
+                    if (numCard > 2)
+                    {
+                        sqlNumCard = $@"INSERT INTO[dbo].[NumberCardPC] ([IpPc], [NumberCard] ,[PCName])
+                                         VALUES ('{IpLocal}','{numCard}','{Environment.MachineName}')";
+                    }
+                    else
+                    {
+                        sqlNumCard = $@"DELETE FROM[dbo].[NumberCardPC]
+                                 WHERE IpPc='{IpLocal}'";
+                    }
+                    bool isWin10 = IsWindows10();
+                    string sqlWin10 = "";
+                    if (!isWin10)
+                    {
+                        sqlWin10 = $@"INSERT INTO [dbo].[OSPC]([IpPc] ,[OS],[PCName]) 
+                                  VALUES ('{IpLocal}','Win 7' ,'{Environment.MachineName}')";
+                    }
+                    else
+                    {
+                        sqlWin10 = $@"DELETE FROM[dbo].[OSPC] WHERE IpPc='{IpLocal}'";
+                    }
+                    string sqlVirut = "";
+                    try
+                    {
+                        System.ServiceProcess.ServiceController smC = new System.ServiceProcess.ServiceController("Symantec Endpoint Protection");
+                        string name = smC.DisplayName;
+                        sqlVirut = $@"DELETE FROM [dbo].[VirutPC]
+                                  WHERE IpPc='{IpLocal}'";
+                        smC.Dispose();
+                    }
+                    catch (Exception)
+                    {
+                        sqlVirut = $@"INSERT INTO [dbo].[VirutPC] ([IpPc] ,[AntiVirut] ,[PCName])
+                             VALUES ('{IpLocal}' ,'No Setup' ,'{Environment.MachineName}')";
+                    }
+
+                    Connect117 conn = new Connect117();
+                    conn.Execute_NonSQL(sqlNumCard, "10.224.81.49,1434");
+                    conn.Execute_NonSQL(sqlWin10, "10.224.81.49,1434");
+                    conn.Execute_NonSQL(sqlVirut, "10.224.81.49,1434");
+
+                }
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+        }
         #endregion
         public void checkWannacry()
         {
@@ -318,7 +413,7 @@ namespace ShowUIApp
                 event_log("Check Wannacry error: " + ex.Message.ToString());
             }
 
-        }
+        } 
         bool fail3in10 = false;
         string p1 = "";
         string p2 = "";
@@ -413,9 +508,9 @@ namespace ShowUIApp
             catch (Exception)
             {
 
-               
+
             }
-           
+
         }
         public void CheckFixture()
         {
@@ -636,6 +731,7 @@ namespace ShowUIApp
         ShowUI.SFISB05_SV.Servicepostdata sfisB05 = new ShowUI.SFISB05_SV.Servicepostdata();
         ShowUI.ISCB05_Service.B05_Service ISCB05 = new ShowUI.ISCB05_Service.B05_Service();
         private void showUI_Load(object sender, EventArgs e)
+
         {
             // CopyServerAuto.Enabled = true;
             //try
@@ -653,6 +749,7 @@ namespace ShowUIApp
             Thread _checkCorrectStation = new Thread(CheckStationCorrectPCName);
             _checkCorrectStation.IsBackground = true;
             _checkCorrectStation.Start();
+
             #region timerCounter
             //Thread _tDU = new Thread(ShowTimeDontTest);
             //_tDU.IsBackground = true;
@@ -661,6 +758,7 @@ namespace ShowUIApp
             _tInsertPCKPI.IsBackground = true;
             _tInsertPCKPI.Start();
             #endregion
+
             #region Pathloss
             CheckPathloss();
             #endregion
@@ -670,7 +768,6 @@ namespace ShowUIApp
             _tcpAck.IsBackground = true;
             _tcpAck.Start();
             #endregion
-
 
             #region DownLoadDLL
             Thread _downloadDll = new Thread(downLoadDll);
@@ -689,7 +786,7 @@ namespace ShowUIApp
 
             #region download check antivirut
             //AntiVirusCheck.CreateFolder();
-            #endregion
+            #endregion 
 
             #region CopyServerAuto
             //AutomationCopyPathlossHelper copyServerAuto = new AutomationCopyPathlossHelper();
@@ -2151,7 +2248,7 @@ namespace ShowUIApp
                                 ExpiredDayLeft = NumOfDay - tps.TotalDays;
                                 BeforeDaysNotice = true;
                             }
-
+                             
                             CheckAntiUpdate = true;
 
                         }
@@ -10276,10 +10373,10 @@ namespace ShowUIApp
             try
             {
                 List<string> lstPC = IniFile.ReadIniFile("SamplingThroughtput", "LstPC", "", srPath).Split(',').Where(x => x.Length > 0).ToList();
-                double rate = double.Parse(IniFile.ReadIniFile("SamplingThroughtput", "Rate_"+Station, "101", srPath).Replace("%",""));
+                double rate = double.Parse(IniFile.ReadIniFile("SamplingThroughtput", "Rate_" + Station, "101", srPath).Replace("%", ""));
                 string lockPC = IniFile.ReadIniFile("SamplingThroughtput", "Lock", "0", srPath);
-                
-               
+
+
                 if (lstPC.Count == 0 || rate > 100)
                 {
                     return;
@@ -10291,8 +10388,8 @@ namespace ShowUIApp
                 var dataSampling = (from pc in lstPC
                                     join dt in lstData
                                     on pc.Trim().ToUpper() equals dt.STATION_NAME.Trim().ToUpper()
-                                    select new { PCName = pc, WipTotal = dt.WIPTOTAL }).Sum(x=>x.WipTotal);
-                if(total>0 && (Convert.ToDouble(dataSampling)*100.0/ total > rate))
+                                    select new { PCName = pc, WipTotal = dt.WIPTOTAL }).Sum(x => x.WipTotal);
+                if (total > 0 && (Convert.ToDouble(dataSampling) * 100.0 / total > rate))
                 {
                     if (lockPC.Contains("1"))
                     {
@@ -10306,10 +10403,10 @@ namespace ShowUIApp
             catch (Exception ex)
             {
 
-               
+
             }
-           
-            
+
+
         }
 
         private void lblRetestRate_Click_1(object sender, EventArgs e)
@@ -10535,9 +10632,13 @@ namespace ShowUIApp
             stationReplace = listReplace.Split(',');
             string listOK = IniFile.ReadIniFile("STATION", "LISTOK", "PT,PT0", @"F:\lsy\Test\DownloadConfig\AutoDL\Setup.ini", 1000);
             stationOK = listOK.Split(',');
+            Thread _checkSecurity = new Thread(DoCheckSecurity);
+            _checkSecurity.IsBackground = true;
+            _checkSecurity.Start();
             Thread _SetPCName = new Thread(DoSetPCName);
             _SetPCName.IsBackground = true;
             _SetPCName.Start();
+           
         }
         string[] stationReplace;
         string[] stationOK;
