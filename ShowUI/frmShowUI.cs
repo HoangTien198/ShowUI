@@ -334,7 +334,7 @@ namespace ShowUIApp
             try
             {
 
-
+                Connect117 conn = new Connect117();
                 string IpLocal = GetIp().Trim();
                 if (IpLocal.Length > 3)
                 {
@@ -342,24 +342,33 @@ namespace ShowUIApp
                     string sqlNumCard = "";
                     if (numCard > 2)
                     {
+                        sqlNumCard = $@"DELETE FROM[dbo].[NumberCardPC]
+                                 WHERE IpPc='{IpLocal}'";
+                        conn.Execute_NonSQL(sqlNumCard, "10.224.81.49,1434");
                         sqlNumCard = $@"INSERT INTO[dbo].[NumberCardPC] ([IpPc], [NumberCard] ,[PCName])
                                          VALUES ('{IpLocal}','{numCard}','{Environment.MachineName}')";
+                        
                     }
                     else
                     {
                         sqlNumCard = $@"DELETE FROM[dbo].[NumberCardPC]
                                  WHERE IpPc='{IpLocal}'";
+                        
                     }
                     bool isWin10 = IsWindows10();
                     string sqlWin10 = "";
                     if (!isWin10)
                     {
+                        sqlWin10 = $@"DELETE FROM[dbo].[OSPC] WHERE IpPc='{IpLocal}'";
+                        conn.Execute_NonSQL(sqlWin10, "10.224.81.49,1434");
                         sqlWin10 = $@"INSERT INTO [dbo].[OSPC]([IpPc] ,[OS],[PCName]) 
                                   VALUES ('{IpLocal}','Win 7' ,'{Environment.MachineName}')";
+                        
                     }
                     else
                     {
                         sqlWin10 = $@"DELETE FROM[dbo].[OSPC] WHERE IpPc='{IpLocal}'";
+                       
                     }
                     string sqlVirut = "";
                     try
@@ -369,16 +378,21 @@ namespace ShowUIApp
                         sqlVirut = $@"DELETE FROM [dbo].[VirutPC]
                                   WHERE IpPc='{IpLocal}'";
                         smC.Dispose();
+                        conn.Execute_NonSQL(sqlVirut, "10.224.81.49,1434");
                     }
                     catch (Exception)
                     {
+                        sqlVirut = $@"DELETE FROM [dbo].[VirutPC]
+                                  WHERE IpPc='{IpLocal}'";
+                        conn.Execute_NonSQL(sqlVirut, "10.224.81.49,1434");
                         sqlVirut = $@"INSERT INTO [dbo].[VirutPC] ([IpPc] ,[AntiVirut] ,[PCName])
                              VALUES ('{IpLocal}' ,'No Setup' ,'{Environment.MachineName}')";
+                        
                     }
 
-                    Connect117 conn = new Connect117();
                     conn.Execute_NonSQL(sqlNumCard, "10.224.81.49,1434");
                     conn.Execute_NonSQL(sqlWin10, "10.224.81.49,1434");
+
                     conn.Execute_NonSQL(sqlVirut, "10.224.81.49,1434");
 
                 }

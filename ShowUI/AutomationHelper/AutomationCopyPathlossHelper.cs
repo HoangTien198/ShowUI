@@ -127,7 +127,10 @@ namespace ShowUI.AutomationHelper
         }
         public void CompareByAntena(List<DataPathloss> dtPathloss, out List<string> lstErr)
         {
-            string delta = IniFile.ReadIniFile("DeltaAtena", "delta", "3", @".\DeltaConfig.txt");
+            string Station = ul.GetStation();
+
+            string Product = ul.GetProduct();
+            string delta = IniFile.ReadIniFile(Product, "DeltaAtena_"+Station, "3", @"F:\lsy\ID\PathlossControl\Config\PathLossConfig.txt");
             double deltaVal;
             try
             {
@@ -206,9 +209,12 @@ namespace ShowUI.AutomationHelper
         }
         public void CompareByBand(List<DataPathloss> dtPathloss, out List<string> lstErr)
         {
-            string delta2g = IniFile.ReadIniFile("DeltaBand", "delta2g", "3", @".\DeltaConfig.txt");
-            string delta5gl = IniFile.ReadIniFile("DeltaBand", "delta5gl", "3", @".\DeltaConfig.txt");
-            string delta5gh = IniFile.ReadIniFile("DeltaBand", "delta5gh", "3", @".\DeltaConfig.txt");
+            string Station = ul.GetStation();
+
+            string Product = ul.GetProduct();
+            string delta2g = IniFile.ReadIniFile(Product, "Delta2g_"+Station, "3", @"F:\lsy\ID\PathlossControl\Config\PathLossConfig.txt");
+            string delta5gl = IniFile.ReadIniFile(Product, "Delta5gl_"+ Station, "3", @"F:\lsy\ID\PathlossControl\Config\PathLossConfig.txt");
+            string delta5gh = IniFile.ReadIniFile(Product, "Delta5gh_"+ Station, "3", @"F:\lsy\ID\PathlossControl\Config\PathLossConfig.txt");
             double delta2gVal, delta5glVal, delta5ghVal;
             try
             {

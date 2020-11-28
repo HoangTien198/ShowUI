@@ -34,7 +34,11 @@ namespace ShowUI
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            timer1.Enabled = false;
+            this.Invoke((MethodInvoker)delegate
+            {
+                timer1.Enabled = false;
+                timer1.Interval = 600000;
+            });
             try
             {
                 this.TopMost = true;
@@ -64,8 +68,10 @@ namespace ShowUI
 
                 
             }
-            
-            timer1.Enabled = true;
+            this.Invoke((MethodInvoker)delegate
+            {
+                timer1.Enabled = true;
+            });
         }
 
         private void timer2_Tick(object sender, EventArgs e)
