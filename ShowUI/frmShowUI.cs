@@ -365,6 +365,13 @@ namespace ShowUIApp
                                   VALUES ('{IpLocal}','Win 7' ,'{Environment.MachineName}')";
                         
                     }
+                    else if(isWin10)
+                    {
+                        sqlWin10 = $@"DELETE FROM[dbo].[OSPC] WHERE IpPc='{IpLocal}'";
+                        conn.Execute_NonSQL(sqlWin10, "10.224.81.49,1434");
+                        sqlWin10 = $@"INSERT INTO [dbo].[OSPC]([IpPc] ,[OS],[PCName]) 
+                                  VALUES ('{IpLocal}','Win 10' ,'{Environment.MachineName}')";
+                    }
                     else
                     {
                         sqlWin10 = $@"DELETE FROM[dbo].[OSPC] WHERE IpPc='{IpLocal}'";
@@ -7429,6 +7436,10 @@ namespace ShowUIApp
                 else
                 {
                     CurrentShift = "N";
+                }
+                if(ComparedTime > 0 && ComparedTime < 730)
+                {
+                    dtNow = DateTime.Now.AddDays(-1).ToString("yyyyMMdd");
                 }
 
                 // make sure FlagStopInsert = 0 when change to night shift 27.9.2015
