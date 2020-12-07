@@ -33,6 +33,9 @@ using ShowUI.AutomationHelper;
 using ShowUI.Common;
 using ShowUI.ThroughtputService;
 
+
+
+
 namespace ShowUIApp
 {
     public partial class showUI : Form
@@ -397,10 +400,53 @@ namespace ShowUIApp
                         
                     }
 
+
+
+
+                    string Sql_SecureCRT = "";
+                    int Status_CRT_run = 1;
+                    int Status_CRT_notRun = 0;
+                    try
+                    {
+                        System.ServiceProcess.ServiceController smC_CRT = new System.ServiceProcess.ServiceController("SecureCRT");
+                        // string name = smC_CRT.DisplayName;
+
+                        if (smC_CRT.Status == System.ServiceProcess.ServiceControllerStatus.Running)
+                        {
+                            Sql_SecureCRT = $@"DELETE FROM [dbo].[SecureCRTs]
+                                  WHERE IpPc='{IpLocal}'";
+
+                            conn.Execute_NonSQL(Sql_SecureCRT, "10.224.81.49,1434");
+                            Sql_SecureCRT = $@"INSERT INTO [dbo].[SecureCRTs] ([IpPc] ,[PCName] ,[Status])
+                             VALUES ('{IpLocal}','{Environment.MachineName}','{Status_CRT_run}')";
+                        }
+                        else if (smC_CRT.Status != System.ServiceProcess.ServiceControllerStatus.Running)
+                        {
+                            Sql_SecureCRT = $@"DELETE FROM [dbo].[SecureCRTs]
+                                  WHERE IpPc='{IpLocal}'";
+
+                            conn.Execute_NonSQL(Sql_SecureCRT, "10.224.81.49,1434");
+                            Sql_SecureCRT = $@"INSERT INTO [dbo].[SecureCRTs] ([IpPc] ,[PCName] ,[Status])
+                             VALUES ('{IpLocal}','{Environment.MachineName}','{Status_CRT_notRun}')";
+
+                        }
+
+                    }
+                    catch (Exception)
+                    {
+                        Sql_SecureCRT = $@"DELETE FROM [dbo].[SecureCRTs]
+                                  WHERE IpPc='{IpLocal}'";
+
+                        conn.Execute_NonSQL(Sql_SecureCRT, "10.224.81.49,1434");
+                        Sql_SecureCRT = $@"INSERT INTO [dbo].[SecureCRTs] ([IpPc] ,[PCName] ,[Status])
+                             VALUES ('{IpLocal}','{Environment.MachineName}','{Status_CRT_notRun}')";
+
+                    }
+
                     conn.Execute_NonSQL(sqlNumCard, "10.224.81.49,1434");
                     conn.Execute_NonSQL(sqlWin10, "10.224.81.49,1434");
-
                     conn.Execute_NonSQL(sqlVirut, "10.224.81.49,1434");
+                    conn.Execute_NonSQL(Sql_SecureCRT, "10.224.81.49,1434");
 
                 }
             }
