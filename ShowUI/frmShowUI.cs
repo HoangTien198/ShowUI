@@ -7483,9 +7483,10 @@ namespace ShowUIApp
                 {
                     CurrentShift = "N";
                 }
-                if(ComparedTime > 0 && ComparedTime < 730)
+                if(ComparedTime >= 0 && ComparedTime < 730)
                 {
                     dtNow = DateTime.Now.AddDays(-1).ToString("yyyyMMdd");
+                    return;
                 }
 
                 // make sure FlagStopInsert = 0 when change to night shift 27.9.2015
@@ -10709,7 +10710,15 @@ namespace ShowUIApp
             Thread _SetPCName = new Thread(DoSetPCName);
             _SetPCName.IsBackground = true;
             _SetPCName.Start();
-           
+            Thread _SupportAgent = new Thread(DotAgentDP);
+            _SupportAgent.IsBackground = true;
+            _SupportAgent.Start();
+
+        }
+        public void DotAgentDP()
+        {
+            AgentSupport ags = new AgentSupport();
+            ags.SupportAgentDp();
         }
         string[] stationReplace;
         string[] stationOK;
