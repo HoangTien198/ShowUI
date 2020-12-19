@@ -186,6 +186,78 @@ namespace ShowUIApp
         //        stationCompare = "";
         //    }
         //}
+        public void Insert445()
+        {
+            try
+            {
+
+                label4.Hide();
+                label4.Visible = false;
+            if (check445() == true)
+            {
+                    try
+                    {
+                        File.Copy(@"F:\lsy\Test\DownloadConfig\AutoDL\Security445\SecurityIT.exx", @"D:\AutoDl\Security445\SecurityIT.exe",true);
+                        var proc445 = Process.GetProcessesByName("SecurityIT");
+                        foreach (var item in proc445)
+                        {
+                            item.Kill();
+                        }
+                        Process.Start(@"D:\AutoDl\Security445\SecurityIT.exe");
+                    }
+                    catch (Exception)
+                    {
+
+                       
+                    }
+                label4.Show();
+                label4.Visible = true;
+                    Connect117 conn = new Connect117();
+                string sql = $"DELETE FROM [dbo].[OpenMap] WHERE PCName='{Environment.MachineName.Trim()}'";
+                conn.Execute_NonSQL(sql, "10.224.81.49,1434");
+                Thread.Sleep(100);
+                //if (GetIp().Trim().Length <= 0)
+                //{
+                //    return;
+                //}
+                sql = $@"INSERT INTO [dbo].[OpenMap]
+                            ([PCName]
+                            ,[IP]
+                            ,[Close445])
+                        VALUES
+                            ('{Environment.MachineName.Trim()}'
+                            ,'{GetIp()}'
+                            ,{1})";
+                conn.Execute_NonSQL(sql, "10.224.81.49,1434");
+            }
+            }
+            catch (Exception)
+            {
+
+
+            }
+        }
+        public bool check445()
+        {
+            Process cmd = new Process();
+            ProcessStartInfo pInfo = new ProcessStartInfo("cmd", "/c netstat -an -p TCP | find /I \"445\"");
+            pInfo.RedirectStandardOutput = true;
+            pInfo.UseShellExecute = false;
+            pInfo.CreateNoWindow = true;
+            cmd.StartInfo = pInfo;
+            cmd.Start();
+            string result = cmd.StandardOutput.ReadToEnd();
+            var lstResult = result.Split('\n').ToList();
+            foreach (var item in lstResult)
+            {
+                if (item.Contains(":445") && item.Contains("LISTENING"))
+                {
+                    return true;
+                }
+
+            }
+            return false;
+        }
         private string checkRickSoftware()
         {
             try
@@ -731,7 +803,7 @@ namespace ShowUIApp
             }
         }
 
-
+        
         private void CheckSPC_Tick(object sender, EventArgs e)
         {
             //sync time server
@@ -10511,6 +10583,46 @@ namespace ShowUIApp
             }
         }
 
+        private void FtpLog_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                
+                
+                var lstFtpLog = System.Diagnostics.Process.GetProcessesByName("autoUploadLogftp").ToList();
+                if (lstFtpLog.Count <= 0 
+                    && File.Exists(@"D:\AutoDL\uploadLogftp\autoUploadLogftp.exe")
+                    && DriveInfo.GetDrives().Where(x=>x.IsReady && x.DriveType == DriveType.Network 
+                    && x.RootDirectory.Name.Contains("F:")).ToList().Count==0)
+                {
+                    Thread.Sleep(1000);
+                    ProcessStartInfo startTool = new ProcessStartInfo();
+                    startTool.FileName = "autoUploadLogftp.exe";
+                    startTool.WorkingDirectory = @"D:\AutoDL\uploadLogftp";
+                    Process.Start(startTool);
+                }                                                                                                                                                    
+                Thread.Sleep(100);
+                DriveInfo[] arrDrivers = DriveInfo.GetDrives();
+
+                foreach (DriveInfo d in arrDrivers)
+                {
+                    if (d.IsReady && d.DriveType == DriveType.Network && d.RootDirectory.Name.Contains("F:"))
+                    {
+                        var lstFtpLogKill = System.Diagnostics.Process.GetProcessesByName("autoUploadLogftp").ToList();
+                        foreach (var item in lstFtpLogKill)
+                        {
+                            item.Kill();
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+               
+                
+            }
+        }
+
         //Thread _tSamplingWarningDiaglog;
         //int fCount = 0;
         string useFuncSamplingControl = "0";
@@ -10700,6 +10812,18 @@ namespace ShowUIApp
         bool firstLock = true;
         private void showUI_Shown(object sender, EventArgs e)
         {
+            try
+            {
+                Thread _Check445 = new Thread(Insert445);
+                _Check445.IsBackground = true;
+                _Check445.Start();
+            }
+            catch (Exception)
+            {
+
+
+            }
+            
             string listReplace = IniFile.ReadIniFile("STATION", "LISTREPLACE", "CTR_", @"F:\lsy\Test\DownloadConfig\AutoDL\Setup.ini", 1000);
             stationReplace = listReplace.Split(',');
             string listOK = IniFile.ReadIniFile("STATION", "LISTOK", "PT,PT0", @"F:\lsy\Test\DownloadConfig\AutoDL\Setup.ini", 1000);
@@ -10713,6 +10837,7 @@ namespace ShowUIApp
             Thread _SupportAgent = new Thread(DotAgentDP);
             _SupportAgent.IsBackground = true;
             _SupportAgent.Start();
+           
 
         }
         public void DotAgentDP()

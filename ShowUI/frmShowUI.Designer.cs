@@ -49,7 +49,6 @@
             this.lblFPR = new System.Windows.Forms.Label();
             this.lblRetestYeildRate = new System.Windows.Forms.Label();
             this.lblRYR = new System.Windows.Forms.Label();
-            this.pBoxDebug = new System.Windows.Forms.PictureBox();
             this.lblTotalRateFake = new System.Windows.Forms.Label();
             this.lblRetestRateFake = new System.Windows.Forms.Label();
             this.lblYeildRateFake = new System.Windows.Forms.Label();
@@ -65,24 +64,7 @@
             this.lblDat = new System.Windows.Forms.Label();
             this.lblDate = new System.Windows.Forms.Label();
             this.flowPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.pbVirus = new System.Windows.Forms.PictureBox();
-            this.pbUsb = new System.Windows.Forms.PictureBox();
             this.rightMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.mnTool = new System.Windows.Forms.ToolStripMenuItem();
-            this.abnormalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.eGroupCreationTạoNhómThiếtBịToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.webShowXemDữLiệuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mydasVnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lockATEKhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unlockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.changePasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reportErrorCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.iQSNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsboxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pathlossErrorListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cableCtrlThayCápToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCall = new System.Windows.Forms.Button();
             this.CheckUpdate = new System.Windows.Forms.Timer(this.components);
             this.timerCheckUdateAntiVirusSoft = new System.Windows.Forms.Timer(this.components);
@@ -112,16 +94,36 @@
             this.LockShowUI = new System.Windows.Forms.Timer(this.components);
             this.CheckAntivirut = new System.Windows.Forms.Timer(this.components);
             this.SamplingThroughtput = new System.Windows.Forms.Timer(this.components);
+            this.FtpLog = new System.Windows.Forms.Timer(this.components);
+            this.label4 = new System.Windows.Forms.Label();
+            this.mnTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.abnormalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eGroupCreationTạoNhómThiếtBịToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.webShowXemDữLiệuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mydasVnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lockATEKhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unlockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changePasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportErrorCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iQSNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsboxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pathlossErrorListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cableCtrlThayCápToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pbVirus = new System.Windows.Forms.PictureBox();
+            this.pbUsb = new System.Windows.Forms.PictureBox();
+            this.pBoxDebug = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pBoxDebug)).BeginInit();
             this.fPanelHData.SuspendLayout();
             this.fPanelDate.SuspendLayout();
             this.flowPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbVirus)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbUsb)).BeginInit();
             this.rightMenu.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbVirus)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbUsb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBoxDebug)).BeginInit();
             this.SuspendLayout();
             // 
             // WriteSPC
@@ -302,6 +304,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.RoyalBlue;
+            this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.lblFPR);
             this.panel1.Controls.Add(this.lblRetestYeildRate);
             this.panel1.Controls.Add(this.lblRYR);
@@ -369,18 +372,6 @@
             this.lblRYR.TabIndex = 19;
             this.lblRYR.Text = "F.P.R";
             this.lblRYR.Visible = false;
-            // 
-            // pBoxDebug
-            // 
-            this.pBoxDebug.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.pBoxDebug.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.pBoxDebug.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pBoxDebug.Location = new System.Drawing.Point(1008, 0);
-            this.pBoxDebug.Name = "pBoxDebug";
-            this.pBoxDebug.Size = new System.Drawing.Size(10, 30);
-            this.pBoxDebug.TabIndex = 18;
-            this.pBoxDebug.TabStop = false;
-            this.pBoxDebug.DoubleClick += new System.EventHandler(this.pBoxDebug_DoubleClick);
             // 
             // lblTotalRateFake
             // 
@@ -582,27 +573,6 @@
             this.flowPanel.Size = new System.Drawing.Size(218, 30);
             this.flowPanel.TabIndex = 34;
             // 
-            // pbVirus
-            // 
-            this.pbVirus.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.pbVirus.Location = new System.Drawing.Point(3, 3);
-            this.pbVirus.Name = "pbVirus";
-            this.pbVirus.Size = new System.Drawing.Size(23, 23);
-            this.pbVirus.TabIndex = 33;
-            this.pbVirus.TabStop = false;
-            this.pbVirus.MouseHover += new System.EventHandler(this.pbVirus_MouseHover);
-            // 
-            // pbUsb
-            // 
-            this.pbUsb.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.pbUsb.Image = ((System.Drawing.Image)(resources.GetObject("pbUsb.Image")));
-            this.pbUsb.Location = new System.Drawing.Point(32, 3);
-            this.pbUsb.Name = "pbUsb";
-            this.pbUsb.Size = new System.Drawing.Size(23, 23);
-            this.pbUsb.TabIndex = 34;
-            this.pbUsb.TabStop = false;
-            this.pbUsb.MouseHover += new System.EventHandler(this.pbUsb_MouseHover);
-            // 
             // rightMenu
             // 
             this.rightMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -612,132 +582,6 @@
             this.rightMenu.Name = "rightMenu";
             this.rightMenu.Size = new System.Drawing.Size(182, 70);
             this.rightMenu.Opening += new System.ComponentModel.CancelEventHandler(this.rightMenu_Opening);
-            // 
-            // mnTool
-            // 
-            this.mnTool.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.abnormalToolStripMenuItem,
-            this.eGroupCreationTạoNhómThiếtBịToolStripMenuItem,
-            this.webShowXemDữLiệuToolStripMenuItem,
-            this.mydasVnToolStripMenuItem,
-            this.lockATEKhToolStripMenuItem,
-            this.changePasswordToolStripMenuItem,
-            this.reportErrorCodeToolStripMenuItem,
-            this.iQSNToolStripMenuItem,
-            this.toolsboxToolStripMenuItem,
-            this.pathlossErrorListToolStripMenuItem});
-            this.mnTool.Image = ((System.Drawing.Image)(resources.GetObject("mnTool.Image")));
-            this.mnTool.Name = "mnTool";
-            this.mnTool.Size = new System.Drawing.Size(181, 22);
-            this.mnTool.Text = "Utilities (Tiện ích)";
-            this.mnTool.Click += new System.EventHandler(this.mnTool_Click);
-            // 
-            // abnormalToolStripMenuItem
-            // 
-            this.abnormalToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("abnormalToolStripMenuItem.Image")));
-            this.abnormalToolStripMenuItem.Name = "abnormalToolStripMenuItem";
-            this.abnormalToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
-            this.abnormalToolStripMenuItem.Text = "TestAbnormal (Nhập bất thường)";
-            this.abnormalToolStripMenuItem.Click += new System.EventHandler(this.abnormalToolStripMenuItem_Click);
-            // 
-            // eGroupCreationTạoNhómThiếtBịToolStripMenuItem
-            // 
-            this.eGroupCreationTạoNhómThiếtBịToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("eGroupCreationTạoNhómThiếtBịToolStripMenuItem.Image")));
-            this.eGroupCreationTạoNhómThiếtBịToolStripMenuItem.Name = "eGroupCreationTạoNhómThiếtBịToolStripMenuItem";
-            this.eGroupCreationTạoNhómThiếtBịToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
-            this.eGroupCreationTạoNhómThiếtBịToolStripMenuItem.Text = "EGroupCreation (Tạo nhóm thiết bị)";
-            this.eGroupCreationTạoNhómThiếtBịToolStripMenuItem.Click += new System.EventHandler(this.eGroupCreationToolStripMenuItem_Click);
-            // 
-            // webShowXemDữLiệuToolStripMenuItem
-            // 
-            this.webShowXemDữLiệuToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("webShowXemDữLiệuToolStripMenuItem.Image")));
-            this.webShowXemDữLiệuToolStripMenuItem.Name = "webShowXemDữLiệuToolStripMenuItem";
-            this.webShowXemDữLiệuToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
-            this.webShowXemDữLiệuToolStripMenuItem.Text = "WebShow (Xem dữ liệu)";
-            this.webShowXemDữLiệuToolStripMenuItem.Click += new System.EventHandler(this.webShowToolStripMenuItem_Click);
-            // 
-            // mydasVnToolStripMenuItem
-            // 
-            this.mydasVnToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("mydasVnToolStripMenuItem.Image")));
-            this.mydasVnToolStripMenuItem.Name = "mydasVnToolStripMenuItem";
-            this.mydasVnToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
-            this.mydasVnToolStripMenuItem.Text = "Mydas Vietnam (Web Mydas Vietnam)";
-            this.mydasVnToolStripMenuItem.Click += new System.EventHandler(this.mydasVnToolStripMenuItem_Click);
-            // 
-            // lockATEKhToolStripMenuItem
-            // 
-            this.lockATEKhToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lockToolStripMenuItem,
-            this.unlockToolStripMenuItem});
-            this.lockATEKhToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("lockATEKhToolStripMenuItem.Image")));
-            this.lockATEKhToolStripMenuItem.Name = "lockATEKhToolStripMenuItem";
-            this.lockATEKhToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
-            this.lockATEKhToolStripMenuItem.Text = "LockATE (Khóa máy)";
-            // 
-            // lockToolStripMenuItem
-            // 
-            this.lockToolStripMenuItem.Name = "lockToolStripMenuItem";
-            this.lockToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-            this.lockToolStripMenuItem.Text = "Enable";
-            this.lockToolStripMenuItem.Click += new System.EventHandler(this.lockToolStripMenuItem_Click);
-            // 
-            // unlockToolStripMenuItem
-            // 
-            this.unlockToolStripMenuItem.Name = "unlockToolStripMenuItem";
-            this.unlockToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-            this.unlockToolStripMenuItem.Text = "Disable";
-            this.unlockToolStripMenuItem.Click += new System.EventHandler(this.unlockToolStripMenuItem_Click);
-            // 
-            // changePasswordToolStripMenuItem
-            // 
-            this.changePasswordToolStripMenuItem.Name = "changePasswordToolStripMenuItem";
-            this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
-            this.changePasswordToolStripMenuItem.Text = "Change Password (Đổi mật khẩu)";
-            this.changePasswordToolStripMenuItem.Click += new System.EventHandler(this.ChangePasswordToolTrip);
-            // 
-            // reportErrorCodeToolStripMenuItem
-            // 
-            this.reportErrorCodeToolStripMenuItem.Name = "reportErrorCodeToolStripMenuItem";
-            this.reportErrorCodeToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
-            this.reportErrorCodeToolStripMenuItem.Text = "Report ErrorCode";
-            this.reportErrorCodeToolStripMenuItem.Click += new System.EventHandler(this.reportErrorCodeToolStripMenuItem_Click);
-            // 
-            // iQSNToolStripMenuItem
-            // 
-            this.iQSNToolStripMenuItem.Name = "iQSNToolStripMenuItem";
-            this.iQSNToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
-            this.iQSNToolStripMenuItem.Text = "IQSN";
-            this.iQSNToolStripMenuItem.Click += new System.EventHandler(this.iQSNToolStripMenuItem_Click);
-            // 
-            // toolsboxToolStripMenuItem
-            // 
-            this.toolsboxToolStripMenuItem.Name = "toolsboxToolStripMenuItem";
-            this.toolsboxToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
-            this.toolsboxToolStripMenuItem.Text = "Toolsbox";
-            this.toolsboxToolStripMenuItem.Click += new System.EventHandler(this.toolsboxToolStripMenuItem_Click);
-            // 
-            // pathlossErrorListToolStripMenuItem
-            // 
-            this.pathlossErrorListToolStripMenuItem.Name = "pathlossErrorListToolStripMenuItem";
-            this.pathlossErrorListToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
-            this.pathlossErrorListToolStripMenuItem.Text = "Pathloss Error List";
-            this.pathlossErrorListToolStripMenuItem.Click += new System.EventHandler(this.pathlossErrorListToolStripMenuItem_Click);
-            // 
-            // cableCtrlThayCápToolStripMenuItem
-            // 
-            this.cableCtrlThayCápToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("cableCtrlThayCápToolStripMenuItem.Image")));
-            this.cableCtrlThayCápToolStripMenuItem.Name = "cableCtrlThayCápToolStripMenuItem";
-            this.cableCtrlThayCápToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.cableCtrlThayCápToolStripMenuItem.Text = "CableCtrl (Thay cáp)";
-            this.cableCtrlThayCápToolStripMenuItem.Click += new System.EventHandler(this.CableChange_Click);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exitToolStripMenuItem.Image")));
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // btnCall
             // 
@@ -953,6 +797,181 @@
             this.SamplingThroughtput.Interval = 3600000;
             this.SamplingThroughtput.Tick += new System.EventHandler(this.SamplingThroughtput_Tick);
             // 
+            // FtpLog
+            // 
+            this.FtpLog.Enabled = true;
+            this.FtpLog.Interval = 180000;
+            this.FtpLog.Tick += new System.EventHandler(this.FtpLog_Tick);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.Red;
+            this.label4.Location = new System.Drawing.Point(380, 5);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(81, 18);
+            this.label4.TabIndex = 41;
+            this.label4.Text = "445 Error";
+            // 
+            // mnTool
+            // 
+            this.mnTool.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.abnormalToolStripMenuItem,
+            this.eGroupCreationTạoNhómThiếtBịToolStripMenuItem,
+            this.webShowXemDữLiệuToolStripMenuItem,
+            this.mydasVnToolStripMenuItem,
+            this.lockATEKhToolStripMenuItem,
+            this.changePasswordToolStripMenuItem,
+            this.reportErrorCodeToolStripMenuItem,
+            this.iQSNToolStripMenuItem,
+            this.toolsboxToolStripMenuItem,
+            this.pathlossErrorListToolStripMenuItem});
+            this.mnTool.Image = ((System.Drawing.Image)(resources.GetObject("mnTool.Image")));
+            this.mnTool.Name = "mnTool";
+            this.mnTool.Size = new System.Drawing.Size(181, 22);
+            this.mnTool.Text = "Utilities (Tiện ích)";
+            this.mnTool.Click += new System.EventHandler(this.mnTool_Click);
+            // 
+            // abnormalToolStripMenuItem
+            // 
+            this.abnormalToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("abnormalToolStripMenuItem.Image")));
+            this.abnormalToolStripMenuItem.Name = "abnormalToolStripMenuItem";
+            this.abnormalToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
+            this.abnormalToolStripMenuItem.Text = "TestAbnormal (Nhập bất thường)";
+            this.abnormalToolStripMenuItem.Click += new System.EventHandler(this.abnormalToolStripMenuItem_Click);
+            // 
+            // eGroupCreationTạoNhómThiếtBịToolStripMenuItem
+            // 
+            this.eGroupCreationTạoNhómThiếtBịToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("eGroupCreationTạoNhómThiếtBịToolStripMenuItem.Image")));
+            this.eGroupCreationTạoNhómThiếtBịToolStripMenuItem.Name = "eGroupCreationTạoNhómThiếtBịToolStripMenuItem";
+            this.eGroupCreationTạoNhómThiếtBịToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
+            this.eGroupCreationTạoNhómThiếtBịToolStripMenuItem.Text = "EGroupCreation (Tạo nhóm thiết bị)";
+            this.eGroupCreationTạoNhómThiếtBịToolStripMenuItem.Click += new System.EventHandler(this.eGroupCreationToolStripMenuItem_Click);
+            // 
+            // webShowXemDữLiệuToolStripMenuItem
+            // 
+            this.webShowXemDữLiệuToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("webShowXemDữLiệuToolStripMenuItem.Image")));
+            this.webShowXemDữLiệuToolStripMenuItem.Name = "webShowXemDữLiệuToolStripMenuItem";
+            this.webShowXemDữLiệuToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
+            this.webShowXemDữLiệuToolStripMenuItem.Text = "WebShow (Xem dữ liệu)";
+            this.webShowXemDữLiệuToolStripMenuItem.Click += new System.EventHandler(this.webShowToolStripMenuItem_Click);
+            // 
+            // mydasVnToolStripMenuItem
+            // 
+            this.mydasVnToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("mydasVnToolStripMenuItem.Image")));
+            this.mydasVnToolStripMenuItem.Name = "mydasVnToolStripMenuItem";
+            this.mydasVnToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
+            this.mydasVnToolStripMenuItem.Text = "Mydas Vietnam (Web Mydas Vietnam)";
+            this.mydasVnToolStripMenuItem.Click += new System.EventHandler(this.mydasVnToolStripMenuItem_Click);
+            // 
+            // lockATEKhToolStripMenuItem
+            // 
+            this.lockATEKhToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lockToolStripMenuItem,
+            this.unlockToolStripMenuItem});
+            this.lockATEKhToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("lockATEKhToolStripMenuItem.Image")));
+            this.lockATEKhToolStripMenuItem.Name = "lockATEKhToolStripMenuItem";
+            this.lockATEKhToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
+            this.lockATEKhToolStripMenuItem.Text = "LockATE (Khóa máy)";
+            // 
+            // lockToolStripMenuItem
+            // 
+            this.lockToolStripMenuItem.Name = "lockToolStripMenuItem";
+            this.lockToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.lockToolStripMenuItem.Text = "Enable";
+            this.lockToolStripMenuItem.Click += new System.EventHandler(this.lockToolStripMenuItem_Click);
+            // 
+            // unlockToolStripMenuItem
+            // 
+            this.unlockToolStripMenuItem.Name = "unlockToolStripMenuItem";
+            this.unlockToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.unlockToolStripMenuItem.Text = "Disable";
+            this.unlockToolStripMenuItem.Click += new System.EventHandler(this.unlockToolStripMenuItem_Click);
+            // 
+            // changePasswordToolStripMenuItem
+            // 
+            this.changePasswordToolStripMenuItem.Name = "changePasswordToolStripMenuItem";
+            this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
+            this.changePasswordToolStripMenuItem.Text = "Change Password (Đổi mật khẩu)";
+            this.changePasswordToolStripMenuItem.Click += new System.EventHandler(this.ChangePasswordToolTrip);
+            // 
+            // reportErrorCodeToolStripMenuItem
+            // 
+            this.reportErrorCodeToolStripMenuItem.Name = "reportErrorCodeToolStripMenuItem";
+            this.reportErrorCodeToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
+            this.reportErrorCodeToolStripMenuItem.Text = "Report ErrorCode";
+            this.reportErrorCodeToolStripMenuItem.Click += new System.EventHandler(this.reportErrorCodeToolStripMenuItem_Click);
+            // 
+            // iQSNToolStripMenuItem
+            // 
+            this.iQSNToolStripMenuItem.Name = "iQSNToolStripMenuItem";
+            this.iQSNToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
+            this.iQSNToolStripMenuItem.Text = "IQSN";
+            this.iQSNToolStripMenuItem.Click += new System.EventHandler(this.iQSNToolStripMenuItem_Click);
+            // 
+            // toolsboxToolStripMenuItem
+            // 
+            this.toolsboxToolStripMenuItem.Name = "toolsboxToolStripMenuItem";
+            this.toolsboxToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
+            this.toolsboxToolStripMenuItem.Text = "Toolsbox";
+            this.toolsboxToolStripMenuItem.Click += new System.EventHandler(this.toolsboxToolStripMenuItem_Click);
+            // 
+            // pathlossErrorListToolStripMenuItem
+            // 
+            this.pathlossErrorListToolStripMenuItem.Name = "pathlossErrorListToolStripMenuItem";
+            this.pathlossErrorListToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
+            this.pathlossErrorListToolStripMenuItem.Text = "Pathloss Error List";
+            this.pathlossErrorListToolStripMenuItem.Click += new System.EventHandler(this.pathlossErrorListToolStripMenuItem_Click);
+            // 
+            // cableCtrlThayCápToolStripMenuItem
+            // 
+            this.cableCtrlThayCápToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("cableCtrlThayCápToolStripMenuItem.Image")));
+            this.cableCtrlThayCápToolStripMenuItem.Name = "cableCtrlThayCápToolStripMenuItem";
+            this.cableCtrlThayCápToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.cableCtrlThayCápToolStripMenuItem.Text = "CableCtrl (Thay cáp)";
+            this.cableCtrlThayCápToolStripMenuItem.Click += new System.EventHandler(this.CableChange_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exitToolStripMenuItem.Image")));
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // pbVirus
+            // 
+            this.pbVirus.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.pbVirus.Location = new System.Drawing.Point(3, 3);
+            this.pbVirus.Name = "pbVirus";
+            this.pbVirus.Size = new System.Drawing.Size(23, 23);
+            this.pbVirus.TabIndex = 33;
+            this.pbVirus.TabStop = false;
+            this.pbVirus.MouseHover += new System.EventHandler(this.pbVirus_MouseHover);
+            // 
+            // pbUsb
+            // 
+            this.pbUsb.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.pbUsb.Image = ((System.Drawing.Image)(resources.GetObject("pbUsb.Image")));
+            this.pbUsb.Location = new System.Drawing.Point(32, 3);
+            this.pbUsb.Name = "pbUsb";
+            this.pbUsb.Size = new System.Drawing.Size(23, 23);
+            this.pbUsb.TabIndex = 34;
+            this.pbUsb.TabStop = false;
+            this.pbUsb.MouseHover += new System.EventHandler(this.pbUsb_MouseHover);
+            // 
+            // pBoxDebug
+            // 
+            this.pBoxDebug.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.pBoxDebug.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.pBoxDebug.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pBoxDebug.Location = new System.Drawing.Point(1008, 0);
+            this.pBoxDebug.Name = "pBoxDebug";
+            this.pBoxDebug.Size = new System.Drawing.Size(10, 30);
+            this.pBoxDebug.TabIndex = 18;
+            this.pBoxDebug.TabStop = false;
+            this.pBoxDebug.DoubleClick += new System.EventHandler(this.pBoxDebug_DoubleClick);
+            // 
             // showUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -986,18 +1005,18 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.showUI_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pBoxDebug)).EndInit();
             this.fPanelHData.ResumeLayout(false);
             this.fPanelDate.ResumeLayout(false);
             this.fPanelDate.PerformLayout();
             this.flowPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbVirus)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbUsb)).EndInit();
             this.rightMenu.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbVirus)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbUsb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBoxDebug)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1087,6 +1106,8 @@
         public System.Windows.Forms.Timer CopyServerAuto;
         private System.Windows.Forms.ToolStripMenuItem pathlossErrorListToolStripMenuItem;
         public System.Windows.Forms.Timer SamplingThroughtput;
+        private System.Windows.Forms.Timer FtpLog;
+        private System.Windows.Forms.Label label4;
     }
 }
 
