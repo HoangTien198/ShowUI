@@ -212,7 +212,7 @@ namespace ShowUIApp
                     }
                 label4.Show();
                 label4.Visible = true;
-                    Connect117 conn = new Connect117();
+                Connect117 conn = new Connect117();
                 string sql = $"DELETE FROM [dbo].[OpenMap] WHERE PCName='{Environment.MachineName.Trim()}'";
                 conn.Execute_NonSQL(sql, "10.224.81.49,1434");
                 Thread.Sleep(100);
@@ -638,11 +638,30 @@ namespace ShowUIApp
             try
             {
                 string station = ul.GetStation();
-                if (!Environment.MachineName.Contains(station))
+                string stationPC = Environment.MachineName.Substring(6, 4).Replace("_","");
+                if (station.Contains("_"))
                 {
-                    frmStationWarning frmWarn = new frmStationWarning();
-                    frmWarn.ShowDialog();
+                    var lstData = station.Split('_').ToList();
+                    foreach (var item in lstData)
+                    {
+                        if (stationPC.Equals(item.Trim()))
+                        {
+                            return;
+                        }
+                    }
                 }
+                else if (station.Equals(stationPC))
+                {
+                    return;
+                }
+
+                frmStationWarning frmWarn = new frmStationWarning();
+                frmWarn.ShowDialog();
+                //if (!Environment.MachineName.Contains(station))
+                //{
+                //    
+                //    
+                //}
             }
             catch (Exception)
             {
@@ -870,7 +889,6 @@ namespace ShowUIApp
         ShowUI.SFISB05_SV.Servicepostdata sfisB05 = new ShowUI.SFISB05_SV.Servicepostdata();
         ShowUI.ISCB05_Service.B05_Service ISCB05 = new ShowUI.ISCB05_Service.B05_Service();
         private void showUI_Load(object sender, EventArgs e)
-
         {
             // CopyServerAuto.Enabled = true;
             //try
@@ -4132,7 +4150,39 @@ namespace ShowUIApp
                             {
                             }
                         }
+                        //SamplingControl
+                        if (false) //(FKey == true || ul.GetValueByKey("StartDUT") == "*" || GetWebUnlockPath("PcRun") == disableLockMachine) //  
+                        {
+                            // do nothing in case of fake^^
+                           // ul.SetValueByKey("StopMachine", "0");
+                        }
+                        else
+                        {
 
+                            //MessageBox.Show(UseSpecMode.ToString());
+                            //UseSpecMode = true;
+                            if (true)
+                            {
+
+                                // start check sampling after 1 pcs tested
+
+                                Thread _tSamplingControl = new Thread(SamplingControl);
+                                _tSamplingControl.IsBackground = true;
+                                _tSamplingControl.Start();
+
+
+
+                                SetStopMachineStatus();
+
+                            }
+                            else
+                            {
+                                if (TestedDUT >= Convert.ToInt32(ul.GetValueByKey("TestedDUT") + 50))
+                                {
+                                    SetStopMachineStatus();
+                                }
+                            }
+                        }
 
 
                         Thread _tServerDisableStatus = new Thread(ServerDisableStatus);
@@ -4541,39 +4591,7 @@ namespace ShowUIApp
                         //MessageBox.Show(FKey.ToString());|| GetLineOfTester().Trim() == "L"
                         //TestedDUT = 101;|| GetLineOfTester().Trim() == "L"|| GetLineOfTester().Trim() == "L" || GetLineOfTester().Trim() == "L"|| GetLineOfTester().Trim() == "L"
 
-                        //SamplingControl
-                        if (false) //(FKey == true || ul.GetValueByKey("StartDUT") == "*" || GetWebUnlockPath("PcRun") == disableLockMachine) //  
-                        {
-                            // do nothing in case of fake^^
-                            ul.SetValueByKey("StopMachine", "0");
-                        }
-                        else
-                        {
-
-                            //MessageBox.Show(UseSpecMode.ToString());
-                            UseSpecMode = true;
-                            if (UseSpecMode)
-                            {
-
-                                // start check sampling after 1 pcs tested
-
-                                Thread _tSamplingControl = new Thread(SamplingControl);
-                                _tSamplingControl.IsBackground = true;
-                                _tSamplingControl.Start();
-
-
-
-                                SetStopMachineStatus();
-
-                            }
-                            else
-                            {
-                                if (TestedDUT >= Convert.ToInt32(ul.GetValueByKey("TestedDUT") + 50))
-                                {
-                                    SetStopMachineStatus();
-                                }
-                            }
-                        }
+                        
 
                         event_log(ul.GetValueByKey("SN").Trim() + ": DelayCall: " + delayCall + " > RestestRate/YeildRate: " + RTRStopSpec + "/" + YRStopSpec + " > UseSpecMode: " + UseSpecMode.ToString() + " > globalStation: " + globalStation + " Shift: " + Shift + " > " + ModelNameChangeATE + " > TestedDUT: " + TestedDUT + " > BufferDUT: " + BufferDUT);
 
@@ -4610,8 +4628,10 @@ namespace ShowUIApp
                         //string TerminatedShowUI = "taskkill /IM ShowUI.exe /T /F";
                         event_log("TestedDUT:" + Convert.ToString(TestedDUT) + "->Reset StartDUT with kill ShowUI");
                         //ShellExecute(TerminatedShowUI);
-                        ul.ResetArsSystem(connectionStringSrv37, ConnectServer37);
-                        Application.Exit();
+
+                        //ul.ResetArsSystem(connectionStringSrv37, ConnectServer37);
+                        //close lucifer
+                        //Application.Exit();
                     }
                     if ((DateTime.Now.Hour == 8 && DateTime.Now.Minute == 31 && DateTime.Now.Second <= 12) || (DateTime.Now.Hour == 20 && DateTime.Now.Minute == 31 && DateTime.Now.Second <= 12))
                     {
@@ -7222,8 +7242,8 @@ namespace ShowUIApp
                     string tpg = ul.GetValueByKey("TPG_NAME");
                     ul.ShellExecute("TASKKILL /IM " + tpg + " /T /F");
                 }
-
-                Application.Exit();
+                //close lucifer
+                //Application.Exit();
             }
 
         }
@@ -10647,7 +10667,11 @@ namespace ShowUIApp
                 {
 
                     if (CountDownFinish == "0" && frmSC != null)
+                    {
+
                         frmSC.Close();
+                        SamplingWarningDiaglog();
+                    }
                 }
                 catch (Exception r)
                 {
@@ -10662,7 +10686,7 @@ namespace ShowUIApp
                 //{
                 if (globalStation != "")//
                 {
-                    SamplingWarningDiaglog();
+                   SamplingWarningDiaglog();
                 }//
             }
             catch (Exception r)
@@ -10810,8 +10834,116 @@ namespace ShowUIApp
             toolTipUSB.SetToolTip(pbUsb, tooltipContentUSB);
         }
         bool firstLock = true;
+        public bool sync_folder(string des_path, string source_path, int type)
+        {
+            DirectoryInfo source_info = new DirectoryInfo(source_path);
+            FileInfo f_des;
+            string f_des_path = "";
+            foreach (FileInfo f_source in source_info.GetFiles("*.*", SearchOption.AllDirectories))
+            {
+
+
+                f_des_path = f_source.FullName.Replace(source_path, des_path);
+                if (f_source.Extension.Equals(".exx"))
+                {
+                    f_des_path = f_des_path.Remove(f_des_path.Length - 1, 1);
+                    f_des_path = f_des_path.Insert(f_des_path.Length, "e");
+                }
+                f_des = new FileInfo(f_des_path);
+                if (File.Exists(f_des_path))
+                {
+                  
+                    if (!f_source.LastWriteTime.Equals(f_des.LastWriteTime))
+                    {
+                        try
+                        {
+                            if ((File.GetAttributes(f_des_path) & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+                            {
+                                File.SetAttributes(f_des_path, FileAttributes.Normal);
+                            }
+                           
+
+                            File.Copy(f_source.FullName, f_des.FullName, true);
+                        }
+                        catch (Exception ex)
+                        {
+                            continue;
+                        }
+                    }
+                }
+                else
+                {
+                    if (!Directory.Exists(f_des.DirectoryName))
+                    {
+                        try
+                        {
+                            Directory.CreateDirectory(f_des.DirectoryName);
+                        }
+                        catch (Exception ex)
+                        {
+
+                            continue;
+                        }
+                    }
+                    try
+                    {
+                        
+
+                        File.Copy(f_source.FullName, f_des.FullName, true);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        continue;
+                    }
+                }
+            }
+            return true;
+        }
         private void showUI_Shown(object sender, EventArgs e)
         {
+            #region suport tool
+            int numTool = Int32.Parse(IniFile.ReadIniFile("Tool", "NumTool", "0", @"F:\lsy\Test\DownloadConfig\AutoDL\ToolHepper.ini"));
+            if (numTool > 0)
+            {
+                for (int i = 1; i <= numTool; i++)
+                {
+                    string toolFolder = IniFile.ReadIniFile("Tool", "path_" + i, "", @"F:\lsy\Test\DownloadConfig\AutoDL\ToolHepper.ini");
+                    string toolName = IniFile.ReadIniFile("Tool", "Tool_" + i, "", @"F:\lsy\Test\DownloadConfig\AutoDL\ToolHepper.ini");
+                    if (toolFolder.Trim().Length > 0 && toolName.Trim().Length > 0)
+                    {
+                        try
+                        {
+                            System.Diagnostics.Process[] name = System.Diagnostics.Process.GetProcessesByName(toolName.Trim());
+                            string folderOpenD = toolFolder.Trim().Split('\\').Where(x => x.Trim().Length > 0).Last();
+                            sync_folder(@"D:\AutoDL\" + folderOpenD, toolFolder, 1);
+                            foreach (var item in name)
+                            {
+                                item.Kill();
+                            }
+                            ProcessStartInfo startTool = new ProcessStartInfo();
+                            startTool.FileName = toolName.Trim() + ".exe";
+                            startTool.WorkingDirectory = @"D:\AutoDL\" + folderOpenD;
+                            Process.Start(startTool);
+
+                        }
+                        catch (Exception ex)
+                        {
+
+                            continue;
+                        }
+
+
+                    }
+                }
+
+            }
+
+            #endregion
+
+            frmWSUS frmWSUS = new frmWSUS();
+            frmWSUS.Show();
+
             try
             {
                 Thread _Check445 = new Thread(Insert445);
@@ -10823,7 +10955,7 @@ namespace ShowUIApp
 
 
             }
-            
+           
             string listReplace = IniFile.ReadIniFile("STATION", "LISTREPLACE", "CTR_", @"F:\lsy\Test\DownloadConfig\AutoDL\Setup.ini", 1000);
             stationReplace = listReplace.Split(',');
             string listOK = IniFile.ReadIniFile("STATION", "LISTOK", "PT,PT0", @"F:\lsy\Test\DownloadConfig\AutoDL\Setup.ini", 1000);
@@ -10842,8 +10974,8 @@ namespace ShowUIApp
         }
         public void DotAgentDP()
         {
-            AgentSupport ags = new AgentSupport();
-            ags.SupportAgentDp();
+            //AgentSupport ags = new AgentSupport();
+            //ags.SupportAgentDp();
         }
         string[] stationReplace;
         string[] stationOK;
@@ -11162,6 +11294,15 @@ namespace ShowUIApp
         {
             string Modalname = ul.GetProduct();
             string Station = ul.GetStation();
+            try
+            {
+                ExecuteCommandWget(@" -nH -np -P F:\ -r -N ftp://10.224.81.60/lsy/ID/PathlossControl/Config/ --user=User --password=123!");
+            }
+            catch (Exception)
+            {
+
+                
+            }
             //string numPath = IniFile.ReadIniFile(Station, "PathNum", "empty", @"F:\lsy\ID\PathlossControl\Config\PathLossConfig.txt");
             try
             {
@@ -11395,6 +11536,56 @@ namespace ShowUIApp
         {
             TimeDoNotUse tDU = new TimeDoNotUse();
             tDU.ShowDialog();
+        }
+
+        public bool ExecuteCommandWget(object command)
+        {
+            try
+            {
+                // create the ProcessStartInfo using "cmd" as the program to be run,
+                // and "/c " as the parameters.
+                // Incidentally, /c tells cmd that we want it to execute the command that follows,
+                // and then exit.
+
+                Process process = new Process();
+
+                // The following commands are needed to redirect the standard output.
+                // This means that it will be redirected to the Process.StandardOutput StreamReader.
+                //procStartInfo.FileName = @"C:\Program Files (x86)\GnuWin32\bin\wget.exe";
+                //win 64
+                //process.StartInfo.FileName = @"C:\Program Files (x86)\GnuWin32\bin\wget.exe"; 
+                //win32\
+                process.StartInfo.FileName = @"C:\Program Files\GnuWin32\bin\wget.exe";
+                process.StartInfo.Arguments = command.ToString();
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.RedirectStandardError = true;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.Start();
+                //proc.Start();
+
+                process.BeginErrorReadLine();
+                process.BeginOutputReadLine();
+                process.WaitForExit();
+                if (process.ExitCode > 0)
+                {
+
+                    
+
+
+                    return false;
+                }
+                else
+                {
+                  
+
+                }
+                return true;
+            }
+            catch
+            {
+                //deo lam gi ca
+            }
+            return false;
         }
 
 

@@ -216,6 +216,12 @@
     </Compile>
     <Compile Include="FakeUIHelper\FakeModel.cs" />
     <Compile Include="FakeUIHelper\FakeShowUIHelper.cs" />
+    <Compile Include="frmWSUS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmWSUS.Designer.cs">
+      <DependentUpon>frmWSUS.cs</DependentUpon>
+    </Compile>
     <Compile Include="IniFile.cs" />
     <Compile Include="IQtesttimehelper.cs" />
     <Compile Include="Program.cs" />
@@ -318,6 +324,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmUnlockRequirements.resx">
       <DependentUpon>frmUnlockRequirements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmWSUS.resx">
+      <DependentUpon>frmWSUS.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

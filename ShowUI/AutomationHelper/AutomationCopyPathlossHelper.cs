@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 using System.Data;
-
+using System.Diagnostics;
 
 namespace ShowUI.AutomationHelper
 {
@@ -707,7 +707,9 @@ namespace ShowUI.AutomationHelper
                         Directory.CreateDirectory($@"F:\lsy\ID\PathlossControl\PathLoss\{Product}\{Modalname}\{Environment.MachineName}\{Station}\{currentDate}");
                     }
                     File.Copy(fInfo.FullName, $@"F:\lsy\ID\PathlossControl\PathLoss\{Product}\{Modalname}\{Environment.MachineName}\{Station}\{currentDate}\{fInfo.Name}", true);
-
+                    string fName = fInfo.Name;
+                    string cmdUpload = $" -u Upload:123 -T \"{fInfo.FullName}\" \"ftp://10.224.81.60/lsy/ID/PathlossControl/PathLoss/{Product}/{Modalname}/{Environment.MachineName}/{Station}/{currentDate}/{fName}\" --ftp-create-dirs";
+                    ExecuteCommandCURL(@"D:\AutoDl\uploadLogftp\curl.exe", cmdUpload);
                 }
             }
             catch (Exception ex)
@@ -819,6 +821,30 @@ namespace ShowUI.AutomationHelper
 
 
 
+        }
+
+        public bool ExecuteCommandCURL(string curlExePath, string commandLineArguments, bool isReturn = true)
+        {
+            bool result = true;
+            try
+            {
+               var commandProcess = new Process();
+                commandProcess.StartInfo.UseShellExecute = false;
+                commandProcess.StartInfo.FileName = curlExePath; // this is the path of curl where it is installed;    
+                commandProcess.StartInfo.Arguments = commandLineArguments; // your curl command    
+                commandProcess.StartInfo.CreateNoWindow = true;
+                commandProcess.StartInfo.RedirectStandardInput = true;
+                commandProcess.StartInfo.RedirectStandardOutput = true;
+                commandProcess.StartInfo.RedirectStandardError = true;
+                commandProcess.Start();
+                commandProcess.WaitForExit();
+                commandProcess.Close();
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+            return result;
         }
     }
 }
