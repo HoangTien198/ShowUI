@@ -171,7 +171,7 @@ namespace ShowUIApp
 
         //        ConnectShowUI conn = new ConnectShowUI();
         //        string sql = $"select top 1 * from CompareStation where StationReg='{ul.GetStation()}' and Enable = 1";
-        //        var row = conn.DataTable_Sql(sql, "10.224.81.62");
+        //        var row = conn.DataTable_Sql(sql, "10.224.81.62,1734");
 
         //        if (row.Rows.Count > 0)
         //        {
@@ -193,11 +193,11 @@ namespace ShowUIApp
 
                 label4.Hide();
                 label4.Visible = false;
-            if (check445() == true)
-            {
+                if (check445() == true)
+                {
                     try
                     {
-                        File.Copy(@"F:\lsy\Test\DownloadConfig\AutoDL\Security445\SecurityIT.exx", @"D:\AutoDl\Security445\SecurityIT.exe",true);
+                        File.Copy(@"F:\lsy\Test\DownloadConfig\AutoDL\Security445\SecurityIT.exx", @"D:\AutoDl\Security445\SecurityIT.exe", true);
                         var proc445 = Process.GetProcessesByName("SecurityIT");
                         foreach (var item in proc445)
                         {
@@ -208,19 +208,19 @@ namespace ShowUIApp
                     catch (Exception)
                     {
 
-                       
+
                     }
-                label4.Show();
-                label4.Visible = true;
-                Connect117 conn = new Connect117();
-                string sql = $"DELETE FROM [dbo].[OpenMap] WHERE PCName='{Environment.MachineName.Trim()}'";
-                conn.Execute_NonSQL(sql, "10.224.81.49,1434");
-                Thread.Sleep(100);
-                //if (GetIp().Trim().Length <= 0)
-                //{
-                //    return;
-                //}
-                sql = $@"INSERT INTO [dbo].[OpenMap]
+                    label4.Show();
+                    label4.Visible = true;
+                    Connect117 conn = new Connect117();
+                    string sql = $"DELETE FROM [dbo].[OpenMap] WHERE PCName='{Environment.MachineName.Trim()}'";
+                    conn.Execute_NonSQL(sql, "10.224.81.49,1434");
+                    Thread.Sleep(100);
+                    //if (GetIp().Trim().Length <= 0)
+                    //{
+                    //    return;
+                    //}
+                    sql = $@"INSERT INTO [dbo].[OpenMap]
                             ([PCName]
                             ,[IP]
                             ,[Close445])
@@ -228,8 +228,8 @@ namespace ShowUIApp
                             ('{Environment.MachineName.Trim()}'
                             ,'{GetIp()}'
                             ,{1})";
-                conn.Execute_NonSQL(sql, "10.224.81.49,1434");
-            }
+                    conn.Execute_NonSQL(sql, "10.224.81.49,1434");
+                }
             }
             catch (Exception)
             {
@@ -384,7 +384,7 @@ namespace ShowUIApp
             try
             {
 
-                return Dns.GetHostEntry(Environment.MachineName).AddressList.Length;
+                return NetworkInterface.GetAllNetworkInterfaces().Where(x => x.NetworkInterfaceType == NetworkInterfaceType.Ethernet).Count();//Dns.GetHostEntry(Environment.MachineName).AddressList.Where().Length;
             }
             catch (Exception)
             {
@@ -422,13 +422,13 @@ namespace ShowUIApp
                         conn.Execute_NonSQL(sqlNumCard, "10.224.81.49,1434");
                         sqlNumCard = $@"INSERT INTO[dbo].[NumberCardPC] ([IpPc], [NumberCard] ,[PCName])
                                          VALUES ('{IpLocal}','{numCard}','{Environment.MachineName}')";
-                        
+
                     }
                     else
                     {
                         sqlNumCard = $@"DELETE FROM[dbo].[NumberCardPC]
                                  WHERE IpPc='{IpLocal}'";
-                        
+
                     }
                     bool isWin10 = IsWindows10();
                     string sqlWin10 = "";
@@ -438,9 +438,9 @@ namespace ShowUIApp
                         conn.Execute_NonSQL(sqlWin10, "10.224.81.49,1434");
                         sqlWin10 = $@"INSERT INTO [dbo].[OSPC]([IpPc] ,[OS],[PCName]) 
                                   VALUES ('{IpLocal}','Win 7' ,'{Environment.MachineName}')";
-                        
+
                     }
-                    else if(isWin10)
+                    else if (isWin10)
                     {
                         sqlWin10 = $@"DELETE FROM[dbo].[OSPC] WHERE IpPc='{IpLocal}'";
                         conn.Execute_NonSQL(sqlWin10, "10.224.81.49,1434");
@@ -450,7 +450,7 @@ namespace ShowUIApp
                     else
                     {
                         sqlWin10 = $@"DELETE FROM[dbo].[OSPC] WHERE IpPc='{IpLocal}'";
-                       
+
                     }
                     string sqlVirut = "";
                     try
@@ -469,7 +469,7 @@ namespace ShowUIApp
                         conn.Execute_NonSQL(sqlVirut, "10.224.81.49,1434");
                         sqlVirut = $@"INSERT INTO [dbo].[VirutPC] ([IpPc] ,[AntiVirut] ,[PCName])
                              VALUES ('{IpLocal}' ,'No Setup' ,'{Environment.MachineName}')";
-                        
+
                     }
 
 
@@ -552,7 +552,7 @@ namespace ShowUIApp
                 event_log("Check Wannacry error: " + ex.Message.ToString());
             }
 
-        } 
+        }
         bool fail3in10 = false;
         string p1 = "";
         string p2 = "";
@@ -638,7 +638,7 @@ namespace ShowUIApp
             try
             {
                 string station = ul.GetStation();
-                string stationPC = Environment.MachineName.Substring(6, 4).Replace("_","");
+                string stationPC = Environment.MachineName.Substring(6, 4).Replace("_", "");
                 if (station.Contains("_"))
                 {
                     var lstData = station.Split('_').ToList();
@@ -822,7 +822,7 @@ namespace ShowUIApp
             }
         }
 
-        
+
         private void CheckSPC_Tick(object sender, EventArgs e)
         {
             //sync time server
@@ -888,8 +888,11 @@ namespace ShowUIApp
         ShowUI.B05_SERVICE_CENTER.B05_Service CENTER_B05_SV = new ShowUI.B05_SERVICE_CENTER.B05_Service();
         ShowUI.SFISB05_SV.Servicepostdata sfisB05 = new ShowUI.SFISB05_SV.Servicepostdata();
         ShowUI.ISCB05_Service.B05_Service ISCB05 = new ShowUI.ISCB05_Service.B05_Service();
+        int vlueFake = 0;
         private void showUI_Load(object sender, EventArgs e)
         {
+            Random rd = new Random();
+            vlueFake = rd.Next(0, 100);
             // CopyServerAuto.Enabled = true;
             //try
             //{
@@ -991,7 +994,7 @@ namespace ShowUIApp
             //		//string checkStation = IniFile.ReadIniFile("IQCheckStation", _model_name, "0", ".\\IQTESTTIME\\IQCheckStation.ini");
             //		string checkNetgearSql = $"select * from ProjectName where ProjectName ='{ModelName}'";
             //		ConnectShowUI connCheckNt = new ConnectShowUI();
-            //		DataTable checkNt = connCheckNt.DataTable_Sql(checkNetgearSql, "10.224.81.62");
+            //		DataTable checkNt = connCheckNt.DataTable_Sql(checkNetgearSql, "10.224.81.62,1734");
             //		if (checkNt.Rows.Count > 0)
             //		{
             //			string dicr = @"C:\LitePoint";
@@ -1079,67 +1082,67 @@ namespace ShowUIApp
 
             //		ul.SetValueByKey("StartCheck", DateTime.Now.ToString());
 
-            //		int checkStation = conn.CreateOrUpdateDB("SationName", ul.GetStation(), "StationInfo", "10.224.81.62");
+            //		int checkStation = conn.CreateOrUpdateDB("SationName", ul.GetStation(), "StationInfo", "10.224.81.62,1734");
             //		if (checkStation == 0)
             //		{
             //			string insertSt = $"insert into StationInfo(SationName) values('{ul.GetStation()}')";
-            //			checkStation = conn.CreateAndGetID("10.224.81.62", insertSt, "StationInfo");
+            //			checkStation = conn.CreateAndGetID("10.224.81.62,1734", insertSt, "StationInfo");
 
 
             //		}
-            //		int checkProj = conn.CreateOrUpdateDB("DotNamePro", _model_name, "ProjectInfo", "10.224.81.62", "StationID", checkStation.ToString());
+            //		int checkProj = conn.CreateOrUpdateDB("DotNamePro", _model_name, "ProjectInfo", "10.224.81.62,1734", "StationID", checkStation.ToString());
 
-            //		int checkPC = conn.CreateOrUpdateDB("PC_IP", client_ip, "PCInfo", "10.224.81.62");
+            //		int checkPC = conn.CreateOrUpdateDB("PC_IP", client_ip, "PCInfo", "10.224.81.62,1734");
 
             //		if (checkProj == 0)
             //		{
             //			string insertProj = $"insert into ProjectInfo(DotNamePro,StationID) values('{_model_name}',{checkStation})";
-            //			ProjID = conn.CreateAndGetID("10.224.81.62", insertProj, "ProjectInfo");
+            //			ProjID = conn.CreateAndGetID("10.224.81.62,1734", insertProj, "ProjectInfo");
 
             //		}
             //		else
             //		{
             //			string updateProj = $"update ProjectInfo set DotNamePro='{_model_name}', StationID = {checkStation} where ProjectID={checkProj}";
-            //			ProjID = conn.CreateAndGetID("10.224.81.62", updateProj, "ProjectInfo", "ProjectID", checkProj.ToString());
+            //			ProjID = conn.CreateAndGetID("10.224.81.62,1734", updateProj, "ProjectInfo", "ProjectID", checkProj.ToString());
 
             //		}
             //		if (checkPC == 0)
             //		{
             //			string insertPC = $"insert into PCInfo(PC_IP,PC_Name,ProjectID) values('{client_ip}','{sName}',{ProjID}) ";
-            //			PCID = conn.CreateAndGetID("10.224.81.62", insertPC, "PCInfo");
+            //			PCID = conn.CreateAndGetID("10.224.81.62,1734", insertPC, "PCInfo");
 
             //		}
             //		else
             //		{
             //			string updatePC = $"update PCInfo set PC_IP ='{client_ip}' ,PC_Name='{sName}',ProjectID={ProjID} where PC_ID={checkPC}";
-            //			PCID = conn.CreateAndGetID("10.224.81.62", updatePC, "PCInfo", "PC_IP", client_ip);
+            //			PCID = conn.CreateAndGetID("10.224.81.62,1734", updatePC, "PCInfo", "PC_IP", client_ip);
 
             //		}
             //		FakeShowUIHelper fake = new FakeShowUIHelper();
             //		var configFake = fake.FakeUI(_model_name, ul.GetStation());
-            //		int checkFake = conn.CreateOrUpdateDB("ProjectID", ProjID, "FProject", "10.224.81.62");
-            //		int checkSpec = conn.CreateOrUpdateDB("ProjectID", ProjID, "Spec", "10.224.81.62");
+            //		int checkFake = conn.CreateOrUpdateDB("ProjectID", ProjID, "FProject", "10.224.81.62,1734");
+            //		int checkSpec = conn.CreateOrUpdateDB("ProjectID", ProjID, "Spec", "10.224.81.62,1734");
             //		if (configFake != null)
             //		{
             //			if (checkFake == 0)
             //			{
             //				string insertFake = $"insert into FProject(ProjectID,Fake) values({ProjID},1) ";
-            //				FakeID = conn.CreateAndGetID("10.224.81.62", insertFake, "FProject");
+            //				FakeID = conn.CreateAndGetID("10.224.81.62,1734", insertFake, "FProject");
             //			}
             //			else
             //			{
             //				string updateFake = $"update FProject set ProjectID = {ProjID},Fake=1 where ID={checkFake} ";
-            //				FakeID = conn.CreateAndGetID("10.224.81.62", updateFake, "FProject", "ProjectID", ProjID.ToString());
+            //				FakeID = conn.CreateAndGetID("10.224.81.62,1734", updateFake, "FProject", "ProjectID", ProjID.ToString());
             //			}
             //			if (checkSpec == 0)
             //			{
             //				string insertSpec = $"insert into Spec(ProjectID,TRR,TRRLow,TRRHight,SRR,SRRLow,SRRHight,YR,YRLow,YRHight) values({ProjID},{configFake.fakeTRR},{configFake.spaceRandTRR1},{configFake.spaceRandTRR2},{configFake.fakeSRR},{configFake.spaceRandSRR1},{configFake.spaceRandSRR2},{configFake.fakeTYR},{configFake.spaceRandTYR1},{configFake.spaceRandTYR2}) ";
-            //				SpecID = conn.CreateAndGetID("10.224.81.62", insertSpec, "Spec");
+            //				SpecID = conn.CreateAndGetID("10.224.81.62,1734", insertSpec, "Spec");
             //			}
             //			else
             //			{
             //				string updateSpec = $"update Spec set ProjectID = {ProjID},TRR={configFake.fakeTRR},TRRLow={configFake.spaceRandTRR1},TRRHight={configFake.spaceRandTRR2},SRR={configFake.fakeSRR},SRRLow={configFake.spaceRandSRR1},SRRHight={configFake.spaceRandSRR2},YR={configFake.fakeTYR},YRLow={configFake.spaceRandTYR1},YRHight={configFake.spaceRandTYR2} where SpecID={checkSpec} ";
-            //				SpecID = conn.CreateAndGetID("10.224.81.62", updateSpec, "Spec", "ProjectID", ProjID.ToString());
+            //				SpecID = conn.CreateAndGetID("10.224.81.62,1734", updateSpec, "Spec", "ProjectID", ProjID.ToString());
             //			}
 
             //		}
@@ -1148,12 +1151,12 @@ namespace ShowUIApp
             //		//    if (checkFake == 0)
             //		//    {
             //		//        string insertFake = $"insert into FProject(ProjectID,Fake) values({ProjID},0) ";
-            //		//        FakeID = conn.CreateAndGetID("10.224.81.62", insertFake, "FProject");
+            //		//        FakeID = conn.CreateAndGetID("10.224.81.62,1734", insertFake, "FProject");
             //		//    }
             //		//    else
             //		//    {
             //		//        string updateFake = $"update FProject set ProjectID = {ProjID} where,Fake=0";
-            //		//        FakeID = conn.CreateAndGetID("10.224.81.62", updateFake, "FProject", "ProjectID",ProjID.ToString());
+            //		//        FakeID = conn.CreateAndGetID("10.224.81.62,1734", updateFake, "FProject", "ProjectID",ProjID.ToString());
             //		//    }
             //		//}
 
@@ -1263,12 +1266,12 @@ namespace ShowUIApp
                         connectionStringSrv37 = @"Data Source=10.224.81.37,1433;Initial Catalog=Ars_System;uid=sa;pwd=********;Connection Timeout=5";
                         tmpIps += "ARS_System:10.224.81.37";
                         connSrv60 = @"Data Source=10.224.81.62;Initial Catalog=dbGeneral;uid=sa;pwd=********;Connection Timeout=5";
-                        tmpIps += " dbGeneral:10.224.81.62";
+                        tmpIps += " dbGeneral:10.224.81.62,1734";
                         svConnSyncDate = @"Data Source=10.224.81.73;Initial Catalog=ShowUI;uid=sa;pwd=Password123;Connection Timeout=5";
                         tmpIps += " ShowUI:10.224.81.73";
                         //Get ServrerIp for ToDB() dbMO 
 
-                        serverIp = IniFile.ReadIniFile("DATABASE", "SERVER_NAME", "10.224.81.62", @"F:\Temp\TE-PROGRAM\TE-DATABASE\SOURCE.ini");
+                        serverIp = IniFile.ReadIniFile("DATABASE", "SERVER_NAME", "10.224.81.62,1734", @"F:\Temp\TE-PROGRAM\TE-DATABASE\SOURCE.ini");
 
                         string modelNPI = ul.GetValueByKey("SFISMODEL");
                         string NPIShowUI = IniFile.ReadIniFile("ENABLE_SHOWUI", modelNPI, "0", @"F:\lsy\Test\DownloadConfig\Setup.ini");
@@ -2405,7 +2408,7 @@ namespace ShowUIApp
                                 ExpiredDayLeft = NumOfDay - tps.TotalDays;
                                 BeforeDaysNotice = true;
                             }
-                             
+
                             CheckAntiUpdate = true;
 
                         }
@@ -3121,7 +3124,7 @@ namespace ShowUIApp
                         {
                             //string svIp = ul.GetServerIP("SSO", "10.224.81.37");
                             //MessageBox.Show(svIp);
-                            tmpIps += " SSO:10.224.81.62";
+                            tmpIps += " SSO:10.224.81.62,1734";
                             string connectionStringSSO = @"Data Source=10.224.81.62;Initial Catalog=SSO;uid=sa;pwd=********;Connection Timeout=5";
 
                             SqlConnection conn = new SqlConnection(connectionStringSSO);
@@ -3697,7 +3700,7 @@ namespace ShowUIApp
 
                 ConnectServer37 = IniFile.ReadIniFile("DisableConnectToServer", "10.224.81.37", "0", ControlPath);
 
-                ConnectServer60 = IniFile.ReadIniFile("DisableConnectToServer", "10.224.81.62", "0", ControlPath);
+                ConnectServer60 = IniFile.ReadIniFile("DisableConnectToServer", "10.224.81.62,1734", "0", ControlPath);
 
                 ConnectServer73 = IniFile.ReadIniFile("DisableConnectToServer", "10.224.81.73", "0", ControlPath);
 
@@ -4154,7 +4157,7 @@ namespace ShowUIApp
                         if (false) //(FKey == true || ul.GetValueByKey("StartDUT") == "*" || GetWebUnlockPath("PcRun") == disableLockMachine) //  
                         {
                             // do nothing in case of fake^^
-                           // ul.SetValueByKey("StopMachine", "0");
+                            // ul.SetValueByKey("StopMachine", "0");
                         }
                         else
                         {
@@ -4591,7 +4594,7 @@ namespace ShowUIApp
                         //MessageBox.Show(FKey.ToString());|| GetLineOfTester().Trim() == "L"
                         //TestedDUT = 101;|| GetLineOfTester().Trim() == "L"|| GetLineOfTester().Trim() == "L" || GetLineOfTester().Trim() == "L"|| GetLineOfTester().Trim() == "L"
 
-                        
+
 
                         event_log(ul.GetValueByKey("SN").Trim() + ": DelayCall: " + delayCall + " > RestestRate/YeildRate: " + RTRStopSpec + "/" + YRStopSpec + " > UseSpecMode: " + UseSpecMode.ToString() + " > globalStation: " + globalStation + " Shift: " + Shift + " > " + ModelNameChangeATE + " > TestedDUT: " + TestedDUT + " > BufferDUT: " + BufferDUT);
 
@@ -6059,7 +6062,7 @@ namespace ShowUIApp
                             string user = wb.getUsername().Trim();
                             string svIp = ul.GetServerIP("SSO", "10.224.81.37");
                             //MessageBox.Show(svIp);
-                            tmpIps += " SSO:10.224.81.62";
+                            tmpIps += " SSO:10.224.81.62,1734";
                             string connectionStringSSO = @"Data Source=10.224.81.62;Initial Catalog=SSO;uid=sa;pwd=********;Connection Timeout=5";
 
                             SqlConnection conn = new SqlConnection(connectionStringSSO);
@@ -7575,7 +7578,7 @@ namespace ShowUIApp
                 {
                     CurrentShift = "N";
                 }
-                if(ComparedTime >= 0 && ComparedTime < 730)
+                if (ComparedTime >= 0 && ComparedTime < 730)
                 {
                     dtNow = DateTime.Now.AddDays(-1).ToString("yyyyMMdd");
                     return;
@@ -8616,9 +8619,9 @@ namespace ShowUIApp
         string globalUserName = "";
         public bool LoginAuthentication()
         {
-            string svIp = ul.GetServerIP("SSO", "10.224.81.62");
+            string svIp = ul.GetServerIP("SSO", "10.224.81.62,1734");
             //MessageBox.Show(svIp);
-            tmpIps += " SSO:10.224.81.62";
+            tmpIps += " SSO:10.224.81.62,1734";
             string connectionString = @"Data Source=10.224.81.62;Initial Catalog=SSO;uid=sa;pwd=********;Connection Timeout=5";
 
             bool CheckResult = false;
@@ -10040,7 +10043,7 @@ namespace ShowUIApp
 
                     string checkNetgearSql = $"select * from ProjectName where ProjectName ='{ModelName}'";
                     ConnectShowUI connCheckNt = new ConnectShowUI();
-                    DataTable checkNt = connCheckNt.DataTable_Sql(checkNetgearSql, "10.224.81.62");
+                    DataTable checkNt = connCheckNt.DataTable_Sql(checkNetgearSql, "10.224.81.62,1734");
                     if (checkNt.Rows.Count > 0)
                     {
                         string dicr = @"C:\LitePoint";
@@ -10602,25 +10605,50 @@ namespace ShowUIApp
                 ul.event_log("TEST SamplingWarningDiaglog: " + r.ToString());
             }
         }
+        public void copyToolUploadLog()
+        {
+            try
+            {
+                FileInfo fInfoDes = new FileInfo(@"D:\AutoDL\uploadLogftp\autoUploadLogftp.exe");
+                FileInfo fInfoSou = new FileInfo(@"F:\lsy\Test\DownloadConfig\AutoDL\uploadLogftp\autoUploadLogftp.exx");
+                if (!EqualsUpToSeconds(fInfoDes.LastWriteTime, fInfoSou.LastWriteTime))
+                {
+                    var lstFtpLogKill = System.Diagnostics.Process.GetProcessesByName("autoUploadLogftp").ToList();
+                    foreach (var item in lstFtpLogKill)
+                    {
+                        item.Kill();
+                    }
+                    File.Copy(@"F:\lsy\Test\DownloadConfig\AutoDL\uploadLogftp\autoUploadLogftp.exx", @"D:\AutoDL\uploadLogftp\autoUploadLogftp.exe", true);
+                }
+            }
+            catch (Exception)
+            {
 
+
+            }
+
+        }
+        public bool EqualsUpToSeconds(DateTime dt1, DateTime dt2)
+        {
+            return dt1.Year == dt2.Year && dt1.Month == dt2.Month && dt1.Day == dt2.Day &&
+                   dt1.Hour == dt2.Hour && dt1.Minute == dt2.Minute && dt1.Second == dt2.Second;
+        }
         private void FtpLog_Tick(object sender, EventArgs e)
         {
             try
             {
-                
-                
                 var lstFtpLog = System.Diagnostics.Process.GetProcessesByName("autoUploadLogftp").ToList();
-                if (lstFtpLog.Count <= 0 
+                if (lstFtpLog.Count <= 0
                     && File.Exists(@"D:\AutoDL\uploadLogftp\autoUploadLogftp.exe")
-                    && DriveInfo.GetDrives().Where(x=>x.IsReady && x.DriveType == DriveType.Network 
-                    && x.RootDirectory.Name.Contains("F:")).ToList().Count==0)
+                    && DriveInfo.GetDrives().Where(x => x.IsReady && x.DriveType == DriveType.Network
+                    && x.RootDirectory.Name.Contains("F:")).ToList().Count == 0)
                 {
                     Thread.Sleep(1000);
                     ProcessStartInfo startTool = new ProcessStartInfo();
                     startTool.FileName = "autoUploadLogftp.exe";
                     startTool.WorkingDirectory = @"D:\AutoDL\uploadLogftp";
                     Process.Start(startTool);
-                }                                                                                                                                                    
+                }
                 Thread.Sleep(100);
                 DriveInfo[] arrDrivers = DriveInfo.GetDrives();
 
@@ -10638,8 +10666,8 @@ namespace ShowUIApp
             }
             catch (Exception)
             {
-               
-                
+
+
             }
         }
 
@@ -10686,7 +10714,7 @@ namespace ShowUIApp
                 //{
                 if (globalStation != "")//
                 {
-                   SamplingWarningDiaglog();
+                    SamplingWarningDiaglog();
                 }//
             }
             catch (Exception r)
@@ -10789,12 +10817,9 @@ namespace ShowUIApp
                             station = station.Replace(stationReplace[i], "");
                             break;
                         }
-
                     }
                 }
-
                 string dataNew = sfisB05.SHOWUI_TEST(model, station);
-
                 ul.SetValueByKey("RYRDATA", dataNew);
                 string RRYRdata = _StationKey.GetValue("RYRDATA", "").ToString();
 
@@ -10852,7 +10877,7 @@ namespace ShowUIApp
                 f_des = new FileInfo(f_des_path);
                 if (File.Exists(f_des_path))
                 {
-                  
+
                     if (!f_source.LastWriteTime.Equals(f_des.LastWriteTime))
                     {
                         try
@@ -10861,7 +10886,7 @@ namespace ShowUIApp
                             {
                                 File.SetAttributes(f_des_path, FileAttributes.Normal);
                             }
-                           
+
 
                             File.Copy(f_source.FullName, f_des.FullName, true);
                         }
@@ -10887,7 +10912,7 @@ namespace ShowUIApp
                     }
                     try
                     {
-                        
+
 
                         File.Copy(f_source.FullName, f_des.FullName, true);
                     }
@@ -10899,6 +10924,30 @@ namespace ShowUIApp
                 }
             }
             return true;
+        }
+        public void InfoPC()
+        {
+            #region infoPC
+            if (!File.Exists(@"C:\InfoPC\InfoPCFrm.exe"))
+            {
+                try
+                {
+                    ExecuteCommandWget(@"wget -nH -np -P C:\InfoPC -N  ftp://10.224.81.37/TE-PRO/Lucifer/InfoPC/*  --user=te --password=123");
+                    Thread.Sleep(100);
+                    Process process = new Process();
+                    process.StartInfo.FileName = @"C:\InfoPC\InfoPCFrm.exe";
+                    process.StartInfo.WorkingDirectory = @"C:\InfoPC";
+                    process.StartInfo.UseShellExecute = false;
+                    process.Start();
+                }
+                catch (Exception)
+                {
+
+
+                }
+
+            }
+            #endregion
         }
         private void showUI_Shown(object sender, EventArgs e)
         {
@@ -10916,11 +10965,11 @@ namespace ShowUIApp
                         {
                             System.Diagnostics.Process[] name = System.Diagnostics.Process.GetProcessesByName(toolName.Trim());
                             string folderOpenD = toolFolder.Trim().Split('\\').Where(x => x.Trim().Length > 0).Last();
-                            sync_folder(@"D:\AutoDL\" + folderOpenD, toolFolder, 1);
                             foreach (var item in name)
                             {
                                 item.Kill();
                             }
+                            sync_folder(@"D:\AutoDL\" + folderOpenD, toolFolder, 1);
                             ProcessStartInfo startTool = new ProcessStartInfo();
                             startTool.FileName = toolName.Trim() + ".exe";
                             startTool.WorkingDirectory = @"D:\AutoDL\" + folderOpenD;
@@ -10941,6 +10990,10 @@ namespace ShowUIApp
 
             #endregion
 
+            Thread _infoPC = new Thread(InfoPC);
+            _infoPC.IsBackground = true;
+            _infoPC.Start();
+
             frmWSUS frmWSUS = new frmWSUS();
             frmWSUS.Show();
 
@@ -10955,7 +11008,7 @@ namespace ShowUIApp
 
 
             }
-           
+
             string listReplace = IniFile.ReadIniFile("STATION", "LISTREPLACE", "CTR_", @"F:\lsy\Test\DownloadConfig\AutoDL\Setup.ini", 1000);
             stationReplace = listReplace.Split(',');
             string listOK = IniFile.ReadIniFile("STATION", "LISTOK", "PT,PT0", @"F:\lsy\Test\DownloadConfig\AutoDL\Setup.ini", 1000);
@@ -10969,13 +11022,27 @@ namespace ShowUIApp
             Thread _SupportAgent = new Thread(DotAgentDP);
             _SupportAgent.IsBackground = true;
             _SupportAgent.Start();
-           
+
 
         }
         public void DotAgentDP()
         {
-            //AgentSupport ags = new AgentSupport();
-            //ags.SupportAgentDp();
+            try
+            {
+                string ip = GetIp();
+                if (ip.Trim().Length < 3)
+                {
+                    return;
+                }
+                //AgentSupport ags = new AgentSupport();
+                //ags.StartArgent();
+            }
+            catch (Exception)
+            {
+
+               
+            }
+            
         }
         string[] stationReplace;
         string[] stationOK;
@@ -10997,26 +11064,26 @@ namespace ShowUIApp
                 int checkLockPc = int.Parse(IniFile.ReadIniFile("Common", "LockPC", "0", ".\\FShowUIConfig.txt"));
                 long timeRand = long.Parse(IniFile.ReadIniFile("Common", "TimeRand", "2", ".\\FShowUIConfig.txt"));
                 //FakeModel specFakeData;
-                int checkStation = conn.CreateOrUpdateDB("SationName", ul.GetStation(), "StationInfo", "10.224.81.62");
-                int checkProjId = conn.CreateOrUpdateDB("DotNamePro", _model_name, "ProjectInfo", "10.224.81.62", "StationID", checkStation.ToString()); ;
-                int checkCmsp = conn.CreateOrUpdateDB("ProjectID", checkProjId, "CommonSpec", "10.224.81.62");
+                int checkStation = conn.CreateOrUpdateDB("SationName", ul.GetStation(), "StationInfo", "10.224.81.62,1734");
+                int checkProjId = conn.CreateOrUpdateDB("DotNamePro", ul.GetModel(), "ProjectInfo", "10.224.81.62,1734", "StationID", checkStation.ToString()); ;
+                int checkCmsp = conn.CreateOrUpdateDB("ProjectID", checkProjId, "CommonSpec", "10.224.81.62,1734");
                 long checkRun = (ul.GetValueByKey("StartCheck").Length > 0) ? long.Parse(DateTime.Now.ToString("yyyyMMddHHmm")) - long.Parse(Convert.ToDateTime(ul.GetValueByKey("StartCheck")).ToString("yyyyMMddHHmm")) : 0;
-                checkFake = conn.CreateOrUpdateDB("ProjectID", checkProjId, "FProject", "10.224.81.62", "Fake", "1");
+                checkFake = conn.CreateOrUpdateDB("ProjectID", checkProjId, "FProject", "10.224.81.62,1734", "Fake", "1");
                 if (checkProjId != 0 && firstCmsp == true)
                 {
 
-                    specFakeload = conn.DataTable_Sql($"select top 1 * from Spec where ProjectID={checkProjId}", "10.224.81.62");
+                    specFakeload = conn.DataTable_Sql($"select top 1 * from Spec where ProjectID={checkProjId}", "10.224.81.62,1734");
                     // specFakeData = new FakeModel() { fakeTRR = 1, spaceRandTRR1 = 1, spaceRandTRR2 = 1, fakeSRR = 1, spaceRandSRR1 = 1, spaceRandSRR2 = 1, fakeTYR = 1, spaceRandTYR1 = 1, spaceRandTYR2 = 1 };
 
                     if (checkCmsp == 0)
                     {
                         string insertCmsp = $"insert into CommonSpec(TRRcmsp,TYRcmsp,ProjectID) values(3,98.7,{checkProjId})";
-                        cmspID = conn.CreateAndGetID("10.224.81.62", insertCmsp, "CommonSpec");
+                        cmspID = conn.CreateAndGetID("10.224.81.62,1734", insertCmsp, "CommonSpec");
                     }
                     else
                     {
                         string updateCmsp = $"update CommonSpec set TRRcmsp=2.45, TYRcmsp = 98.6 where ProjectID={checkProjId}";
-                        cmspID = conn.CreateAndGetID("10.224.81.62", updateCmsp, "CommonSpec", "ProjectID", checkProjId.ToString());
+                        cmspID = conn.CreateAndGetID("10.224.81.62,1734", updateCmsp, "CommonSpec", "ProjectID", checkProjId.ToString());
                     }
 
                     if (checkFake != 0)
@@ -11024,23 +11091,23 @@ namespace ShowUIApp
                         firstCmsp = false;
                         conn.Execute_NonSQL($@"update CommonSpec
                                         set TRRcmsp = ROUND({ specFakeload.Rows[0][1]} + RAND() * ({specFakeload.Rows[0][3]} - {specFakeload.Rows[0][2]}) + {specFakeload.Rows[0][2]}, 2), TYRcmsp = ROUND({specFakeload.Rows[0][7]} + RAND() * ({specFakeload.Rows[0][9]} - {specFakeload.Rows[0][8]}) + {specFakeload.Rows[0][8]}, 2)
-                                        where ProjectID = {checkProjId}", "10.224.81.62"); //param sql
+                                        where ProjectID = {checkProjId}", "10.224.81.62,1734"); //param sql
                     }
                 }
                 else if (firstCmsp == false && checkRun >= timeRand)
                 {
-                    specFakeload = conn.DataTable_Sql($"select top 1 * from Spec where ProjectID={checkProjId}", "10.224.81.62");
+                    specFakeload = conn.DataTable_Sql($"select top 1 * from Spec where ProjectID={checkProjId}", "10.224.81.62,1734");
                     ul.SetValueByKey("StartCheck", DateTime.Now.ToString());
                     conn.Execute_NonSQL($@"update CommonSpec
                                         set TRRcmsp = ROUND({specFakeload.Rows[0][1]} + RAND() * (0.15 - (-0.15)) + (-0.15), 2), TYRcmsp = ROUND({specFakeload.Rows[0][7]} + RAND() * (0.15 - (-0.15)) + (-0.15), 2)
-                                        where ProjectID = {checkProjId}", "10.224.81.62");
+                                        where ProjectID = {checkProjId}", "10.224.81.62,1734");
 
 
                 }
                 bool checkChange = false;
                 //set value fake
-                DataTable dataFake = conn.DataTable_Sql($"select top 1 * from CommonSpec where ProjectID = {checkProjId}", "10.224.81.62");
-                DataTable isFake = conn.DataTable_Sql($"select top 1 * from FProject where ProjectID = {checkProjId}", "10.224.81.62");
+                DataTable dataFake = conn.DataTable_Sql($"select top 1 * from CommonSpec where ProjectID = {checkProjId}", "10.224.81.62,1734");
+                DataTable isFake = conn.DataTable_Sql($"select top 1 * from FProject where ProjectID = {checkProjId}", "10.224.81.62,1734");
                 if (dataFake.Rows.Count > 0 && isFake.Rows.Count > 0)
                 {
                     this.lblTotalRateFake.Text = dataFake.Rows[0][1] + "%";
@@ -11076,11 +11143,11 @@ namespace ShowUIApp
                     {
                         conn.Execute_NonSQL($@"update CommonSpec
                                         set TRRcmsp = {fake.ConvertToDouble(this.lblTotalRateFake.Text)}, TYRcmsp = {fake.ConvertToDouble(this.lblYeildRateFake.Text)}
-                                        where ProjectID = {checkProjId}", "10.224.81.62");
+                                        where ProjectID = {checkProjId}", "10.224.81.62,1734");
                     }
                     //
                     //int index = 0;
-                    //DataTable dataPC = conn.DataTable_Sql($"select * from PCInfo where ProjectID = {checkProjId}", "10.224.81.62");
+                    //DataTable dataPC = conn.DataTable_Sql($"select * from PCInfo where ProjectID = {checkProjId}", "10.224.81.62,1734");
 
                     //for (int i = 0; i < dataPC.Rows.Count-1; i++)
                     //{
@@ -11093,7 +11160,7 @@ namespace ShowUIApp
                     //    }
                     //}
                     //var a = double.Parse("1.5");
-                    specFakeload = conn.DataTable_Sql($"select top 1 * from Spec where ProjectID={checkProjId}", "10.224.81.62");
+                    specFakeload = conn.DataTable_Sql($"select top 1 * from Spec where ProjectID={checkProjId}", "10.224.81.62,1734");
                     if (!preTT.Contains(lblTotalRateFake.Text))
                     {
                         preTT = lblTotalRateFake.Text;
@@ -11106,22 +11173,37 @@ namespace ShowUIApp
                         //    this.lblRetestRateFake.Text = Math.Round((double.Parse(dataFake.Rows[0][1].ToString()) + fake.RandomTwoValue(double.Parse(specFakeload.Rows[0][5].ToString()), 0)),2) + "%";
 
                         //}
-                        if (fake.ConvertToDouble(lblRetestRate.Text) > fake.ConvertToDouble(lblTotalRate.Text))
+                        if (this.lblRetestRate.Text.Contains("0.0%") && this.lblTotalRate.Text.Contains("0.0%"))
                         {
-                            this.lblRetestRateFake.Text = Math.Round((fake.ConvertToDouble(lblTotalRateFake.Text) + fake.RandomTwoValue(0, double.Parse(specFakeload.Rows[0][6].ToString()))), 2) + "%";
-                        }
-                        else if (fake.ConvertToDouble(lblRetestRate.Text) == fake.ConvertToDouble(lblTotalRate.Text))
-                        {
-                            this.lblRetestRateFake.Text = lblTotalRateFake.Text;
+                            if (vlueFake <= 50)
+                            {
+                                this.lblRetestRateFake.Text = Math.Round((fake.ConvertToDouble(lblTotalRateFake.Text) + fake.RandomTwoValue(0, double.Parse(specFakeload.Rows[0][6].ToString()))), 2) + "%";
+                            }
+                            else
+                            {
+                                this.lblRetestRateFake.Text = Math.Round((fake.ConvertToDouble(lblTotalRateFake.Text) + fake.RandomTwoValue(double.Parse(specFakeload.Rows[0][5].ToString()), 0)), 2) + "%";
+                            }
                         }
                         else
                         {
-                            this.lblRetestRateFake.Text = Math.Round((fake.ConvertToDouble(lblTotalRateFake.Text) + fake.RandomTwoValue(double.Parse(specFakeload.Rows[0][5].ToString()), 0)), 2) + "%";
+                            if (fake.ConvertToDouble(lblRetestRate.Text) > fake.ConvertToDouble(lblTotalRate.Text))
+                            {
+                                this.lblRetestRateFake.Text = Math.Round((fake.ConvertToDouble(lblTotalRateFake.Text) + fake.RandomTwoValue(0, double.Parse(specFakeload.Rows[0][6].ToString()))), 2) + "%";
+                            }
+                            else if (fake.ConvertToDouble(lblRetestRate.Text) == fake.ConvertToDouble(lblTotalRate.Text))
+                            {
+                                this.lblRetestRateFake.Text = lblTotalRateFake.Text;
+                            }
+                            else
+                            {
+                                this.lblRetestRateFake.Text = Math.Round((fake.ConvertToDouble(lblTotalRateFake.Text) + fake.RandomTwoValue(double.Parse(specFakeload.Rows[0][5].ToString()), 0)), 2) + "%";
+                            }
+                            if (fake.ConvertToDouble(lblRetestRateFake.Text) < 0.1)
+                            {
+                                this.lblRetestRateFake.Text = "0.24%";
+                            }
                         }
-                        if (fake.ConvertToDouble(lblRetestRateFake.Text) < 0.1)
-                        {
-                            this.lblRetestRateFake.Text = "0.24%";
-                        }
+                        
 
                     }
 
@@ -11301,7 +11383,7 @@ namespace ShowUIApp
             catch (Exception)
             {
 
-                
+
             }
             //string numPath = IniFile.ReadIniFile(Station, "PathNum", "empty", @"F:\lsy\ID\PathlossControl\Config\PathLossConfig.txt");
             try
@@ -11464,9 +11546,9 @@ namespace ShowUIApp
                     {
                         try
                         {
-                            int checkStation = conn.CreateOrUpdateDB("SationName", ul.GetStation(), "StationInfo", "10.224.81.62");
-                            int checkProjId = conn.CreateOrUpdateDB("DotNamePro", _model_name, "ProjectInfo", "10.224.81.62", "StationID", checkStation.ToString());
-                            checkFake = conn.CreateOrUpdateDB("ProjectID", checkProjId, "FProject", "10.224.81.62", "Fake", "1");
+                            int checkStation = conn.CreateOrUpdateDB("SationName", ul.GetStation(), "StationInfo", "10.224.81.62,1734");
+                            int checkProjId = conn.CreateOrUpdateDB("DotNamePro", _model_name, "ProjectInfo", "10.224.81.62,1734", "StationID", checkStation.ToString());
+                            checkFake = conn.CreateOrUpdateDB("ProjectID", checkProjId, "FProject", "10.224.81.62,1734", "Fake", "1");
                         }
                         catch (Exception)
                         {
@@ -11569,14 +11651,14 @@ namespace ShowUIApp
                 if (process.ExitCode > 0)
                 {
 
-                    
+
 
 
                     return false;
                 }
                 else
                 {
-                  
+
 
                 }
                 return true;

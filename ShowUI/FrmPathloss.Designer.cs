@@ -64,6 +64,7 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmPathloss";
+            this.ShowIcon = false;
             this.Text = "FrmPathloss";
             this.Load += new System.EventHandler(this.FrmPathloss_Load);
             this.ResumeLayout(false);

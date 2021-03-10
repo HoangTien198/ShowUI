@@ -51,6 +51,7 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmStationWarning";
+            this.ShowIcon = false;
             this.Text = "frmStationWarning";
             this.Load += new System.EventHandler(this.frmStationWarning_Load);
             this.ResumeLayout(false);
