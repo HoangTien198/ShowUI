@@ -13,12 +13,16 @@ namespace ShowUI
     public partial class frmUnlockRequirements : Form
     {
         bool checkDataLowhight = false;
-        public frmUnlockRequirements(bool isData)
+        string errorDetail = "";
+        DateTime startTime;
+        public frmUnlockRequirements(bool isData,string locdetail,DateTime dt)
         {
             InitializeComponent();
 
             IDEmp.Hide();
             checkDataLowhight = isData;
+            errorDetail = locdetail;
+            startTime = dt;
         }
 
         private void lblClose_Click(object sender, EventArgs e)
@@ -57,6 +61,7 @@ namespace ShowUI
             }
             else
             {
+                
                 if (checkHHEmp() == true) {
                     if (reason.Text.Trim().Length==0)
                     {
@@ -64,6 +69,22 @@ namespace ShowUI
                     }
                     else
                     {
+                        if (reason.Text.Trim().Length == 1)
+                        {
+                            if (reason.Text.Contains("1"))
+                            {
+                                reason.Text = "fisrt run line";
+                            }
+                            if (reason.Text.Contains("2"))
+                            {
+                                reason.Text = "fixture issue";  
+                            }
+                            if (reason.Text.Contains("3"))
+                            {
+                                reason.Text = "equipment issue";
+                            }
+
+                        }
                         ExTable();
 
                     }
@@ -81,13 +102,13 @@ namespace ShowUI
         ShowUI.Utilities ul = new Utilities();
         public void ExTable()
         {
-            string sqlEx = "insert into UnlockShowUI(EmpID,PC_IP,PC_NAME,Line,Model,Reason,Station,OpenTime) values(";
-            string value = Int32.Parse(IDEmp.Text)+",'"+ ul.GetNICGatewayIP()+"','"+ Environment.MachineName+"','" + GetLineOfTester().Trim().Remove(0, 1)+"','"+ul.GetProduct()+"','"+reason.Text.Trim()+"','"+ul.GetStation()+"','" + DateTime.Now+"')";
+            string sqlEx = "insert into DataUnlockShowUI(EmpID,PC_IP,PC_NAME,Line,Model,ReasonOpen,Station,OpenTime,LockReason,LockTime) values(";
+            string value = Int32.Parse(IDEmp.Text)+",'"+ ul.GetNICGatewayIP()+"','"+ Environment.MachineName+"','" + GetLineOfTester().Trim().Remove(0, 1)+"','"+ul.GetProduct()+"','"+reason.Text.Trim()+"','"+ul.GetStation()+"','" + DateTime.Now+"',N'"+ errorDetail + "','"+ startTime + "')";
             string sql = sqlEx + value;
             DbHHEmp hhEmp = new DbHHEmp();
             try
             {
-                int ex = hhEmp.Execute_NonSQL(sql, "10.224.81.62");
+                int ex = hhEmp.Execute_NonSQL(sql, "10.224.81.62,1734");
                 this.DialogResult = DialogResult.OK;
             }
             catch (Exception)
@@ -104,7 +125,7 @@ namespace ShowUI
             string queryEmp = "select * from Employee where HonHaiCode = '" + txtUser.Text.Trim() + "' and PassWord = '" + txtPass.Text.Trim()+"'";
 
             DbHHEmp hhEmp = new DbHHEmp();
-            DataTable dt = hhEmp.DataTable_Sql(queryEmp, "10.224.81.62");
+            DataTable dt = hhEmp.DataTable_Sql(queryEmp, "10.224.81.62,1734");
             if (dt.Rows.Count == 0)
             {
                 return false;
@@ -165,8 +186,8 @@ namespace ShowUI
 
         private void frmUnlockRequirements_Load(object sender, EventArgs e)
         {
-            txtUser.Text = "Sander";
-            txtPass.Text = "********";
+            txtUser.Text = "V0974919";
+            txtPass.Text = "123456";
             this.TopMost = true;
         }
         public string GetLineOfTester()

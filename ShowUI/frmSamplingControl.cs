@@ -65,7 +65,7 @@ namespace ShowUI
 
                 ul.SetValueByKey("SamplingTimeOut", "1");
                 ul.SetValueByKey("Show_sampling", show_wd);
-
+                lbStation.Text = stationInfo;
                 this.Invoke((MethodInvoker)delegate
                 {
 
@@ -84,7 +84,7 @@ namespace ShowUI
             _tSampling.IsBackground = true;
             _tSampling.Start();
 
-            //
+
             tUpdateOutput.Start();
             tCountDown.Start();
 
@@ -100,6 +100,7 @@ namespace ShowUI
         {
             try
             {
+               
                 //show_sampling = ul.GetValueByKey("Show_sampling").ToString();
                 string[] st = stationInfo.Split(',');
                 for (int i = 0; i < st.Length; i++)

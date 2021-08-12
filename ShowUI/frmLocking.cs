@@ -40,9 +40,15 @@ namespace ShowUI
         int _TestedDUT = 0;
         string _globalUsedMode = "0";
         string _BufferDUT = "50";
+        DateTime startTime = DateTime.Now;
 
         string conn, connectionString;
         int idFii;
+        public frmLocking()
+        {
+            InitializeComponent();
+            lbBoom.Text = "Cable over spec! gọi Te!";
+        }
 
         public frmLocking(string _LockCondition, string _Error, bool UseSpecMode, int TestedDUT, string globalUsedMode, string BufferDUT, int _idFii)
         {
@@ -83,6 +89,12 @@ namespace ShowUI
 
             }
 
+            tbl_unlockData.Visible = true;
+            tbl_unlockData.Show();
+            
+            tbUnlock.Hide();
+
+
             TestDUTCount = _BufferDUT;
             //
         }
@@ -103,7 +115,7 @@ namespace ShowUI
 
                 if (tbxAction.Text != "")
                 {
-                    using (frmUnlockRequirements frm = new frmUnlockRequirements(false))
+                    using (frmUnlockRequirements frm = new frmUnlockRequirements(false,"", startTime))
                     {
                         this.TopMost = false;
                         frm.TopMost = true;
@@ -180,7 +192,7 @@ namespace ShowUI
                                                 _tSaveUnlockDataSampling.IsBackground = true;
                                                 _tSaveUnlockDataSampling.Start();
                                                 SetStopMachineStatus(true);
-                                                FiiData.UpdateFii(idFii, tbxAction.Text, EmpID);
+                                               // FiiData.UpdateFii(idFii, tbxAction.Text, EmpID);
                                             }
                                             else
                                             {
@@ -222,7 +234,7 @@ namespace ShowUI
                                                 AutoClosingMessageBox.Show("Thông tin mở máy đã được lưu. Mở khóa máy thành công!", "Notice Message Box", 5000);
                                                 SetWebUnlockPath("SPECIALLOCK", Key);
 
-                                                FiiData.UpdateFii(idFii, tbxAction.Text, EmpID);
+                                                //FiiData.UpdateFii(idFii, tbxAction.Text, EmpID);
 
                                             }
                                             SetStopMachineStatus(true);
@@ -1045,8 +1057,8 @@ namespace ShowUI
                 // Get value for stopline
 
 
-                timer1.Enabled = true;
-                timer1.Interval = 10000;
+               // timer1.Enabled = true;
+               // timer1.Interval = 10000;
                 this.TopMost = true;
             }
             catch (Exception)
@@ -1058,9 +1070,9 @@ namespace ShowUI
         {
             try
             {
-                conn = @"Data Source=10.224.81.62;Initial Catalog=dbGeneral;uid=sa;pwd=********;Connection Timeout=5";
-                string svIp = "10.224.81.62";//ul.GetServerIP("SSO", "10.224.81.37");
-                connectionString = @"Data Source=10.224.81.62;Initial Catalog=SSO;uid=sa;pwd=********;Connection Timeout=5";
+                conn = @"Data Source=10.224.81.62,1734;Initial Catalog=dbGeneral;uid=sa;pwd=********;Connection Timeout=5";
+                string svIp = "10.224.81.62,1734";//ul.GetServerIP("SSO", "10.224.81.37");
+                connectionString = @"Data Source=10.224.81.62,1734;Initial Catalog=SSO;uid=sa;pwd=********;Connection Timeout=5";
 
 
                 // Get ServrerIp for ToDB() dbMO
@@ -1114,7 +1126,7 @@ namespace ShowUI
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-
+           
             try
             {
 
@@ -1278,7 +1290,7 @@ namespace ShowUI
         {
             try
             {
-                using (frmUnlockRequirements frm = new frmUnlockRequirements(false))
+                using (frmUnlockRequirements frm = new frmUnlockRequirements(false,"", startTime))
                 {
                     this.TopMost = false;
                     frm.TopMost = true;
@@ -1435,7 +1447,8 @@ namespace ShowUI
 
         private void tbl_unlockData_Click(object sender, EventArgs e)
         {
-            using (frmUnlockRequirements frm = new frmUnlockRequirements(true))
+          
+            using (frmUnlockRequirements frm = new frmUnlockRequirements(true, lbBoom.Text, startTime))
             {
                 this.TopMost = false;
                 frm.TopMost = true;

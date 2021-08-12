@@ -52,6 +52,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmStationWarning";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "frmStationWarning";
             this.Load += new System.EventHandler(this.frmStationWarning_Load);
             this.ResumeLayout(false);

@@ -68,6 +68,7 @@
             this.tbUnlock.TabIndex = 9;
             this.tbUnlock.Text = "Unlock";
             this.tbUnlock.UseVisualStyleBackColor = true;
+            this.tbUnlock.Visible = false;
             this.tbUnlock.Click += new System.EventHandler(this.tbUnlock_Click);
             // 
             // groupBox1
@@ -107,7 +108,6 @@
             this.tbl_unlockData.TabIndex = 13;
             this.tbl_unlockData.Text = "Unlock";
             this.tbl_unlockData.UseVisualStyleBackColor = true;
-            this.tbl_unlockData.Visible = false;
             this.tbl_unlockData.Click += new System.EventHandler(this.tbl_unlockData_Click);
             // 
             // lbBoom
@@ -172,11 +172,12 @@
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
+            this.timer1.Interval = 30000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // DelayTimer
             // 
+            this.DelayTimer.Interval = 30000;
             this.DelayTimer.Tick += new System.EventHandler(this.DelayTimer_Tick);
             // 
             // frmLocking

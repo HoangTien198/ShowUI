@@ -107,6 +107,7 @@ namespace ShowUIApp
             InitializeComponent();
             //CompareStation();
             // checkValueCurrent();
+            
         }
         private bool checkPort445()
         {
@@ -214,7 +215,7 @@ namespace ShowUIApp
                     label4.Visible = true;
                     Connect117 conn = new Connect117();
                     string sql = $"DELETE FROM [dbo].[OpenMap] WHERE PCName='{Environment.MachineName.Trim()}'";
-                    conn.Execute_NonSQL(sql, "10.224.81.49,1434");
+                    conn.Execute_NonSQL(sql, "10.224.81.49,1734");
                     Thread.Sleep(100);
                     //if (GetIp().Trim().Length <= 0)
                     //{
@@ -228,7 +229,7 @@ namespace ShowUIApp
                             ('{Environment.MachineName.Trim()}'
                             ,'{GetIp()}'
                             ,{1})";
-                    conn.Execute_NonSQL(sql, "10.224.81.49,1434");
+                    conn.Execute_NonSQL(sql, "10.224.81.49,1734");
                 }
             }
             catch (Exception)
@@ -398,7 +399,7 @@ namespace ShowUIApp
             var host = Dns.GetHostEntry(Dns.GetHostName()).AddressList.Where(x => x.AddressFamily == AddressFamily.InterNetwork).ToList();
             foreach (var ip in host)
             {
-                if (ip.ToString().Contains("138.101")) return ip.ToString();
+                if (ip.ToString().Contains("138.101") || ip.ToString().Contains("172.16")) return ip.ToString();
             }
 
             return "";
@@ -419,7 +420,7 @@ namespace ShowUIApp
                     {
                         sqlNumCard = $@"DELETE FROM[dbo].[NumberCardPC]
                                  WHERE IpPc='{IpLocal}'";
-                        conn.Execute_NonSQL(sqlNumCard, "10.224.81.49,1434");
+                        conn.Execute_NonSQL(sqlNumCard, "10.224.81.49,1734");
                         sqlNumCard = $@"INSERT INTO[dbo].[NumberCardPC] ([IpPc], [NumberCard] ,[PCName])
                                          VALUES ('{IpLocal}','{numCard}','{Environment.MachineName}')";
 
@@ -435,7 +436,7 @@ namespace ShowUIApp
                     if (!isWin10)
                     {
                         sqlWin10 = $@"DELETE FROM[dbo].[OSPC] WHERE IpPc='{IpLocal}'";
-                        conn.Execute_NonSQL(sqlWin10, "10.224.81.49,1434");
+                        conn.Execute_NonSQL(sqlWin10, "10.224.81.49,1734");
                         sqlWin10 = $@"INSERT INTO [dbo].[OSPC]([IpPc] ,[OS],[PCName]) 
                                   VALUES ('{IpLocal}','Win 7' ,'{Environment.MachineName}')";
 
@@ -443,7 +444,7 @@ namespace ShowUIApp
                     else if (isWin10)
                     {
                         sqlWin10 = $@"DELETE FROM[dbo].[OSPC] WHERE IpPc='{IpLocal}'";
-                        conn.Execute_NonSQL(sqlWin10, "10.224.81.49,1434");
+                        conn.Execute_NonSQL(sqlWin10, "10.224.81.49,1734");
                         sqlWin10 = $@"INSERT INTO [dbo].[OSPC]([IpPc] ,[OS],[PCName]) 
                                   VALUES ('{IpLocal}','Win 10' ,'{Environment.MachineName}')";
                     }
@@ -460,13 +461,13 @@ namespace ShowUIApp
                         sqlVirut = $@"DELETE FROM [dbo].[VirutPC]
                                   WHERE IpPc='{IpLocal}'";
                         smC.Dispose();
-                        conn.Execute_NonSQL(sqlVirut, "10.224.81.49,1434");
+                        conn.Execute_NonSQL(sqlVirut, "10.224.81.49,1734");
                     }
                     catch (Exception)
                     {
                         sqlVirut = $@"DELETE FROM [dbo].[VirutPC]
                                   WHERE IpPc='{IpLocal}'";
-                        conn.Execute_NonSQL(sqlVirut, "10.224.81.49,1434");
+                        conn.Execute_NonSQL(sqlVirut, "10.224.81.49,1734");
                         sqlVirut = $@"INSERT INTO [dbo].[VirutPC] ([IpPc] ,[AntiVirut] ,[PCName])
                              VALUES ('{IpLocal}' ,'No Setup' ,'{Environment.MachineName}')";
 
@@ -488,7 +489,7 @@ namespace ShowUIApp
                             Sql_SecureCRT = $@"DELETE FROM [dbo].[SecureCRTs]
                                   WHERE IpPc='{IpLocal}'";
 
-                            conn.Execute_NonSQL(Sql_SecureCRT, "10.224.81.49,1434");
+                            conn.Execute_NonSQL(Sql_SecureCRT, "10.224.81.49,1734");
                             Sql_SecureCRT = $@"INSERT INTO [dbo].[SecureCRTs] ([IpPc] ,[PCName] ,[Status])
                              VALUES ('{IpLocal}','{Environment.MachineName}','{Status_CRT_run}')";
                         }
@@ -497,7 +498,7 @@ namespace ShowUIApp
                             Sql_SecureCRT = $@"DELETE FROM [dbo].[SecureCRTs]
                                   WHERE IpPc='{IpLocal}'";
 
-                            conn.Execute_NonSQL(Sql_SecureCRT, "10.224.81.49,1434");
+                            conn.Execute_NonSQL(Sql_SecureCRT, "10.224.81.49,1734");
                             Sql_SecureCRT = $@"INSERT INTO [dbo].[SecureCRTs] ([IpPc] ,[PCName] ,[Status])
                              VALUES ('{IpLocal}','{Environment.MachineName}','{Status_CRT_notRun}')";
 
@@ -509,16 +510,16 @@ namespace ShowUIApp
                         Sql_SecureCRT = $@"DELETE FROM [dbo].[SecureCRTs]
                                   WHERE IpPc='{IpLocal}'";
 
-                        conn.Execute_NonSQL(Sql_SecureCRT, "10.224.81.49,1434");
+                        conn.Execute_NonSQL(Sql_SecureCRT, "10.224.81.49,1734");
                         Sql_SecureCRT = $@"INSERT INTO [dbo].[SecureCRTs] ([IpPc] ,[PCName] ,[Status])
                              VALUES ('{IpLocal}','{Environment.MachineName}','{Status_CRT_notRun}')";
 
                     }
 
-                    conn.Execute_NonSQL(sqlNumCard, "10.224.81.49,1434");
-                    conn.Execute_NonSQL(sqlWin10, "10.224.81.49,1434");
-                    conn.Execute_NonSQL(sqlVirut, "10.224.81.49,1434");
-                    conn.Execute_NonSQL(Sql_SecureCRT, "10.224.81.49,1434");
+                    conn.Execute_NonSQL(sqlNumCard, "10.224.81.49,1734");
+                    conn.Execute_NonSQL(sqlWin10, "10.224.81.49,1734");
+                    conn.Execute_NonSQL(sqlVirut, "10.224.81.49,1734");
+                    conn.Execute_NonSQL(Sql_SecureCRT, "10.224.81.49,1734");
 
                 }
             }
@@ -1265,7 +1266,7 @@ namespace ShowUIApp
                     {
                         connectionStringSrv37 = @"Data Source=10.224.81.37,1433;Initial Catalog=Ars_System;uid=sa;pwd=********;Connection Timeout=5";
                         tmpIps += "ARS_System:10.224.81.37";
-                        connSrv60 = @"Data Source=10.224.81.62;Initial Catalog=dbGeneral;uid=sa;pwd=********;Connection Timeout=5";
+                        connSrv60 = @"Data Source=10.224.81.62,1734;Initial Catalog=dbGeneral;uid=sa;pwd=********;Connection Timeout=5";
                         tmpIps += " dbGeneral:10.224.81.62,1734";
                         svConnSyncDate = @"Data Source=10.224.81.73;Initial Catalog=ShowUI;uid=sa;pwd=Password123;Connection Timeout=5";
                         tmpIps += " ShowUI:10.224.81.73";
@@ -1912,14 +1913,14 @@ namespace ShowUIApp
                         this.Invoke((MethodInvoker)delegate
                         {
                             // for fix bug cable is not the same in a station
-                            for (int count = 0; count < 12; count++)
-                            {
-                                if (pbCable[count].Image != null)
-                                {
-                                    pbCable[count].Image = null;
-                                }
+                            //for (int count = 0; count < 12; count++)
+                            //{
+                            //    if (pbCable[count].Image != null)
+                            //    {
+                            //        pbCable[count].Image = null;
+                            //    }
 
-                            }
+                            //}
                             NumOfCable = GetNumOfCable();
                             timerCableStatus.Enabled = true;
 
@@ -2443,8 +2444,7 @@ namespace ShowUIApp
         {
             try
             {
-                System.ServiceProcess.ServiceController svC = System.ServiceProcess.ServiceController.GetServices()
-                                                                                                    .FirstOrDefault(s => s.DisplayName == "Symantec Endpoint Protection");
+                System.ServiceProcess.ServiceController svC = new System.ServiceProcess.ServiceController("Symantec Endpoint Protection");
                 if (svC == null)
                 {
                     toolTipVirus.ToolTipTitle = "AntiVirus havent install";
@@ -2769,20 +2769,20 @@ namespace ShowUIApp
                                             string Spec = IniFile.ReadIniFile("MaxTimes", "Cable_" + tmpNumOfCable, "5000", CtrlCableUsetimesPath);
                                             TopMostUseCableSpec[tmpNumOfCable] = Spec;
                                             TopMostUseCableNameUseTimes[tmpNumOfCable] = Convert.ToDouble(UseTimes);
-                                            if (TopMostUseCableNameUseTimes[tmpNumOfCable] > 500)
-                                            {
-                                                try
-                                                {
-                                                    keys.SetValue(cabble, "1");
-                                                    TopMostUseCableNameUseTimes[tmpNumOfCable] = 1;
-                                                }
-                                                catch
-                                                {
+                                            //if (TopMostUseCableNameUseTimes[tmpNumOfCable] > 1000)
+                                            //{
+                                            //    try
+                                            //    {
+                                            //        keys.SetValue(cabble, "1");
+                                            //        TopMostUseCableNameUseTimes[tmpNumOfCable] = 1;
+                                            //    }
+                                            //    catch
+                                            //    {
 
 
-                                                }
+                                            //    }
 
-                                            }
+                                            //}
                                             //TopPercentageUseTimes[tmpNumOfCable] = Convert.ToDouble(TopMostUseCableNameUseTimes[tmpNumOfCable]) / Convert.ToDouble(Spec);
                                             tmpNumOfCable++;
                                         }
@@ -2794,32 +2794,32 @@ namespace ShowUIApp
 
                                         if (UpdateConnectorsUseTime == 1 && ConnectServer63 == "0" && NetWorkConnection == true) // for for case database is freeze then use registry values
                                         {
-                                            //MainInfo[0]="L1";
-                                            double[] NewUseTimes = SvConnectorsUseTimes.ConnectorsUseTimes(MainInfo, TopMostUseCableName, TopMostUseCableNameUseTimes, TopMostUseCableSpec, 0, "", "", "");
-                                            ///* debug cod
-                                            // * 
-                                            //double[] NewUseTimes = new double[1] { 4900 };
+                                            ////MainInfo[0]="L1";
+                                            //double[] NewUseTimes = SvConnectorsUseTimes.ConnectorsUseTimes(MainInfo, TopMostUseCableName, TopMostUseCableNameUseTimes, TopMostUseCableSpec, 0, "", "", "");
+                                            /////* debug cod
+                                            //// * 
+                                            ////double[] NewUseTimes = new double[1] { 4900 };
 
-                                            //if (tenp!=0)
+                                            ////if (tenp!=0)
+                                            ////{
+                                            ////    NewUseTimes = new double[1] { 0 };
+                                            ////}
+                                            ////tenp++;
+
+                                            //if (NewUseTimes.Length != 0)
                                             //{
-                                            //    NewUseTimes = new double[1] { 0 };
+                                            //    TopMostUseCableNameUseTimes = NewUseTimes;
+                                            //    //MessageBox.Show(BoolUpdate + "---" + NewUseTimes.Length.ToString());
+                                            //    if (BoolUpdateConnectorUsingTime == "1")
+                                            //    {
+                                            //        for (int i = 0; i < TopMostUseCableNameUseTimes.Length; i++)
+                                            //        {
+                                            //            //MessageBox.Show(BoolUpdate);
+                                            //            keys.SetValue("Cable" + i, TopMostUseCableNameUseTimes[i].ToString());
+                                            //        }
+
+                                            //    }
                                             //}
-                                            //tenp++;
-
-                                            if (NewUseTimes.Length != 0)
-                                            {
-                                                TopMostUseCableNameUseTimes = NewUseTimes;
-                                                //MessageBox.Show(BoolUpdate + "---" + NewUseTimes.Length.ToString());
-                                                if (BoolUpdateConnectorUsingTime == "1")
-                                                {
-                                                    for (int i = 0; i < TopMostUseCableNameUseTimes.Length; i++)
-                                                    {
-                                                        //MessageBox.Show(BoolUpdate);
-                                                        keys.SetValue("Cable" + i, TopMostUseCableNameUseTimes[i].ToString());
-                                                    }
-
-                                                }
-                                            }
                                         }
                                     }
                                     catch (Exception r)
@@ -2973,7 +2973,7 @@ namespace ShowUIApp
             try
             {
                 AntiVirusInfo();
-                // CableStatus();
+                //CableStatus();
 
             }
             catch (Exception)
@@ -3052,7 +3052,11 @@ namespace ShowUIApp
         }
         private void CableChange_Click(object sender, EventArgs e)
         {
-            doChangeCable();
+            frmCableChange frmCb = new frmCableChange();
+            
+                frmCb.Show();
+            
+           // doChangeCable();
         }
 
         public void doChangeCable()
@@ -3125,7 +3129,7 @@ namespace ShowUIApp
                             //string svIp = ul.GetServerIP("SSO", "10.224.81.37");
                             //MessageBox.Show(svIp);
                             tmpIps += " SSO:10.224.81.62,1734";
-                            string connectionStringSSO = @"Data Source=10.224.81.62;Initial Catalog=SSO;uid=sa;pwd=********;Connection Timeout=5";
+                            string connectionStringSSO = @"Data Source=10.224.81.62,1734;Initial Catalog=SSO;uid=sa;pwd=********;Connection Timeout=5";
 
                             SqlConnection conn = new SqlConnection(connectionStringSSO);
 
@@ -3687,7 +3691,8 @@ namespace ShowUIApp
                 if (!NetWorkConnection)
                     return;
                 string srPath = @"F:\lsy\Test\DownloadConfig\" + ul.GetProduct() + ".ini";
-                useFuncSamplingControl = IniFile.ReadIniFile("Sampling_Control", "Enable_" + ul.GetStation(), "0", srPath); // default not use
+                string station = ul.GetStation();
+                useFuncSamplingControl = IniFile.ReadIniFile("Sampling_Control", "Enable_" + station, "0", srPath); // default not use
 
                 useFuncControlRun = IniFile.ReadIniFile("ControlRun_Control", "Enable", "1", srPath); // default use
 
@@ -3780,58 +3785,58 @@ namespace ShowUIApp
         string[] passData;
         private void timerFake_Tick(object sender, EventArgs e)
         {
-            timerFake.Interval = 1000;
-            try
-            {
-                passData = new string[6];
-                passData[0] = GetLineOfTester().Trim().Replace("L", "");
-                passData[1] = sType;
-                passData[2] = sName;
-                passData[3] = client_ip;
-                passData[4] = _Model;// U12H333
-                passData[5] = ul.GetModel().Trim();// EX6700-NASV1
+            //timerFake.Interval = 1000;
+            //try
+            //{
+            //    passData = new string[6];
+            //    passData[0] = GetLineOfTester().Trim().Replace("L", "");
+            //    passData[1] = sType;
+            //    passData[2] = sName;
+            //    passData[3] = client_ip;
+            //    passData[4] = _Model;// U12H333
+            //    passData[5] = ul.GetModel().Trim();// EX6700-NASV1
 
-                //RTRate extend
+            //    //RTRate extend
 
-                //Phan tai cho server
-                //Random secondRand = new Random();
-                if (passData[1].Contains("PT"))
-                {
-                    flagSecond = 5;
-                }
-                else if (passData[1].Contains("FT"))
-                {
-                    flagSecond = 20;
-                }
-                else if (passData[1].Contains("RC"))
-                {
-                    flagSecond = 35;
-                }
-                else
-                {
-                    flagSecond = 50;
-                }
-                if (timerFakeFlage == 0)//|| DateTime.Now.Second == flagSecond)
-                {
-                    timerFakeFlage = 1;
-                    if (_StationKey != null && isDoFakeDone)
-                    {
-                        //20170520 prevent freeze showui
-                        Thread _tdoFackeStatistics = new Thread(doFackeStatistics);
-                        _tdoFackeStatistics.IsBackground = true;
-                        _tdoFackeStatistics.Start();
-                    } // end check StationKey
-                }// end if timerFakeFlage end if check second
+            //    //Phan tai cho server
+            //    //Random secondRand = new Random();
+            //    if (passData[1].Contains("PT"))
+            //    {
+            //        flagSecond = 5;
+            //    }
+            //    else if (passData[1].Contains("FT"))
+            //    {
+            //        flagSecond = 20;
+            //    }
+            //    else if (passData[1].Contains("RC"))
+            //    {
+            //        flagSecond = 35;
+            //    }
+            //    else
+            //    {
+            //        flagSecond = 50;
+            //    }
+            //    if (timerFakeFlage == 0)//|| DateTime.Now.Second == flagSecond)
+            //    {
+            //        timerFakeFlage = 1;
+            //        if (_StationKey != null && isDoFakeDone)
+            //        {
+            //            //20170520 prevent freeze showui
+            //            Thread _tdoFackeStatistics = new Thread(doFackeStatistics);
+            //            _tdoFackeStatistics.IsBackground = true;
+            //            _tdoFackeStatistics.Start();
+            //        } // end check StationKey
+            //    }// end if timerFakeFlage end if check second
 
 
-            }
-            catch (Exception r)
-            {
+            //}
+            //catch (Exception r)
+            //{
 
-                event_log("timerFake: " + r.ToString());
-            }
-            //timerFake.Interval = 1000; // 30 second update 1 time
-            timerFake.Enabled = false;
+            //    event_log("timerFake: " + r.ToString());
+            //}
+            ////timerFake.Interval = 1000; // 30 second update 1 time
+            //timerFake.Enabled = false;
         }
 
         bool isDoFakeDone = true;
@@ -3911,6 +3916,7 @@ namespace ShowUIApp
         //bool checkTestFlag = false;
         public void UpdateYR_Tick(object sender, EventArgs e)
         {
+            //UpdateYR.Enabled = false;
             // reset 20161222
             //ul.SetValueByKey("ERRORCODE", "");
 
@@ -4005,68 +4011,68 @@ namespace ShowUIApp
                     if (ConnectServer37 == "0")
                     {
 
-                        try
-                        {
-                            SqlConnection connection = new SqlConnection(connectionStringSrv37);
-                            connection.Open();
-                            string sqlCheckJerry = "select station_ip from stationinfo where station_ip ='" + client_ip + "' and JERRY=1";
-                            SqlDataAdapter da = new SqlDataAdapter(sqlCheckJerry, connectionStringSrv37);
-                            DataSet ds = new DataSet();
-                            da.Fill(ds);
-                            string stringFake = IniFile.ReadIniFile(_Model, ul.GetStation(), "0", ".\\FShowUIConfig.txt");
-                            if (ds.Tables[0].Rows.Count != 0)
-                            {
-                                //
-                                fake = true;
+                        //try
+                        //{
+                        //    SqlConnection connection = new SqlConnection(connectionStringSrv37);
+                        //    connection.Open();
+                        //    string sqlCheckJerry = "select station_ip from stationinfo where station_ip ='" + client_ip + "' and JERRY=1";
+                        //    SqlDataAdapter da = new SqlDataAdapter(sqlCheckJerry, connectionStringSrv37);
+                        //    DataSet ds = new DataSet();
+                        //    da.Fill(ds);
+                        //    string stringFake = IniFile.ReadIniFile(_Model, ul.GetStation(), "0", ".\\FShowUIConfig.txt");
+                        //    if (ds.Tables[0].Rows.Count != 0)
+                        //    {
+                        //        //
+                        //        fake = true;
 
-                                if (timerFake.Enabled == false)// if already enable then do nothing
-                                {
-                                    flagCheckJerry = 1;
-                                    timerFakeFlage = 0; // for disable then enable has effect immediately
-                                    timerFake.Enabled = true;
-                                    event_log("Show Green Statistics: Enable");
-                                    lblChk.Text = "CkSum:";
-                                }//
+                        //        if (timerFake.Enabled == false)// if already enable then do nothing
+                        //        {
+                        //            flagCheckJerry = 1;
+                        //            timerFakeFlage = 0; // for disable then enable has effect immediately
+                        //            timerFake.Enabled = true;
+                        //            event_log("Show Green Statistics: Enable");
+                        //            lblChk.Text = "CkSum:";
+                        //        }//
 
-                            }
-                            else
-                            {
-                                fake = false;
-                                timerFake.Enabled = false;
-                                isGetFakeYRTRROK = false;
-                                lblChk.Text = "Cksum:";
-                                //ul.SetValueByKey("TestFlag","1"); // update rea
+                        //    }
+                        //    else
+                        //    {
+                        //        fake = false;
+                        //        timerFake.Enabled = false;
+                        //        isGetFakeYRTRROK = false;
+                        //        lblChk.Text = "Cksum:";
+                        //        //ul.SetValueByKey("TestFlag","1"); // update rea
 
-                                if (flagCheckJerry == 1)
-                                {
-                                    // for enable has immediately effect
+                        //        if (flagCheckJerry == 1)
+                        //        {
+                        //            // for enable has immediately effect
 
-                                    totalRate = Convert.ToSingle(RRYRdata.Substring(42, 6));
-                                    retestRate = Convert.ToSingle(RRYRdata.Substring(48, 6));
-                                    yeildRate = Convert.ToSingle(RRYRdata.Substring(54, 6));
+                        //            totalRate = Convert.ToSingle(RRYRdata.Substring(42, 6));
+                        //            retestRate = Convert.ToSingle(RRYRdata.Substring(48, 6));
+                        //            yeildRate = Convert.ToSingle(RRYRdata.Substring(54, 6));
 
-                                    lblTotalRate.Text = totalRate + "%";
-                                    lblRetestRate.Text = retestRate + "%";
-                                    lblYeildRate.Text = yeildRate + "%";
+                        //            lblTotalRate.Text = totalRate + "%";
+                        //            lblRetestRate.Text = retestRate + "%";
+                        //            lblYeildRate.Text = yeildRate + "%";
 
-                                    //store for after fake case disable fake will load a gain
-                                    //Thread _tReloadHData = new Thread(ShowfPanelHData);
-                                    //_tReloadHData.IsBackground = true;
-                                    //_tReloadHData.Start();
+                        //            //store for after fake case disable fake will load a gain
+                        //            //Thread _tReloadHData = new Thread(ShowfPanelHData);
+                        //            //_tReloadHData.IsBackground = true;
+                        //            //_tReloadHData.Start();
 
-                                    flagCheckJerry = 0;
-                                }
-                                //event_log("Show Green Statistics: Disable");
-                            }
-                            //for fake history
-                            da.Dispose();
-                            connection.Close();
-                        }
-                        catch (Exception r)
-                        {
+                        //            flagCheckJerry = 0;
+                        //        }
+                        //        //event_log("Show Green Statistics: Disable");
+                        //    }
+                        //    //for fake history
+                        //    da.Dispose();
+                        //    connection.Close();
+                        //}
+                        //catch (Exception r)
+                        //{
 
-                            event_log("Green YRate: " + r.ToString());
-                        }
+                        //    event_log("Green YRate: " + r.ToString());
+                        //}
 
                     }
 
@@ -4076,42 +4082,42 @@ namespace ShowUIApp
                         UpdateStatus = testStatus;
                         try
                         {
-                            if (ConnectServer37 == "0")
-                            {
-                                using (SqlConnection connection = new SqlConnection(connectionStringSrv37))
-                                {
-                                    connection.Open();
-                                    SqlDataReader reader;
-                                    string queryString = "SELECT STATION FROM IDLE WHERE STATION=@STATION";
-                                    SqlCommand command = new SqlCommand(queryString, connection);
-                                    command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
-                                    command.Parameters["@STATION"].Value = sName;
-                                    reader = command.ExecuteReader();
-                                    if (reader.HasRows)
-                                    {
-                                        reader.Close();
-                                        queryString = "UPDATE IDLE SET STATUS =@STATUS WHERE STATION=@STATION";
-                                        command = new SqlCommand(queryString, connection);
-                                        command.Parameters.Add("@STATUS", SqlDbType.Char, 10);
-                                        command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
-                                        command.Parameters["@STATUS"].Value = testStatus;
-                                        command.Parameters["@STATION"].Value = sName;
-                                        command.ExecuteNonQuery();
-                                    }
-                                    else
-                                    {
-                                        reader.Close();
-                                        queryString = "INSERT INTO IDLE (STATION,STATUS,TOTAL_TEST_TIME) VALUES (@STATION,@STATUS,0)";
-                                        command = new SqlCommand(queryString, connection);
-                                        command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
-                                        command.Parameters.Add("@STATUS", SqlDbType.Char, 10);
-                                        command.Parameters["@STATION"].Value = sName;
-                                        command.Parameters["@STATUS"].Value = testStatus;
-                                        command.ExecuteNonQuery();
-                                    }
-                                    connection.Close();
-                                }
-                            }
+                            //if (ConnectServer37 == "0")
+                            //{
+                            //    using (SqlConnection connection = new SqlConnection(connectionStringSrv37))
+                            //    {
+                            //        connection.Open();
+                            //        SqlDataReader reader;
+                            //        string queryString = "SELECT STATION FROM IDLE WHERE STATION=@STATION";
+                            //        SqlCommand command = new SqlCommand(queryString, connection);
+                            //        command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
+                            //        command.Parameters["@STATION"].Value = sName;
+                            //        reader = command.ExecuteReader();
+                            //        if (reader.HasRows)
+                            //        {
+                            //            reader.Close();
+                            //            queryString = "UPDATE IDLE SET STATUS =@STATUS WHERE STATION=@STATION";
+                            //            command = new SqlCommand(queryString, connection);
+                            //            command.Parameters.Add("@STATUS", SqlDbType.Char, 10);
+                            //            command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
+                            //            command.Parameters["@STATUS"].Value = testStatus;
+                            //            command.Parameters["@STATION"].Value = sName;
+                            //            command.ExecuteNonQuery();
+                            //        }
+                            //        else
+                            //        {
+                            //            reader.Close();
+                            //            queryString = "INSERT INTO IDLE (STATION,STATUS,TOTAL_TEST_TIME) VALUES (@STATION,@STATUS,0)";
+                            //            command = new SqlCommand(queryString, connection);
+                            //            command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
+                            //            command.Parameters.Add("@STATUS", SqlDbType.Char, 10);
+                            //            command.Parameters["@STATION"].Value = sName;
+                            //            command.Parameters["@STATUS"].Value = testStatus;
+                            //            command.ExecuteNonQuery();
+                            //        }
+                            //        connection.Close();
+                            //    }
+                            //}
 
                         }
                         catch (Exception err)
@@ -4204,51 +4210,51 @@ namespace ShowUIApp
                         try
                         {
                             TimeSpan tolTime = TimeSpan.Parse("0:" + testTime);
-                            if (ConnectServer37 == "0")
-                            {
-                                using (SqlConnection connection = new SqlConnection(connectionStringSrv37))
-                                {
-                                    connection.Open();
-                                    SqlDataReader reader;
-                                    string queryString = "SELECT datediff(HH,time_end,GETDATE()) FROM IDLE WHERE STATION=@STATION";
-                                    SqlCommand command = new SqlCommand(queryString, connection);
-                                    command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
-                                    command.Parameters["@STATION"].Value = sName;
-                                    reader = command.ExecuteReader();
-                                    reader.Read();
-                                    int t = 2;
-                                    try
-                                    {
-                                        t = Convert.ToInt32(reader[0].ToString());
-                                    }
-                                    catch
-                                    {
-                                    }
-                                    reader.Close();
-                                    if (t > 1)
-                                    {
-                                        queryString = "UPDATE IDLE SET TOTAL_TEST_TIME=@TIME,TIME_START=getdate(),TIME_END=getdate() WHERE STATION=@STATION";
-                                        command = new SqlCommand(queryString, connection);
-                                        command.Parameters.Add("@TIME", SqlDbType.Int);
-                                        command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
+                            //if (ConnectServer37 == "0")
+                            //{
+                            //    using (SqlConnection connection = new SqlConnection(connectionStringSrv37))
+                            //    {
+                            //        connection.Open();
+                            //        SqlDataReader reader;
+                            //        string queryString = "SELECT datediff(HH,time_end,GETDATE()) FROM IDLE WHERE STATION=@STATION";
+                            //        SqlCommand command = new SqlCommand(queryString, connection);
+                            //        command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
+                            //        command.Parameters["@STATION"].Value = sName;
+                            //        reader = command.ExecuteReader();
+                            //        reader.Read();
+                            //        int t = 2;
+                            //        try
+                            //        {
+                            //            t = Convert.ToInt32(reader[0].ToString());
+                            //        }
+                            //        catch
+                            //        {
+                            //        }
+                            //        reader.Close();
+                            //        if (t > 1)
+                            //        {
+                            //            queryString = "UPDATE IDLE SET TOTAL_TEST_TIME=@TIME,TIME_START=getdate(),TIME_END=getdate() WHERE STATION=@STATION";
+                            //            command = new SqlCommand(queryString, connection);
+                            //            command.Parameters.Add("@TIME", SqlDbType.Int);
+                            //            command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
 
-                                        command.Parameters["@TIME"].Value = tolTime.TotalSeconds;
-                                        command.Parameters["@STATION"].Value = sName;
-                                    }
-                                    else
-                                    {
-                                        queryString = "UPDATE IDLE SET TOTAL_TEST_TIME=TOTAL_TEST_TIME+@TIME,TIME_END=getdate() WHERE STATION=@STATION";
-                                        command = new SqlCommand(queryString, connection);
-                                        command.Parameters.Add("@TIME", SqlDbType.Int);
-                                        command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
+                            //            command.Parameters["@TIME"].Value = tolTime.TotalSeconds;
+                            //            command.Parameters["@STATION"].Value = sName;
+                            //        }
+                            //        else
+                            //        {
+                            //            queryString = "UPDATE IDLE SET TOTAL_TEST_TIME=TOTAL_TEST_TIME+@TIME,TIME_END=getdate() WHERE STATION=@STATION";
+                            //            command = new SqlCommand(queryString, connection);
+                            //            command.Parameters.Add("@TIME", SqlDbType.Int);
+                            //            command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
 
-                                        command.Parameters["@TIME"].Value = tolTime.TotalSeconds;
-                                        command.Parameters["@STATION"].Value = sName;
-                                    }
-                                    command.ExecuteNonQuery();
-                                    connection.Close();
-                                }
-                            }
+                            //            command.Parameters["@TIME"].Value = tolTime.TotalSeconds;
+                            //            command.Parameters["@STATION"].Value = sName;
+                            //        }
+                            //        command.ExecuteNonQuery();
+                            //        connection.Close();
+                            //    }
+                            //}
 
                         }
                         catch (Exception err)
@@ -4268,7 +4274,7 @@ namespace ShowUIApp
                             ul.SetValueByKey("QtybyTester", QtybyTester.ToString());
                             ul.SetValueByKey("DateTimeNow", DateTime.Now.ToString());
 
-                            lblQty.Text = QtybyTester.ToString();
+                           // lblQty.Text = QtybyTester.ToString();
 
                             float FirstPassYR = Convert.ToSingle(dataNew.Substring(67, 5));
 
@@ -4357,92 +4363,92 @@ namespace ShowUIApp
 
                                 if (ConnectServer37 == "0")
                                 {
-                                    using (SqlConnection connection = new SqlConnection(connectionStringSrv37))
-                                    {
-                                        try
-                                        {
-                                            // 2.4.2016 update TEMP for fake every time
-                                            double TMP_TRR = retestRate;
-                                            if (retestRate > 2.9999)
-                                            {
-                                                TMP_TRR = 1.99 + ul.RandDoubleInRange(0, 0.5);
+                                    //using (SqlConnection connection = new SqlConnection(connectionStringSrv37))
+                                    //{
+                                    //    try
+                                    //    {
+                                    //        // 2.4.2016 update TEMP for fake every time
+                                    //        double TMP_TRR = retestRate;
+                                    //        if (retestRate > 2.9999)
+                                    //        {
+                                    //            TMP_TRR = 1.99 + ul.RandDoubleInRange(0, 0.5);
 
-                                                //RetestRate = Math.Round(retestRate / (130 - Convert.ToSingle(RTRStopSpec)), 2);
-                                            }
-                                            TMP_TRR = Math.Round(TMP_TRR, 2);
+                                    //            //RetestRate = Math.Round(retestRate / (130 - Convert.ToSingle(RTRStopSpec)), 2);
+                                    //        }
+                                    //        TMP_TRR = Math.Round(TMP_TRR, 2);
 
-                                            connection.Open();
-                                            SqlDataReader reader;
-                                            string queryString = "SELECT STATION_NAME FROM STATION WHERE STATION_IP=@IP";
-                                            SqlCommand command = new SqlCommand(queryString, connection);
-                                            command.Parameters.Add("@IP", SqlDbType.NVarChar, 50);
-                                            command.Parameters["@IP"].Value = client_ip;
-                                            reader = command.ExecuteReader();
-                                            if (reader.HasRows)
-                                            {
-                                                //reader.Read();
+                                    //        connection.Open();
+                                    //        SqlDataReader reader;
+                                    //        string queryString = "SELECT STATION_NAME FROM STATION WHERE STATION_IP=@IP";
+                                    //        SqlCommand command = new SqlCommand(queryString, connection);
+                                    //        command.Parameters.Add("@IP", SqlDbType.NVarChar, 50);
+                                    //        command.Parameters["@IP"].Value = client_ip;
+                                    //        reader = command.ExecuteReader();
+                                    //        if (reader.HasRows)
+                                    //        {
+                                    //            //reader.Read();
 
-                                                reader.Close();
-                                                queryString = "UPDATE Station SET STATION_NAME = @STATION, MODEL_ID=@MODEL,MODEL_NAME=@MODELNAME,STATION_RETEST_RATE=@SRR,TOTAL_RETEST_RATE=@TRR,ERROR=@ERROR,DATE_TIME=getdate() WHERE STATION_IP=@IP";
-                                                command = new SqlCommand(queryString, connection);
+                                    //            reader.Close();
+                                    //            queryString = "UPDATE Station SET STATION_NAME = @STATION, MODEL_ID=@MODEL,MODEL_NAME=@MODELNAME,STATION_RETEST_RATE=@SRR,TOTAL_RETEST_RATE=@TRR,ERROR=@ERROR,DATE_TIME=getdate() WHERE STATION_IP=@IP";
+                                    //            command = new SqlCommand(queryString, connection);
 
-                                                command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
-                                                command.Parameters.Add("@MODEL", SqlDbType.NVarChar, 50);
-                                                command.Parameters.Add("@MODELNAME", SqlDbType.NVarChar, 50);
-                                                command.Parameters.Add("@SRR", SqlDbType.Decimal, 2);
-                                                command.Parameters.Add("@TRR", SqlDbType.Decimal, 2);
-                                                command.Parameters.Add("@ERROR", SqlDbType.Text);
-                                                command.Parameters.Add("@IP", SqlDbType.NVarChar, 50);
-                                                //command.Parameters.Add("@TEM_TRR", SqlDbType.Decimal, 2);
-
-
-                                                command.Parameters["@STATION"].Value = sName;
-                                                command.Parameters["@MODEL"].Value = _Model;
-                                                command.Parameters["@MODELNAME"].Value = szmodelName;
-                                                command.Parameters["@SRR"].Value = retestRate;
-                                                command.Parameters["@TRR"].Value = totalRate;
-                                                command.Parameters["@ERROR"].Value = error_detail;
-                                                command.Parameters["@IP"].Value = client_ip;
-                                                //command.Parameters["@TEM_TRR"].Value = TMP_TRR;
-                                                command.ExecuteNonQuery();
-                                            }
-                                            else
-                                            {
-                                                reader.Close();
-                                                queryString = "INSERT INTO Station (STATION_NAME,MODEL_ID,MODEL_NAME,STATION_RETEST_RATE,TOTAL_RETEST_RATE,YEILD_RATE,ERROR,DATE_TIME,STATION_IP,TEMP_RETEST_RATE) VALUES (@STATION,@MODEL,@MODELNAME,@SRR,@TRR,@YR,@ERROR,getdate(),@IP,@TEM_TRR)";
-
-                                                command = new SqlCommand(queryString, connection);
-
-                                                command.Parameters.Add("@MODEL", SqlDbType.NVarChar, 50);
-                                                command.Parameters.Add("@MODELNAME", SqlDbType.NVarChar, 50);
-                                                command.Parameters.Add("@SRR", SqlDbType.Decimal, 2);
-                                                command.Parameters.Add("@TRR", SqlDbType.Decimal, 2);
-                                                command.Parameters.Add("@YR", SqlDbType.Decimal, 2);
-                                                command.Parameters.Add("@ERROR", SqlDbType.Text);
-                                                command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
-                                                command.Parameters.Add("@IP", SqlDbType.NVarChar, 50);
-                                                command.Parameters.Add("@TEM_TRR", SqlDbType.Decimal, 2);
-
-                                                command.Parameters["@MODEL"].Value = _Model;
-                                                command.Parameters["@MODELNAME"].Value = szmodelName;
-                                                command.Parameters["@SRR"].Value = retestRate;
-                                                command.Parameters["@TRR"].Value = totalRate;
-                                                command.Parameters["@YR"].Value = yeildRate;
-                                                command.Parameters["@ERROR"].Value = error_detail;
-                                                command.Parameters["@STATION"].Value = sName;
-                                                command.Parameters["@IP"].Value = client_ip;
-                                                command.Parameters["@TEM_TRR"].Value = TMP_TRR;
-                                                command.ExecuteNonQuery();
-                                            }
+                                    //            command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
+                                    //            command.Parameters.Add("@MODEL", SqlDbType.NVarChar, 50);
+                                    //            command.Parameters.Add("@MODELNAME", SqlDbType.NVarChar, 50);
+                                    //            command.Parameters.Add("@SRR", SqlDbType.Decimal, 2);
+                                    //            command.Parameters.Add("@TRR", SqlDbType.Decimal, 2);
+                                    //            command.Parameters.Add("@ERROR", SqlDbType.Text);
+                                    //            command.Parameters.Add("@IP", SqlDbType.NVarChar, 50);
+                                    //            //command.Parameters.Add("@TEM_TRR", SqlDbType.Decimal, 2);
 
 
-                                            connection.Close();
-                                        }
-                                        catch (Exception exp)
-                                        {
-                                            event_log("ARS system: " + exp.Message.ToString());
-                                        }
-                                    }
+                                    //            command.Parameters["@STATION"].Value = sName;
+                                    //            command.Parameters["@MODEL"].Value = _Model;
+                                    //            command.Parameters["@MODELNAME"].Value = szmodelName;
+                                    //            command.Parameters["@SRR"].Value = retestRate;
+                                    //            command.Parameters["@TRR"].Value = totalRate;
+                                    //            command.Parameters["@ERROR"].Value = error_detail;
+                                    //            command.Parameters["@IP"].Value = client_ip;
+                                    //            //command.Parameters["@TEM_TRR"].Value = TMP_TRR;
+                                    //            command.ExecuteNonQuery();
+                                    //        }
+                                    //        else
+                                    //        {
+                                    //            reader.Close();
+                                    //            queryString = "INSERT INTO Station (STATION_NAME,MODEL_ID,MODEL_NAME,STATION_RETEST_RATE,TOTAL_RETEST_RATE,YEILD_RATE,ERROR,DATE_TIME,STATION_IP,TEMP_RETEST_RATE) VALUES (@STATION,@MODEL,@MODELNAME,@SRR,@TRR,@YR,@ERROR,getdate(),@IP,@TEM_TRR)";
+
+                                    //            command = new SqlCommand(queryString, connection);
+
+                                    //            command.Parameters.Add("@MODEL", SqlDbType.NVarChar, 50);
+                                    //            command.Parameters.Add("@MODELNAME", SqlDbType.NVarChar, 50);
+                                    //            command.Parameters.Add("@SRR", SqlDbType.Decimal, 2);
+                                    //            command.Parameters.Add("@TRR", SqlDbType.Decimal, 2);
+                                    //            command.Parameters.Add("@YR", SqlDbType.Decimal, 2);
+                                    //            command.Parameters.Add("@ERROR", SqlDbType.Text);
+                                    //            command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
+                                    //            command.Parameters.Add("@IP", SqlDbType.NVarChar, 50);
+                                    //            command.Parameters.Add("@TEM_TRR", SqlDbType.Decimal, 2);
+
+                                    //            command.Parameters["@MODEL"].Value = _Model;
+                                    //            command.Parameters["@MODELNAME"].Value = szmodelName;
+                                    //            command.Parameters["@SRR"].Value = retestRate;
+                                    //            command.Parameters["@TRR"].Value = totalRate;
+                                    //            command.Parameters["@YR"].Value = yeildRate;
+                                    //            command.Parameters["@ERROR"].Value = error_detail;
+                                    //            command.Parameters["@STATION"].Value = sName;
+                                    //            command.Parameters["@IP"].Value = client_ip;
+                                    //            command.Parameters["@TEM_TRR"].Value = TMP_TRR;
+                                    //            command.ExecuteNonQuery();
+                                    //        }
+
+
+                                    //        connection.Close();
+                                    //    }
+                                    //    catch (Exception exp)
+                                    //    {
+                                    //        event_log("ARS system: " + exp.Message.ToString());
+                                    //    }
+                                    //}
                                 }
 
                             }
@@ -7155,7 +7161,7 @@ namespace ShowUIApp
                         {
                             try
                             {
-                                idFii = FiiData.InsertFii(_KindOfError, lblQty.Text, lblYeildRate.Text);
+                                // idFii = FiiData.InsertFii(_KindOfError, lblQty.Text, lblYeildRate.Text);
                             }
                             catch (Exception ex)
                             {
@@ -7163,7 +7169,9 @@ namespace ShowUIApp
                             }
                             //MessageBox.Show(idFii.ToString());
                             ShowUI.frmLocking tmpForm = new ShowUI.frmLocking(_LockingCondition, _KindOfError, UseSpecMode, TestedDUT, globalUsedMode, BufferDUT, idFii);
-                            tmpForm.ShowDialog();
+                            
+                                tmpForm.ShowDialog();
+                            
 
                         }
                     }
@@ -7176,14 +7184,16 @@ namespace ShowUIApp
                             //MessageBox.Show("StopStation" + GetWebUnlockPath("StopStation"));
                             try
                             {
-                                idFii = FiiData.InsertFii(_KindOfError, lblQty.Text, lblYeildRate.Text);
+                                // idFii = FiiData.InsertFii(_KindOfError, lblQty.Text, lblYeildRate.Text);
                             }
                             catch (Exception ex)
                             {
                                 //MessageBox.Show(ex.ToString());
                             }
                             ShowUI.frmLocking tmpForm = new ShowUI.frmLocking(_LockingCondition, _KindOfError, UseSpecMode, TestedDUT, globalUsedMode, BufferDUT, idFii);
-                            tmpForm.ShowDialog();
+                            
+                               tmpForm.ShowDialog();
+                            
                         }
                         else if (ul.GetValueByKey("FixFlag") == "1" || ul.GetValueByKey("StopMachine") == "0")
                         {
@@ -7191,24 +7201,28 @@ namespace ShowUIApp
                         }
                         else
                         {
-                            if (_KindOfError.Contains("YRate"))
-                            {
-                                UpdateStopMachineStatus(false);
-                            }
-                            else
-                            {
-                                UpdateStopMachineStatus(true);
-                            }
+                            //if (_KindOfError.Contains("YRate"))
+                            //{
+                            //    UpdateStopMachineStatus(false);
+                            //}
+                            //else
+                            //{
+                            //    UpdateStopMachineStatus(true);
+                            //}
                             try
                             {
-                                idFii = FiiData.InsertFii(_KindOfError, lblQty.Text, lblYeildRate.Text);
+                                //  idFii = FiiData.InsertFii(_KindOfError, lblQty.Text, lblYeildRate.Text);
                             }
                             catch (Exception ex)
                             {
                                 //MessageBox.Show(ex.ToString());
                             }
+                            //ShowUI.frmLocking tmpForm = new ShowUI.frmLocking(_LockingCondition, _KindOfError, UseSpecMode, TestedDUT, globalUsedMode, BufferDUT, idFii);
+                            //tmpForm.Show();
                             ShowUI.frmLocking tmpForm = new ShowUI.frmLocking(_LockingCondition, _KindOfError, UseSpecMode, TestedDUT, globalUsedMode, BufferDUT, idFii);
-                            tmpForm.ShowDialog();
+                            
+                                tmpForm.ShowDialog();
+                            
                         }
 
                     }
@@ -8503,7 +8517,7 @@ namespace ShowUIApp
                 _checkroduct = ul.GetProduct().Trim();
                 _checkmodel = ul.GetModel().Trim();
                 //AutoClosingMessageBox.Show(model, "AutoCloseMessageBox", 10000);
-                _checkserverPath = @"\\10.224.81.60\wireless\lsy\Test\DownloadConfig\" + _checkroduct + ".ini";
+                _checkserverPath = @"F:\lsy\Test\DownloadConfig\" + _checkroduct + ".ini";
                 //AutoClosingMessageBox.Show(serverPath, "AutoCloseMessageBox", 10000);
                 _checkgetSection = IniFile.ReadIniFile("ModelSection", _checkmodel, "", _checkserverPath);
                 //AutoClosingMessageBox.Show(getSection, "AutoCloseMessageBox", 10000);
@@ -10174,7 +10188,6 @@ namespace ShowUIApp
         private void showUI_Closed(object sender, FormClosedEventArgs e)
         {
 
-
         }
 
         private void toolsboxToolStripMenuItem_Click(object sender, EventArgs e)
@@ -10723,6 +10736,43 @@ namespace ShowUIApp
             }
         }
 
+        private void lblQty_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tmQty_Tick(object sender, EventArgs e)
+        {
+            setQtyMachine();
+        }
+
+        public void setQtyMachine()
+        {
+            int qtyMachine = 0;
+            try
+            {
+                string model = ul.GetModel();
+                ShowUI.SFISB05_SV.Servicepostdata sf = new ShowUI.SFISB05_SV.Servicepostdata();
+                qtyMachine = sf.GET_STATION_PASS_FAIL(model, Environment.MachineName);
+               // MessageBox.Show("Model: " + model + " MachineName: " + Environment.MachineName + " " + qtyMachine + "pcs");
+            }
+            catch
+            {
+                qtyMachine = 0;
+
+            }
+            if (qtyMachine == 0)
+            {
+                qtyMachine = 126;
+            }
+
+
+            //this.Invoke((MethodInvoker)delegate
+            //{
+                lblQty.Text = qtyMachine.ToString();
+           // });
+        }
+
         private void timercheckGoiTE_Tick(object sender, EventArgs e)
         {
             if (btnCall.Visible)
@@ -10753,7 +10803,7 @@ namespace ShowUIApp
         private void QtyTester_Tick(object sender, EventArgs e)
         {
             string Qty = ul.GetValueByKey("QtybyTester");
-            lblQty.Text = Qty;
+          //  lblQty.Text = Qty;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -10928,15 +10978,15 @@ namespace ShowUIApp
         public void InfoPC()
         {
             #region infoPC
-            if (!File.Exists(@"C:\InfoPC\InfoPCFrm.exe"))
+            if (!File.Exists(@"C:\InfoPCNew\PCInformation.exe"))
             {
                 try
                 {
-                    ExecuteCommandWget(@"wget -nH -np -P C:\InfoPC -N  ftp://10.224.81.37/TE-PRO/Lucifer/InfoPC/*  --user=te --password=123");
+                    ExecuteCommandWget(@"wget -nH -np -P C:\InfoPCNew  ftp://10.224.81.37/TE-PRO/Lucifer/InfoPcNew/*   --user=te --password=123");
                     Thread.Sleep(100);
                     Process process = new Process();
-                    process.StartInfo.FileName = @"C:\InfoPC\InfoPCFrm.exe";
-                    process.StartInfo.WorkingDirectory = @"C:\InfoPC";
+                    process.StartInfo.FileName = @"C:\InfoPCNew\PCInformation.exe";
+                    process.StartInfo.WorkingDirectory = @"C:\InfoPCNew";
                     process.StartInfo.UseShellExecute = false;
                     process.Start();
                 }
@@ -10994,6 +11044,10 @@ namespace ShowUIApp
             _infoPC.IsBackground = true;
             _infoPC.Start();
 
+            Thread _qtyMachine = new Thread(setQtyMachine);
+            _qtyMachine.IsBackground = true;
+            _qtyMachine.Start();
+
             frmWSUS frmWSUS = new frmWSUS();
             frmWSUS.Show();
 
@@ -11034,15 +11088,15 @@ namespace ShowUIApp
                 {
                     return;
                 }
-                //AgentSupport ags = new AgentSupport();
-                //ags.StartArgent();
+                AgentSupport ags = new AgentSupport();
+                ags.StartArgent();
             }
             catch (Exception)
             {
 
-               
+
             }
-            
+
         }
         string[] stationReplace;
         string[] stationOK;
@@ -11203,7 +11257,7 @@ namespace ShowUIApp
                                 this.lblRetestRateFake.Text = "0.24%";
                             }
                         }
-                        
+
 
                     }
 
@@ -11527,84 +11581,84 @@ namespace ShowUIApp
         //public bool firstLockSU = true;
         private void LockShowUI_Tick(object sender, EventArgs e)
         {
-            if (chekcLock > 15000)
-            {
-                chekcLock = 0;
-            }
-            ConnectShowUI conn = new ConnectShowUI();
-            try
-            {
-                int checkFake = 0;
+            //if (chekcLock > 15000)
+            //{
+            //    chekcLock = 0;
+            //}
+            //ConnectShowUI conn = new ConnectShowUI();
+            //try
+            //{
+            //    int checkFake = 0;
 
-                string ModelName = ul.GetProduct();
-                string Station = ul.GetStation();
-                CheckNTGR checkNtgr = new CheckNTGR();
-                if (checkNtgr.CheckLock() == 1)
-                {
-                    chekcLock += (LockShowUI.Interval / 1000);
-                    if (chekcLock >= checkNtgr.GetTimeLock())
-                    {
-                        try
-                        {
-                            int checkStation = conn.CreateOrUpdateDB("SationName", ul.GetStation(), "StationInfo", "10.224.81.62,1734");
-                            int checkProjId = conn.CreateOrUpdateDB("DotNamePro", _model_name, "ProjectInfo", "10.224.81.62,1734", "StationID", checkStation.ToString());
-                            checkFake = conn.CreateOrUpdateDB("ProjectID", checkProjId, "FProject", "10.224.81.62,1734", "Fake", "1");
-                        }
-                        catch (Exception)
-                        {
-                            checkFake = 0;
+            //    string ModelName = ul.GetProduct();
+            //    string Station = ul.GetStation();
+            //    CheckNTGR checkNtgr = new CheckNTGR();
+            //    if (checkNtgr.CheckLock() == 1)
+            //    {
+            //        chekcLock += (LockShowUI.Interval / 1000);
+            //        if (chekcLock >= checkNtgr.GetTimeLock())
+            //        {
+            //            try
+            //            {
+            //                int checkStation = conn.CreateOrUpdateDB("SationName", ul.GetStation(), "StationInfo", "10.224.81.62,1734");
+            //                int checkProjId = conn.CreateOrUpdateDB("DotNamePro", _model_name, "ProjectInfo", "10.224.81.62,1734", "StationID", checkStation.ToString());
+            //                checkFake = conn.CreateOrUpdateDB("ProjectID", checkProjId, "FProject", "10.224.81.62,1734", "Fake", "1");
+            //            }
+            //            catch (Exception)
+            //            {
+            //                checkFake = 0;
 
-                        }
+            //            }
 
-                        ConfigLockModal datalock = checkNtgr.getDataLock();
-                        if (datalock != null && checkFake == 0)
-                        {
-                            Process[] pro = Process.GetProcessesByName("CloseShowUILock");
-                            foreach (var item in pro)
-                            {
-                                item.Kill();
-                            }
+            //            ConfigLockModal datalock = checkNtgr.getDataLock();
+            //            if (datalock != null && checkFake == 0)
+            //            {
+            //                Process[] pro = Process.GetProcessesByName("CloseShowUILock");
+            //                foreach (var item in pro)
+            //                {
+            //                    item.Kill();
+            //                }
 
-                            double TRR = double.Parse(lblTotalRate.Text.Replace("%", ""));
-                            double YR = double.Parse(lblYeildRate.Text.Replace("%", ""));
-                            if (TRR > datalock.TRR)
-                            {
-                                LockShowUI.Enabled = false;
-                                string _LockingMessage = "Lỗi: Total Rate cao hơn " + datalock.TRR + " %! goi qa/pqe!";
-                                ul.SetValueByKey("StopMachine", "1");
-                                _IsExistErrorr = true;
-                                ShowWarningMessage(_LockingMessage, "Total Rate " + lblTotalRate.Text + " cao hơn " + datalock.TRR + "%!");
-                                LockShowUI.Enabled = true;
+            //                double TRR = double.Parse(lblTotalRate.Text.Replace("%", ""));
+            //                double YR = double.Parse(lblYeildRate.Text.Replace("%", ""));
+            //                if (TRR > datalock.TRR)
+            //                {
+            //                    LockShowUI.Enabled = false;
+            //                    string _LockingMessage = "Lỗi: Total Rate cao hơn " + datalock.TRR + " %! goi TE-Setup!";
+            //                    ul.SetValueByKey("StopMachine", "1");
+            //                    _IsExistErrorr = true;
+            //                    ShowWarningMessage(_LockingMessage, "Total Rate " + lblTotalRate.Text + " cao hơn " + datalock.TRR + "%!");
+            //                    LockShowUI.Enabled = true;
 
-                                chekcLock = 0;
-                                return;
-                            }
-                            if (YR < datalock.YR)
-                            {
-                                LockShowUI.Enabled = false;
-                                string _LockingMessage = "Lỗi: Yeild Rate thấp hơn " + datalock.YR + " %! goi qa/pqe!";
-                                ul.SetValueByKey("StopMachine", "1");
-                                _IsExistErrorr = true;
-                                ShowWarningMessage(_LockingMessage, "Yeild Rate " + lblYeildRate.Text + " thấp hơn " + datalock.YR + "%!");
-                                LockShowUI.Enabled = true;
+            //                    chekcLock = 0;
+            //                    return;
+            //                }
+            //                if (YR < datalock.YR)
+            //                {
+            //                    LockShowUI.Enabled = false;
+            //                    string _LockingMessage = "Lỗi: Yeild Rate thấp hơn 97%! goi qa/pqe!";//
+            //                    ul.SetValueByKey("StopMachine", "1");
+            //                    _IsExistErrorr = true;
+            //                    ShowWarningMessage(_LockingMessage, "Yeild Rate " + lblYeildRate.Text + " thấp hơn " + datalock.YR + "%!");
+            //                    LockShowUI.Enabled = true;
 
-                                chekcLock = 0;
-                                return;
-                            }
+            //                    chekcLock = 0;
+            //                    return;
+            //                }
 
 
-                        }
+            //            }
 
-                    }
+            //        }
 
-                }
+            //    }
 
-            }
-            catch (Exception ex)
-            {
+            //}
+            //catch (Exception ex)
+            //{
 
-                LockShowUI.Enabled = true;
-            }
+            //    LockShowUI.Enabled = true;
+            //}
 
         }
 

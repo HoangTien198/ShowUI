@@ -18,7 +18,7 @@ namespace ShowUI
 				string ModelName = ul.GetProduct();
 				string checkNetgearSql = $"select * from ProjectName where ProjectName ='{ModelName}'";
 				ConnectShowUI connCheckNt = new ConnectShowUI();
-				DataTable checkNt = connCheckNt.DataTable_Sql(checkNetgearSql, "10.224.81.62");
+				DataTable checkNt = connCheckNt.DataTable_Sql(checkNetgearSql, "10.224.81.62,1734");
 				if (checkNt.Rows.Count > 0)
 				{
 					return 1;
@@ -46,7 +46,7 @@ namespace ShowUI
 				string Station = ul.GetStation();
 				string checkLockSql = $"select * from LockShowUITE where Model ='{ModelName}' and Station='{Station}' and Lock = 1" ;
 				ConnectShowUI connCheckNt = new ConnectShowUI();
-				DataTable checkNt = connCheckNt.DataTable_Sql(checkLockSql, "10.224.81.62");
+				DataTable checkNt = connCheckNt.DataTable_Sql(checkLockSql, "10.224.81.62,1734");
 				if (checkNt.Rows.Count > 0)
 				{
 					return 1;
@@ -70,7 +70,7 @@ namespace ShowUI
                 string Station =  ul.GetStation();
                 string checkLockSql = $"select * from LockShowUITE where Model ='{ModelName}' and Station='{Station}' and LockSampling = 1 ";
                 ConnectShowUI connCheckNt = new ConnectShowUI();
-                DataTable checkNt = connCheckNt.DataTable_Sql(checkLockSql, "10.224.81.62");
+                DataTable checkNt = connCheckNt.DataTable_Sql(checkLockSql, "10.224.81.62,1734");
                 if (checkNt.Rows.Count > 0)
                 {
                     return false;
@@ -94,7 +94,7 @@ namespace ShowUI
 				string Station = ul.GetStation();
 				string checkLockSql = $"select top 1 TimeLock from LockShowUITE where Model ='{ModelName}' and Station='{Station}' and Lock = 1";
 				ConnectShowUI connCheckNt = new ConnectShowUI();
-				DataTable checkNt = connCheckNt.DataTable_Sql(checkLockSql, "10.224.81.62");
+				DataTable checkNt = connCheckNt.DataTable_Sql(checkLockSql, "10.224.81.62,1734");
 				
 				if (checkNt.Rows.Count > 0)
 				{
@@ -121,7 +121,7 @@ namespace ShowUI
 				string Station =  ul.GetStation();
 				string checkLockSql = $"select top 1 ConfigLock from LockShowUITE where Model ='{ModelName}' and Station='{Station}' and Lock = 1";
 				ConnectShowUI connCheckNt = new ConnectShowUI();
-				DataTable checkNt = connCheckNt.DataTable_Sql(checkLockSql, "10.224.81.62");
+				DataTable checkNt = connCheckNt.DataTable_Sql(checkLockSql, "10.224.81.62,1734");
 				if (checkNt.Rows.Count > 0)
 				{
 					var data = JsonConvert.DeserializeObject<ConfigLockModal>(checkNt.Rows[0][0].ToString());

@@ -59,6 +59,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmWSUS";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "frmWSUS";
             this.Load += new System.EventHandler(this.frmWSUS_Load);
             this.ResumeLayout(false);

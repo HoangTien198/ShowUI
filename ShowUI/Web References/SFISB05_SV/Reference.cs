@@ -106,21 +106,21 @@ namespace ShowUI.SFISB05_SV {
         /// <remarks/>
         public Servicepostdata() {
             this.Url = global::ShowUI.Properties.Settings.Default.ShowUI5_3_SFISB05_SV_Servicepostdata;
-            try
-            {
-                var myrequest = (HttpWebRequest)WebRequest.Create(this.Url);
-                myrequest.Timeout = 1000;
-                var response = (HttpWebResponse)myrequest.GetResponse();
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
-                    this.Url = "http://10.224.81.156/B05/Servicepostdata.asmx";
-                }
-            }
-            catch (Exception)
-            {
+            //try
+            //{
+            //    var myrequest = (HttpWebRequest)WebRequest.Create(this.Url);
+            //    myrequest.Timeout = 1000;
+            //    var response = (HttpWebResponse)myrequest.GetResponse();
+            //    if (response.StatusCode != HttpStatusCode.OK)
+            //    {
+            //        this.Url = "http://10.224.81.156/B05/Servicepostdata.asmx";
+            //    }
+            //}
+            //catch (Exception)
+            //{
 
-                this.Url = "http://10.224.81.156/B05/Servicepostdata.asmx";
-            }
+            //    this.Url = "http://10.224.81.156/B05/Servicepostdata.asmx";
+            //}
 
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;

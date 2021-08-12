@@ -202,13 +202,13 @@
     <value>149, 36</value>
   </data>
   <data name="lbCheckingOutput.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 14</value>
+    <value>25, 14</value>
   </data>
   <data name="lbCheckingOutput.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
   </data>
   <data name="lbCheckingOutput.Text" xml:space="preserve">
-    <value>4000</value>
+    <value>120</value>
   </data>
   <data name="&gt;&gt;lbCheckingOutput.Name" xml:space="preserve">
     <value>lbCheckingOutput</value>
@@ -268,13 +268,13 @@
     <value>200, 36</value>
   </data>
   <data name="lbIRate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>25, 14</value>
+    <value>29, 14</value>
   </data>
   <data name="lbIRate.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
   <data name="lbIRate.Text" xml:space="preserve">
-    <value>100</value>
+    <value>12.5</value>
   </data>
   <data name="&gt;&gt;lbIRate.Name" xml:space="preserve">
     <value>lbIRate</value>
@@ -301,13 +301,13 @@
     <value>113, 36</value>
   </data>
   <data name="lbSamplingOutput.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 14</value>
+    <value>19, 14</value>
   </data>
   <data name="lbSamplingOutput.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
   <data name="lbSamplingOutput.Text" xml:space="preserve">
-    <value>4000</value>
+    <value>15</value>
   </data>
   <data name="lbSamplingOutput.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>TopRight</value>
@@ -591,6 +591,66 @@
   <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="&gt;&gt;lblWarnningTest.Name" xml:space="preserve">
+    <value>lblWarnningTest</value>
+  </data>
+  <data name="&gt;&gt;lblWarnningTest.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblWarnningTest.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;lblWarnningTest.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;btCountDown.Name" xml:space="preserve">
+    <value>btCountDown</value>
+  </data>
+  <data name="&gt;&gt;btCountDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btCountDown.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;btCountDown.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="groupBox1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Modern No. 20, 11.999999pt, style=Bold</value>
+  </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 68</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>312, 79</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="lblWarnningTest.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -692,30 +752,6 @@
   </data>
   <data name="&gt;&gt;btCountDown.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="groupBox1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Modern No. 20, 11.999999pt, style=Bold</value>
-  </data>
-  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 68</value>
-  </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>312, 79</value>
-  </data>
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

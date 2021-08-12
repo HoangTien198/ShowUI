@@ -104,29 +104,28 @@ namespace ShowUI
         {
             try
             {
-                var lstArgent = Process.GetProcessesByName("SFISKernel").ToList();
-                var lstArgentS = Process.GetProcessesByName("SFISKerneS").ToList();
-                var lstSumArgent = lstArgentS.Union(lstArgent);
-                if (!File.Exists(@"C:\UpdateArgent.txt"))
+                //var lstArgent = Process.GetProcessesByName("SFISKernel").ToList();
+                //var lstArgentS = Process.GetProcessesByName("SFISKerneS").ToList();
+                //var lstSumArgent = lstArgentS.Union(lstArgent);
+                //if (!File.Exists(@"C:\UpdateArgent.txt"))
+                //{
+                //    File.Create(@"C:\UpdateArgent.txt");
+                //}
+
+
+                // ClearFolder();
+                //  DownLoadFtp(@"C:\SFISKernel.exe", "ftp://10.224.81.62/SFISKernel.exe");
+                //  DownLoadFtp(@"C:\kernel.ini", "ftp://10.224.81.62/kernel.ini");
+                var pro = Process.GetProcessesByName("SFISKernel").ToList();
+                if (pro.Count < 1)
                 {
-                    File.Create(@"C:\UpdateArgent.txt");
-                }
-                string isUpdate = IniFile.ReadIniFile("Argent", "Update", "0", @"C:\UpdateArgent.txt");
-                if (isUpdate.Contains("0"))
-                {
-                    foreach (var item in lstSumArgent)
-                    {
-                        item.Kill();
-                    }
-                    
-                    ClearFolder();
-                    DownLoadFtp(@"C:\SFISKernel.exe", "ftp://10.224.81.62/SFISKernel.exe");
-                    DownLoadFtp(@"C:\kernel.ini", "ftp://10.224.81.62/kernel.ini");
                     ProcessStartInfo pStart = new ProcessStartInfo();
                     pStart.WorkingDirectory = @"C:\";
                     pStart.FileName = "SFISKernel.exe";
                     Process.Start(pStart);
                 }
+                   
+                
             }
             catch (Exception)
             {

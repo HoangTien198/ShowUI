@@ -85,19 +85,19 @@ namespace ShowUI.AutomationHelper
             //request.Method = WebRequestMethods.Ftp.MakeDirectory;
             //request.Credentials = new NetworkCredential("oper", "123");
         }
-        public void UpdateDb(string Model, string Station, string PCName, string Data, string FilePathloss, DateTime datePathlossFile)
+        public void UpdateDb(string Model, string Station, string PCName, string Data, string FilePathloss, DateTime datePathlossFile,string status)
         {
             Connect117 conn = new Connect117();
-            string sql = $@"INSERT INTO dbo.PathLoss(Dotname,Station,PCName,DateTest,DataPathLoss,FilePathLoss,TimeUpload,TimePathloss)
-                            VALUES('{Model}','{Station}','{PCName}','{DateTime.Now.ToString("yyyyMMdd")}','{Data}','{FilePathloss}','{DateTime.Now}','{datePathlossFile}')";
-            int a = conn.Execute_NonSQL(sql, "10.224.81.49,1434");
+            string sql = $@"INSERT INTO dbo.PathLoss(Dotname,Station,PCName,DateTest,DataPathLoss,FilePathLoss,TimeUpload,TimePathloss,IsPass)
+                            VALUES('{Model}','{Station}','{PCName}','{DateTime.Now.ToString("yyyyMMdd")}','{Data}','{FilePathloss}','{DateTime.Now}','{datePathlossFile}','{status}')";
+            int a = conn.Execute_NonSQL(sql, "10.224.81.49,1734");
         }
         public void UpdateRecordDb(string Model, string Station, string Data, string FileName)
         {
             Connect117 conn = new Connect117();
             string sql = $@"INSERT INTO RecordPathloss(Dotname,Station,PCName,DateTest,TimeUpload,FileName,RecordPathloss) 
                             VALUES('{Model}','{Station}','{Environment.MachineName}','{DateTime.Now.ToString("yyyyMMdd")}','{DateTime.Now}','{FileName}','{Data}')";
-            int a = conn.Execute_NonSQL(sql, "10.224.81.49,1434");
+            int a = conn.Execute_NonSQL(sql, "10.224.81.49,1734");
         }
         public void UploadFile(string Localpath, string Serverpath, string UserId, string Password)
         {
@@ -182,7 +182,7 @@ namespace ShowUI.AutomationHelper
                             and PCName= '{PCName}'
                             and FilePathLoss= '{PathLossFileName}'
                             order by TimeUpload desc";
-                var dt = conn.DataTable_Sql(sql, "10.224.81.49,1434");
+                var dt = conn.DataTable_Sql(sql, "10.224.81.49,1734");
                 string hutt = "";
                 if (dt.Rows.Count > 0)
                 {
@@ -436,7 +436,7 @@ namespace ShowUI.AutomationHelper
                             and PCName= '{PCName}'
                             and FilePathLoss= '{PathLossFileName}'
                             order by TimeUpload desc";
-            var dt = conn.DataTable_Sql(sql, "10.224.81.49,1434");
+            var dt = conn.DataTable_Sql(sql, "10.224.81.49,1734");
             //var data = dt.AsEnumerable();//.Select(x => x.Field<int>("DataPathLoss")).FirstOrDefault();
             string hutt = "";
             if (dt.Rows.Count > 0)
@@ -514,7 +514,7 @@ namespace ShowUI.AutomationHelper
                             set Status = '{Status}'
                             where Dotname='{DotName}' and Station='{Station}' 
                             and DateTest='{_now}' and Shift={shift} and PCName='{Environment.MachineName}'";
-            conn.Execute_NonSQL(_sql, "10.224.81.49,1434");
+            conn.Execute_NonSQL(_sql, "10.224.81.49,1734");
         }
         public int CheckDataShift(string DotName, string Station)
         {
@@ -529,7 +529,7 @@ namespace ShowUI.AutomationHelper
                             and Shift={shift}
                             and DateTest ='{_now}'";
             Connect117 conn = new Connect117();
-            DataTable dt = conn.DataTable_Sql(sql, "10.224.81.49,1434");
+            DataTable dt = conn.DataTable_Sql(sql, "10.224.81.49,1734");
             if (dt.Rows.Count > 0)
             {
 
@@ -539,13 +539,14 @@ namespace ShowUI.AutomationHelper
             {
                 string _sqlInsert = $@"INSERT INTO PathlossByShift (Dotname,Station,PCName,DateTest,Shift,Status)
                                      VALUES('{DotName}','{Station}','{Environment.MachineName}','{_now}',{shift},'Pass')";
-                conn.Execute_NonSQL(_sqlInsert, "10.224.81.49,1434");
+                conn.Execute_NonSQL(_sqlInsert, "10.224.81.49,1734");
                 return 0;
             }
         }
 
         public void CopyToAutomationServerDB(string LocalPath, out bool isLock)
         {
+           // MessageBox.Show("sadasd");
             try
             {
                 if (!File.Exists("ErrorPathloss.txt"))
@@ -563,7 +564,8 @@ namespace ShowUI.AutomationHelper
             }
             bool isModify = false;
             List<ErrorPathloss> lstSumErr = new List<ErrorPathloss>();
-            string currentDate = DateTime.Now.ToString("yyyyMMdd_HH_mm_ss");
+            string currentDate = DateTime.Now.ToString("yyyyMMdd");// _HH_mm_ss
+            string currentTime = DateTime.Now.ToString("HH_mm_ss");
             try
             {
                 string[] files = Directory.GetFiles(LocalPath, "*.csv", SearchOption.TopDirectoryOnly);
@@ -582,7 +584,7 @@ namespace ShowUI.AutomationHelper
                     string Product = ul.GetProduct();
                     string Station = ul.GetStation();
                     string fileName = fInfo.Name;
-                    string pathSave = $@"F:\lsy\ID\PathlossControl\PathLoss\{Product}\{Modalname}\{Environment.MachineName}\{Station}\{currentDate}\{fInfo.Name}";
+                    string pathSave = $@"F:\lsy\ID\PathlossControl\PathLoss\{Product}\{Modalname}\{Environment.MachineName}\{Station}\{currentDate}\{currentTime}\{fInfo.Name}";
                     string dateModifyPathlossFile = GetTimeModifyFile(Modalname, Station, Environment.MachineName, fileName, DateTime.Now.ToString("yyyyMMdd"));
                     if (dateModifyPathlossFile.Trim().Length > 0)
                     {
@@ -610,15 +612,15 @@ namespace ShowUI.AutomationHelper
                             List<string> errPathLoss = new List<string>();
                             if (lstErrOL.Count > 0)
                             {
-                                errPathLoss.Add("Old and new pathloss war error");
+                                errPathLoss.Add("Old and new pathloss was error");
                             }
                             if (lstErrAntena.Count > 0)
                             {
-                                errPathLoss.Add("Antena pathloss war error");
+                                errPathLoss.Add("Antena pathloss was error");
                             }
                             if (lstErrAntena.Count > 0)
                             {
-                                lstErrBand.Add("Band pathloss war error");
+                                lstErrBand.Add("Band pathloss was error");
                             }
                             if (errPathLoss.Count > 0)
                             {
@@ -690,30 +692,38 @@ namespace ShowUI.AutomationHelper
                         lstSumErr.Add(sumErr);
                         if (sumErr.lstErr.Count > 0)
                         {
-
-                            break;
+                            UpdateDb(Modalname, Station, Environment.MachineName, dataUpload, fileName, fInfo.LastWriteTime,"Fail");
+                          //  break;
+                          string fName = fInfo.Name;
+                          string cmdUpload = $" -u Upload:123 -T \"{fInfo.FullName}\" \"ftp://10.224.81.60/lsy/ID/PathlossControl/PathLoss/{Product}/{Modalname}/{Environment.MachineName}/{Station}/{currentDate}/FAIL/{currentTime}/{fName}\" --ftp-create-dirs";
+                          ExecuteCommandCURL(@"D:\AutoDl\uploadLogftp\curl.exe", cmdUpload);
                         }
                         else
                         {
-                            UpdateDb(Modalname, Station, Environment.MachineName, dataUpload, fileName, fInfo.LastWriteTime);
+                            UpdateDb(Modalname, Station, Environment.MachineName, dataUpload, fileName, fInfo.LastWriteTime,"Pass");
+                            string fName = fInfo.Name;
+                            string cmdUpload = $" -u Upload:123 -T \"{fInfo.FullName}\" \"ftp://10.224.81.60/lsy/ID/PathlossControl/PathLoss/{Product}/{Modalname}/{Environment.MachineName}/{Station}/{currentDate}/PASS/{currentTime}/{fName}\" --ftp-create-dirs";
+                            ExecuteCommandCURL(@"D:\AutoDl\uploadLogftp\curl.exe", cmdUpload);
                         }
                     }
                     else
                     {
-                        UpdateDb(Modalname, Station, Environment.MachineName, dataUpload, fileName, fInfo.LastWriteTime);
+                        UpdateDb(Modalname, Station, Environment.MachineName, dataUpload, fileName, fInfo.LastWriteTime,"Pass");
+                        string fName = fInfo.Name;
+                        string cmdUpload = $" -u Upload:123 -T \"{fInfo.FullName}\" \"ftp://10.224.81.60/lsy/ID/PathlossControl/PathLoss/{Product}/{Modalname}/{Environment.MachineName}/{Station}/{currentDate}/PASS/{currentTime}/{fName}\" --ftp-create-dirs";
+                        ExecuteCommandCURL(@"D:\AutoDl\uploadLogftp\curl.exe", cmdUpload);
                     }
-                    if (!Directory.Exists($@"F:\lsy\ID\PathlossControl\PathLoss\{Product}\{Modalname}\{Environment.MachineName}\{Station}\{currentDate}"))
+                    if (!Directory.Exists($@"F:\lsy\ID\PathlossControl\PathLoss\{Product}\{Modalname}\{Environment.MachineName}\{Station}\{currentDate}\{currentTime}"))
                     {
-                        Directory.CreateDirectory($@"F:\lsy\ID\PathlossControl\PathLoss\{Product}\{Modalname}\{Environment.MachineName}\{Station}\{currentDate}");
+                        Directory.CreateDirectory($@"F:\lsy\ID\PathlossControl\PathLoss\{Product}\{Modalname}\{Environment.MachineName}\{Station}\{currentDate}\{currentTime}");
                     }
-                    File.Copy(fInfo.FullName, $@"F:\lsy\ID\PathlossControl\PathLoss\{Product}\{Modalname}\{Environment.MachineName}\{Station}\{currentDate}\{fInfo.Name}", true);
-                    string fName = fInfo.Name;
-                    string cmdUpload = $" -u Upload:123 -T \"{fInfo.FullName}\" \"ftp://10.224.81.60/lsy/ID/PathlossControl/PathLoss/{Product}/{Modalname}/{Environment.MachineName}/{Station}/{currentDate}/{fName}\" --ftp-create-dirs";
-                    ExecuteCommandCURL(@"D:\AutoDl\uploadLogftp\curl.exe", cmdUpload);
+                    File.Copy(fInfo.FullName, $@"F:\lsy\ID\PathlossControl\PathLoss\{Product}\{Modalname}\{Environment.MachineName}\{Station}\{currentDate}\{currentTime}\{fInfo.Name}", true);
+                    
                 }
             }
             catch (Exception ex)
             {
+                //MessageBox.Show(ex.Message);
 
                 if (!File.Exists("SavedList.txt"))
                 {
@@ -748,13 +758,13 @@ namespace ShowUI.AutomationHelper
                 CheckDataShift(Modalname, Station);
                 if (lstSumErr.Count > 0)
                 {
-                    UpdateData(Modalname, Station, "Fail and modify");
+                    UpdateData(Modalname, Station, "modify and fail");
                 }
                 else
                 {
                     if (isModify)
                     {
-                        UpdateData(Modalname, Station, "Pass and modify");
+                        UpdateData(Modalname, Station, "modify and pass");
                     }
                 }
             }
@@ -798,11 +808,11 @@ namespace ShowUI.AutomationHelper
                 string Product = ul.GetProduct();
                 string Station = ul.GetStation();
 
-                if (!Directory.Exists($@"F:\lsy\ID\PathlossControl\Log\{Product}\{Modalname}\{Environment.MachineName}\{Station}\{currentDate}"))
+                if (!Directory.Exists($@"F:\lsy\ID\PathlossControl\Log\{Product}\{Modalname}\{Environment.MachineName}\{Station}\{currentDate}\{currentTime}"))
                 {
-                    Directory.CreateDirectory($@"F:\lsy\ID\PathlossControl\Log\{Product}\{Modalname}\{Environment.MachineName}\{Station}\{currentDate}");
+                    Directory.CreateDirectory($@"F:\lsy\ID\PathlossControl\Log\{Product}\{Modalname}\{Environment.MachineName}\{Station}\{currentDate}\{currentTime}");
                 }
-                File.Copy("SavedList.txt", $@"F:\lsy\ID\PathlossControl\Log\{Product}\{Modalname}\{Environment.MachineName}\{Station}\{currentDate}\SavedList.txt", true);
+                File.Copy("SavedList.txt", $@"F:\lsy\ID\PathlossControl\Log\{Product}\{Modalname}\{Environment.MachineName}\{Station}\{currentDate}\{currentTime}\SavedList.txt", true);
 
             }
 

@@ -22,14 +22,30 @@ namespace ShowUI
 
         private void FrmPathloss_Load(object sender, EventArgs e)
         {
-            this.Location = new Point(Screen.FromPoint(this.Location).WorkingArea.Left,
+           
+
+                this.Location = new Point(Screen.FromPoint(this.Location).WorkingArea.Left,
                                       Screen.PrimaryScreen.WorkingArea.Height - this.Height);
           
             label1.Font = new Font("Microsoft Sans Serif",14,FontStyle.Bold);
+
             ShowUI.Utilities ul = new ShowUI.Utilities();
             string Modalname = ul.GetProduct();
             string Station = ul.GetStation();
             LocalPath = IniFile.ReadIniFile(Modalname, Station, "empty", @"F:\lsy\ID\PathlossControl\Config\PathLossConfig.txt");
+            if (File.Exists("ErrorPathloss.txt"))
+            {
+                try
+                {
+                    File.Delete("ErrorPathloss.txt");
+                }
+                catch (Exception)
+                {
+
+                  
+                }
+               
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -76,6 +92,7 @@ namespace ShowUI
 
         private void timer2_Tick(object sender, EventArgs e)
         {
+            //MessageBox.Show("sadasd");
             this.Invoke((MethodInvoker)delegate
             {
                 timer2.Enabled = false;
@@ -88,6 +105,7 @@ namespace ShowUI
                 AutomationCopyPathlossHelper copyToServerAuto = new AutomationCopyPathlossHelper();
                 if (!Directory.Exists(LocalPath))
                 {
+                   // MessageBox.Show(LocalPath);
                     return;
                 }
                 bool isLock = false;
