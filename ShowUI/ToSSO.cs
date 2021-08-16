@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Data.SqlClient;
 using System.Data;
-using System.Windows.Forms;
-using System.IO;
+using System.Data.SqlClient;
 
 namespace ShowUI
 {
-    class ToSSO
+    internal class ToSSO
     {
         public SqlConnection open(string serverIp)
         {
@@ -19,11 +15,11 @@ namespace ShowUI
 
         public string GetStringConn(string serverIp)
         {
-
             //MessageBox.Show(svIp);
             string stringConn = @"Data Source=" + serverIp + ";Initial Catalog=SSO;uid=sa;pwd=********;";
             return stringConn;
         }
+
         // select query
 
         // DataTable dt = new DataTable();
@@ -49,7 +45,6 @@ namespace ShowUI
             }
             catch (Exception)
             {
-
                 // throw new Exception(ex.Message);
             }
             return new DataTable("NULL");
@@ -80,6 +75,7 @@ namespace ShowUI
          * ChuongNguyenVan
          * EXECUTE QUERY ( procedures)
          */
+
         public int Execute_SQL(string serverIp, string query_object, CommandType type, params object[] obj)
         {
             string stringConn = GetStringConn(serverIp);
@@ -106,6 +102,7 @@ namespace ShowUI
          * ChuongNguyenVan
          * Check exists record
          */
+
         //public static bool CheckExist(string sql)
         //{
         //    DataTable dtb = new DataTable();
@@ -115,7 +112,6 @@ namespace ShowUI
         //}
         public SqlDataReader ThucHienReader(string sql, string serverIp)
         {
-
             string stringConn = GetStringConn(serverIp);
             SqlConnection conn = new SqlConnection(stringConn);
             SqlCommand cmd = new SqlCommand(sql, conn);
@@ -124,16 +120,14 @@ namespace ShowUI
             {
                 conn.Close();
                 return cmd.ExecuteReader();
-
             }
             catch (SqlException)
             {
                 conn.Close();
                 return null;
             }
-
-
         }
+
         public DataSet getDataset(string select, string serverIp)
         {
             string stringConn = GetStringConn(serverIp);

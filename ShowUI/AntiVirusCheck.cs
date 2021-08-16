@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace ShowUI
 {
@@ -31,11 +28,7 @@ namespace ShowUI
             }
             catch (Exception)
             {
-
-                
             }
-            
-
 
             //File.Copy(@"F:\lsy\Test\DownloadConfig\AutoDL\IQTESTTIME\LocalDetailLog.ini", ".//IQTESTTIME//LocalDetailLog.ini", false);
             //File.Copy(@"F:\lsy\Test\DownloadConfig\AutoDL\IQTESTTIME\IQCheckTimeItem.ini", ".//IQTESTTIME//IQCheckTimeItem.ini", false);

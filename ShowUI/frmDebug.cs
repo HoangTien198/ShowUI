@@ -1,14 +1,11 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using ZedGraph;
-
 
 namespace ShowUI
 {
@@ -18,7 +15,6 @@ namespace ShowUI
         {
             InitializeComponent();
         }
-
 
         private void frmDebug_Load(object sender, EventArgs e)
         {
@@ -82,7 +78,7 @@ namespace ShowUI
             // GraphPane object holds one or more Curve objects (or plots)
             GraphPane RRPane = RRChart.GraphPane;
             GraphPane YRPane = YRChart.GraphPane;
-            // PointPairList holds the data for plotting, X and Y arrays 
+            // PointPairList holds the data for plotting, X and Y arrays
             PointPairList pRR = new PointPairList(x, y);
             PointPairList pYR = new PointPairList(z, t);
 
@@ -126,7 +122,7 @@ namespace ShowUI
             //YRPane.YAxis.Type = AxisType.LinearAsOrdinal;
             YRPane.YAxis.Title.Text = "Percent";
             YRPane.YAxis.Title.FontSpec.Size = 18;
-            // I add all three functions just to be sure it refeshes the plot.   
+            // I add all three functions just to be sure it refeshes the plot.
             RRChart.AxisChange();
             RRChart.Invalidate();
             RRChart.Refresh();
@@ -149,33 +145,30 @@ namespace ShowUI
                 _tLoadDebugData.IsBackground = true;
                 _tLoadDebugData.Start();
             }
-
-
         }
 
-        Utilities wl = new Utilities();
-        string ate_name, model_name, station_name;
-        
+        private Utilities wl = new Utilities();
+        private string ate_name, model_name, station_name;
+
         public void LoadDebugData()
         {
             if (!wl.CheckNetworkAvailable())
             {
-                ShowUIApp.AutoClosingMessageBox.Show("Network is not available. Please check again!","Warning Message Box",10000);
+                ShowUIApp.AutoClosingMessageBox.Show("Network is not available. Please check again!", "Warning Message Box", 10000);
                 return;
             }
             try
             {
-                ate_name =  Environment.MachineName;//"B05-L13-PT01";//
-                station_name = wl.GetStation().Trim();//"PT1";// 
-                model_name = wl.GetModel().Trim();//"CM400-1AZNASV1";// 
-                 this.Invoke((MethodInvoker)delegate
-                {
-                    picBoxSearch.Visible = true;
-                    lbMessage.Text = "Searching data for model: " + model_name + " station: " + station_name + " ate: " + ate_name + " ...";
-                    dataGridView1.DataSource = null;
-                });
+                ate_name = Environment.MachineName;//"B05-L13-PT01";//
+                station_name = wl.GetStation().Trim();//"PT1";//
+                model_name = wl.GetModel().Trim();//"CM400-1AZNASV1";//
+                this.Invoke((MethodInvoker)delegate
+               {
+                   picBoxSearch.Visible = true;
+                   lbMessage.Text = "Searching data for model: " + model_name + " station: " + station_name + " ate: " + ate_name + " ...";
+                   dataGridView1.DataSource = null;
+               });
 
-              
                 B05_SERVICE_CENTER.B05_Service svD = new B05_SERVICE_CENTER.B05_Service();
                 DataSet ds = svD.P_B05_ERROR_TRACKING(ate_name, model_name, station_name);
 
@@ -184,8 +177,7 @@ namespace ShowUI
                     picBoxSearch.Visible = false;
                     dataGridView1.DataSource = ds.Tables[0];
                     lbMessage.Text = "(*)Total: " + ds.Tables[0].Rows.Count + " records for model: " + model_name + " station: " + station_name + " ate: " + ate_name + "";
-                   
-                }); 
+                });
             }
             catch (Exception r)
             {
@@ -199,17 +191,14 @@ namespace ShowUI
             // BackgroundWorker wk = new BackgroundWorker();
 
             LoadDebugData();
-            
         }
 
         private void bgWorkerErrorData_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            
         }
 
         private void bgWorkerErrorData_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-
         }
 
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -219,12 +208,10 @@ namespace ShowUI
             int rowIdx = e.RowIndex;
             int cellIdx = e.ColumnIndex;
             DataGridViewRow selectedRow = dataGridView1.Rows[rowIdx];
-            if (dataGridView1.Columns[e.ColumnIndex].Name =="DETAIL_LOG_PATH")
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "DETAIL_LOG_PATH")
             {
-                
                 //MessageBox.Show(selectedRow.Cells[cellIdx].Value.ToString());
             }
-           
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -241,7 +228,6 @@ namespace ShowUI
             string station = txtStationSetting.Text;
             //ShowUIApp.IniFile.WriteValue("MAIN_UI", "MODEL_NAME", model, ".\\UISetup.ini");
             //ShowUIApp.IniFile.WriteValue("MAIN_UI", "STATION", station, ".\\UISetup.ini");
-           
         }
 
         //

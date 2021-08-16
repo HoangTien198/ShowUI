@@ -1,12 +1,11 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 
 public class ImpersonatedUser : IDisposable
 {
-    IntPtr userHandle;
-    WindowsImpersonationContext impersonationContext;
+    private IntPtr userHandle;
+    private WindowsImpersonationContext impersonationContext;
 
     public ImpersonatedUser(string user, string domain, string password)
     {
@@ -19,9 +18,9 @@ public class ImpersonatedUser : IDisposable
             LogonProvider.Default,
             out userHandle);
 
-		if (!loggedOn)
-		{ }
-           // throw new Win32Exception(Marshal.GetLastWin32Error());
+        if (!loggedOn)
+        { }
+        // throw new Win32Exception(Marshal.GetLastWin32Error());
 
         // Begin impersonating the user
         impersonationContext = WindowsIdentity.Impersonate(userHandle);
@@ -38,7 +37,7 @@ public class ImpersonatedUser : IDisposable
     }
 
     [DllImport("advapi32.dll", SetLastError = true)]
-    static extern bool LogonUser(
+    private static extern bool LogonUser(
         string lpszUsername,
         string lpszDomain,
         string lpszPassword,
@@ -48,9 +47,9 @@ public class ImpersonatedUser : IDisposable
         );
 
     [DllImport("kernel32.dll", SetLastError = true)]
-    static extern bool CloseHandle(IntPtr hHandle);
+    private static extern bool CloseHandle(IntPtr hHandle);
 
-    enum LogonType : int
+    private enum LogonType : int
     {
         Interactive = 2,
         Network = 3,
@@ -60,7 +59,7 @@ public class ImpersonatedUser : IDisposable
         NewCredentials = 9,
     }
 
-    enum LogonProvider : int
+    private enum LogonProvider : int
     {
         Default = 0,
     }

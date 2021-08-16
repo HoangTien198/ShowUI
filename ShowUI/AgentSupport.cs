@@ -1,11 +1,8 @@
-﻿using ShowUIApp;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 
 namespace ShowUI
 {
@@ -16,6 +13,7 @@ namespace ShowUI
             return dt1.Year == dt2.Year && dt1.Month == dt2.Month && dt1.Day == dt2.Day &&
                    dt1.Hour == dt2.Hour && dt1.Minute == dt2.Minute && dt1.Second == dt2.Second;
         }
+
         public void SupportAgentDp()
         {
             try
@@ -42,14 +40,10 @@ namespace ShowUI
                 File.Copy(@"F:\lsy\Test\DownloadConfig\AutoDL\AgentTool\AgentDP.exx", @"D:\AutoDL\AgentTool\AgentDP.exe", true);
                 Process.Start(@"D:\AutoDL\AgentTool\AgentDP.exe");
             }
-            catch 
+            catch
             {
-
-                
             }
-            
         }
-
 
         public void ClearFolder()
         {
@@ -69,22 +63,18 @@ namespace ShowUI
                 }
             }
             catch { }
-
-
-
         }
+
         public void DownLoadFtp(string localPath, string ftpPath)
         {
             try
             {
-
-
                 string user = "argent";
                 string pass = "123";
                 using (WebClient req = new WebClient())
                 {
                     req.Credentials = new NetworkCredential(user, pass);
-                    
+
                     byte[] fileData = req.DownloadData(ftpPath);
                     using (FileStream file = File.Create(localPath))
                     {
@@ -95,8 +85,6 @@ namespace ShowUI
             }
             catch (Exception ex)
             {
-
-
             }
         }
 
@@ -112,7 +100,6 @@ namespace ShowUI
                 //    File.Create(@"C:\UpdateArgent.txt");
                 //}
 
-
                 // ClearFolder();
                 //  DownLoadFtp(@"C:\SFISKernel.exe", "ftp://10.224.81.62/SFISKernel.exe");
                 //  DownLoadFtp(@"C:\kernel.ini", "ftp://10.224.81.62/kernel.ini");
@@ -124,13 +111,9 @@ namespace ShowUI
                     pStart.FileName = "SFISKernel.exe";
                     Process.Start(pStart);
                 }
-                   
-                
             }
             catch (Exception)
             {
-
-
             }
         }
     }

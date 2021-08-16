@@ -1,22 +1,19 @@
 ﻿using Microsoft.Win32;
 using ShowUIApp;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Windows.Forms;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Windows.Forms;
 
 namespace ShowUI
 {
-    class Utilities
+    internal class Utilities
     {
-
         public string checkDateShift()
         {
             string StartTime, EndTime;
@@ -64,10 +61,8 @@ namespace ShowUI
             }
             catch (Exception)
             {
-
                 //MessageBox.Show(abc.ToString());
             }
-
         }
 
         public void event_log(string text)
@@ -84,7 +79,6 @@ namespace ShowUI
             }
         }
 
-
         public string GetKeyIn()
         {
             string rString = "";
@@ -98,7 +92,7 @@ namespace ShowUI
             return rString;
         }
 
-        public string GetServerIP(string key_name,string defaultIp)
+        public string GetServerIP(string key_name, string defaultIp)
         {
             try
             {
@@ -108,10 +102,8 @@ namespace ShowUI
             }
             catch (Exception)
             {
-
                 return defaultIp;
             }
-           
         }
 
         public string GetModel()
@@ -120,10 +112,10 @@ namespace ShowUI
             return Model.Trim();
         }
 
-     
-        RegistryKey _OpenKey;
-        string openkey;
-        string SubKey = @"SOFTWARE\Netgear\STATION";
+        private RegistryKey _OpenKey;
+        private string openkey;
+        private string SubKey = @"SOFTWARE\Netgear\STATION";
+
         public string GetStation()
         {
             string Station = "";
@@ -148,7 +140,6 @@ namespace ShowUI
                     if (tempProduct.Length > 2)
                     {
                         Station = tempProduct[2];
-                      
                     }
                     else
                     {
@@ -172,7 +163,6 @@ namespace ShowUI
             {
                 return "BOOMS";
             }
-
         }
 
         public string GetProduct()
@@ -195,7 +185,6 @@ namespace ShowUI
                     {
                         Product = "BOOMP";
                     }
-
                 }
                 return Product.Trim();
             }
@@ -205,20 +194,17 @@ namespace ShowUI
             }
         }
 
-
         public string GetValueByKey(string _key)
         {
             try
             {
-
                 RegistryKey kiwi = Registry.LocalMachine.OpenSubKey(SubKey, true);
                 //string[] _Key = kiwi.GetValue("OpenKey", null).ToString().Split('\\');
                 string _Model = GetProduct();
-                string _Sta =GetStation();
+                string _Sta = GetStation();
                 kiwi = Registry.LocalMachine.OpenSubKey(SubKey + "\\" + _Model + "\\" + _Sta, true);
                 string SN = kiwi.GetValue(_key, "").ToString().Trim();
                 return SN;
-
             }
             catch (Exception ex)
             {
@@ -231,7 +217,6 @@ namespace ShowUI
         {
             try
             {
-
                 RegistryKey kiwi = Registry.LocalMachine.OpenSubKey(SubKey, true);
                 //string[] _Key = kiwi.GetValue("OpenKey", null).ToString().Split('\\');
                 string _Model = GetProduct();
@@ -240,7 +225,6 @@ namespace ShowUI
                 if (kiwi == null)
                     kiwi = Registry.LocalMachine.CreateSubKey(SubKey + "\\" + _Model + "\\" + _Sta, RegistryKeyPermissionCheck.ReadWriteSubTree);
                 kiwi.SetValue(_key, _Val, RegistryValueKind.String);
-
             }
             catch (Exception r)
             {
@@ -248,19 +232,17 @@ namespace ShowUI
             }
         }
 
-
         public string GetNICGatewayIP()
         {
             string client_ip = "";
-            using (Socket sck = new Socket(AddressFamily.InterNetwork,SocketType.Dgram,0) )
+            using (Socket sck = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
             {
                 try
                 {
-                    
-                sck.Connect("10.224.80.37",1008);
-                IPEndPoint endPoint = sck.LocalEndPoint as IPEndPoint;
-                client_ip = endPoint.Address.ToString();
-                sck.Close();
+                    sck.Connect("10.224.80.37", 1008);
+                    IPEndPoint endPoint = sck.LocalEndPoint as IPEndPoint;
+                    client_ip = endPoint.Address.ToString();
+                    sck.Close();
                 }
                 catch (Exception)
                 {
@@ -357,7 +339,6 @@ namespace ShowUI
                 return "0";
         }
 
-
         public bool CheckNetworkAvailable()
         {
             if (NetworkInterface.GetIsNetworkAvailable())
@@ -369,12 +350,14 @@ namespace ShowUI
                 return false;
             }
         }
+
         public double RandDoubleInRange(double min, double max)
         {
             Random rd = new Random();
             return rd.NextDouble() * (max - min) + min;
         }
-        public double GreenShowUI(string connStr,string EnableConnectServer37,string[] nData)
+
+        public double GreenShowUI(string connStr, string EnableConnectServer37, string[] nData)
         {
             double returnVal = 2.45;
             if (EnableConnectServer37 == "0")
@@ -383,7 +366,6 @@ namespace ShowUI
                 {
                     using (SqlConnection connection = new SqlConnection(connStr))
                     {
-
                         //connection.Open();
                         //string sql = "update Station set TEMP_RETEST_RATE = @retestRate where station_ip = @ip";
                         //SqlCommand command = new SqlCommand(sql, connection);
@@ -419,7 +401,7 @@ namespace ShowUI
                 }
                 catch (Exception r)
                 {
-                    event_log("TRR Exception: "+ r.ToString());
+                    event_log("TRR Exception: " + r.ToString());
                     return returnVal;
                 }
             }
@@ -442,7 +424,7 @@ namespace ShowUI
 
                         string sqlAvgRTR = "select AVG(cast(a.YEILD_RATE as decimal(16,4))) as YR from Station a, stationinfo b";
                         sqlAvgRTR += " where a.STATION_IP = b.STATION_IP and datediff(HH,a.DATE_TIME,GETDATE()) < 0.15 and b.LINE = '" + nData[0] + "' and b.TYPE= '" + nData[1] + "' and a.MODEL_NAME ='" + nData[5] + "'";
-                        
+
                         SqlDataAdapter da = new SqlDataAdapter(sqlAvgRTR, connStr);
                         DataSet ds = new DataSet();
                         da.Fill(ds);
@@ -468,6 +450,7 @@ namespace ShowUI
                 return returnVal;
             }
         }
+
         //
 
         public int UpdateRR_YR(double retestRate, double yeild_rate, string connStr, string EnableConnectServer37, string ip)
@@ -479,7 +462,6 @@ namespace ShowUI
                 {
                     using (SqlConnection connection = new SqlConnection(connStr))
                     {
-
                         connection.Open();
                         string sql = "update Station set TEMP_RETEST_RATE = @retestRate, YEILD_RATE = @yeild_rate where station_ip = @ip";
                         SqlCommand command = new SqlCommand(sql, connection);
@@ -509,13 +491,10 @@ namespace ShowUI
             }
         }
 
-
         public void ResetArsSystem(string connStr, string EnableConnectServer37)
         {
             try
             {
-
-
                 if (EnableConnectServer37 == "0" && (DateTime.Now.Hour == 8 || DateTime.Now.Hour == 20))
                 {
                     using (SqlConnection connection = new SqlConnection(connStr))
@@ -591,7 +570,6 @@ namespace ShowUI
                             connection.Close();
                         }
                     }//
-
                 }
             }
             catch (Exception r)
@@ -599,6 +577,5 @@ namespace ShowUI
                 event_log("ResetArsSystem: " + r.ToString());
             }
         }///
-
     }
 }

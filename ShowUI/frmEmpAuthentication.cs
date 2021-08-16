@@ -1,22 +1,17 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-
 
 namespace ShowUI
 {
     public partial class frmEmpAuthentication : Form
     {
-        B05_SERVICE_CENTER.B05_Service SVB05 = new B05_SERVICE_CENTER.B05_Service();
-        string loginRole = "";
-        string sName = Environment.MachineName;
-     
+        private B05_SERVICE_CENTER.B05_Service SVB05 = new B05_SERVICE_CENTER.B05_Service();
+        private string loginRole = "";
+        private string sName = Environment.MachineName;
+
         public frmEmpAuthentication(string lRole)
         {
             InitializeComponent();
@@ -26,12 +21,12 @@ namespace ShowUI
                 tbxPw.Enabled = true;
             }
         }
+
         private void frmEmpAuthentication_Load(object sender, EventArgs e)
         {
-
         }
 
-        public bool EmpAuthentication(string emp,string pw)
+        public bool EmpAuthentication(string emp, string pw)
         {
             bool isValid = false;
             if (SVB05.P_B05_TE_CHECK_USERS(emp, pw))
@@ -53,8 +48,9 @@ namespace ShowUI
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             tbxEmp.Focus();
-            GotoSite(); 
+            GotoSite();
         }
+
         public void GotoSite()
         {
             try
@@ -62,7 +58,7 @@ namespace ShowUI
                 string emp = tbxEmp.Text.Trim();
                 string pw = tbxPw.Text.Trim();
                 lbMsg.Visible = true;
-               
+
                 if (EmpAuthentication(emp, pw))
                 {
                     lbMsg.ForeColor = Color.Wheat;
@@ -70,7 +66,6 @@ namespace ShowUI
                     string model_name = GetValueByKey("SFISMODEL").Trim();
                     string ate_name = sName;
                     string error_code = GetValueByKey("ERRORCODE").Trim();
-
 
                     string webAddress = "http://10.224.81.63/CenterAction/Action/AddActionAbnormal.aspx?ModelName=" + model_name + "&TesterName=" + ate_name + "&ErrorCode=" + error_code + "&DateTime=" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "&BU=B05&Owner=" + emp + "";// account to autologin & redirect to ShowData folder
                     Process.Start(webAddress);
@@ -84,15 +79,13 @@ namespace ShowUI
             }
             catch (Exception)
             {
-
             }
-           
         }
+
         public string GetValueByKey(string _key)
         {
             try
             {
-
                 RegistryKey kiwi = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Netgear\STATION", true);
                 string[] _Key = kiwi.GetValue("OpenKey", null).ToString().Split('\\');
                 string _Model = _Key[1];
@@ -100,7 +93,6 @@ namespace ShowUI
                 kiwi = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Netgear\STATION" + "\\" + _Model + "\\" + _Sta, true);
                 string SN = kiwi.GetValue(_key, "").ToString();
                 return SN;
-
             }
             catch (Exception)
             {
@@ -121,7 +113,6 @@ namespace ShowUI
             GotoSite();
         }
 
-
         private void lbPassword_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (tbxPw.Enabled == false)
@@ -134,15 +125,12 @@ namespace ShowUI
                 tbxPw.Enabled = false;
                 tbxPw.BackColor = Color.Ivory;
             }
-           
         }
+
         public void CallWebservice()
         {
-           
         }
 
-
         ///
-       
     }
 }

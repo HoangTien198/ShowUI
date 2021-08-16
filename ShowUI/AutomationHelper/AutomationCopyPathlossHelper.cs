@@ -1,23 +1,21 @@
-﻿
+﻿using Newtonsoft.Json;
 using ShowUIApp;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading;
-using System.Windows.Forms;
-using Newtonsoft.Json;
 using System.Text.RegularExpressions;
-using System.Data;
-using System.Diagnostics;
+using System.Threading;
 
 namespace ShowUI.AutomationHelper
 {
     public class AutomationCopyPathlossHelper
     {
-        ShowUI.Utilities ul = new ShowUI.Utilities();
+        private ShowUI.Utilities ul = new ShowUI.Utilities();
+
         public void CreateIni()
         {
             try
@@ -33,12 +31,10 @@ namespace ShowUI.AutomationHelper
                 if (PathAutomationLocal.Contains("empty") || String.IsNullOrEmpty(PathAutomationLocal))
                 {
                     IniFile.WriteValue(Modalname, Station, "empty", ".\\PathLossConfig.txt");
-
                 }
             }
             catch
             {
-
             }
         }
 
@@ -69,6 +65,7 @@ namespace ShowUI.AutomationHelper
             }
             return isexist;
         }
+
         public void CreateDirecFtp(string path)
         {
             FtpWebRequest reqFTP = null;
@@ -85,20 +82,23 @@ namespace ShowUI.AutomationHelper
             //request.Method = WebRequestMethods.Ftp.MakeDirectory;
             //request.Credentials = new NetworkCredential("oper", "123");
         }
-        public void UpdateDb(string Model, string Station, string PCName, string Data, string FilePathloss, DateTime datePathlossFile,string status)
+
+        public void UpdateDb(string Model, string Station, string PCName, string Data, string FilePathloss, DateTime datePathlossFile, string status)
         {
             Connect117 conn = new Connect117();
             string sql = $@"INSERT INTO dbo.PathLoss(Dotname,Station,PCName,DateTest,DataPathLoss,FilePathLoss,TimeUpload,TimePathloss,IsPass)
                             VALUES('{Model}','{Station}','{PCName}','{DateTime.Now.ToString("yyyyMMdd")}','{Data}','{FilePathloss}','{DateTime.Now}','{datePathlossFile}','{status}')";
             int a = conn.Execute_NonSQL(sql, "10.224.81.49,1734");
         }
+
         public void UpdateRecordDb(string Model, string Station, string Data, string FileName)
         {
             Connect117 conn = new Connect117();
-            string sql = $@"INSERT INTO RecordPathloss(Dotname,Station,PCName,DateTest,TimeUpload,FileName,RecordPathloss) 
+            string sql = $@"INSERT INTO RecordPathloss(Dotname,Station,PCName,DateTest,TimeUpload,FileName,RecordPathloss)
                             VALUES('{Model}','{Station}','{Environment.MachineName}','{DateTime.Now.ToString("yyyyMMdd")}','{DateTime.Now}','{FileName}','{Data}')";
             int a = conn.Execute_NonSQL(sql, "10.224.81.49,1734");
         }
+
         public void UploadFile(string Localpath, string Serverpath, string UserId, string Password)
         {
             try
@@ -115,22 +115,21 @@ namespace ShowUI.AutomationHelper
             }
             catch (Exception)
             {
-
-
             }
-
         }
+
         public bool EqualsUpToSeconds(DateTime dt1, DateTime dt2)
         {
             return dt1.Year == dt2.Year && dt1.Month == dt2.Month && dt1.Day == dt2.Day &&
                    dt1.Hour == dt2.Hour && dt1.Minute == dt2.Minute && dt1.Second == dt2.Second;
         }
+
         public void CompareByAntena(List<DataPathloss> dtPathloss, out List<string> lstErr)
         {
             string Station = ul.GetStation();
 
             string Product = ul.GetProduct();
-            string delta = IniFile.ReadIniFile(Product, "DeltaAtena_"+Station, "3", @"F:\lsy\ID\PathlossControl\Config\PathLossConfig.txt");
+            string delta = IniFile.ReadIniFile(Product, "DeltaAtena_" + Station, "3", @"F:\lsy\ID\PathlossControl\Config\PathLossConfig.txt");
             double deltaVal;
             try
             {
@@ -138,7 +137,6 @@ namespace ShowUI.AutomationHelper
             }
             catch (Exception)
             {
-
                 deltaVal = 1;
             }
 
@@ -161,22 +159,18 @@ namespace ShowUI.AutomationHelper
                     }
                     catch (Exception)
                     {
-
-
                     }
-
                 }
-
             }
-
         }
+
         public string GetTimeModifyFile(string ModelName, string Station, string PCName, string PathLossFileName, string DateTest)
         {
             try
             {
                 Connect117 conn = new Connect117();
                 string sql = $@"select top 1 TimePathloss from PathLoss where
-                            DateTest = '{DateTest}' 
+                            DateTest = '{DateTest}'
                             and Dotname = '{ModelName}'
                             and Station= '{Station}'
                             and PCName= '{PCName}'
@@ -203,18 +197,17 @@ namespace ShowUI.AutomationHelper
             catch
             {
                 return "";
-
             }
-
         }
+
         public void CompareByBand(List<DataPathloss> dtPathloss, out List<string> lstErr)
         {
             string Station = ul.GetStation();
 
             string Product = ul.GetProduct();
-            string delta2g = IniFile.ReadIniFile(Product, "Delta2g_"+Station, "3", @"F:\lsy\ID\PathlossControl\Config\PathLossConfig.txt");
-            string delta5gl = IniFile.ReadIniFile(Product, "Delta5gl_"+ Station, "3", @"F:\lsy\ID\PathlossControl\Config\PathLossConfig.txt");
-            string delta5gh = IniFile.ReadIniFile(Product, "Delta5gh_"+ Station, "3", @"F:\lsy\ID\PathlossControl\Config\PathLossConfig.txt");
+            string delta2g = IniFile.ReadIniFile(Product, "Delta2g_" + Station, "3", @"F:\lsy\ID\PathlossControl\Config\PathLossConfig.txt");
+            string delta5gl = IniFile.ReadIniFile(Product, "Delta5gl_" + Station, "3", @"F:\lsy\ID\PathlossControl\Config\PathLossConfig.txt");
+            string delta5gh = IniFile.ReadIniFile(Product, "Delta5gh_" + Station, "3", @"F:\lsy\ID\PathlossControl\Config\PathLossConfig.txt");
             double delta2gVal, delta5glVal, delta5ghVal;
             try
             {
@@ -222,7 +215,6 @@ namespace ShowUI.AutomationHelper
             }
             catch (Exception)
             {
-
                 delta2gVal = 3;
             }
             try
@@ -231,7 +223,6 @@ namespace ShowUI.AutomationHelper
             }
             catch (Exception)
             {
-
                 delta5glVal = 3;
             }
             try
@@ -240,7 +231,6 @@ namespace ShowUI.AutomationHelper
             }
             catch (Exception)
             {
-
                 delta5ghVal = 3;
             }
             lstErr = new List<string>();
@@ -263,16 +253,12 @@ namespace ShowUI.AutomationHelper
                         var dataPathlossTmp = item.Data.Split(',').Where(x => x.Trim().Length > 0).Take(5).ToList();
                         if (double.Parse(dataPathlossTmp[i]) > 0)
                         {
-
                             dataTmp.Add(double.Parse(dataPathlossTmp[i]));
                         }
                     }
                     catch (Exception)
                     {
-
-
                     }
-
                 }
                 if (dataTmp.Count > 2)
                 {
@@ -283,7 +269,6 @@ namespace ShowUI.AutomationHelper
                         lstErr.Add($"2g index {i} deltal max {max} and min {min} lager than {delta2gVal}");
                     }
                 }
-
             }
             //5gl
             for (int i = 1; i < lstDataTop5gl.Count; i++)
@@ -301,10 +286,7 @@ namespace ShowUI.AutomationHelper
                     }
                     catch (Exception)
                     {
-
-
                     }
-
                 }
                 if (dataTmp.Count > 2)
                 {
@@ -315,7 +297,6 @@ namespace ShowUI.AutomationHelper
                         lstErr.Add($"5gl index {i} deltal max {max} and min {min} lager than {delta5glVal}");
                     }
                 }
-
             }
             //5gh
             for (int i = 1; i < lstDataTop5gh.Count; i++)
@@ -333,10 +314,7 @@ namespace ShowUI.AutomationHelper
                     }
                     catch (Exception)
                     {
-
-
                     }
-
                 }
                 if (dataTmp.Count > 2)
                 {
@@ -347,10 +325,9 @@ namespace ShowUI.AutomationHelper
                         lstErr.Add($"5gh index {i} deltal max {max} and min {min} lager than {delta5ghVal}");
                     }
                 }
-
             }
-
         }
+
         public void CopyToAutomationServer(string LocalPath, string ServerPath)
         {
             try
@@ -363,29 +340,22 @@ namespace ShowUI.AutomationHelper
                 string[] files = Directory.GetFiles(LocalPath, "*.csv");
                 foreach (var item in files)
                 {
-
-
                     FileInfo fInfo = new FileInfo(item);
                     UploadFile(fInfo.FullName, ServerPath + "/" + fInfo.Name, "oper", "123");
                 }
             }
             catch (Exception)
             {
-
-
             }
-
 
             //ImpersonatedUser IPUser = new ImpersonatedUser("oper", "TE-TPG-SERVER", "123");
             //try
             //{
-
             //	string Modalname = ul.GetModel();
             //	string Station = ul.GetStation();
             //	string PathAutomationLocal = IniFile.ReadIniFile(Modalname, Station, "empty", ".\\PathLossConfig.txt");
             //	if (!PathAutomationLocal.Contains("empty"))
             //	{
-
             //		if (!Directory.Exists(ServerPath))
             //		{
             //			Directory.CreateDirectory(ServerPath);
@@ -399,7 +369,6 @@ namespace ShowUI.AutomationHelper
             //		}
             //		IPUser.Dispose();
 
-
             //	}
 
             //}
@@ -408,11 +377,10 @@ namespace ShowUI.AutomationHelper
             //	MessageBox.Show("err copy: "+ ex.ToString());
             //	IPUser.Dispose();
             //}
-
         }
+
         public string ConvertCsvFileToJsonObject(string path)
         {
-
             var lines = File.ReadAllLines(path);
             var listObjResult = new List<Dictionary<string, string>>();
 
@@ -426,11 +394,12 @@ namespace ShowUI.AutomationHelper
 
             return JsonConvert.SerializeObject(listObjResult);
         }
+
         public string GetDataNew(string ModelName, string Station, string PCName, string PathLossFileName, string DateTest)
         {
             Connect117 conn = new Connect117();
-            string sql = $@"select top 1 DataPathLoss from dbo.PathLoss where 
-                            DateTest = '{DateTest}' 
+            string sql = $@"select top 1 DataPathLoss from dbo.PathLoss where
+                            DateTest = '{DateTest}'
                             and Dotname = '{ModelName}'
                             and Station= '{Station}'
                             and PCName= '{PCName}'
@@ -451,7 +420,6 @@ namespace ShowUI.AutomationHelper
             }
 
             return hutt;
-
         }
 
         public List<string> CompareTwoData(List<DataPathloss> data1, List<DataPathloss> data2, out List<string> lstErr)
@@ -478,18 +446,15 @@ namespace ShowUI.AutomationHelper
                     {
                         lstErr.Add($"Empty key {pl1.Key}");
                     }
-
                 }
             }
             catch (Exception)
             {
-
-
             }
-
 
             return new List<string>();
         }
+
         public int GetShift()
         {
             var _now = DateTime.Now.Hour;
@@ -499,8 +464,8 @@ namespace ShowUI.AutomationHelper
             }
 
             return 0;
-
         }
+
         public void UpdateData(string DotName, string Station, string Status)
         {
             int shift = GetShift();
@@ -512,10 +477,11 @@ namespace ShowUI.AutomationHelper
             Connect117 conn = new Connect117();
             string _sql = $@"update PathlossByShift
                             set Status = '{Status}'
-                            where Dotname='{DotName}' and Station='{Station}' 
+                            where Dotname='{DotName}' and Station='{Station}'
                             and DateTest='{_now}' and Shift={shift} and PCName='{Environment.MachineName}'";
             conn.Execute_NonSQL(_sql, "10.224.81.49,1734");
         }
+
         public int CheckDataShift(string DotName, string Station)
         {
             int shift = GetShift();
@@ -532,7 +498,6 @@ namespace ShowUI.AutomationHelper
             DataTable dt = conn.DataTable_Sql(sql, "10.224.81.49,1734");
             if (dt.Rows.Count > 0)
             {
-
                 return 1;
             }
             else
@@ -546,7 +511,7 @@ namespace ShowUI.AutomationHelper
 
         public void CopyToAutomationServerDB(string LocalPath, out bool isLock)
         {
-           // MessageBox.Show("sadasd");
+            // MessageBox.Show("sadasd");
             try
             {
                 if (!File.Exists("ErrorPathloss.txt"))
@@ -555,12 +520,9 @@ namespace ShowUI.AutomationHelper
                     fs.Close();
                     fs.Dispose();
                 }
-
             }
             catch (Exception)
             {
-
-
             }
             bool isModify = false;
             List<ErrorPathloss> lstSumErr = new List<ErrorPathloss>();
@@ -570,7 +532,7 @@ namespace ShowUI.AutomationHelper
             {
                 string[] files = Directory.GetFiles(LocalPath, "*.csv", SearchOption.TopDirectoryOnly);
                 string pattern = @"^path_loss(1?[0-9]?|20)\.csv$";
-                
+
                 files = (from x in files
                          where Regex.IsMatch(x.Split('\\').Last(), pattern) == true
                          select x
@@ -628,7 +590,7 @@ namespace ShowUI.AutomationHelper
                                 File.WriteAllText("ErrorPathloss.txt", string.Empty);
                                 using (TextWriter tw = new StreamWriter("ErrorPathloss.txt"))
                                 {
-                                   // tw.WriteLine($"Path: {fInfo.FullName}");
+                                    // tw.WriteLine($"Path: {fInfo.FullName}");
                                     foreach (var err in errPathLoss)
                                     {
                                         tw.WriteLine($"{err}");
@@ -636,8 +598,6 @@ namespace ShowUI.AutomationHelper
                                     tw.Dispose();
                                     tw.Close();
                                 }
-
-
                             }
                             else
                             {
@@ -665,8 +625,6 @@ namespace ShowUI.AutomationHelper
                             }
                             catch
                             {
-
-
                             }
                             using (TextWriter tw = new StreamWriter("SavedList.txt"))
                             {
@@ -678,29 +636,24 @@ namespace ShowUI.AutomationHelper
                                 tw.Dispose();
                                 tw.Close();
                             }
-
-
                         }
                         catch (Exception)
                         {
-
-
                         }
-
 
                         var sumErr = new ErrorPathloss() { FileName = fileName, lstErr = lstErrOL.Concat(lstErrBand).Concat(lstErrAntena).ToList() };
                         lstSumErr.Add(sumErr);
                         if (sumErr.lstErr.Count > 0)
                         {
-                            UpdateDb(Modalname, Station, Environment.MachineName, dataUpload, fileName, fInfo.LastWriteTime,"Fail");
-                          //  break;
-                          string fName = fInfo.Name;
-                          string cmdUpload = $" -u Upload:123 -T \"{fInfo.FullName}\" \"ftp://10.224.81.60/lsy/ID/PathlossControl/PathLoss/{Product}/{Modalname}/{Environment.MachineName}/{Station}/{currentDate}/FAIL/{currentTime}/{fName}\" --ftp-create-dirs";
-                          ExecuteCommandCURL(@"D:\AutoDl\uploadLogftp\curl.exe", cmdUpload);
+                            UpdateDb(Modalname, Station, Environment.MachineName, dataUpload, fileName, fInfo.LastWriteTime, "Fail");
+                            //  break;
+                            string fName = fInfo.Name;
+                            string cmdUpload = $" -u Upload:123 -T \"{fInfo.FullName}\" \"ftp://10.224.81.60/lsy/ID/PathlossControl/PathLoss/{Product}/{Modalname}/{Environment.MachineName}/{Station}/{currentDate}/FAIL/{currentTime}/{fName}\" --ftp-create-dirs";
+                            ExecuteCommandCURL(@"D:\AutoDl\uploadLogftp\curl.exe", cmdUpload);
                         }
                         else
                         {
-                            UpdateDb(Modalname, Station, Environment.MachineName, dataUpload, fileName, fInfo.LastWriteTime,"Pass");
+                            UpdateDb(Modalname, Station, Environment.MachineName, dataUpload, fileName, fInfo.LastWriteTime, "Pass");
                             string fName = fInfo.Name;
                             string cmdUpload = $" -u Upload:123 -T \"{fInfo.FullName}\" \"ftp://10.224.81.60/lsy/ID/PathlossControl/PathLoss/{Product}/{Modalname}/{Environment.MachineName}/{Station}/{currentDate}/PASS/{currentTime}/{fName}\" --ftp-create-dirs";
                             ExecuteCommandCURL(@"D:\AutoDl\uploadLogftp\curl.exe", cmdUpload);
@@ -708,7 +661,7 @@ namespace ShowUI.AutomationHelper
                     }
                     else
                     {
-                        UpdateDb(Modalname, Station, Environment.MachineName, dataUpload, fileName, fInfo.LastWriteTime,"Pass");
+                        UpdateDb(Modalname, Station, Environment.MachineName, dataUpload, fileName, fInfo.LastWriteTime, "Pass");
                         string fName = fInfo.Name;
                         string cmdUpload = $" -u Upload:123 -T \"{fInfo.FullName}\" \"ftp://10.224.81.60/lsy/ID/PathlossControl/PathLoss/{Product}/{Modalname}/{Environment.MachineName}/{Station}/{currentDate}/PASS/{currentTime}/{fName}\" --ftp-create-dirs";
                         ExecuteCommandCURL(@"D:\AutoDl\uploadLogftp\curl.exe", cmdUpload);
@@ -718,7 +671,6 @@ namespace ShowUI.AutomationHelper
                         Directory.CreateDirectory($@"F:\lsy\ID\PathlossControl\PathLoss\{Product}\{Modalname}\{Environment.MachineName}\{Station}\{currentDate}\{currentTime}");
                     }
                     File.Copy(fInfo.FullName, $@"F:\lsy\ID\PathlossControl\PathLoss\{Product}\{Modalname}\{Environment.MachineName}\{Station}\{currentDate}\{currentTime}\{fInfo.Name}", true);
-                    
                 }
             }
             catch (Exception ex)
@@ -730,7 +682,6 @@ namespace ShowUI.AutomationHelper
                     var fs = File.Create("SavedList.txt");
                     fs.Close();
                     fs.Dispose();
-
                 }
                 File.WriteAllText("SavedList.txt", string.Empty);
                 using (TextWriter tw = new StreamWriter("SavedList.txt"))
@@ -739,7 +690,6 @@ namespace ShowUI.AutomationHelper
                     tw.Close();
                     tw.Dispose();
                 }
-
             }
 
             if (lstSumErr.Where(x => x.lstErr.Count > 0).ToList().Count > 0)
@@ -768,8 +718,8 @@ namespace ShowUI.AutomationHelper
                     }
                 }
             }
-            catch 
-            { 
+            catch
+            {
             }
             try
             {
@@ -778,7 +728,6 @@ namespace ShowUI.AutomationHelper
                     var fs = File.Create("SavedList.txt");
                     fs.Close();
                     fs.Dispose();
-
                 }
                 File.WriteAllText("SavedList.txt", string.Empty);
                 using (TextWriter tw = new StreamWriter("SavedList.txt"))
@@ -789,7 +738,6 @@ namespace ShowUI.AutomationHelper
                         foreach (var s in item.lstErr)
                         {
                             tw.WriteLine($"File: {item.FileName}, Err = {s}");
-
                         }
                     }
                     if (lstSumErr.Count < 1)
@@ -802,7 +750,6 @@ namespace ShowUI.AutomationHelper
                     }
                     tw.Close();
                     tw.Dispose();
-
                 }
                 string Modalname = ul.GetModel();
                 string Product = ul.GetProduct();
@@ -813,13 +760,9 @@ namespace ShowUI.AutomationHelper
                     Directory.CreateDirectory($@"F:\lsy\ID\PathlossControl\Log\{Product}\{Modalname}\{Environment.MachineName}\{Station}\{currentDate}\{currentTime}");
                 }
                 File.Copy("SavedList.txt", $@"F:\lsy\ID\PathlossControl\Log\{Product}\{Modalname}\{Environment.MachineName}\{Station}\{currentDate}\{currentTime}\SavedList.txt", true);
-
             }
-
-
             catch (Exception ex)
             {
-
                 using (TextWriter tw = new StreamWriter("SavedList.txt"))
                 {
                     tw.WriteLine($"ex: {ex.Message}");
@@ -827,10 +770,6 @@ namespace ShowUI.AutomationHelper
                     tw.Dispose();
                 }
             }
-
-
-
-
         }
 
         public bool ExecuteCommandCURL(string curlExePath, string commandLineArguments, bool isReturn = true)
@@ -838,10 +777,10 @@ namespace ShowUI.AutomationHelper
             bool result = true;
             try
             {
-               var commandProcess = new Process();
+                var commandProcess = new Process();
                 commandProcess.StartInfo.UseShellExecute = false;
-                commandProcess.StartInfo.FileName = curlExePath; // this is the path of curl where it is installed;    
-                commandProcess.StartInfo.Arguments = commandLineArguments; // your curl command    
+                commandProcess.StartInfo.FileName = curlExePath; // this is the path of curl where it is installed;
+                commandProcess.StartInfo.Arguments = commandLineArguments; // your curl command
                 commandProcess.StartInfo.CreateNoWindow = true;
                 commandProcess.StartInfo.RedirectStandardInput = true;
                 commandProcess.StartInfo.RedirectStandardOutput = true;

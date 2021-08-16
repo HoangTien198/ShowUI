@@ -1,36 +1,32 @@
-﻿using ShowUIApp;
+﻿using Microsoft.Win32;
+using ShowUIApp;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using System.Diagnostics;
-using Microsoft.Win32;
-using System.IO;
 
 namespace ShowUI
 {
     public partial class frmSamplingControl : Form
     {
-        Utilities ul = new Utilities();
-        double iRate = 150.0;
-        double sampleRate = 0.0;
-        string model = "";
-        string product = "";
-        string station = "";
-        string mo = "";
-        string mo_s = "";
-        string show_sampling = "";
-        string sampleStation = "";
-        string checkingStation = "";
-        string stationInfo = "";
-        string srPath = "";
-        string rateFix = "";
-        ShowUI.SFISB05_SV.Servicepostdata objSfisSv = new ShowUI.SFISB05_SV.Servicepostdata();
-        bool isUpdateQtyFinish = true;
+        private Utilities ul = new Utilities();
+        private double iRate = 150.0;
+        private double sampleRate = 0.0;
+        private string model = "";
+        private string product = "";
+        private string station = "";
+        private string mo = "";
+        private string mo_s = "";
+        private string show_sampling = "";
+        private string sampleStation = "";
+        private string checkingStation = "";
+        private string stationInfo = "";
+        private string srPath = "";
+        private string rateFix = "";
+        private ShowUI.SFISB05_SV.Servicepostdata objSfisSv = new ShowUI.SFISB05_SV.Servicepostdata();
+        private bool isUpdateQtyFinish = true;
 
         //bool isFinishThread = false;
         public frmSamplingControl()
@@ -41,12 +37,10 @@ namespace ShowUI
 
         private void frmSamplingControl_Load(object sender, EventArgs e)
         {
-
             CheckForIllegalCrossThreadCalls = false;
             this.Invoke((MethodInvoker)delegate
             {
                 btCountDown.Text = "30(s)";
-
             });
             //ShowUIApp.showUI fr = new showUI();
             //fr.ShowWarningMessage("SAMPLING_CONTROL", "Sampling");
@@ -68,7 +62,6 @@ namespace ShowUI
                 lbStation.Text = stationInfo;
                 this.Invoke((MethodInvoker)delegate
                 {
-
                     btCountDown.Text = timeOut;
                 });
             }
@@ -84,28 +77,23 @@ namespace ShowUI
             _tSampling.IsBackground = true;
             _tSampling.Start();
 
-
             tUpdateOutput.Start();
             tCountDown.Start();
-
-
         }
+
         public void Initialize()
         {
-
-
         }
+
         //2017.11.13 Adele update not show sampling_test_window
         public void Show_sampling()
         {
             try
             {
-               
                 //show_sampling = ul.GetValueByKey("Show_sampling").ToString();
                 string[] st = stationInfo.Split(',');
                 for (int i = 0; i < st.Length; i++)
                 {
-
                     string[] stDetail = st[i].Split('/');
                     if (stDetail[1].Trim() == station && stDetail[0].Trim() != "")
                     {
@@ -119,8 +107,6 @@ namespace ShowUI
                         show_sampling = IniFile.ReadIniFile("Sampling_Control", "show_window_" + checkingStation, "", srPath);
                         ul.SetValueByKey("Show_sampling", show_sampling.ToString());
 
-
-
                         if (show_sampling == "0")
                         {
                             this.Visible = false;
@@ -132,6 +118,7 @@ namespace ShowUI
             {
             }
         }
+
         public void LockShowUI()
         {
             Process[] pro = Process.GetProcessesByName("CloseShowUILock");
@@ -172,15 +159,12 @@ namespace ShowUI
                 bool flagOKConditions = false;
                 if (stationInfo != "A_B")
                 {
-
-
                     try
                     {
                         string[] st = stationInfo.Split(',');
                         //MessageBox.Show(st.Length+"");
                         for (int i = 0; i < st.Length; i++)
                         {
-
                             string[] stDetail = st[i].Split('/');
                             //
                             //MessageBox.Show(stDetail[1].Trim() + "<-chk " + station + "? sple->" + stDetail[0].Trim());
@@ -242,12 +226,10 @@ namespace ShowUI
 
                         DataTable dtCurrentStationTestedDUT = objSfisSv.GET_TOTAL_PASSFAIL(checkingStation.Trim(), sShiftDate[0].Trim(), sShiftDate[1].Trim(), sShiftDate[2].Trim(), mo.Trim());
 
-
                         ul.event_log("Sampling checkingStation: " + dtCurrentStationTestedDUT.Rows.Count + " " + checkingStation.Trim() + " " + sShiftDate[0].Trim() + " " + sShiftDate[1].Trim() + " " + sShiftDate[2].Trim() + " " + mo.Trim());
                         ul.event_log("MO: " + ul.GetValueByKey("MO").ToString());
 
                         //DataTable dtCurrentStationTestedDUT = objSfisSv.GET_TOTAL_PASSFAIL("FT6", "D", "201703090730", "201703091830", mo.Trim());
-
 
                         if (dtCurrentStationTestedDUT.Rows.Count != 0)
                         {
@@ -290,7 +272,6 @@ namespace ShowUI
                                 });
                                 NormalSize();
                             }
-
                         }
                         this.Invoke((MethodInvoker)delegate
                         {
@@ -303,7 +284,6 @@ namespace ShowUI
                             stw.Stop();
                             stw.Reset();
                         });
-
                     }
                     else
                     {
@@ -320,7 +300,6 @@ namespace ShowUI
                     //    this.Close();
                     //});
                 }
-
             }
             catch (Exception r)
             {
@@ -337,10 +316,10 @@ namespace ShowUI
             isUpdateQtyFinish = true;
         }
 
-        int fCountDown = 0;
+        private int fCountDown = 0;
+
         private void tCountDown_Tick(object sender, EventArgs e)
         {
-
             int remainSecond = Convert.ToInt32(btCountDown.Text.Replace("(s)", "").Trim());
 
             if (remainSecond > 5)
@@ -357,11 +336,9 @@ namespace ShowUI
             {
                 tCountDown.Enabled = false;
 
-
                 //Thread _tSampling = new Thread(Sampling);
                 //_tSampling.IsBackground = true;
                 //_tSampling.Start();
-
 
                 //while (isFinishThread)
                 //{
@@ -373,8 +350,6 @@ namespace ShowUI
                 }
                 catch
                 {
-
-
                 }
                 if (iRate < sampleRate)
                 {
@@ -388,44 +363,35 @@ namespace ShowUI
                         CheckNTGR checkNtgr = new CheckNTGR();
                         if (checkNtgr.CheckLockSP())
                         {
-
-
                             Thread _lockUI = new Thread(LockShowUI);
                             _lockUI.IsBackground = true;
                             _lockUI.Start();
                         }
-
-
                     }
                     catch (Exception ex)
                     {
                     }
-
                 }
                 else
                 {
-
                     this.Invoke((MethodInvoker)delegate
                     {
                         this.BackColor = Color.Green;
                     });
                     ul.SetValueByKey("SamplingTimeOut", "1");
                     ul.SetValueByKey("SamplingCountDown", "0");
-
                 }
-
-
 
                 tCountDown.Enabled = true;
                 this.Close();
             }
         }
-        Stopwatch stw = new Stopwatch();
-        int fCount = 0;
+
+        private Stopwatch stw = new Stopwatch();
+        private int fCount = 0;
+
         private void tUpdateOutput_Tick(object sender, EventArgs e)
         {
-
-
             tUpdateOutput.Enabled = false;
             //tUpdateOutput.Interval = 120000;
             tUpdateOutput.Interval = 500;
@@ -435,11 +401,9 @@ namespace ShowUI
                 Thread _tSampling = new Thread(Sampling);
                 _tSampling.IsBackground = true;
                 _tSampling.Start();
-
             }
 
             tUpdateOutput.Enabled = true;
-
         }
 
         private void btCountDown_Click(object sender, EventArgs e)
@@ -463,15 +427,13 @@ namespace ShowUI
                 this.Size = new Size(377, 74);
             });
         }
+
         public void WarningSize()
         {
             this.Invoke((MethodInvoker)delegate
             {
                 this.Size = new Size(377, 152);
             });
-
         }
-
-
     }
 }

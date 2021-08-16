@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ShowUI.Common
+﻿namespace ShowUI.Common
 {
     public class WipPCModel
     {

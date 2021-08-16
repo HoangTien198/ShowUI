@@ -1,20 +1,17 @@
 ﻿using ShowUI.AutomationHelper;
 using ShowUIApp;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ShowUI
 {
     public partial class FrmPathloss : Form
     {
-        string LocalPath = "";
+        private string LocalPath = "";
+
         public FrmPathloss()
         {
             InitializeComponent();
@@ -22,12 +19,10 @@ namespace ShowUI
 
         private void FrmPathloss_Load(object sender, EventArgs e)
         {
-           
+            this.Location = new Point(Screen.FromPoint(this.Location).WorkingArea.Left,
+                                  Screen.PrimaryScreen.WorkingArea.Height - this.Height);
 
-                this.Location = new Point(Screen.FromPoint(this.Location).WorkingArea.Left,
-                                      Screen.PrimaryScreen.WorkingArea.Height - this.Height);
-          
-            label1.Font = new Font("Microsoft Sans Serif",14,FontStyle.Bold);
+            label1.Font = new Font("Microsoft Sans Serif", 14, FontStyle.Bold);
 
             ShowUI.Utilities ul = new ShowUI.Utilities();
             string Modalname = ul.GetProduct();
@@ -41,10 +36,7 @@ namespace ShowUI
                 }
                 catch (Exception)
                 {
-
-                  
                 }
-               
             }
         }
 
@@ -76,13 +68,10 @@ namespace ShowUI
                         this.BackColor = Color.Red;
                     }
                     label1.Text = label;
-
                 }
             }
             catch (Exception)
             {
-
-                
             }
             this.Invoke((MethodInvoker)delegate
             {
@@ -105,7 +94,7 @@ namespace ShowUI
                 AutomationCopyPathlossHelper copyToServerAuto = new AutomationCopyPathlossHelper();
                 if (!Directory.Exists(LocalPath))
                 {
-                   // MessageBox.Show(LocalPath);
+                    // MessageBox.Show(LocalPath);
                     return;
                 }
                 bool isLock = false;
@@ -113,8 +102,6 @@ namespace ShowUI
             }
             catch (Exception)
             {
-
-                
             }
 
             this.Invoke((MethodInvoker)delegate

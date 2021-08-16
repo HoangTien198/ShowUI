@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.IO;
 
 namespace ShowUI
 {
@@ -14,7 +10,7 @@ namespace ShowUI
             if (!Directory.Exists(".//IQTESTTIME"))
             {
                 Directory.CreateDirectory(".//IQTESTTIME");
-            }   
+            }
             if (File.Exists(".//IQTESTTIME//LocalDetailLog.ini"))
             {
                 File.Delete(".//IQTESTTIME//LocalDetailLog.ini");
@@ -27,7 +23,6 @@ namespace ShowUI
 
             File.Copy(@"F:\lsy\Test\DownloadConfig\AutoDL\IQTESTTIME\LocalDetailLog.ini", ".//IQTESTTIME//LocalDetailLog.ini", false);
             File.Copy(@"F:\lsy\Test\DownloadConfig\AutoDL\IQTESTTIME\IQCheckTimeItem.ini", ".//IQTESTTIME//IQCheckTimeItem.ini", false);
-
         }
     }
 }

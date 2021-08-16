@@ -1,11 +1,10 @@
 ﻿using System;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ShowUIApp
 {
-    class IniFile
+    internal class IniFile
     {
         private string fileName;
 
@@ -29,6 +28,7 @@ namespace ShowUIApp
 
         [DllImport("kernel32.dll")]
         private static extern int WritePrivateProfileString(string ApplicationName, string KeyName, string StrValue, string FileName);
+
         /// <summary>
         /// Reads a string value from the INI file.
         /// </summary>
@@ -42,7 +42,7 @@ namespace ShowUIApp
             return temp.ToString();
         }
 
-        public static string ReadIniFile(string section, string key, string _default, string fileName, int ibufferSize=255)
+        public static string ReadIniFile(string section, string key, string _default, string fileName, int ibufferSize = 255)
         {
             int bufferSize = ibufferSize;
             StringBuilder temp = new StringBuilder(bufferSize);
@@ -58,6 +58,7 @@ namespace ShowUIApp
         {
             WritePrivateProfileString(SectionName, KeyName, KeyValue, FileName);
         }
+
         /// <summary>
         /// Reads a whole section of the INI file.
         /// </summary>

@@ -1,25 +1,18 @@
 ﻿using Microsoft.Win32;
-using ShowUI.AutomationHelper;
 using ShowUIApp;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ShowUI
 {
     public partial class frmCableChange : Form
     {
-        Utilities ul = new Utilities();
-        string pathCable = "";
-        int totalCable = 0;
-
-
+        private Utilities ul = new Utilities();
+        private string pathCable = "";
+        private int totalCable = 0;
 
         public frmCableChange()
         {
@@ -45,13 +38,16 @@ namespace ShowUI
             for (int i = 0; i < totalCable; i++)
             {
                 string cbName = IniFile.ReadIniFile("CableName", "Cable_" + i, "N/A", pathCable);
+                string cbUseTime = GetConnectorUsingTimes("Cable" + i).ToString();
+                string maxTime = IniFile.ReadIniFile("MaxTimes", "Cable_" + i, "5000", pathCable);
+                if (int.Parse(cbUseTime) < int.Parse(maxTime))
+                {
+                    continue;
+                }
                 //string cbTime = IniFile.ReadIniFile("MaxTimes", "Cable_" + i, "5000", pathCable);
-                cbCable.Items.Add(new BoxItem{ Text = cbName, Value = "Cable_"+i });
+                cbCable.Items.Add(new BoxItem { Text = cbName, Value = "Cable_" + i });
             }
-
         }
-
-        
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -76,7 +72,7 @@ namespace ShowUI
                 MessageBox.Show("Select cable type, If haven't cable type in select box, plz call TE-Pro Config");
                 return;
             }
-           //.Split('_').First()+ (cbCable.SelectedItem as BoxItem).Value.Split('_').Last();
+            //.Split('_').First()+ (cbCable.SelectedItem as BoxItem).Value.Split('_').Last();
             string cbLife = IniFile.ReadIniFile("MaxTimes", cbKey, "5000", pathCable);
             string cbUseTime = GetConnectorUsingTimes(cbKey.Split('_').First() + cbKey.Split('_').Last()).ToString();
             string resion = rtResion.Text;
@@ -108,12 +104,14 @@ namespace ShowUI
                 conn.Dispose();
                 conn.Close();
                 this.Close();
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show("co loi trong qua trinh xu ly: " + ex.Message);
             }
+
+            SetConnectorUsingTimes(cbKey.Split('_').First() + cbKey.Split('_').Last());
+            Application.Restart();
         }
 
         public int GetConnectorUsingTimes(string KeyName)
@@ -126,16 +124,34 @@ namespace ShowUI
                 string Kplace = @"SYSTEM\CurrentControlSet\services" + @"\" + Product + @"\" + Station;
                 keys = Registry.LocalMachine.OpenSubKey(Kplace, true);
 
-                int rVal = Convert.ToInt32(keys.GetValue(KeyName,"142").ToString());
+                int rVal = Convert.ToInt32(keys.GetValue(KeyName, "142").ToString());
 
                 return rVal;
-
             }
             catch (Exception)
             {
                 return 0;
             }
+        }
 
+        public void SetConnectorUsingTimes(string KeyName)
+        {
+            try
+            {
+                RegistryKey keys;
+                string Product = ul.GetProduct().Trim();
+                string Station = ul.GetStation().Trim();
+                string Kplace = @"SYSTEM\CurrentControlSet\services" + @"\" + Product + @"\" + Station;
+                keys = Registry.LocalMachine.OpenSubKey(Kplace, true);
+
+                keys.SetValue(KeyName, "0");
+
+                //  return rVal;
+            }
+            catch (Exception)
+            {
+                //return 0;
+            }
         }
     }
 

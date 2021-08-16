@@ -76,6 +76,7 @@
             // 
             // cbCable
             // 
+            this.cbCable.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCable.FormattingEnabled = true;
             this.cbCable.Location = new System.Drawing.Point(107, 66);
             this.cbCable.Name = "cbCable";

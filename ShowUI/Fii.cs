@@ -1,28 +1,24 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.OracleClient;
-using System.Globalization;
-using System.Text;
-using ShowUI;
-using ZXing;
-using ZXing.Common;
-using ZXing.QrCode;
-using System.Drawing.Imaging;
 using System.Drawing;
-using System.Windows.Forms;
+using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
+using System.Windows.Forms;
+using ZXing;
+using ZXing.QrCode;
+
 namespace Fii
 {
-    class FiiData
+    internal class FiiData
     {
         public static int InsertFii(string lock_detail, string wip_qty, string yield_rate)
         {
             SQLConnect conn = new SQLConnect();
             string openkey = "";
-            string model = "", station = "",err_loop="", first_fail = "0", repair_qty = "0", pass_qty = "0", shift = "", err_code = "", date_time = "", lock_status = "LOCK", why = lock_detail, lock_history = "";
+            string model = "", station = "", err_loop = "", first_fail = "0", repair_qty = "0", pass_qty = "0", shift = "", err_code = "", date_time = "", lock_status = "LOCK", why = lock_detail, lock_history = "";
             string[] lockA = { "YRate NPI", "Lỗi: Có lỗi nghiêm trọng", "Lỗi: Phát hiện mã lỗi", "R_OVERSPEC", "Error 3in10!", "RTRate", "Lower Than", "3_Continuous DUT Error", "4_Continuous DUT Error ABC12" };
             //ArrayList arr = new ArrayList();
             //arr.AddRange(lockA);
@@ -38,15 +34,14 @@ namespace Fii
                 }
             }
             lock_history = (check_lock) ? "LOCKA" : "LOCKB";
-            
-           
+
             double d = 1.2;
             int n = 0;
             if (yield_rate.Contains("%"))
             {
                 yield_rate = yield_rate.Replace("%", "");
             }
-            
+
             int wip_ = 0; double yr_ = 0; double pass_ = 0; double fail_ = 0;
             if (int.TryParse(wip_qty, out n) & double.TryParse(yield_rate, out d))
             {
@@ -62,7 +57,7 @@ namespace Fii
             {
                 wip_qty = "0";
             }
-            
+
             date_time = DateTime.Now.ToString("dd/MM/yyyy");
             string hms = DateTime.Now.ToString("HH:mm:ss");
             string date_time_lock = date_time + " " + hms;
@@ -88,7 +83,7 @@ namespace Fii
                 //{
                 //    pass_qty = "NULL";
                 //}
-                err_code = (string)key.GetValue("ERRORCODE");  
+                err_code = (string)key.GetValue("ERRORCODE");
             }
             if (lock_detail.Contains("3_Continuous"))
             {
@@ -111,25 +106,27 @@ namespace Fii
                 id += 1;
             }
             else id = 1;
-            string sql_check = "SELECT*FROM SPREADSHEETDATA WHERE MODEL_NAME='"+model+"' AND STATION_NAME='"+station+"' AND ATE_NAME='"+ate+"' AND LOCK_STATUS='"+lock_status+"' AND LOCK_DETAIL='"+lock_detail+"' AND ERROR_CODE='"+err_code+"' AND LOCK_HISTORY='"+lock_history+"' AND DATE_TIME='"+date_time+"' ";
-            if (conn.getDataTable(sql_check).Rows.Count==0)
+            string sql_check = "SELECT*FROM SPREADSHEETDATA WHERE MODEL_NAME='" + model + "' AND STATION_NAME='" + station + "' AND ATE_NAME='" + ate + "' AND LOCK_STATUS='" + lock_status + "' AND LOCK_DETAIL='" + lock_detail + "' AND ERROR_CODE='" + err_code + "' AND LOCK_HISTORY='" + lock_history + "' AND DATE_TIME='" + date_time + "' ";
+            if (conn.getDataTable(sql_check).Rows.Count == 0)
             {
                 sql = "INSERT INTO SPREADSHEETDATA(MODEL_NAME,STATION_NAME,ATE_NAME,ERROR_LOOP,WIP_QTY,FIRST_FAIL,REPAIR_QTY,PASS_QTY,WHY,LOCK_STATUS,LOCK_HISTORY,DATE_TIME_LOCK,DATE_TIME,SHIFT,LOCK_DETAIL,ERROR_CODE,ID) ";
                 sql += "VALUES('" + model + "','" + station + "','" + ate + "','" + err_loop + "','" + wip_qty + "','" + first_fail + "','" + repair_qty + "','" + pass_qty + "','" + why + "','" + lock_status + "','" + lock_history + "',CONVERT(DATETIME,'" + date_time_lock + "',103),CONVERT(DATETIME,'" + date_time + "',103),'" + shift + "','" + lock_detail + "','" + err_code + "','" + id + "') ";
                 conn.ExecuteSQL(sql);
             }
-            
+
             return id;
         }
+
         public static void UpdateFii(int id, string action, string owner)
         {
-            action = "'"+action+"'";
+            action = "'" + action + "'";
             SQLConnect conn = new SQLConnect();
             string lock_status = "UNLOCK";
             string date_unlock = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss tt");
             string sql = "UPDATE SPREADSHEETDATA SET ACTION=" + action + ",OWNER='" + owner + "',LOCK_STATUS='" + lock_status + "',DATE_TIME_UNLOCK=CONVERT(DATETIME,'" + date_unlock + "',22) WHERE ID='" + id + "'";
             conn.ExecuteSQL(sql);
         }
+
         public static void QRCode(PictureBox ptb)
         {
             var barcodeWriter = new BarcodeWriter();
@@ -142,7 +139,6 @@ namespace Fii
             };
             barcodeWriter.Options = qr;
             barcodeWriter.Format = BarcodeFormat.QR_CODE;
-
 
             string content = Environment.MachineName;
             using (var bitmap = barcodeWriter.Write(content))
@@ -157,12 +153,13 @@ namespace Fii
         }
     }
 
-    class SQLConnect
+    internal class SQLConnect
     {
         public static string StringConnect = "Server=10.224.81.92;Uid=B05FII;Pwd=Foxconn168#;Database=B05_FII;";
-        System.Data.SqlClient.SqlConnection connect;
-        System.Data.SqlClient.SqlDataAdapter sda;
-        System.Data.SqlClient.SqlCommand cmd;
+        private System.Data.SqlClient.SqlConnection connect;
+        private System.Data.SqlClient.SqlDataAdapter sda;
+        private System.Data.SqlClient.SqlCommand cmd;
+
         public void OpenConnect()
         {
             //connect = new OracleConnection(StringConnect);
@@ -179,6 +176,7 @@ namespace Fii
                 }
             }
         }
+
         public void CloseConnect()
         {
             if (connect.State != System.Data.ConnectionState.Closed)
@@ -193,12 +191,14 @@ namespace Fii
                 }
             }
         }
+
         public System.Data.SqlClient.SqlConnection GetConn()
         {
             connect = new System.Data.SqlClient.SqlConnection(StringConnect);
             OpenConnect();
             return connect;
         }
+
         public void ExecuteSQL(string sql)
         {
             cmd = new System.Data.SqlClient.SqlCommand();
@@ -223,6 +223,7 @@ namespace Fii
                 CloseConnect();
             }
         }
+
         public DataTable getDataTable(string sql)
         {
             try
@@ -234,17 +235,16 @@ namespace Fii
                 connect.Dispose();
                 connect.Close();
                 return ds.Tables[0];
-
             }
             catch (Exception)
             {
                 //throw new Exception(ex.Message);
                 return new DataTable();
             }
-
         }
     }
-    class OracleConnect
+
+    internal class OracleConnect
     {
         public OracleConnect()
         {
@@ -252,16 +252,18 @@ namespace Fii
             // TODO: Add constructor logic here
             //
         }
+
         public bool Connected = false;
-        OracleConnection connection = null;
-        OracleCommand command = null;
+        private OracleConnection connection = null;
+        private OracleCommand command = null;
+
         public OracleConnection GetConnection()
         {
-
             string DBName = "User ID=B05FII;Pwd=Foxconn168#;data source=(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=10.224.81.92)(PORT=1521))(CONNECT_DATA=(SID=orclb05me)));unicode=true";
             OracleConnection myConn = new OracleConnection(DBName);
             return myConn;
         }
+
         public void sqlEx(string StrSQL)
         {
             OracleConnection con = GetConnection();
@@ -283,5 +285,4 @@ namespace Fii
             return (ds.Tables[0]);
         }
     }
-
 }

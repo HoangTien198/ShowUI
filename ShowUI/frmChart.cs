@@ -1,12 +1,8 @@
+using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using ZedGraph;
-using Microsoft.Win32;
 
 namespace ShowUIApp
 {
@@ -39,11 +35,11 @@ namespace ShowUIApp
             {
                 rrData = _StationKey.GetValue("TotRetest", "0").ToString().Split(',');
                 yrData = _StationKey.GetValue("TotYield", "0").ToString().Split(',');
-                x = new double[rrData.Length-1];
-                y = new double[rrData.Length-1];
-                z = new double[yrData.Length-1];
-                t = new double[yrData.Length-1];
-                for (int i = 0; i < rrData.Length-1; i++)
+                x = new double[rrData.Length - 1];
+                y = new double[rrData.Length - 1];
+                z = new double[yrData.Length - 1];
+                t = new double[yrData.Length - 1];
+                for (int i = 0; i < rrData.Length - 1; i++)
                 {
                     try
                     {
@@ -54,7 +50,7 @@ namespace ShowUIApp
                     { }
                 }
 
-                for (int i = 0; i < yrData.Length-1; i++)
+                for (int i = 0; i < yrData.Length - 1; i++)
                 {
                     try
                     {
@@ -78,7 +74,7 @@ namespace ShowUIApp
             // GraphPane object holds one or more Curve objects (or plots)
             GraphPane RRPane = RRChart.GraphPane;
             GraphPane YRPane = YRChart.GraphPane;
-            // PointPairList holds the data for plotting, X and Y arrays 
+            // PointPairList holds the data for plotting, X and Y arrays
             PointPairList pRR = new PointPairList(x, y);
             PointPairList pYR = new PointPairList(z, t);
 
@@ -95,8 +91,8 @@ namespace ShowUIApp
             RRPane.YAxis.MajorGrid.IsVisible = true;
             YRPane.XAxis.MajorGrid.IsVisible = true;
             YRPane.YAxis.MajorGrid.IsVisible = true;
-            RRPane.XAxis.Scale.Max = x.Length-1;
-            YRPane.XAxis.Scale.Max = t.Length-1;
+            RRPane.XAxis.Scale.Max = x.Length - 1;
+            YRPane.XAxis.Scale.Max = t.Length - 1;
             RRPane.XAxis.Scale.FontSpec.Size = 18;
             RRPane.YAxis.Scale.FontSpec.Size = 18;
             YRPane.XAxis.Scale.FontSpec.Size = 18;
@@ -109,7 +105,7 @@ namespace ShowUIApp
             RRPane.Title.FontSpec.Size = 20;
             RRPane.XAxis.Title.Text = "Time";
             RRPane.XAxis.Title.FontSpec.Size = 18;
-            
+
             //RRPane.XAxis.Type = AxisType.LinearAsOrdinal;
             //RRPane.YAxis.Type = AxisType.LinearAsOrdinal;
             RRPane.YAxis.Title.Text = "Percent";
@@ -122,7 +118,7 @@ namespace ShowUIApp
             //YRPane.YAxis.Type = AxisType.LinearAsOrdinal;
             YRPane.YAxis.Title.Text = "Percent";
             YRPane.YAxis.Title.FontSpec.Size = 18;
-            // I add all three functions just to be sure it refeshes the plot.   
+            // I add all three functions just to be sure it refeshes the plot.
             RRChart.AxisChange();
             RRChart.Invalidate();
             RRChart.Refresh();
@@ -134,12 +130,10 @@ namespace ShowUIApp
 
         private void RRChart_Load(object sender, EventArgs e)
         {
-
         }
 
         private void YRChart_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

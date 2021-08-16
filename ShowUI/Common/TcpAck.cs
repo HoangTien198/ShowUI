@@ -1,9 +1,7 @@
 ﻿using Microsoft.Win32;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
-using System.Text;
 
 namespace ShowUI.Common
 {
@@ -24,7 +22,7 @@ namespace ShowUI.Common
                     }
                 }
             }
-            catch 
+            catch
             {
             }
         }

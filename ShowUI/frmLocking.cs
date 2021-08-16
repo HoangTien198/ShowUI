@@ -1,49 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using System.IO;
-
-using System.Data.SqlClient;
-
-using System.Management;
-using System.Runtime.InteropServices;
+﻿using Fii;
 using Microsoft.Win32;
-using System.Diagnostics;
-using System.Threading;
-using System.Net.Sockets;
-using System.Net;
 using ShowUIApp;
-using Fii;
-
-
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace ShowUI
 {
     public partial class frmLocking : Form
     {
-        const string subkey = @"SOFTWARE\NETGEAR\STATION";
+        private const string subkey = @"SOFTWARE\NETGEAR\STATION";
 
-        string _KindOfError = "";
-        string _ErrorDetail = "";
+        private string _KindOfError = "";
+        private string _ErrorDetail = "";
 
         //string YRStopSpec = "";
         //string RTRStopSpec = "";
-        string client_ip = "";
-        string _STARTTIME;
-        List<string> ListStationIp = new List<string>();
-        bool _UseSpecMode;
-        string TestDUTCount = "";
-        int _TestedDUT = 0;
-        string _globalUsedMode = "0";
-        string _BufferDUT = "50";
-        DateTime startTime = DateTime.Now;
+        private string client_ip = "";
 
-        string conn, connectionString;
-        int idFii;
+        private string _STARTTIME;
+        private List<string> ListStationIp = new List<string>();
+        private bool _UseSpecMode;
+        private string TestDUTCount = "";
+        private int _TestedDUT = 0;
+        private string _globalUsedMode = "0";
+        private string _BufferDUT = "50";
+        private DateTime startTime = DateTime.Now;
+
+        private string conn, connectionString;
+        private int idFii;
+
         public frmLocking()
         {
             InitializeComponent();
@@ -74,7 +69,6 @@ namespace ShowUI
                     lblClose.Visible = false;
                     groupBox2.Visible = false;
                 }
-
             }
             if (_KindOfError.Contains("USB") || _KindOfError.Contains("Virus") || _KindOfError.Contains("Cable") || _KindOfError.Contains("SPECIALLOCK") || _KindOfError.Contains("low"))
             {
@@ -86,43 +80,38 @@ namespace ShowUI
                 tbl_unlockData.Visible = true;
                 tbl_unlockData.Show();
                 tbUnlock.Hide();
-
             }
 
             tbl_unlockData.Visible = true;
             tbl_unlockData.Show();
-            
-            tbUnlock.Hide();
 
+            tbUnlock.Hide();
 
             TestDUTCount = _BufferDUT;
             //
         }
 
+        private string FixEmpID = "";
+        private bool flagInsert = false;
+        private ShowUI.SvFPS.WebService svSaveErrs = new SvFPS.WebService();
+        private ShowUI.Utilities ul = new ShowUI.Utilities();
+        private ShowUI.GET_ATE_SUM_TESTED_DUT.Servicepostdata svWIPGroup = new ShowUI.GET_ATE_SUM_TESTED_DUT.Servicepostdata();
+        private ShowUI.SFISB05_SV.Servicepostdata sfisB05 = new SFISB05_SV.Servicepostdata();
+        private ShowUI.B05_SERVICE_CENTER.B05_Service CENTER_B05_SV = new B05_SERVICE_CENTER.B05_Service();
 
-        string FixEmpID = "";
-        bool flagInsert = false;
-        ShowUI.SvFPS.WebService svSaveErrs = new SvFPS.WebService();
-        ShowUI.Utilities ul = new ShowUI.Utilities();
-        ShowUI.GET_ATE_SUM_TESTED_DUT.Servicepostdata svWIPGroup = new ShowUI.GET_ATE_SUM_TESTED_DUT.Servicepostdata();
-        ShowUI.SFISB05_SV.Servicepostdata sfisB05 = new SFISB05_SV.Servicepostdata();
-        ShowUI.B05_SERVICE_CENTER.B05_Service CENTER_B05_SV = new B05_SERVICE_CENTER.B05_Service();
         private void tbUnlock_Click(object sender, EventArgs e)
         {
-
             try
             {
-
                 if (tbxAction.Text != "")
                 {
-                    using (frmUnlockRequirements frm = new frmUnlockRequirements(false,"", startTime))
+                    using (frmUnlockRequirements frm = new frmUnlockRequirements(false, "", startTime))
                     {
                         this.TopMost = false;
                         frm.TopMost = true;
 
                         if (frm.ShowDialog() == DialogResult.OK)
                         {
-
                             string EmpID = frm.GetUser().Trim();
                             string Pw = frm.GetPw().Trim();
                             string Count4Error = "";
@@ -155,7 +144,6 @@ namespace ShowUI
                                         {
                                             if (ds.Tables[0].Rows[0]["Dep"].ToString().Contains("TE-Setup"))
                                             {
-
                                                 ul.SetValueByKey("StopMachine", "0");
                                                 ul.SetValueByKey("FixFlag", "1");
                                                 SetStopMachineStatus(true);
@@ -167,17 +155,14 @@ namespace ShowUI
                                                 //ul.SetValueByKey("StopMachine", "1");
                                                 //ul.SetValueByKey("FixFlag", "1");
                                             }
-
                                         }
                                         // End Alan 31-03-2018
-
 
                                         //2017.03.014
                                         if (_KindOfError.Contains("SAMPLING_CONTROL"))
                                         {
                                             if (ds.Tables[0].Rows[0]["Dep"].ToString().Contains("QA") || model.Contains("U12I345") || model.Contains("U12I370"))
                                             {
-
                                                 ul.SetValueByKey("StopMachine", "0");
                                                 ul.SetValueByKey("FixFlag", "1");
                                                 ul.SetValueByKey("SamplingTime", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")); // delay 1h
@@ -192,7 +177,7 @@ namespace ShowUI
                                                 _tSaveUnlockDataSampling.IsBackground = true;
                                                 _tSaveUnlockDataSampling.Start();
                                                 SetStopMachineStatus(true);
-                                               // FiiData.UpdateFii(idFii, tbxAction.Text, EmpID);
+                                                // FiiData.UpdateFii(idFii, tbxAction.Text, EmpID);
                                             }
                                             else
                                             {
@@ -206,7 +191,6 @@ namespace ShowUI
                                                 //ul.SetValueByKey("StopMachine", "1");
                                                 //ul.SetValueByKey("FixFlag", "1");
                                             }
-
                                         }
 
                                         // for locking tester mannually
@@ -235,7 +219,6 @@ namespace ShowUI
                                                 SetWebUnlockPath("SPECIALLOCK", Key);
 
                                                 //FiiData.UpdateFii(idFii, tbxAction.Text, EmpID);
-
                                             }
                                             SetStopMachineStatus(true);
                                             Application.Exit();
@@ -255,7 +238,6 @@ namespace ShowUI
                                             ul.ShellExecute(@"TASKKILL /IM NetgearAutoDL.exe /F /T");
                                             ul.ShellExecute(@"TASKKILL /IM " + ul.GetValueByKey("TPG_NAME") + " /F /T");
                                             ul.ShellExecute(@"TASKKILL /IM ShowUI.exe /F /T");
-
 
                                             this.Close();
                                         }
@@ -302,7 +284,6 @@ namespace ShowUI
                                             else
                                             {
                                                 AutoClosingMessageBox.Show("Không đủ quyền xử lý. Gọi PQE/IPQC!", "AutoCloseMessageBox", 10000);
-
                                             }
                                         }
 
@@ -322,7 +303,6 @@ namespace ShowUI
                                             else
                                             {
                                                 AutoClosingMessageBox.Show("Không đủ quyền xử lý. Gọi TE-Setup!", "AutoCloseMessageBox", 10000);
-
                                             }
                                         }
 
@@ -349,7 +329,6 @@ namespace ShowUI
 
                                         if (_KindOfError.Contains("Fixture"))
                                         {
-
                                             ul.SetValueByKey("StopMachine", "0");
                                             //ul.SetValueByKey("FixFlag", "1");
                                             AutoClosingMessageBox.Show("Vui lòng dùng đúng Fixture trên server ! Thanks " + EmpID + "!", "AutoCloseMessageBox", 10000);
@@ -394,12 +373,9 @@ namespace ShowUI
                                                 SetStopMachineStatus(true);
 
                                                 // update table record
-
                                             }
                                             this.Close();
                                         }
-
-
 
                                         if (_KindOfError.Contains("YRate") || _KindOfError.Contains("RTRate"))
                                         {
@@ -435,7 +411,6 @@ namespace ShowUI
                                                 }
 
                                                 SetStopMachineStatus(false);
-
                                             }
                                             else
                                             {
@@ -450,7 +425,6 @@ namespace ShowUI
                                                             ul.SetValueByKey("BRTRate", TestDUTCount);
                                                             float RTRate = Convert.ToSingle(RRYRdata.Substring(48, 6));
                                                             AutoClosingMessageBox.Show("Bạn có thêm " + TestDUTCount + " lần thực hiện kiểm tra!", "AutoCloseMessageBox", 10000);
-
                                                         }
                                                     }
                                                     SetStopMachineStatus(true);
@@ -466,7 +440,6 @@ namespace ShowUI
                                         }
                                         else
                                         {
-
                                             ul.SetValueByKey("StopMachine", "0");
                                             if (_KindOfError.Contains("Testtime"))
                                             {
@@ -511,7 +484,6 @@ namespace ShowUI
                                             this.Close();
                                         }
 
-
                                         if (flagInsert == true)
                                         {
                                             //Thread _tUpdateUnlockStatus = new Thread(UpdateUnlockStatus);
@@ -534,7 +506,6 @@ namespace ShowUI
 
                                             if (isMinimized == true)
                                             {
-
                                                 DelayTimer.Enabled = false;
                                                 TimeSpan tsptimeMinimized = endMinimized.Subtract(startMinimized);
                                                 double MinutesMinimized = tsptimeMinimized.TotalMinutes;
@@ -578,24 +549,20 @@ namespace ShowUI
                                     this.Close();
                                 }
                             }
-
                         }
                         else
                         {
                             this.TopMost = true;
                         }
                     }
-
                 }
                 else
                 {
                     AutoClosingMessageBox.Show("Đối sách không được để trắng. Nếu không có, điền vào No Action!. Thanks", "AutoCloseMessageBox", 15000);
                 }// end if
-
             }
             catch (Exception)
             {
-
                 //throw;
                 timer1.Enabled = false;
                 DelayTimer.Enabled = false;
@@ -613,8 +580,8 @@ namespace ShowUI
             catch (Exception)
             {
             }
-
         }
+
         public void SaveUnlockDataSampling(string errors, string EmpID, string tbxAction, string Sampling)
         {
             try
@@ -625,11 +592,11 @@ namespace ShowUI
             catch (Exception)
             {
             }
-
         }
-        RegistryKey _OpenKey;
-        string sName = Environment.MachineName;
-        string SubKey = @"SOFTWARE\Netgear\STATION";
+
+        private RegistryKey _OpenKey;
+        private string sName = Environment.MachineName;
+        private string SubKey = @"SOFTWARE\Netgear\STATION";
 
         public string GetLineOfTester()
         {
@@ -648,7 +615,6 @@ namespace ShowUI
                         break;
                     }
                     testline += aline[i];
-
                 }
                 tmpLine = Convert.ToInt32(testline);
                 if (tmpLine == 0)
@@ -665,9 +631,6 @@ namespace ShowUI
                 return "L";
                 //throw;
             }
-
-
-
         }
 
         public string GetStopmachineSpec(double inputPCS, string type)
@@ -699,7 +662,7 @@ namespace ShowUI
                     string sqlStr = "";
                     if (_globalUsedMode == "1")
                     {
-                        //sqlStr = @"select UsedMode,TmpRTRate,TmpYRate,LowerNumDUT,UpperNumDUT,RTRSpec,YRSpec from tblTypeOfProductExt join tblTypeOfProduct on tblTypeOfProductExt.LineName = tblTypeOfProduct.Line where tblTypeOfProduct.Line='" + linename + "' and " + TestedDUT + " > tblTypeOfProductExt.LowerNumDUT and " + TestedDUT + " <=tblTypeOfProductExt.UpperNumDUT"; 
+                        //sqlStr = @"select UsedMode,TmpRTRate,TmpYRate,LowerNumDUT,UpperNumDUT,RTRSpec,YRSpec from tblTypeOfProductExt join tblTypeOfProduct on tblTypeOfProductExt.LineName = tblTypeOfProduct.Line where tblTypeOfProduct.Line='" + linename + "' and " + TestedDUT + " > tblTypeOfProductExt.LowerNumDUT and " + TestedDUT + " <=tblTypeOfProductExt.UpperNumDUT";
                         // mode = 1 is
                         sqlStr += "select UsedMode,TmpRTRate,TmpYRate,LowerNumDUT,UpperNumDUT,RTRSpec,YRSpec";
                         sqlStr += " from tblTypeOfProductExt a,tblTypeOfProduct b";
@@ -710,7 +673,6 @@ namespace ShowUI
                         sqlStr += " from tblTypeOfProductExt a, tblTypeOfProduct b ";
                         sqlStr += " where a.LineName = b.Line and b.Line='" + linename + "' ";
                         sqlStr += " and  a.UpperNumDUT = (select max(a.UpperNumDUT) from tblTypeOfProductExt a, tblTypeOfProduct b where a.LineName = b.Line and b.Line='" + linename + "')";
-
                     }
                     else if (_globalUsedMode == "2")
                     {//B05-L13-PT08
@@ -815,16 +777,13 @@ namespace ShowUI
                                     cmd.ExecuteNonQuery();
                                     cmd.Dispose();
                                 }
-
                             }
                             else
-                            { // 
+                            { //
                                 da.Dispose();
                                 reader.Close();
                             }
-
-                        }//end if 
-
+                        }//end if
                     } //end if
                     cmd.Dispose();
                     da.Dispose();
@@ -876,11 +835,9 @@ namespace ShowUI
                 DataRow[] results = dtYRate.Select("SECTION_NAME = 'SI' AND MODEL_NAME='" + model + "' AND GROUP_NAME='" + station + "'");
                 foreach (DataRow dr in results)
                 {
-
                     TotalTestedDUT += (Convert.ToDouble(dr["PASS_QTY"].ToString()) + Convert.ToDouble(dr["FAIL_QTY"].ToString()));
                 }
                 YRate = GetStopmachineSpec(TotalTestedDUT, "YRate");
-
             }
             catch (Exception r)
             {
@@ -901,7 +858,6 @@ namespace ShowUI
             return RTR;
         }
 
-
         //public void GetStopmachineSpec()
         //{
         //    string RTRate = "99.5";
@@ -916,7 +872,6 @@ namespace ShowUI
         //            // if testedDUT less than and equal to 10 pcs, dont care
         //            if (_TestedDUT > 10)
         //            {
-
         //                string linename = GetLineOfTester().Trim();
         //                SqlConnection connection = new SqlConnection(conn);
         //                connection.Open();
@@ -925,7 +880,7 @@ namespace ShowUI
         //                string sqlStr = "";
         //                if (_globalUsedMode == "1")
         //                {
-        //                    //sqlStr = @"select UsedMode,TmpRTRate,TmpYRate,LowerNumDUT,UpperNumDUT,RTRSpec,YRSpec from tblTypeOfProductExt join tblTypeOfProduct on tblTypeOfProductExt.LineName = tblTypeOfProduct.Line where tblTypeOfProduct.Line='" + linename + "' and " + TestedDUT + " > tblTypeOfProductExt.LowerNumDUT and " + TestedDUT + " <=tblTypeOfProductExt.UpperNumDUT"; 
+        //                    //sqlStr = @"select UsedMode,TmpRTRate,TmpYRate,LowerNumDUT,UpperNumDUT,RTRSpec,YRSpec from tblTypeOfProductExt join tblTypeOfProduct on tblTypeOfProductExt.LineName = tblTypeOfProduct.Line where tblTypeOfProduct.Line='" + linename + "' and " + TestedDUT + " > tblTypeOfProductExt.LowerNumDUT and " + TestedDUT + " <=tblTypeOfProductExt.UpperNumDUT";
 
         //                    sqlStr += "select UsedMode,TmpRTRate,TmpYRate,LowerNumDUT,UpperNumDUT,RTRSpec,YRSpec";
         //                    sqlStr += " from tblTypeOfProductExt a,tblTypeOfProduct b";
@@ -996,7 +951,6 @@ namespace ShowUI
         {
             //try
             //{
-
             //    SvFPS.WebService sv = new SvFPS.WebService();
             //    sv.App_NoticeStopMachine_Add(GetLineOfTester().Trim(), GetStation().Trim(), sName, GetModel().Trim(), _KindOfError);
             //}
@@ -1005,10 +959,8 @@ namespace ShowUI
             //}
         }
 
-
         private void frmLocking_Load(object sender, EventArgs e)
         {
-
             try
             {
                 //string svIp = ul.GetServerIP("dbGeneral", "10.224.81.37");
@@ -1048,22 +1000,18 @@ namespace ShowUI
                 if (_KindOfError.Contains("interference data"))
                 {
                     InterferenceStop();
-
                 }
-
 
                 tbxAction.Text = "Click here to open virtual keyboard. Bấm vào đây để mở bàn phím ảo!";
 
                 // Get value for stopline
 
-
-               // timer1.Enabled = true;
-               // timer1.Interval = 10000;
+                // timer1.Enabled = true;
+                // timer1.Interval = 10000;
                 this.TopMost = true;
             }
             catch (Exception)
             { }
-
         }
 
         public void doInitializeInfo()
@@ -1073,7 +1021,6 @@ namespace ShowUI
                 conn = @"Data Source=10.224.81.62,1734;Initial Catalog=dbGeneral;uid=sa;pwd=********;Connection Timeout=5";
                 string svIp = "10.224.81.62,1734";//ul.GetServerIP("SSO", "10.224.81.37");
                 connectionString = @"Data Source=10.224.81.62,1734;Initial Catalog=SSO;uid=sa;pwd=********;Connection Timeout=5";
-
 
                 // Get ServrerIp for ToDB() dbMO
                 serverIp = IniFile.ReadIniFile("DATABASE", "SERVER_NAME", "10.224.81.37", @"F:\Temp\TE-PROGRAM\TE-DATABASE\SOURCE.ini");
@@ -1088,9 +1035,7 @@ namespace ShowUI
             catch (Exception)
             {
             }
-
         }
-
 
         public string GetWebUnlockPath(string _key)
         {
@@ -1099,7 +1044,6 @@ namespace ShowUI
                 RegistryKey kiwi = Registry.LocalMachine.OpenSubKey(subkey, true);
                 string SN = kiwi.GetValue(_key, "").ToString();
                 return SN;
-
             }
             catch (Exception)
             {
@@ -1107,15 +1051,14 @@ namespace ShowUI
                 //throw;
             }
         }
+
         public void SetWebUnlockPath(string _reg, string _val)
         {
             try
             {
-
                 RegistryKey kiwi = Registry.LocalMachine.OpenSubKey(subkey, true);
                 kiwi.SetValue(_reg, _val, RegistryValueKind.String);
                 //return SN;
-
             }
             catch (Exception)
             {
@@ -1126,10 +1069,8 @@ namespace ShowUI
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-           
             try
             {
-
                 //if (GetWebUnlockPath("StopStation").Remove(1, GetWebUnlockPath("StopStation").Length - 1) == "0")
                 //{
                 //MessageBox.Show("OK timer1");
@@ -1140,7 +1081,6 @@ namespace ShowUI
                 }
                 if (GetStopMachineStatus())
                 {
-
                     if (_KindOfError.Contains("YRate"))
                     {
                         ul.SetValueByKey("BYRate", TestDUTCount);
@@ -1155,7 +1095,6 @@ namespace ShowUI
                     {
                         ul.SetValueByKey("BYRate", TestDUTCount);
                     }
-
 
                     //ul.SetValueByKey("StopStation", "tmpDefault");
                     if (ul.GetValueByKey("ErrStation") == "" && ul.GetValueByKey("ERROR_CODE") == "")
@@ -1178,7 +1117,8 @@ namespace ShowUI
             }
         }
 
-        string localPathSetup = @"F:\lsy\Test\DownloadConfig\AutoDL\Setup.ini";
+        private string localPathSetup = @"F:\lsy\Test\DownloadConfig\AutoDL\Setup.ini";
+
         public int VirusOutOfDateSpec()
         {
             try
@@ -1198,9 +1138,10 @@ namespace ShowUI
         }
 
         //bool flagVirus;
-        int NumOfCable;// fixed num of cable = 10
+        private int NumOfCable;// fixed num of cable = 10
 
-        int[] BlinkFlag;
+        private int[] BlinkFlag;
+
         protected bool CheckUSBDisable()
         {
             string KeyUSB = @"SYSTEM\CurrentControlSet\services";
@@ -1212,7 +1153,6 @@ namespace ShowUI
                 if (USBStattus == "4")
                 {
                     UsbStatus = true;
-
                 }
                 else
                 {
@@ -1231,11 +1171,11 @@ namespace ShowUI
             return UsbStatus;
         }
 
-        bool BeforeDaysNotice = false;
-        double ExpiredDayLeft = 0;
+        private bool BeforeDaysNotice = false;
+        private double ExpiredDayLeft = 0;
+
         protected bool CheckAntiVirusSoftUpdate()
         {
-
             bool CheckAnti = false;
             try
             {
@@ -1253,7 +1193,6 @@ namespace ShowUI
 
                         if (tmpUpdateDay.Contains(dtCheck.ToString("yyyyMMdd")))
                         {
-
                             int Notice = Convert.ToInt32(IniFile.ReadIniFile("NumDate", "Notice", "3", localPathSetup));
                             if ((NumOfDay - tps.TotalDays) < Notice)
                             {
@@ -1263,7 +1202,6 @@ namespace ShowUI
                             }
 
                             CheckAnti = true;
-
                         }
                     }
                 }
@@ -1275,29 +1213,26 @@ namespace ShowUI
             catch (Exception ex)
             {
                 return CheckAnti;
-
             }
         }
 
+        private int CountDelay = 0;
+        private DateTime startMinimized;
+        private DateTime endMinimized;
+        private bool isMinimized = false;
+        private int isFirstTimeMinimized = 0;
 
-
-        int CountDelay = 0;
-        DateTime startMinimized;
-        DateTime endMinimized;
-        bool isMinimized = false;
-        int isFirstTimeMinimized = 0;
         private void lblClose_Click(object sender, EventArgs e)
         {
             try
             {
-                using (frmUnlockRequirements frm = new frmUnlockRequirements(false,"", startTime))
+                using (frmUnlockRequirements frm = new frmUnlockRequirements(false, "", startTime))
                 {
                     this.TopMost = false;
                     frm.TopMost = true;
 
                     if (frm.ShowDialog() == DialogResult.OK)
                     {
-
                         string EmpID = frm.GetUser().Trim();
                         string Pw = frm.GetPw().Trim();
 
@@ -1319,7 +1254,6 @@ namespace ShowUI
                             reader = cmd.ExecuteReader();
                             if (reader.HasRows)
                             {
-
                                 ShowUIApp.AutoClosingMessageBox.Show("Bạn có 15 phút để tìm ra nguyên nhân & sửa lỗi. Sau đó, nhập Action để hoàn thành việc mở khóa máy", "AutoClosingMessage", 4000);
                                 if (isFirstTimeMinimized == 0)
                                 {
@@ -1350,19 +1284,18 @@ namespace ShowUI
                         }// end check empty
                     }
                 }
-
             }
             catch (Exception)
             {
             }
         }
 
-        string _model_name, _line_name, _station_name, _ate_name, _ate_ip, serverIp;
+        private string _model_name, _line_name, _station_name, _ate_name, _ate_ip, serverIp;
 
-        bool isInterfereceShowUI = false;
+        private bool isInterfereceShowUI = false;
+
         public void InterferenceStop()
         {
-
             if (ul.GetValueByKey("INTERFERENCE_PC") == ul.GetNICGatewayIP())
             {
                 isInterfereceShowUI = true;
@@ -1388,7 +1321,6 @@ namespace ShowUI
 
         public void InterferenceStart()
         {
-
             if (ul.GetValueByKey("INTERFERENCE_PC") == ul.GetNICGatewayIP())
             {
                 isInterfereceShowUI = true;
@@ -1412,8 +1344,6 @@ namespace ShowUI
             }
         }
 
-
-
         public void SetStopMachineStatus(bool updateSingle)
         {
             try
@@ -1421,14 +1351,14 @@ namespace ShowUI
                 ToDB conn = new ToDB();
                 if (updateSingle)
                 {
-                    // update 
+                    // update
                     string updateSql = "update Status set stop_status = 0, stop_ate = null";
                     updateSql += " where model_name ='" + _model_name + "' and  line_name = '" + _line_name + "' and station_name = '" + _station_name + "' and  ate_name ='" + _ate_name + "' and ate_ip='" + _ate_ip + "'";
                     conn.Execute_NonSQL(updateSql, serverIp);
                 }
                 else
                 {
-                    // update all ate in station of a line testing 1 model 
+                    // update all ate in station of a line testing 1 model
                     string updateSql = "update Status set stop_status = 0, stop_ate = null";
                     updateSql += " where model_name ='" + _model_name + "' and  line_name = '" + _line_name + "' and station_name = '" + _station_name + "'";
                     conn.Execute_NonSQL(updateSql, serverIp);
@@ -1442,17 +1372,15 @@ namespace ShowUI
 
         private void lbBoom_Click(object sender, EventArgs e)
         {
-
         }
 
         private void tbl_unlockData_Click(object sender, EventArgs e)
         {
-          
             using (frmUnlockRequirements frm = new frmUnlockRequirements(true, lbBoom.Text, startTime))
             {
                 this.TopMost = false;
                 frm.TopMost = true;
-               
+
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     ul.SetValueByKey("StopMachine", "0");
@@ -1461,7 +1389,7 @@ namespace ShowUI
                 }
                 else
                 {
-                    AutoClosingMessageBox.Show("Server Err, contact TE","ERR 500",2000);
+                    AutoClosingMessageBox.Show("Server Err, contact TE", "ERR 500", 2000);
                 }
             }
         }
@@ -1476,7 +1404,6 @@ namespace ShowUI
                 //_station_name = "PT";
                 //_ate_name = "B05-L13-PT01";
                 //_ate_ip = "10.224.84.171";
-
 
                 ToDB conn = new ToDB();
                 string sqlIsLocked = "select stop_status,stop_ate from Status where model_name ='" + _model_name + "' and  line_name = '" + _line_name + "' and station_name = '" + _station_name + "' and  ate_name ='" + _ate_name + "' and ate_ip='" + _ate_ip + "'";
@@ -1507,9 +1434,6 @@ namespace ShowUI
             }
         }
 
-
-
-
         private void DelayTimer_Tick(object sender, EventArgs e)
         {
             try
@@ -1535,11 +1459,10 @@ namespace ShowUI
             catch (Exception)
             {  //throw;
             }
-
         }
 
+        private int isClicked = 0;
 
-        int isClicked = 0;
         private void tbxAction_Click(object sender, EventArgs e)
         {
             if (isClicked == 0)
@@ -1551,8 +1474,8 @@ namespace ShowUI
 
             //tbxAction.Focus();
             //this.TopMost = true;
-
         }
+
         private void SendUdpSocket(string IPaddr, int Port, string Msg)
         {
             try
@@ -1571,8 +1494,8 @@ namespace ShowUI
             Byte[] senddata = Encoding.ASCII.GetBytes(Msg);
             udpClient1.Send(senddata, senddata.Length);
             udpClient1.Close();
-
         }
+
         protected string GetRegPath()
         {
             string rgPath = SubKey;
@@ -1592,7 +1515,5 @@ namespace ShowUI
                 return rgPath;
             }
         }
-
-
     }
 }

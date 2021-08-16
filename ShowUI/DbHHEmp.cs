@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 
 namespace ShowUI
 {
@@ -11,11 +8,11 @@ namespace ShowUI
     {
         public string GetStringConn(string serverIp)
         {
-
             //MessageBox.Show(svIp);
             string stringConn = @"Data Source=" + serverIp + ";Initial Catalog=HHEmployee;uid=sa;pwd=********;";
             return stringConn;
         }
+
         public DataTable DataTable_Sql(string sql, string serverIp)
         {
             try
@@ -37,11 +34,11 @@ namespace ShowUI
             }
             catch (Exception)
             {
-
                 // throw new Exception(ex.Message);
             }
             return new DataTable("NULL");
         }
+
         public int Execute_NonSQL(string sql, string serverIp)
         {
             string stringConn = GetStringConn(serverIp);

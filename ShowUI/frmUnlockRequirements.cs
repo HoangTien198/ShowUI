@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using ShowUIApp;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using Microsoft.Win32;
-using ShowUIApp;
 
 namespace ShowUI
 {
     public partial class frmUnlockRequirements : Form
     {
-        bool checkDataLowhight = false;
-        string errorDetail = "";
-        DateTime startTime;
-        public frmUnlockRequirements(bool isData,string locdetail,DateTime dt)
+        private bool checkDataLowhight = false;
+        private string errorDetail = "";
+        private DateTime startTime;
+
+        public frmUnlockRequirements(bool isData, string locdetail, DateTime dt)
         {
             InitializeComponent();
 
@@ -27,23 +23,22 @@ namespace ShowUI
 
         private void lblClose_Click(object sender, EventArgs e)
         {
-
             this.Close();
         }
-        
+
         public string GetUser()
         {
             return txtUser.Text;
         }
+
         public string GetPw()
         {
             return txtPass.Text;
         }
-     
+
         private void btnOK_Click(object sender, EventArgs e)
         {
-            
-            if(checkDataLowhight == false)
+            if (checkDataLowhight == false)
             {
                 //force to change password
                 string passcode = "";
@@ -61,9 +56,9 @@ namespace ShowUI
             }
             else
             {
-                
-                if (checkHHEmp() == true) {
-                    if (reason.Text.Trim().Length==0)
+                if (checkHHEmp() == true)
+                {
+                    if (reason.Text.Trim().Length == 0)
                     {
                         AutoClosingMessageBox.Show("Mời nhập lí do ", "reason", 2000);
                     }
@@ -77,33 +72,29 @@ namespace ShowUI
                             }
                             if (reason.Text.Contains("2"))
                             {
-                                reason.Text = "fixture issue";  
+                                reason.Text = "fixture issue";
                             }
                             if (reason.Text.Contains("3"))
                             {
                                 reason.Text = "equipment issue";
                             }
-
                         }
                         ExTable();
-
                     }
-
-
                 }
                 else
                 {
                     AutoClosingMessageBox.Show("Tên đăng nhập hoặc mật khẩu sai, liên hệ TE", "Login Fail", 2000);
                 }
             }
-            
-          
         }
-        ShowUI.Utilities ul = new Utilities();
+
+        private ShowUI.Utilities ul = new Utilities();
+
         public void ExTable()
         {
             string sqlEx = "insert into DataUnlockShowUI(EmpID,PC_IP,PC_NAME,Line,Model,ReasonOpen,Station,OpenTime,LockReason,LockTime) values(";
-            string value = Int32.Parse(IDEmp.Text)+",'"+ ul.GetNICGatewayIP()+"','"+ Environment.MachineName+"','" + GetLineOfTester().Trim().Remove(0, 1)+"','"+ul.GetProduct()+"','"+reason.Text.Trim()+"','"+ul.GetStation()+"','" + DateTime.Now+"',N'"+ errorDetail + "','"+ startTime + "')";
+            string value = Int32.Parse(IDEmp.Text) + ",'" + ul.GetNICGatewayIP() + "','" + Environment.MachineName + "','" + GetLineOfTester().Trim().Remove(0, 1) + "','" + ul.GetProduct() + "','" + reason.Text.Trim() + "','" + ul.GetStation() + "','" + DateTime.Now + "',N'" + errorDetail + "','" + startTime + "')";
             string sql = sqlEx + value;
             DbHHEmp hhEmp = new DbHHEmp();
             try
@@ -114,15 +105,12 @@ namespace ShowUI
             catch (Exception)
             {
                 this.DialogResult = DialogResult.No;
-
             }
-            
         }
 
         public bool checkHHEmp()
         {
-    
-            string queryEmp = "select * from Employee where HonHaiCode = '" + txtUser.Text.Trim() + "' and PassWord = '" + txtPass.Text.Trim()+"'";
+            string queryEmp = "select * from Employee where HonHaiCode = '" + txtUser.Text.Trim() + "' and PassWord = '" + txtPass.Text.Trim() + "'";
 
             DbHHEmp hhEmp = new DbHHEmp();
             DataTable dt = hhEmp.DataTable_Sql(queryEmp, "10.224.81.62,1734");
@@ -135,7 +123,6 @@ namespace ShowUI
             return true;
         }
 
-        
         public bool RequiredChangePasscode(string user_name, ref string passcode)
         {
             try
@@ -152,7 +139,6 @@ namespace ShowUI
                     passcode = dt.Rows[0]["Password"].ToString().Trim();
                     return true;
                 }
-
                 else
                     return false;
             }
@@ -160,12 +146,10 @@ namespace ShowUI
             {
                 return false; // serverdie -> dont do any thing
             }
-
         }
-        
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
-
             this.Close();
         }
 
@@ -190,9 +174,9 @@ namespace ShowUI
             txtPass.Text = "123456";
             this.TopMost = true;
         }
+
         public string GetLineOfTester()
         {
-
             try
             {
                 string line = Environment.MachineName.Substring(Environment.MachineName.IndexOf("L") + 1, 2);
@@ -224,12 +208,10 @@ namespace ShowUI
                 return "L";
                 //throw;
             }
-
         }
 
         private void label4_Click(object sender, EventArgs e)
         {
-
         }
     }
 }

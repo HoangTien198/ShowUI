@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ShowUI.Helper
+﻿namespace ShowUI.Helper
 {
     public class FakeModel
     {
-       public double? fakeTRR { get; set; }
+        public double? fakeTRR { get; set; }
         public double? spaceRandTRR1 { get; set; }
         public double? spaceRandTRR2 { get; set; }
         public double? fakeSRR { get; set; }

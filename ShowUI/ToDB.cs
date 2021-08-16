@@ -1,19 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Data.SqlClient;
 using System.Data;
-using System.Windows.Forms;
-using System.IO;
+using System.Data.SqlClient;
 
 namespace ShowUIApp
 {
-    class ToDB
+    internal class ToDB
     {
-        
-
         //public static string stringConn = "Data Source=(local)\\SQLEXPRESS;Initial Catalog=QLNS;Integrated Security=true";
-
 
         public SqlConnection open(string serverIp)
         {
@@ -24,16 +17,16 @@ namespace ShowUIApp
 
         public string GetStringConn(string serverIp)
         {
-           
             //MessageBox.Show(svIp);
-            string stringConn = @"Data Source="+serverIp+";Initial Catalog=dbMO;uid=sa;pwd=********;Connection Timeout=5";
+            string stringConn = @"Data Source=" + serverIp + ";Initial Catalog=dbMO;uid=sa;pwd=********;Connection Timeout=5";
             return stringConn;
         }
+
         // select query
 
         // DataTable dt = new DataTable();
 
-        public DataTable DataTable_Sql(string sql,string serverIp)
+        public DataTable DataTable_Sql(string sql, string serverIp)
         {
             try
             {
@@ -54,7 +47,6 @@ namespace ShowUIApp
             }
             catch (Exception)
             {
-
                 // throw new Exception(ex.Message);
             }
             return new DataTable("NULL");
@@ -65,7 +57,7 @@ namespace ShowUIApp
          * edit data( insert , update, delete)
          */
 
-        public int Execute_NonSQL(string sql,string serverIp)
+        public int Execute_NonSQL(string sql, string serverIp)
         {
             string stringConn = GetStringConn(serverIp);
             SqlConnection conn = new SqlConnection(stringConn);
@@ -85,7 +77,8 @@ namespace ShowUIApp
          * ChuongNguyenVan
          * EXECUTE QUERY ( procedures)
          */
-        public int Execute_SQL(string serverIp,string query_object, CommandType type, params object[] obj)
+
+        public int Execute_SQL(string serverIp, string query_object, CommandType type, params object[] obj)
         {
             string stringConn = GetStringConn(serverIp);
             int row = 0;
@@ -111,6 +104,7 @@ namespace ShowUIApp
          * ChuongNguyenVan
          * Check exists record
          */
+
         //public static bool CheckExist(string sql)
         //{
         //    DataTable dtb = new DataTable();
@@ -120,7 +114,6 @@ namespace ShowUIApp
         //}
         public SqlDataReader ThucHienReader(string sql, string serverIp)
         {
-          
             string stringConn = GetStringConn(serverIp);
             SqlConnection conn = new SqlConnection(stringConn);
             SqlCommand cmd = new SqlCommand(sql, conn);
@@ -129,16 +122,14 @@ namespace ShowUIApp
             {
                 conn.Close();
                 return cmd.ExecuteReader();
-                
             }
             catch (SqlException)
             {
                 conn.Close();
                 return null;
             }
-            
-
         }
+
         public DataSet getDataset(string select, string serverIp)
         {
             string stringConn = GetStringConn(serverIp);

@@ -1,41 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using System.IO;
 
-using System.Net;
-using System.Net.Sockets;
-using System.Threading;
-using System.Net.NetworkInformation;
-
-using System.Runtime.InteropServices;
-using Microsoft.Win32;
-using System.Diagnostics;
-using System.Security.Cryptography;
-using System.Reflection;
-using System.Management;
-
-using System.Web;
-using System.Web.Services;
-using System.Web.Services.Protocols;
-using System.Media;
-using ShowUI.B05_SERVICE_CENTER;
 namespace ShowUI
 {
     public partial class FrmReport : Form
     {
-        Utilities ul = new Utilities();
-        ShowUI.SFISB05_SV.Servicepostdata objSfisSv = new ShowUI.SFISB05_SV.Servicepostdata();
-        const string _StationKey = @"HKEY_LOCAL_MACHINE\SOFTWARE\NETGEAR\AutoDL";
+        private Utilities ul = new Utilities();
+        private ShowUI.SFISB05_SV.Servicepostdata objSfisSv = new ShowUI.SFISB05_SV.Servicepostdata();
+        private const string _StationKey = @"HKEY_LOCAL_MACHINE\SOFTWARE\NETGEAR\AutoDL";
+
         public FrmReport()
         {
             InitializeComponent();
         }
+
         private void BandGridview()
         {
             string Arr = ul.GetValueByKey("ERRORCODE_LIST").ToString();
@@ -51,10 +29,9 @@ namespace ShowUI
             int Fail = 0;
             //for (int i = 0; i < ErrList.Length; i++)
             //{
-
-                 int i = 0;
+            int i = 0;
             try
-            { 
+            {
                 foreach (string Err in ErrList)
                 {
                     string NErr = Err.Split(':')[0];
@@ -65,9 +42,8 @@ namespace ShowUI
                     this.grvErr[0, i].Value = NErr;
                     Fail = Fail + int.Parse(ErrorCount);
                     i++;
-                   // grvErr.Rows.Add(NErr, ErrorCount);
+                    // grvErr.Rows.Add(NErr, ErrorCount);
                     //grvErr.Rows.Add(NErr);
-                   
                 }
                 lblFail.Text = Fail.ToString();
             }
@@ -75,6 +51,7 @@ namespace ShowUI
             {
             }
         }
+
         private void FrmReport_Load(object sender, EventArgs e)
         {
             BandGridview();
@@ -90,7 +67,5 @@ namespace ShowUI
             ul.SetValueByKey("ERRORCODE_LIST", "");
             ul.SetValueByKey("PASS", "");
         }
-
-
     }
 }

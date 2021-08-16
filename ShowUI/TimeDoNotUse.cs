@@ -1,11 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ShowUI
@@ -21,13 +16,14 @@ namespace ShowUI
         {
             this.Location = new Point(Screen.PrimaryScreen.Bounds.Right - this.Width, 30);
         }
-        uint second = 0;
-        const string subkey = @"SOFTWARE\NETGEAR\STATION";
-        RegistryKey _OpenKey = Registry.LocalMachine.OpenSubKey(subkey);
-        RegistryKey _StationKey;
+
+        private uint second = 0;
+        private const string subkey = @"SOFTWARE\NETGEAR\STATION";
+        private RegistryKey _OpenKey = Registry.LocalMachine.OpenSubKey(subkey);
+        private RegistryKey _StationKey;
+
         private void CountTime_Tick(object sender, EventArgs e)
         {
-
             this.TopMost = true;
             second++;
             uint val = second;
@@ -37,7 +33,9 @@ namespace ShowUI
             this.BackColor = Color.Red;
             this.ForeColor = Color.Black;
         }
-        int checkTime = 0;
+
+        private int checkTime = 0;
+
         private void CheckTest_Tick(object sender, EventArgs e)
         {
             if (checkTime > 60)
@@ -63,7 +61,7 @@ namespace ShowUI
                     checkTime = 0;
                 }
             }
-            catch 
+            catch
             {
                 //checkTime++;
                 lblTime.Text = "Tester In Use";
@@ -72,7 +70,6 @@ namespace ShowUI
                 CountTime.Stop();
                 checkTime = 0;
             }
-            
         }
     }
 }

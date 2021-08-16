@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 
 namespace ShowUI
 {
     public partial class frmScanID : Form
     {
+        private static int SimpleLX, SimpleLY, SimpleH, SimpleW, blCloseX, blCloseY;
+        private List<string> ListCableName = new List<string>();
 
-        static int SimpleLX,SimpleLY,SimpleH,SimpleW,blCloseX,blCloseY;
-        List<string> ListCableName = new List<string>();
         public frmScanID(List<string> _ListCableName)
         {
             InitializeComponent();
@@ -28,29 +25,33 @@ namespace ShowUI
             cbxCables.Enabled = false;
             label2.ForeColor = Color.Gray;
             label3.ForeColor = Color.Gray;
-          
         }
 
         public string getUsername()
         {
             return txtEmpID.Text;
         }
+
         public string getPassword()
         {
             return txtPw.Text;
         }
+
         public string getCable()
         {
             return cbxCables.Text;
         }
+
         public string getReason()
         {
             return txtReason.Text;
         }
+
         public string getlable()
         {
             return txtlabelCable.Text.Trim();
         }
+
         public int getTypeChange()
         {
             if (ckChangeByCables.Checked)
@@ -63,7 +64,6 @@ namespace ShowUI
             }
         }
 
-
         private void lblClose_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
@@ -71,7 +71,6 @@ namespace ShowUI
 
         private void frmScanID_KeyDown(object sender, KeyEventArgs e)
         {
-
             if (e.KeyCode == Keys.Enter)
             {
                 this.DialogResult = DialogResult.OK;
@@ -83,8 +82,9 @@ namespace ShowUI
             this.DialogResult = DialogResult.Cancel;
         }
 
-        ShowUI.Utilities ul = new Utilities();
-        public bool RequiredChangePasscode(string user_name,ref string passcode)
+        private ShowUI.Utilities ul = new Utilities();
+
+        public bool RequiredChangePasscode(string user_name, ref string passcode)
         {
             try
             {
@@ -95,11 +95,11 @@ namespace ShowUI
                 ToSSO conn = new ToSSO();
                 //SqlCommand cmd = new SqlCommand(sqlStr, conn);
                 DataTable dt = conn.DataTable_Sql(sqlStr, svIp);
-                if (dt.Rows.Count != 0){
+                if (dt.Rows.Count != 0)
+                {
                     passcode = dt.Rows[0]["Password"].ToString().Trim();
                     return true;
                 }
-                    
                 else
                     return false;
             }
@@ -107,16 +107,15 @@ namespace ShowUI
             {
                 return false; // serverdie -> dont do any thing
             }
-            
-           
         }
+
         private void btOk_Click(object sender, EventArgs e)
         {
             string passcode = "";
-            bool forceChangePasscode = RequiredChangePasscode(txtEmpID.Text.Trim(),ref passcode);
+            bool forceChangePasscode = RequiredChangePasscode(txtEmpID.Text.Trim(), ref passcode);
             if (forceChangePasscode)
             {
-                frmChangePass frm = new frmChangePass(txtEmpID.Text.Trim(),passcode,true); //force to change password
+                frmChangePass frm = new frmChangePass(txtEmpID.Text.Trim(), passcode, true); //force to change password
                 frm.ShowDialog();
             }
             else
@@ -124,6 +123,7 @@ namespace ShowUI
                 this.DialogResult = DialogResult.OK;
             }
         }
+
         //2019/01/15 Adele add check cableID - ongoing (chan doi ko muon lam)
         public bool CheckCableID(string ID)
         {
@@ -137,6 +137,7 @@ namespace ShowUI
                 return false;
             }
         }
+
         private void txtPw_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -150,7 +151,6 @@ namespace ShowUI
             this.TopMost = true;
         }
 
-       
         private void ckChangeByCables_Click(object sender, EventArgs e)
         {
             txtReason.Enabled = true;
@@ -177,6 +177,5 @@ namespace ShowUI
             //this.SetBounds(SimpleLX, SimpleLY, SimpleH, SimpleW);
             //lblClose.SetBounds(blCloseX, blCloseY, lblClose.Width, lblClose.Height);
         }
-
     }
 }
