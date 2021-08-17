@@ -41,7 +41,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(25, 38);
+            this.label1.Location = new System.Drawing.Point(66, 38);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 17);
             this.label1.TabIndex = 0;
@@ -51,14 +51,15 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(25, 70);
+            this.label2.Location = new System.Drawing.Point(3, 68);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(76, 17);
+            this.label2.Size = new System.Drawing.Size(112, 17);
             this.label2.TabIndex = 1;
-            this.label2.Text = "CableType";
+            this.label2.Text = "Cable Over Limit";
             // 
             // button1
             // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button1.Location = new System.Drawing.Point(28, 199);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
@@ -69,7 +70,7 @@
             // 
             // tbEmp
             // 
-            this.tbEmp.Location = new System.Drawing.Point(107, 37);
+            this.tbEmp.Location = new System.Drawing.Point(135, 37);
             this.tbEmp.Name = "tbEmp";
             this.tbEmp.Size = new System.Drawing.Size(158, 20);
             this.tbEmp.TabIndex = 3;
@@ -78,7 +79,7 @@
             // 
             this.cbCable.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCable.FormattingEnabled = true;
-            this.cbCable.Location = new System.Drawing.Point(107, 66);
+            this.cbCable.Location = new System.Drawing.Point(135, 66);
             this.cbCable.Name = "cbCable";
             this.cbCable.Size = new System.Drawing.Size(158, 21);
             this.cbCable.TabIndex = 4;
@@ -87,7 +88,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(25, 108);
+            this.label3.Location = new System.Drawing.Point(63, 105);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(52, 17);
             this.label3.TabIndex = 5;
@@ -95,7 +96,7 @@
             // 
             // rtResion
             // 
-            this.rtResion.Location = new System.Drawing.Point(107, 104);
+            this.rtResion.Location = new System.Drawing.Point(135, 104);
             this.rtResion.Name = "rtResion";
             this.rtResion.Size = new System.Drawing.Size(158, 81);
             this.rtResion.TabIndex = 6;

@@ -108,8 +108,6 @@
             this.YR_RRUpdate = new System.Windows.Forms.Timer(this.components);
             this.TimerFakeShowUI = new System.Windows.Forms.Timer(this.components);
             this.TimerIQTestTime = new System.Windows.Forms.Timer(this.components);
-            this.IQSNtxt = new System.Windows.Forms.TextBox();
-            this.CopyServerAuto = new System.Windows.Forms.Timer(this.components);
             this.LockShowUI = new System.Windows.Forms.Timer(this.components);
             this.CheckAntivirut = new System.Windows.Forms.Timer(this.components);
             this.SamplingThroughtput = new System.Windows.Forms.Timer(this.components);
@@ -935,21 +933,6 @@
             this.TimerIQTestTime.Interval = 30000;
             this.TimerIQTestTime.Tick += new System.EventHandler(this.TimerIQTestTime_Tick);
             // 
-            // IQSNtxt
-            // 
-            this.IQSNtxt.Location = new System.Drawing.Point(954, 37);
-            this.IQSNtxt.Name = "IQSNtxt";
-            this.IQSNtxt.Size = new System.Drawing.Size(100, 25);
-            this.IQSNtxt.TabIndex = 40;
-            this.IQSNtxt.Visible = false;
-            this.IQSNtxt.TextChanged += new System.EventHandler(this.IQSNtxt_TextChanged_2);
-            this.IQSNtxt.KeyUp += new System.Windows.Forms.KeyEventHandler(this.IQSNtxt_KeyUp);
-            // 
-            // CopyServerAuto
-            // 
-            this.CopyServerAuto.Interval = 10000;
-            this.CopyServerAuto.Tick += new System.EventHandler(this.CopyServerAuto_Tick);
-            // 
             // LockShowUI
             // 
             this.LockShowUI.Enabled = true;
@@ -987,7 +970,6 @@
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1018, 79);
             this.ContextMenuStrip = this.rightMenu;
-            this.Controls.Add(this.IQSNtxt);
             this.Controls.Add(this.fPanelHData);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.fPanelDate);
@@ -1107,11 +1089,9 @@
         public System.Windows.Forms.Timer TimerFakeShowUI;
         private System.Windows.Forms.Timer TimerIQTestTime;
         private System.Windows.Forms.ToolStripMenuItem iQSNToolStripMenuItem;
-        private System.Windows.Forms.TextBox IQSNtxt;
 		private System.Windows.Forms.ToolStripMenuItem toolsboxToolStripMenuItem;
 		private System.Windows.Forms.Timer LockShowUI;
         private System.Windows.Forms.Timer CheckAntivirut;
-        public System.Windows.Forms.Timer CopyServerAuto;
         private System.Windows.Forms.ToolStripMenuItem pathlossErrorListToolStripMenuItem;
         public System.Windows.Forms.Timer SamplingThroughtput;
         private System.Windows.Forms.Timer FtpLog;

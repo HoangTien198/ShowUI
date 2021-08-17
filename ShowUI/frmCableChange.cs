@@ -107,7 +107,7 @@ namespace ShowUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("co loi trong qua trinh xu ly: " + ex.Message);
+                AutoClosingMessageBox.Show("co loi trong qua trinh xu ly: " + ex.Message, "Error Excute", 2000);
             }
 
             SetConnectorUsingTimes(cbKey.Split('_').First() + cbKey.Split('_').Last());
@@ -123,9 +123,7 @@ namespace ShowUI
                 string Station = ul.GetStation().Trim();
                 string Kplace = @"SYSTEM\CurrentControlSet\services" + @"\" + Product + @"\" + Station;
                 keys = Registry.LocalMachine.OpenSubKey(Kplace, true);
-
                 int rVal = Convert.ToInt32(keys.GetValue(KeyName, "142").ToString());
-
                 return rVal;
             }
             catch (Exception)
@@ -143,14 +141,10 @@ namespace ShowUI
                 string Station = ul.GetStation().Trim();
                 string Kplace = @"SYSTEM\CurrentControlSet\services" + @"\" + Product + @"\" + Station;
                 keys = Registry.LocalMachine.OpenSubKey(Kplace, true);
-
                 keys.SetValue(KeyName, "0");
-
-                //  return rVal;
             }
             catch (Exception)
             {
-                //return 0;
             }
         }
     }
