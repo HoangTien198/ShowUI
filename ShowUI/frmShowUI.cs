@@ -145,7 +145,7 @@ namespace ShowUIApp
                                 tcpclient.Connect(i, 445);
                                 return true;
                             }
-                            catch (Exception ex)
+                            catch (Exception)
                             {
                             }
                         }
@@ -562,7 +562,7 @@ namespace ShowUIApp
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
             }
         }
@@ -801,51 +801,51 @@ namespace ShowUIApp
             //psi.FileName = "net.exe";
             //psi.Arguments = @"time \\10.224.81.37 /set /y";
             //System.Diagnostics.Process p = System.Diagnostics.Process.Start(psi);
-            try
-            {
-                int widthsc = Screen.PrimaryScreen.WorkingArea.Width;
-                this.Size = new Size(widthsc, 60);
-                btnCall.SetBounds(widthsc - 88, 32, 83, 24);
-                string newPass;
-                if (xxx.Equals("#FLY"))
-                {
-                    xxx = "xxx";
-                    IniFile.WriteValue("Jerry", "Boom", "0", pathUpdate + "Ctrl.ini");
-                }
-                if (_StationKey != null)
-                {
-                    newPass = _StationKey.GetValue("PASS", "1").ToString();
-                    if (sType.Contains("PT") || sType.Contains("FT") || sType.Contains("RI") || sType.Contains("RC"))
-                    {
-                        if (!orgPass.Equals(newPass))
-                        {
-                            orgPass = newPass;
-                            if (_StationKey != null)
-                            {
-                                sModel = _StationKey.GetValue("SFISDATA", "").ToString();
-                                if (sModel.Length > 32)
-                                {
-                                    sModel = sModel.Substring(5, 25).Trim();
-                                    sModelName = ModelConfig.ReadString("Model", sModel);
-                                    fSPCspec = new IniFile(@"F:\lsy\Test\DownloadConfig\" + sModelName);
-                                    try
-                                    {
-                                        writeSPCfile();
-                                    }
-                                    catch (Exception exx)
-                                    {
-                                        event_log("CheckSPC: " + exx.Message.ToString());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                //throw;
-            }
+            //try
+            //{
+            //    int widthsc = Screen.PrimaryScreen.WorkingArea.Width;
+            //    this.Size = new Size(widthsc, 60);
+            //    btnCall.SetBounds(widthsc - 88, 32, 83, 24);
+            //    string newPass;
+            //    if (xxx.Equals("#FLY"))
+            //    {
+            //        xxx = "xxx";
+            //        IniFile.WriteValue("Jerry", "Boom", "0", pathUpdate + "Ctrl.ini");
+            //    }
+            //    if (_StationKey != null)
+            //    {
+            //        newPass = _StationKey.GetValue("PASS", "1").ToString();
+            //        if (sType.Contains("PT") || sType.Contains("FT") || sType.Contains("RI") || sType.Contains("RC"))
+            //        {
+            //            if (!orgPass.Equals(newPass))
+            //            {
+            //                orgPass = newPass;
+            //                if (_StationKey != null)
+            //                {
+            //                    sModel = _StationKey.GetValue("SFISDATA", "").ToString();
+            //                    if (sModel.Length > 32)
+            //                    {
+            //                        sModel = sModel.Substring(5, 25).Trim();
+            //                        sModelName = ModelConfig.ReadString("Model", sModel);
+            //                        fSPCspec = new IniFile(@"F:\lsy\Test\DownloadConfig\" + sModelName);
+            //                        try
+            //                        {
+            //                            writeSPCfile();
+            //                        }
+            //                        catch (Exception exx)
+            //                        {
+            //                            event_log("CheckSPC: " + exx.Message.ToString());
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (Exception)
+            //{
+            //    //throw;
+            //}
         }
 
         private string tmpIps = ""; // get string of serverip;
@@ -1626,7 +1626,7 @@ namespace ShowUIApp
                         }
                     }
                 }
-                catch (Exception er)
+                catch (Exception)
                 {
                 }
 
@@ -1786,7 +1786,7 @@ namespace ShowUIApp
                     //}
                 }
             }
-            catch (Exception r)
+            catch (Exception)
             {
                 //MessageBox.Show(r.ToString());
             }
@@ -2588,7 +2588,7 @@ namespace ShowUIApp
                 //MessageBox.Show(ProductPath);
                 return ProductPath;
             }
-            catch (Exception r)
+            catch (Exception)
             {
                 return OpenSubKey + ProductName;
             }
@@ -2746,7 +2746,7 @@ namespace ShowUIApp
                                         {
                                             int Spec = Convert.ToInt32(TopMostUseCableSpec[count]);
                                             int UnderSpec = 85 * (Spec / 100);
-                                            int UpperSpec = 95 * (Spec / 100);
+                                            int UpperSpec = 100 * (Spec / 100);
                                             int UseTimes = Convert.ToInt32(TopMostUseCableNameUseTimes[count]);
 
                                             if (UnderSpec <= UseTimes && UseTimes <= UpperSpec)
@@ -2820,7 +2820,7 @@ namespace ShowUIApp
                         }
                     }
                 }
-                catch (Exception r)
+                catch (Exception)
                 {
                     event_log("CableStatus Update Exception -> CheckCableStatus " + CheckCableStatus.ToString());
                 }
@@ -3585,7 +3585,7 @@ namespace ShowUIApp
 
                 keys.SetValue(NameVal, insertVal);
             }
-            catch (Exception r)
+            catch (Exception)
             {
                 //MessageBox.Show(r.ToString());
             }
@@ -3688,7 +3688,7 @@ namespace ShowUIApp
                 {
                     try
                     {
-                        tmpStr = CENTER_B05_SV.B05_SI_GETFAKE_YR(client_ip, sName, ul.GetModel(), ul.GetStation(), yeildRate.ToString(), retestRate.ToString(), ref newYR, ref newTRR);
+                        //tmpStr = CENTER_B05_SV.B05_SI_GETFAKE_YR(client_ip, sName, ul.GetModel(), ul.GetStation(), yeildRate.ToString(), retestRate.ToString(), ref newYR, ref newTRR);
                     }
                     catch (Exception r)
                     {
@@ -4959,9 +4959,25 @@ namespace ShowUIApp
                 pBoxDebug.Visible = false;
                 toolTipVirus.Hide(pbVirus);
                 toolTipUSB.Hide(pbUsb);
+                Thread _tReturnWidth = new Thread(ReturnWith);
+                _tReturnWidth.IsBackground = true;
+                _tReturnWidth.Start();
+                
             }
             xxx = "";
             running = false;
+        }
+
+        private void ReturnWith()
+        {
+            Thread.Sleep(5000);
+            this.Invoke((MethodInvoker)delegate
+            {
+                int widthsc = Screen.PrimaryScreen.WorkingArea.Width;
+                this.Size = new Size(widthsc, 60);
+                btnCall.SetBounds(widthsc - 88, 32, 83, 24);
+                pBoxDebug.Visible = true;
+            });
         }
 
         private void lblTotalRate_Click(object sender, EventArgs e)
@@ -6632,7 +6648,7 @@ namespace ShowUIApp
                             {
                                 // idFii = FiiData.InsertFii(_KindOfError, lblQty.Text, lblYeildRate.Text);
                             }
-                            catch (Exception ex)
+                            catch (Exception)
                             {
                                 //MessageBox.Show(ex.ToString());
                             }
@@ -6652,7 +6668,7 @@ namespace ShowUIApp
                             {
                                 // idFii = FiiData.InsertFii(_KindOfError, lblQty.Text, lblYeildRate.Text);
                             }
-                            catch (Exception ex)
+                            catch (Exception)
                             {
                                 //MessageBox.Show(ex.ToString());
                             }
@@ -6678,7 +6694,7 @@ namespace ShowUIApp
                             {
                                 //  idFii = FiiData.InsertFii(_KindOfError, lblQty.Text, lblYeildRate.Text);
                             }
-                            catch (Exception ex)
+                            catch (Exception)
                             {
                                 //MessageBox.Show(ex.ToString());
                             }
@@ -7132,7 +7148,7 @@ namespace ShowUIApp
                     });
                 }
             }
-            catch (Exception r)
+            catch (Exception)
             {
                 this.Invoke((MethodInvoker)delegate
                 {
@@ -7411,7 +7427,7 @@ namespace ShowUIApp
                 }
                 Process.Start(@"D:\AutoDL\EGroupCreation.exe");
             }
-            catch (Exception er)
+            catch (Exception)
             {
                 //MessageBox.Show(er.ToString());
             }
@@ -7419,12 +7435,12 @@ namespace ShowUIApp
 
         private void webShowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowDataByWebpage("http://10.224.81.63/PCKPI/Default.aspx?id=ShowDataAutoLogin&pw=@pw&auto=true");
+            //ShowDataByWebpage("http://10.224.81.63/PCKPI/Default.aspx?id=ShowDataAutoLogin&pw=@pw&auto=true");
         }
 
         private void mydasVnToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowDataByWebpage("http://10.224.81.63/Mydasvn/DefaultPage.aspx?id=AutoLoginUser&pw=AutoLoginUser&auto=true");
+            //ShowDataByWebpage("http://10.224.81.63/Mydasvn/DefaultPage.aspx?id=AutoLoginUser&pw=AutoLoginUser&auto=true");
         }
 
         private void lblShowUI_MouseHover(object sender, EventArgs e)
@@ -8164,7 +8180,7 @@ namespace ShowUIApp
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                 }
             }
@@ -8196,17 +8212,6 @@ namespace ShowUIApp
 
         private void toolsboxToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                DownLoadToolsBoxHelper dlToolsbox = new DownLoadToolsBoxHelper();
-                dlToolsbox.downLoadApp();
-            }
-            catch { }
-
-            ProcessStartInfo startProgram = new ProcessStartInfo();
-            startProgram.FileName = @".\ToolsBox.exe";
-            startProgram.WorkingDirectory = @".\Toolsbox\";
-            Process.Start(startProgram);
         }
 
         public DataTable GetDtErrorCode(string SN, string ErrorCode)
@@ -8237,7 +8242,7 @@ namespace ShowUIApp
                     dt.Rows.Add(dr);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
             }
 
@@ -8263,101 +8268,101 @@ namespace ShowUIApp
              * 4. Unlock tester need to record
              */
 
-            try
-            {
-                string test_group = ul.GetStation();
-                string model_name = ul.GetModel();
-                string mo_number = ul.GetValueByKey("MO");
-                string tSN = ul.GetValueByKey("SN");
-                string fSN = "";
-                string _ate_name = Environment.MachineName.Trim();
-                string _ate_ip = ul.GetNICGatewayIP();
-                string yrate_real = "100";
-                this.Invoke((MethodInvoker)delegate
-                {
-                    stwArloUphMonitor.Start();
-                    yrate_real = Convert.ToDouble(lbhYRate.Text.Replace("%", "").Trim()).ToString();
-                });
+            //try
+            //{
+            //    string test_group = ul.GetStation();
+            //    string model_name = ul.GetModel();
+            //    string mo_number = ul.GetValueByKey("MO");
+            //    string tSN = ul.GetValueByKey("SN");
+            //    string fSN = "";
+            //    string _ate_name = Environment.MachineName.Trim();
+            //    string _ate_ip = ul.GetNICGatewayIP();
+            //    string yrate_real = "100";
+            //    this.Invoke((MethodInvoker)delegate
+            //    {
+            //        stwArloUphMonitor.Start();
+            //        yrate_real = Convert.ToDouble(lbhYRate.Text.Replace("%", "").Trim()).ToString();
+            //    });
 
-                string TmpDate = DateTime.Now.ToString("HHmm");
-                int ComparedTime = 730;
-                ComparedTime = Convert.ToInt32(TmpDate);
+            //    string TmpDate = DateTime.Now.ToString("HHmm");
+            //    int ComparedTime = 730;
+            //    ComparedTime = Convert.ToInt32(TmpDate);
 
-                if (ComparedTime >= 730 && ComparedTime <= 1930)
-                    Shift = "D";
-                else
-                    Shift = "N";
-                string end_time = DateTime.Now.ToString("yyyyMMddHHmm");
+            //    if (ComparedTime >= 730 && ComparedTime <= 1930)
+            //        Shift = "D";
+            //    else
+            //        Shift = "N";
+            //    string end_time = DateTime.Now.ToString("yyyyMMddHHmm");
 
-                int currentMin = DateTime.Now.Minute;
-                string start_time = end_time;
-                if (currentMin >= 30)
-                    start_time = DateTime.Now.ToString("yyyyMMddHH") + "30";
-                else
-                    start_time = DateTime.Now.AddHours(-1).ToString("yyyyMMddHH") + "30";
+            //    int currentMin = DateTime.Now.Minute;
+            //    string start_time = end_time;
+            //    if (currentMin >= 30)
+            //        start_time = DateTime.Now.ToString("yyyyMMddHH") + "30";
+            //    else
+            //        start_time = DateTime.Now.AddHours(-1).ToString("yyyyMMddHH") + "30";
 
-                if (mo_number == "")
-                {
-                    //2017.12.07 Adele check get SN
-                    string strSN = "";
+            //    if (mo_number == "")
+            //    {
+            //        //2017.12.07 Adele check get SN
+            //        string strSN = "";
 
-                    string KeySN = @"SOFTWARE\Netgear\SaveSN\OlyAdeleUse";
-                    RegistryKey rSN = Registry.LocalMachine.OpenSubKey(KeySN, true);
-                    strSN = rSN.GetValue("SN", "").ToString();
-                    //tSN = ul.GetValueByKey("SN", "").ToString();
-                    //2017.12.19 check SN cho cac tram ko dung sao
-                    if (strSN != "")
-                    {
-                        fSN = strSN;
-                    }
-                    else
-                    {
-                        fSN = tSN;
-                    }
-                    DataTable dtMO = sfisB05.FIND_MO_NUMBER(fSN, "");
-                    ul.event_log("New SN: " + strSN);
-                    try
-                    {
-                        mo_number = dtMO.Rows[0][0].ToString();
+            //        string KeySN = @"SOFTWARE\Netgear\SaveSN\OlyAdeleUse";
+            //        RegistryKey rSN = Registry.LocalMachine.OpenSubKey(KeySN, true);
+            //        strSN = rSN.GetValue("SN", "").ToString();
+            //        //tSN = ul.GetValueByKey("SN", "").ToString();
+            //        //2017.12.19 check SN cho cac tram ko dung sao
+            //        if (strSN != "")
+            //        {
+            //            fSN = strSN;
+            //        }
+            //        else
+            //        {
+            //            fSN = tSN;
+            //        }
+            //        DataTable dtMO = sfisB05.FIND_MO_NUMBER(fSN, "");
+            //        ul.event_log("New SN: " + strSN);
+            //        try
+            //        {
+            //            mo_number = dtMO.Rows[0][0].ToString();
 
-                        ul.SetValueByKey("MO", mo_number);
-                        ul.SetValueByKey("MO_s", mo_number);
-                        rSN.SetValue("MO", mo_number);
-                        ul.SetValueByKey("iFPR", "");
-                    }
-                    catch (Exception r)
-                    {
-                        _lockByUPH = false;
-                        ul.event_log("ArloUphMonitor MO Exception:" + r.ToString());
-                    }
-                }
+            //            ul.SetValueByKey("MO", mo_number);
+            //            ul.SetValueByKey("MO_s", mo_number);
+            //            rSN.SetValue("MO", mo_number);
+            //            ul.SetValueByKey("iFPR", "");
+            //        }
+            //        catch (Exception r)
+            //        {
+            //            _lockByUPH = false;
+            //            ul.event_log("ArloUphMonitor MO Exception:" + r.ToString());
+            //        }
+            //    }
 
-                if (mo_number != "")
-                {
-                    ul.event_log("ArloUphMonitor: from " + start_time + " to " + end_time);
-                    DataTable dtSfisR_DUT = sfisB05.GET_TOTAL_PASSFAIL(test_group, Shift, start_time, end_time, mo_number);
-                    R_DUT = Convert.ToDouble(dtSfisR_DUT.Rows[0]["FAIL_QTY"].ToString());
+            //    if (mo_number != "")
+            //    {
+            //        ul.event_log("ArloUphMonitor: from " + start_time + " to " + end_time);
+            //        DataTable dtSfisR_DUT = sfisB05.GET_TOTAL_PASSFAIL(test_group, Shift, start_time, end_time, mo_number);
+            //        R_DUT = Convert.ToDouble(dtSfisR_DUT.Rows[0]["FAIL_QTY"].ToString());
 
-                    _lockByUPH = CENTER_B05_SV.P_B05_ARLO_UPH_CONTROL(mo_number, R_DUT.ToString(), test_group, model_name, _ate_name, _ate_ip, yrate_real);
+            //        _lockByUPH = CENTER_B05_SV.P_B05_ARLO_UPH_CONTROL(mo_number, R_DUT.ToString(), test_group, model_name, _ate_name, _ate_ip, yrate_real);
 
-                    ul.event_log("ArloUphMonitor: Lock->" + _lockByUPH.ToString() + " MODEL->" + model_name + " STAION->" + test_group + " MO->" + mo_number + " R_DUT_NUM->" + R_DUT);
-                }
+            //        ul.event_log("ArloUphMonitor: Lock->" + _lockByUPH.ToString() + " MODEL->" + model_name + " STAION->" + test_group + " MO->" + mo_number + " R_DUT_NUM->" + R_DUT);
+            //    }
 
-                //MessageBox.Show(isLock.ToString() + "");
-            }
-            catch (Exception r)
-            {
-                _lockByUPH = false;
-                ul.event_log("ArloUphMonitor Exception:" + r.ToString());
-            }
+            //    //MessageBox.Show(isLock.ToString() + "");
+            //}
+            //catch (Exception r)
+            //{
+            //    _lockByUPH = false;
+            //    ul.event_log("ArloUphMonitor Exception:" + r.ToString());
+            //}
 
-            Thread.Sleep(60000);
-            this.Invoke((MethodInvoker)delegate
-            {
-                stwArloUphMonitor.Stop();
-                stwArloUphMonitor.Reset();
-                ul.event_log("ArloUphMonitor: OK");
-            });
+            //Thread.Sleep(60000);
+            //this.Invoke((MethodInvoker)delegate
+            //{
+            //    stwArloUphMonitor.Stop();
+            //    stwArloUphMonitor.Reset();
+            //    ul.event_log("ArloUphMonitor: OK");
+            //});
         }
 
         private void CheckAntivirut_Tick(object sender, EventArgs e)
@@ -8487,6 +8492,11 @@ namespace ShowUIApp
             frmPathloss.ShowDialog();
         }
 
+        private void timercheckGoiTE_Tick(object sender, EventArgs e)
+        {
+
+        }
+
         private double GetPercentFreeSpace(string driveName)
         {
             double FreeSpace;
@@ -8531,45 +8541,46 @@ namespace ShowUIApp
         {
             //SamplingThroughtput.Enabled = false;
             //ShowUI.ThroughtputService.ThroughtputServiceSoapClient getDataFromService = new ShowUI.ThroughtputService.ThroughtputServiceSoapClient();
-            ThroughtputService getDataFromService = new ThroughtputService();
-            string ModelName = ul.GetModel();
-            string Station = ul.GetStation();
-            string Product = ul.GetProduct();
-            string srPath = @"F:\lsy\Test\DownloadConfig\" + Product + ".ini";
 
-            string date, shift;
-            getShiftDate(out date, out shift);
-            try
-            {
-                List<string> lstPC = IniFile.ReadIniFile("SamplingThroughtput", "LstPC", "", srPath).Split(',').Where(x => x.Length > 0).ToList();
-                double rate = double.Parse(IniFile.ReadIniFile("SamplingThroughtput", "Rate_" + Station, "101", srPath).Replace("%", ""));
-                string lockPC = IniFile.ReadIniFile("SamplingThroughtput", "Lock", "0", srPath);
+            //ThroughtputService getDataFromService = new ThroughtputService();
+            //string ModelName = ul.GetModel();
+            //string Station = ul.GetStation();
+            //string Product = ul.GetProduct();
+            //string srPath = @"F:\lsy\Test\DownloadConfig\" + Product + ".ini";
 
-                if (lstPC.Count == 0 || rate > 100)
-                {
-                    return;
-                }
-                List<ShowUI.Common.WipPCModel> lstData = getDataFromService.GetDataThroughtputSampling(ModelName.ToUpper(), Station.ToUpper(), shift, date)
-                                       .ToList().ConvertSamplingThroughtputFunc(new List<ShowUI.Common.WipPCModel>());
-                if (lstData.Count == 0) return;
-                var total = Convert.ToDouble(lstData.Sum(x => x.WIPTOTAL));
-                var dataSampling = (from pc in lstPC
-                                    join dt in lstData
-                                    on pc.Trim().ToUpper() equals dt.STATION_NAME.Trim().ToUpper()
-                                    select new { PCName = pc, WipTotal = dt.WIPTOTAL }).Sum(x => x.WipTotal);
-                if (total > 0 && (Convert.ToDouble(dataSampling) * 100.0 / total > rate))
-                {
-                    if (lockPC.Contains("1"))
-                    {
-                        ul.SetValueByKey("StopMachine", "1");
-                        _IsExistErrorr = true;
-                        ShowWarningMessage($"Lỗi: Sampling control bigger than rate: {rate}, call TE-SETUP,TE-PRO Check", "Sampling Rate Issue");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-            }
+            //string date, shift;
+            //getShiftDate(out date, out shift);
+            //try
+            //{
+            //    List<string> lstPC = IniFile.ReadIniFile("SamplingThroughtput", "LstPC", "", srPath).Split(',').Where(x => x.Length > 0).ToList();
+            //    double rate = double.Parse(IniFile.ReadIniFile("SamplingThroughtput", "Rate_" + Station, "101", srPath).Replace("%", ""));
+            //    string lockPC = IniFile.ReadIniFile("SamplingThroughtput", "Lock", "0", srPath);
+
+            //    if (lstPC.Count == 0 || rate > 100)
+            //    {
+            //        return;
+            //    }
+            //    List<ShowUI.Common.WipPCModel> lstData = getDataFromService.GetDataThroughtputSampling(ModelName.ToUpper(), Station.ToUpper(), shift, date)
+            //                           .ToList().ConvertSamplingThroughtputFunc(new List<ShowUI.Common.WipPCModel>());
+            //    if (lstData.Count == 0) return;
+            //    var total = Convert.ToDouble(lstData.Sum(x => x.WIPTOTAL));
+            //    var dataSampling = (from pc in lstPC
+            //                        join dt in lstData
+            //                        on pc.Trim().ToUpper() equals dt.STATION_NAME.Trim().ToUpper()
+            //                        select new { PCName = pc, WipTotal = dt.WIPTOTAL }).Sum(x => x.WipTotal);
+            //    if (total > 0 && (Convert.ToDouble(dataSampling) * 100.0 / total > rate))
+            //    {
+            //        if (lockPC.Contains("1"))
+            //        {
+            //            ul.SetValueByKey("StopMachine", "1");
+            //            _IsExistErrorr = true;
+            //            ShowWarningMessage($"Lỗi: Sampling control bigger than rate: {rate}, call TE-SETUP,TE-PRO Check", "Sampling Rate Issue");
+            //        }
+            //    }
+            //}
+            //catch (Exception)
+            //{
+            //}
         }
 
         private void lblRetestRate_Click_1(object sender, EventArgs e)
@@ -8837,7 +8848,7 @@ namespace ShowUIApp
 
                             File.Copy(f_source.FullName, f_des.FullName, true);
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                             continue;
                         }
@@ -8851,7 +8862,7 @@ namespace ShowUIApp
                         {
                             Directory.CreateDirectory(f_des.DirectoryName);
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                             continue;
                         }
@@ -8860,7 +8871,7 @@ namespace ShowUIApp
                     {
                         File.Copy(f_source.FullName, f_des.FullName, true);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         continue;
                     }
@@ -8920,7 +8931,7 @@ namespace ShowUIApp
                             startTool.WorkingDirectory = @"D:\AutoDL\" + folderOpenD;
                             Process.Start(startTool);
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                             continue;
                         }
@@ -8958,29 +8969,12 @@ namespace ShowUIApp
             Thread _checkSecurity = new Thread(DoCheckSecurity);
             _checkSecurity.IsBackground = true;
             _checkSecurity.Start();
-            Thread _SetPCName = new Thread(DoSetPCName);
-            _SetPCName.IsBackground = true;
-            _SetPCName.Start();
-            Thread _SupportAgent = new Thread(DotAgentDP);
-            _SupportAgent.IsBackground = true;
-            _SupportAgent.Start();
-        }
-
-        public void DotAgentDP()
-        {
-            try
-            {
-                string ip = GetIp();
-                if (ip.Trim().Length < 3)
-                {
-                    return;
-                }
-                AgentSupport ags = new AgentSupport();
-                ags.StartArgent();
-            }
-            catch (Exception)
-            {
-            }
+            //Thread _SetPCName = new Thread(DoSetPCName);
+            //_SetPCName.IsBackground = true;
+            //_SetPCName.Start();
+            //Thread _SupportAgent = new Thread(DotAgentDP);
+            //_SupportAgent.IsBackground = true;
+            //_SupportAgent.Start();
         }
 
         private string[] stationReplace;

@@ -37,7 +37,7 @@ namespace ShowUI.AutomationHelper
                 conn.Close();
                 return row;
             }
-            catch (Exception ex)
+            catch
             {
                 return 0;
             }

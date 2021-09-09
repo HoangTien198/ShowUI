@@ -254,8 +254,8 @@ namespace Fii
         }
 
         public bool Connected = false;
-        private OracleConnection connection = null;
-        private OracleCommand command = null;
+        //private OracleConnection connection = null;
+        //private OracleCommand command = null;
 
         public OracleConnection GetConnection()
         {

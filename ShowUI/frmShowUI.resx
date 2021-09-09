@@ -2505,13 +2505,10 @@
     <value>296, 96</value>
   </metadata>
   <metadata name="LockShowUI.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>576, 95</value>
+    <value>447, 90</value>
   </metadata>
   <metadata name="CheckAntivirut.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>694, 95</value>
-  </metadata>
-  <metadata name="SamplingThroughtput.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>825, 95</value>
+    <value>564, 93</value>
   </metadata>
   <metadata name="FtpLog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>996, 95</value>

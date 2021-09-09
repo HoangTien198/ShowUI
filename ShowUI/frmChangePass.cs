@@ -10,8 +10,10 @@ namespace ShowUI
     {
         private ShowUI.Utilities ul = new ShowUI.Utilities();
         private string tmpIps = "";
-        private string conn = "";
+
+        //private string conn = "";
         public string userName = "V0917332";
+
         public string passcode = "SanderPatrick";
         private bool forceChangePasscode = false;
 

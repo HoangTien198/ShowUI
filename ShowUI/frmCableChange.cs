@@ -147,6 +147,11 @@ namespace ShowUI
             {
             }
         }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.Activate();
+        }
     }
 
     public class BoxItem

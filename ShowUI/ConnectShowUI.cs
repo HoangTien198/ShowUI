@@ -37,7 +37,7 @@ namespace ShowUI
                 conn.Close();
                 return row;
             }
-            catch (Exception ex)
+            catch
             {
                 //MessageBox.Show(ex.ToString());
                 //MessageBox.Show(ex.Message +": sql "+ sql);

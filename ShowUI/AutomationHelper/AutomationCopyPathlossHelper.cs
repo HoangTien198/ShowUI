@@ -789,7 +789,7 @@ namespace ShowUI.AutomationHelper
                 commandProcess.WaitForExit();
                 commandProcess.Close();
             }
-            catch (Exception ex)
+            catch
             {
                 result = false;
             }

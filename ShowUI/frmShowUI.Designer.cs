@@ -110,7 +110,6 @@
             this.TimerIQTestTime = new System.Windows.Forms.Timer(this.components);
             this.LockShowUI = new System.Windows.Forms.Timer(this.components);
             this.CheckAntivirut = new System.Windows.Forms.Timer(this.components);
-            this.SamplingThroughtput = new System.Windows.Forms.Timer(this.components);
             this.FtpLog = new System.Windows.Forms.Timer(this.components);
             this.tmQty = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
@@ -690,14 +689,14 @@
             // lockToolStripMenuItem
             // 
             this.lockToolStripMenuItem.Name = "lockToolStripMenuItem";
-            this.lockToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.lockToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.lockToolStripMenuItem.Text = "Enable";
             this.lockToolStripMenuItem.Click += new System.EventHandler(this.lockToolStripMenuItem_Click);
             // 
             // unlockToolStripMenuItem
             // 
             this.unlockToolStripMenuItem.Name = "unlockToolStripMenuItem";
-            this.unlockToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.unlockToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.unlockToolStripMenuItem.Text = "Disable";
             this.unlockToolStripMenuItem.Click += new System.EventHandler(this.unlockToolStripMenuItem_Click);
             // 
@@ -916,6 +915,10 @@
             this.timerShowfPanelHData.Interval = 600000;
             this.timerShowfPanelHData.Tick += new System.EventHandler(this.timerShowfPanelHData_Tick);
             // 
+            // timercheckGoiTE
+            // 
+            this.timercheckGoiTE.Tick += new System.EventHandler(this.timercheckGoiTE_Tick);
+            // 
             // YR_RRUpdate
             // 
             this.YR_RRUpdate.Enabled = true;
@@ -945,12 +948,6 @@
             this.CheckAntivirut.Interval = 5000;
             this.CheckAntivirut.Tick += new System.EventHandler(this.CheckAntivirut_Tick);
             // 
-            // SamplingThroughtput
-            // 
-            this.SamplingThroughtput.Enabled = true;
-            this.SamplingThroughtput.Interval = 3600000;
-            this.SamplingThroughtput.Tick += new System.EventHandler(this.SamplingThroughtput_Tick);
-            // 
             // FtpLog
             // 
             this.FtpLog.Enabled = true;
@@ -960,7 +957,7 @@
             // tmQty
             // 
             this.tmQty.Enabled = true;
-            this.tmQty.Interval = 120000;
+            this.tmQty.Interval = 60000;
             this.tmQty.Tick += new System.EventHandler(this.tmQty_Tick);
             // 
             // showUI
@@ -1093,7 +1090,6 @@
 		private System.Windows.Forms.Timer LockShowUI;
         private System.Windows.Forms.Timer CheckAntivirut;
         private System.Windows.Forms.ToolStripMenuItem pathlossErrorListToolStripMenuItem;
-        public System.Windows.Forms.Timer SamplingThroughtput;
         private System.Windows.Forms.Timer FtpLog;
         private System.Windows.Forms.Label label4;
         public System.Windows.Forms.Timer tmQty;
