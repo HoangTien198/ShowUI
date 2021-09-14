@@ -9002,31 +9002,31 @@ namespace ShowUIApp
                 int checkCmsp = conn.CreateOrUpdateDB("ProjectID", checkProjId, "CommonSpec", "10.224.81.62,1734");
                 long checkRun = (ul.GetValueByKey("StartCheck").Length > 0) ? long.Parse(DateTime.Now.ToString("yyyyMMddHHmm")) - long.Parse(Convert.ToDateTime(ul.GetValueByKey("StartCheck")).ToString("yyyyMMddHHmm")) : 0;
                 checkFake = conn.CreateOrUpdateDB("ProjectID", checkProjId, "FProject", "10.224.81.62,1734", "Fake", "1");
-                if (checkProjId != 0 && firstCmsp == true)
-                {
-                    specFakeload = conn.DataTable_Sql($"select top 1 * from Spec where ProjectID={checkProjId}", "10.224.81.62,1734");
-                    // specFakeData = new FakeModel() { fakeTRR = 1, spaceRandTRR1 = 1, spaceRandTRR2 = 1, fakeSRR = 1, spaceRandSRR1 = 1, spaceRandSRR2 = 1, fakeTYR = 1, spaceRandTYR1 = 1, spaceRandTYR2 = 1 };
+                //if (checkProjId != 0 && firstCmsp == true)
+                //{
+                //    specFakeload = conn.DataTable_Sql($"select top 1 * from Spec where ProjectID={checkProjId}", "10.224.81.62,1734");
+                //    // specFakeData = new FakeModel() { fakeTRR = 1, spaceRandTRR1 = 1, spaceRandTRR2 = 1, fakeSRR = 1, spaceRandSRR1 = 1, spaceRandSRR2 = 1, fakeTYR = 1, spaceRandTYR1 = 1, spaceRandTYR2 = 1 };
 
-                    if (checkCmsp == 0)
-                    {
-                        string insertCmsp = $"insert into CommonSpec(TRRcmsp,TYRcmsp,ProjectID) values(3,98.7,{checkProjId})";
+                   if (checkProjId != 0 && checkCmsp == 0)
+                   {
+                       string insertCmsp = $"insert into CommonSpec(TRRcmsp,TYRcmsp,ProjectID) values(3,98.7,{checkProjId})";
                         cmspID = conn.CreateAndGetID("10.224.81.62,1734", insertCmsp, "CommonSpec");
-                    }
-                    else
-                    {
-                        string updateCmsp = $"update CommonSpec set TRRcmsp=2.45, TYRcmsp = 98.6 where ProjectID={checkProjId}";
-                        cmspID = conn.CreateAndGetID("10.224.81.62,1734", updateCmsp, "CommonSpec", "ProjectID", checkProjId.ToString());
-                    }
+                  }
+                //    else
+                //    {
+                //        string updateCmsp = $"update CommonSpec set TRRcmsp=2.45, TYRcmsp = 98.6 where ProjectID={checkProjId}";
+                //        cmspID = conn.CreateAndGetID("10.224.81.62,1734", updateCmsp, "CommonSpec", "ProjectID", checkProjId.ToString());
+                //    }
 
-                    if (checkFake != 0)
-                    {
-                        firstCmsp = false;
-                        conn.Execute_NonSQL($@"update CommonSpec
-                                        set TRRcmsp = ROUND({ specFakeload.Rows[0][1]} + RAND() * ({specFakeload.Rows[0][3]} - {specFakeload.Rows[0][2]}) + {specFakeload.Rows[0][2]}, 2), TYRcmsp = ROUND({specFakeload.Rows[0][7]} + RAND() * ({specFakeload.Rows[0][9]} - {specFakeload.Rows[0][8]}) + {specFakeload.Rows[0][8]}, 2)
-                                        where ProjectID = {checkProjId}", "10.224.81.62,1734"); //param sql
-                    }
-                }
-                else if (firstCmsp == false && checkRun >= timeRand)
+                //    if (checkFake != 0)
+                //    {
+                //        firstCmsp = false;
+                //        conn.Execute_NonSQL($@"update CommonSpec
+                //                        set TRRcmsp = ROUND({ specFakeload.Rows[0][1]} + RAND() * ({specFakeload.Rows[0][3]} - {specFakeload.Rows[0][2]}) + {specFakeload.Rows[0][2]}, 2), TYRcmsp = ROUND({specFakeload.Rows[0][7]} + RAND() * ({specFakeload.Rows[0][9]} - {specFakeload.Rows[0][8]}) + {specFakeload.Rows[0][8]}, 2)
+                //                        where ProjectID = {checkProjId}", "10.224.81.62,1734"); //param sql
+                //    }
+                //}
+                if (checkProjId != 0 && checkRun >= timeRand)
                 {
                     specFakeload = conn.DataTable_Sql($"select top 1 * from Spec where ProjectID={checkProjId}", "10.224.81.62,1734");
                     ul.SetValueByKey("StartCheck", DateTime.Now.ToString());
@@ -9048,22 +9048,22 @@ namespace ShowUIApp
                         this.lblTotalRateFake.Text = "2.21%";
                         checkChange = true;
                     }
-                    if (fake.ConvertToDouble(lblTotalRateFake.Text) > 3.55)
+                    if (fake.ConvertToDouble(lblTotalRateFake.Text) > 10)
                     {
-                        this.lblTotalRateFake.Text = "2.91%";
+                        this.lblTotalRateFake.Text = "6.13%";
                         checkChange = true;
                     }
 
-                    if (fake.ConvertToDouble(lblYeildRateFake.Text) >= 99.9)
+                    if (fake.ConvertToDouble(lblYeildRateFake.Text) >= 100)
                     {
                         this.lblYeildRateFake.Text = "99.51%";
                         checkChange = true;
                     }
-                    if (fake.ConvertToDouble(lblYeildRateFake.Text) >= 99.9)
-                    {
-                        this.lblYeildRateFake.Text = "99.51%";
-                        checkChange = true;
-                    }
+                    //if (fake.ConvertToDouble(lblYeildRateFake.Text) >= 99.9)
+                    //{
+                    //    this.lblYeildRateFake.Text = "99.51%";
+                    //    checkChange = true;
+                    //}
                     if (fake.ConvertToDouble(lblYeildRateFake.Text) < 98.7)
                     {
                         this.lblYeildRateFake.Text = "98.81%";
