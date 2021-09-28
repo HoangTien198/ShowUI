@@ -108,7 +108,6 @@
             this.YR_RRUpdate = new System.Windows.Forms.Timer(this.components);
             this.TimerFakeShowUI = new System.Windows.Forms.Timer(this.components);
             this.TimerIQTestTime = new System.Windows.Forms.Timer(this.components);
-            this.LockShowUI = new System.Windows.Forms.Timer(this.components);
             this.CheckAntivirut = new System.Windows.Forms.Timer(this.components);
             this.FtpLog = new System.Windows.Forms.Timer(this.components);
             this.tmQty = new System.Windows.Forms.Timer(this.components);
@@ -689,14 +688,14 @@
             // lockToolStripMenuItem
             // 
             this.lockToolStripMenuItem.Name = "lockToolStripMenuItem";
-            this.lockToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lockToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.lockToolStripMenuItem.Text = "Enable";
             this.lockToolStripMenuItem.Click += new System.EventHandler(this.lockToolStripMenuItem_Click);
             // 
             // unlockToolStripMenuItem
             // 
             this.unlockToolStripMenuItem.Name = "unlockToolStripMenuItem";
-            this.unlockToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.unlockToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.unlockToolStripMenuItem.Text = "Disable";
             this.unlockToolStripMenuItem.Click += new System.EventHandler(this.unlockToolStripMenuItem_Click);
             // 
@@ -936,12 +935,6 @@
             this.TimerIQTestTime.Interval = 30000;
             this.TimerIQTestTime.Tick += new System.EventHandler(this.TimerIQTestTime_Tick);
             // 
-            // LockShowUI
-            // 
-            this.LockShowUI.Enabled = true;
-            this.LockShowUI.Interval = 5000;
-            this.LockShowUI.Tick += new System.EventHandler(this.LockShowUI_Tick);
-            // 
             // CheckAntivirut
             // 
             this.CheckAntivirut.Enabled = true;
@@ -1087,7 +1080,6 @@
         private System.Windows.Forms.Timer TimerIQTestTime;
         private System.Windows.Forms.ToolStripMenuItem iQSNToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem toolsboxToolStripMenuItem;
-		private System.Windows.Forms.Timer LockShowUI;
         private System.Windows.Forms.Timer CheckAntivirut;
         private System.Windows.Forms.ToolStripMenuItem pathlossErrorListToolStripMenuItem;
         private System.Windows.Forms.Timer FtpLog;

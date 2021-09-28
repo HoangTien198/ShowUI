@@ -76,7 +76,7 @@ namespace ShowUI
             Thread _tSampling = new Thread(Sampling);
             _tSampling.IsBackground = true;
             _tSampling.Start();
-
+            //
             tUpdateOutput.Start();
             tCountDown.Start();
         }
@@ -100,8 +100,8 @@ namespace ShowUI
                         //MessageBox.Show(stDetail[1].Trim() + "<-chk ? sple->" + stDetail[0].Trim());
                         checkingStation = stDetail[1].Trim();
                         sampleStation = stDetail[0].Trim();
-                        ul.SetValueByKey("Samp_Output", lbSamplingOutput.ToString());
-                        ul.SetValueByKey("Samp_CheckOutput", lbCheckingOutput.ToString());
+                        ul.SetValueByKey("Samp_Output", lbSamplingOutput.Text.ToString());
+                        ul.SetValueByKey("Samp_CheckOutput", lbCheckingOutput.Text.ToString());
                         sampleRate = Convert.ToDouble(IniFile.ReadIniFile("Sampling_Control", "SamplingRate_" + sampleStation, "0", srPath));
                         rateFix = IniFile.ReadIniFile("Sampling_Control", "SamplingRate_" + sampleStation, "0", srPath);
                         show_sampling = IniFile.ReadIniFile("Sampling_Control", "show_window_" + checkingStation, "", srPath);

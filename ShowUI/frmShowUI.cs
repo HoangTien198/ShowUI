@@ -857,6 +857,7 @@ namespace ShowUIApp
 
         private void showUI_Load(object sender, EventArgs e)
         {
+            //string strshiftDate = ul.checkDateShift();
             Random rd = new Random();
             vlueFake = rd.Next(0, 100);
             // CopyServerAuto.Enabled = true;
@@ -1036,107 +1037,7 @@ namespace ShowUIApp
 
             #region FakeShowUI
 
-            //string isNetgear = IniFile.ReadIniFile("Common", "Netgear", "false", ".\\FShowUIConfig.txt");
-            //if (isNetgear.Contains("true"))
-            //{
-            //	try
-            //	{
-            //		client_ip = ul.GetNICGatewayIP();
-            //		_model_name = ul.GetValueByKey("SFISMODEL").Trim();
-
-            //		int ProjID;
-            //		int PCID;
-            //		int FakeID;
-            //		int SpecID;
-            //		ConnectShowUI conn = new ConnectShowUI();
-
-            //		ul.SetValueByKey("StartCheck", DateTime.Now.ToString());
-
-            //		int checkStation = conn.CreateOrUpdateDB("SationName", ul.GetStation(), "StationInfo", "10.224.81.62,1734");
-            //		if (checkStation == 0)
-            //		{
-            //			string insertSt = $"insert into StationInfo(SationName) values('{ul.GetStation()}')";
-            //			checkStation = conn.CreateAndGetID("10.224.81.62,1734", insertSt, "StationInfo");
-
-            //		}
-            //		int checkProj = conn.CreateOrUpdateDB("DotNamePro", _model_name, "ProjectInfo", "10.224.81.62,1734", "StationID", checkStation.ToString());
-
-            //		int checkPC = conn.CreateOrUpdateDB("PC_IP", client_ip, "PCInfo", "10.224.81.62,1734");
-
-            //		if (checkProj == 0)
-            //		{
-            //			string insertProj = $"insert into ProjectInfo(DotNamePro,StationID) values('{_model_name}',{checkStation})";
-            //			ProjID = conn.CreateAndGetID("10.224.81.62,1734", insertProj, "ProjectInfo");
-
-            //		}
-            //		else
-            //		{
-            //			string updateProj = $"update ProjectInfo set DotNamePro='{_model_name}', StationID = {checkStation} where ProjectID={checkProj}";
-            //			ProjID = conn.CreateAndGetID("10.224.81.62,1734", updateProj, "ProjectInfo", "ProjectID", checkProj.ToString());
-
-            //		}
-            //		if (checkPC == 0)
-            //		{
-            //			string insertPC = $"insert into PCInfo(PC_IP,PC_Name,ProjectID) values('{client_ip}','{sName}',{ProjID}) ";
-            //			PCID = conn.CreateAndGetID("10.224.81.62,1734", insertPC, "PCInfo");
-
-            //		}
-            //		else
-            //		{
-            //			string updatePC = $"update PCInfo set PC_IP ='{client_ip}' ,PC_Name='{sName}',ProjectID={ProjID} where PC_ID={checkPC}";
-            //			PCID = conn.CreateAndGetID("10.224.81.62,1734", updatePC, "PCInfo", "PC_IP", client_ip);
-
-            //		}
-            //		FakeShowUIHelper fake = new FakeShowUIHelper();
-            //		var configFake = fake.FakeUI(_model_name, ul.GetStation());
-            //		int checkFake = conn.CreateOrUpdateDB("ProjectID", ProjID, "FProject", "10.224.81.62,1734");
-            //		int checkSpec = conn.CreateOrUpdateDB("ProjectID", ProjID, "Spec", "10.224.81.62,1734");
-            //		if (configFake != null)
-            //		{
-            //			if (checkFake == 0)
-            //			{
-            //				string insertFake = $"insert into FProject(ProjectID,Fake) values({ProjID},1) ";
-            //				FakeID = conn.CreateAndGetID("10.224.81.62,1734", insertFake, "FProject");
-            //			}
-            //			else
-            //			{
-            //				string updateFake = $"update FProject set ProjectID = {ProjID},Fake=1 where ID={checkFake} ";
-            //				FakeID = conn.CreateAndGetID("10.224.81.62,1734", updateFake, "FProject", "ProjectID", ProjID.ToString());
-            //			}
-            //			if (checkSpec == 0)
-            //			{
-            //				string insertSpec = $"insert into Spec(ProjectID,TRR,TRRLow,TRRHight,SRR,SRRLow,SRRHight,YR,YRLow,YRHight) values({ProjID},{configFake.fakeTRR},{configFake.spaceRandTRR1},{configFake.spaceRandTRR2},{configFake.fakeSRR},{configFake.spaceRandSRR1},{configFake.spaceRandSRR2},{configFake.fakeTYR},{configFake.spaceRandTYR1},{configFake.spaceRandTYR2}) ";
-            //				SpecID = conn.CreateAndGetID("10.224.81.62,1734", insertSpec, "Spec");
-            //			}
-            //			else
-            //			{
-            //				string updateSpec = $"update Spec set ProjectID = {ProjID},TRR={configFake.fakeTRR},TRRLow={configFake.spaceRandTRR1},TRRHight={configFake.spaceRandTRR2},SRR={configFake.fakeSRR},SRRLow={configFake.spaceRandSRR1},SRRHight={configFake.spaceRandSRR2},YR={configFake.fakeTYR},YRLow={configFake.spaceRandTYR1},YRHight={configFake.spaceRandTYR2} where SpecID={checkSpec} ";
-            //				SpecID = conn.CreateAndGetID("10.224.81.62,1734", updateSpec, "Spec", "ProjectID", ProjID.ToString());
-            //			}
-
-            //		}
-            //		//else
-            //		//{
-            //		//    if (checkFake == 0)
-            //		//    {
-            //		//        string insertFake = $"insert into FProject(ProjectID,Fake) values({ProjID},0) ";
-            //		//        FakeID = conn.CreateAndGetID("10.224.81.62,1734", insertFake, "FProject");
-            //		//    }
-            //		//    else
-            //		//    {
-            //		//        string updateFake = $"update FProject set ProjectID = {ProjID} where,Fake=0";
-            //		//        FakeID = conn.CreateAndGetID("10.224.81.62,1734", updateFake, "FProject", "ProjectID",ProjID.ToString());
-            //		//    }
-            //		//}
-
-            //	}
-            //	catch (Exception ex)
-            //	{
-            //		MessageBox.Show("lOI O DAY");
-            //		MessageBox.Show(ex.ToString());
-            //	}
-
-            //}
+            ul.SetValueByKey("StartCheck", DateTime.Now.ToString());
 
             #endregion FakeShowUI
 
@@ -1147,45 +1048,8 @@ namespace ShowUIApp
                 lblTotalRateFake.Hide();
                 lblRetestRateFake.Hide();
                 lblYeildRateFake.Hide();
-                //string KeySN = @"SOFTWARE\Netgear\SaveSN\OlyAdeleUse";
-                //RegistryKey rSN = Registry.LocalMachine.OpenSubKey(KeySN, true);
-                //string strSN;
-                //strSN = rSN.GetValue("SN", "").ToString();
-                //DataTable dtMO = sfisB05.FIND_MO_NUMBER(strSN, "");
-                //ul.event_log("New SN: " + strSN);
-                //string mo_number = "";
-                //mo_number = dtMO.Rows[0][0].ToString();
-                //ul.SetValueByKey("MO", mo_number);
-                //lblMO.Text = mo_number.Trim();
-                //rSN.SetValue("MO", mo_number);
-                //double newYRS =0;
-
-                //double newTRRS = 0;
-                //double RetestRate =  0;
-                //MessageBox.Show(CENTER_B05_SV.B05_SI_GETFAKE_YR("", "", "RBW30-FXN-NAS","PT", "", "", ref newYRS, ref newTRRS));
-                //passData = new string[6];
-
-                //connectionStringSrv37 = @"Data Source=10.224.81.37,1433;Initial Catalog=Ars_System;uid=sa;pwd=********;Connection Timeout=5";
-                //passData[0] = "7";
-                //passData[1] = "PT";
-                //passData[2] = "B06-L7-PT-01";
-                //passData[3] = "138.101.13.71";
-                //passData[4] = "U12H340";// U12H333
-                //passData[5] = "RBW30-FXN-NAS";// EX6700-NASV1
-                //double TotalRate = ul.GreenShowUI(newTRRS, connectionStringSrv37, ConnectServer37, passData);
 
                 CheckForIllegalCrossThreadCalls = false;
-                //    string start_time = "201609240730";
-                //    string end_time = "201609240930";
-                //    DataTable dtRTRate = svGetData.GET_FULL_R_STATION_ATE_T(start_time, end_time);
-
-                //    DataRow[] results = dtRTRate.Select("STATION_NAME = 'B05-L1-FT1-2' AND MODEL_NAME='VMC4030-FXN' AND GROUP_NAME='FT1'");
-                //    MessageBox.Show(dtRTRate.Rows.Count + " " + results.Length);
-                //    DataTable dtYRate = svGetData.GET_R_STATION_REC_T(start_time, end_time);
-                //    results = dtYRate.Select("SECTION_NAME = 'SI' AND MODEL_NAME='VMC4030-FXN' AND GROUP_NAME='FT1'");
-                //    MessageBox.Show(dtYRate.Rows.Count + " " + results.Length);
-                //    return;
-
                 event_log("ShowUI starting ...");
 
                 //2019.04.18 Nathan add for auto copy dll file
@@ -1492,84 +1356,11 @@ namespace ShowUIApp
                     }
                 }
 
-                //
-
-                //UpdateMOStation();
-                //MessageBox.Show(GetLineOfTester());
-                //end ^^
-                //RegistryKey rkApp = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run",true);
-                //rkApp.SetValue("ShowUI",Application.ExecutablePath.ToString());
-                // Get all ComputerInfo
-                //if (client_ip.StartsWith("10"))
-                //{
-                //    ManagementObjectSearcher objsrch_ram = new ManagementObjectSearcher("select * from win32_PhysicalMemory");
-                //    foreach (ManagementObject mo in objsrch_ram.Get())
-                //    {
-                //        UInt64 RamCapacity = Convert.ToUInt64(mo.Properties["Capacity"].Value.ToString()) / 1024 / 1024 / 1024;
-                //        //MessageBox.Show(Convert.ToString(RamCapacity));
-                //        break;
-                //    }
-
-                //    ManagementObjectSearcher objsrch_cpu = new ManagementObjectSearcher("select * from win32_processor");
-                //    foreach (ManagementObject mo in objsrch_cpu.Get())
-                //    {
-                //        string CPU = Convert.ToString(mo.Properties["Name"].Value.ToString());
-                //        //MessageBox.Show(Convert.ToString(CPU));
-                //        break;
-                //    }
-                //    ManagementObjectSearcher objsrch_hdd = new ManagementObjectSearcher("select * from win32_DiskDrive");
-                //    foreach (ManagementObject mo in objsrch_hdd.Get())
-                //    {
-                //        UInt64 hdd = Convert.ToUInt64(mo.Properties["Size"].Value.ToString()) / 1024 / 1024 / 1024;
-                //        //MessageBox.Show(Convert.ToString(hdd));
-                //        break;
-                //    }
-                //    ManagementObjectSearcher objsrch_monitor = new ManagementObjectSearcher("select * from win32_USBController");
-                //    foreach (ManagementObject mo in objsrch_monitor.Get())
-                //    {
-                //        string MonitorSN = Convert.ToString(mo.Properties["Manufacturer"].Value.ToString());
-                //        MessageBox.Show(Convert.ToString(MonitorSN));
-                //        break;
-                //    }
-
-                //}
-                //end get monitor information
-
-                //Process[] name = Process.GetProcessesByName("AShengClient.exe");
-
-                //if (name.Length < 1)
-                //{
-                //    AShengClientPath = @"C:\Windows\AShengClient.exe";
-                //}
-                //else
-                //{
-                //    MessageBox.Show(name.ToString());
-                //}
-
-                //foreach (Process proc in Process.GetProcesses())
-                //{
-                //    if (proc.ProcessName == "AShengClient")
-                //    {
-                //        AShengClientPath = proc.MainModule.FileName;
-                //    }
-                //    else
-                //    {
-                //    }
-                //}
-
-                //
-
-                //MessageBox.Show(ConnectServer37 + "--" + ConnectServer60 + "--" + ConnectServer73 + "--" + ConnectServer63 + "--" + ConnectServerSfis);
-
                 StopMachineEnable();
                 SetRegistries();
 
                 if (NetWorkConnection)
                 {
-                    //Thread _tGetStationIp = new Thread(GetIPofStation);
-                    //_tGetStationIp.IsBackground = true;
-                    //_tGetStationIp.Start();
-
                     Thread _tUpdateSpecByLine = new Thread(UpdateSpecByLine);
                     _tUpdateSpecByLine.IsBackground = true;
                     _tUpdateSpecByLine.Start();
@@ -1826,12 +1617,6 @@ namespace ShowUIApp
                         if (killShowUI)
                             Application.Exit();
                     }
-
-                    //if (File.Exists(@"C:\Windows\AShengClient.exe"))
-                    //{
-                    //    if (Process.GetProcessesByName("AShengClient").Length < 1)
-                    //        Process.Start(@"C:\Windows\AShengClient.exe");
-                    //}
                 }
                 catch (Exception)
                 {
@@ -2244,10 +2029,6 @@ namespace ShowUIApp
                 string KeyAnti = @"SOFTWARE\Symantec\SharedDefs\";
                 string KeyAntiUpdate = @"SOFTWARE\Symantec\Symantec Endpoint Protection\CurrentVersion\SharedDefs\SDSDefs\";
 
-                //path=C:\Program Files\Common Files\Symantec Shared\VirusDefs
-                //path=C:\Program Files\Common Files\Symantec Shared\VirusDefs
-                //KeyAnti = IniFile.ReadIniFile("PathAnti", "path" , "", ".\\Setup.ini");
-
                 RegistryKey key = Registry.LocalMachine.OpenSubKey(KeyAnti, true);
 
                 if (key != null)
@@ -2307,10 +2088,6 @@ namespace ShowUIApp
                 int NumOfDay = VirusOutOfDateSpec();
                 //string KeyAnti = @"SOFTWARE\Symantec\SharedDefs\";
                 string KeyAntiUpdate = @"SOFTWARE\Symantec\Symantec Endpoint Protection\CurrentVersion\SharedDefs\SDSDefs\";
-
-                //path=C:\Program Files\Common Files\Symantec Shared\VirusDefs
-                //path=C:\Program Files\Common Files\Symantec Shared\VirusDefs
-                //KeyAnti = IniFile.ReadIniFile("PathAnti", "path" , "", ".\\Setup.ini");
 
                 RegistryKey key = Registry.LocalMachine.OpenSubKey(KeyAntiUpdate, true);
 
@@ -2386,9 +2163,6 @@ namespace ShowUIApp
             }
             try
             {
-                // Check update anivirus software
-                //this.Invoke(new MethodInvoker(delegate()
-                //    {
                 bool viruscondition = CheckAntiVirusSoftUpdate();
                 bool virusWin10 = CheckAntiVirusSoftUpdateWin10();
                 bool usbCondition = CheckUSBDisable();
@@ -2680,19 +2454,6 @@ namespace ShowUIApp
                                             string Spec = IniFile.ReadIniFile("MaxTimes", "Cable_" + tmpNumOfCable, "5000", CtrlCableUsetimesPath);
                                             TopMostUseCableSpec[tmpNumOfCable] = Spec;
                                             TopMostUseCableNameUseTimes[tmpNumOfCable] = Convert.ToDouble(UseTimes);
-                                            //if (TopMostUseCableNameUseTimes[tmpNumOfCable] > 1000)
-                                            //{
-                                            //    try
-                                            //    {
-                                            //        keys.SetValue(cabble, "1");
-                                            //        TopMostUseCableNameUseTimes[tmpNumOfCable] = 1;
-                                            //    }
-                                            //    catch
-                                            //    {
-                                            //    }
-
-                                            //}
-                                            //TopPercentageUseTimes[tmpNumOfCable] = Convert.ToDouble(TopMostUseCableNameUseTimes[tmpNumOfCable]) / Convert.ToDouble(Spec);
                                             tmpNumOfCable++;
                                         }
                                     }
@@ -3828,67 +3589,6 @@ namespace ShowUIApp
                     string testStatus = _StationKey.GetValue("TestStatus", "0").ToString();
                     if (ConnectServer37 == "0")
                     {
-                        //try
-                        //{
-                        //    SqlConnection connection = new SqlConnection(connectionStringSrv37);
-                        //    connection.Open();
-                        //    string sqlCheckJerry = "select station_ip from stationinfo where station_ip ='" + client_ip + "' and JERRY=1";
-                        //    SqlDataAdapter da = new SqlDataAdapter(sqlCheckJerry, connectionStringSrv37);
-                        //    DataSet ds = new DataSet();
-                        //    da.Fill(ds);
-                        //    string stringFake = IniFile.ReadIniFile(_Model, ul.GetStation(), "0", ".\\FShowUIConfig.txt");
-                        //    if (ds.Tables[0].Rows.Count != 0)
-                        //    {
-                        //        //
-                        //        fake = true;
-
-                        //        if (timerFake.Enabled == false)// if already enable then do nothing
-                        //        {
-                        //            flagCheckJerry = 1;
-                        //            timerFakeFlage = 0; // for disable then enable has effect immediately
-                        //            timerFake.Enabled = true;
-                        //            event_log("Show Green Statistics: Enable");
-                        //            lblChk.Text = "CkSum:";
-                        //        }//
-
-                        //    }
-                        //    else
-                        //    {
-                        //        fake = false;
-                        //        timerFake.Enabled = false;
-                        //        isGetFakeYRTRROK = false;
-                        //        lblChk.Text = "Cksum:";
-                        //        //ul.SetValueByKey("TestFlag","1"); // update rea
-
-                        //        if (flagCheckJerry == 1)
-                        //        {
-                        //            // for enable has immediately effect
-
-                        //            totalRate = Convert.ToSingle(RRYRdata.Substring(42, 6));
-                        //            retestRate = Convert.ToSingle(RRYRdata.Substring(48, 6));
-                        //            yeildRate = Convert.ToSingle(RRYRdata.Substring(54, 6));
-
-                        //            lblTotalRate.Text = totalRate + "%";
-                        //            lblRetestRate.Text = retestRate + "%";
-                        //            lblYeildRate.Text = yeildRate + "%";
-
-                        //            //store for after fake case disable fake will load a gain
-                        //            //Thread _tReloadHData = new Thread(ShowfPanelHData);
-                        //            //_tReloadHData.IsBackground = true;
-                        //            //_tReloadHData.Start();
-
-                        //            flagCheckJerry = 0;
-                        //        }
-                        //        //event_log("Show Green Statistics: Disable");
-                        //    }
-                        //    //for fake history
-                        //    da.Dispose();
-                        //    connection.Close();
-                        //}
-                        //catch (Exception r)
-                        //{
-                        //    event_log("Green YRate: " + r.ToString());
-                        //}
                     }
 
                     //update test status
@@ -3897,42 +3597,6 @@ namespace ShowUIApp
                         UpdateStatus = testStatus;
                         try
                         {
-                            //if (ConnectServer37 == "0")
-                            //{
-                            //    using (SqlConnection connection = new SqlConnection(connectionStringSrv37))
-                            //    {
-                            //        connection.Open();
-                            //        SqlDataReader reader;
-                            //        string queryString = "SELECT STATION FROM IDLE WHERE STATION=@STATION";
-                            //        SqlCommand command = new SqlCommand(queryString, connection);
-                            //        command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
-                            //        command.Parameters["@STATION"].Value = sName;
-                            //        reader = command.ExecuteReader();
-                            //        if (reader.HasRows)
-                            //        {
-                            //            reader.Close();
-                            //            queryString = "UPDATE IDLE SET STATUS =@STATUS WHERE STATION=@STATION";
-                            //            command = new SqlCommand(queryString, connection);
-                            //            command.Parameters.Add("@STATUS", SqlDbType.Char, 10);
-                            //            command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
-                            //            command.Parameters["@STATUS"].Value = testStatus;
-                            //            command.Parameters["@STATION"].Value = sName;
-                            //            command.ExecuteNonQuery();
-                            //        }
-                            //        else
-                            //        {
-                            //            reader.Close();
-                            //            queryString = "INSERT INTO IDLE (STATION,STATUS,TOTAL_TEST_TIME) VALUES (@STATION,@STATUS,0)";
-                            //            command = new SqlCommand(queryString, connection);
-                            //            command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
-                            //            command.Parameters.Add("@STATUS", SqlDbType.Char, 10);
-                            //            command.Parameters["@STATION"].Value = sName;
-                            //            command.Parameters["@STATUS"].Value = testStatus;
-                            //            command.ExecuteNonQuery();
-                            //        }
-                            //        connection.Close();
-                            //    }
-                            //}
                         }
                         catch (Exception err)
                         {
@@ -3957,21 +3621,6 @@ namespace ShowUIApp
 
                     if (testFinish.Contains("1"))
                     {
-                        if (fake)
-                        {
-                            try
-                            {
-                                double RetestRate = newTRR - ul.RandDoubleInRange(-0.25, 0.25);
-                                lblRetestRate.Text = Math.Round(RetestRate, 2) + "%";
-
-                                newYR = newYR - ul.RandDoubleInRange(-0.025, 0.025);
-
-                                ul.UpdateRR_YR(RetestRate, newYR, connectionStringSrv37, ConnectServer37, client_ip);
-                            }
-                            catch (Exception)
-                            {
-                            }
-                        }
                         //SamplingControl
                         if (false) //(FKey == true || ul.GetValueByKey("StartDUT") == "*" || GetWebUnlockPath("PcRun") == disableLockMachine) //
                         {
@@ -4017,51 +3666,6 @@ namespace ShowUIApp
                         try
                         {
                             TimeSpan tolTime = TimeSpan.Parse("0:" + testTime);
-                            //if (ConnectServer37 == "0")
-                            //{
-                            //    using (SqlConnection connection = new SqlConnection(connectionStringSrv37))
-                            //    {
-                            //        connection.Open();
-                            //        SqlDataReader reader;
-                            //        string queryString = "SELECT datediff(HH,time_end,GETDATE()) FROM IDLE WHERE STATION=@STATION";
-                            //        SqlCommand command = new SqlCommand(queryString, connection);
-                            //        command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
-                            //        command.Parameters["@STATION"].Value = sName;
-                            //        reader = command.ExecuteReader();
-                            //        reader.Read();
-                            //        int t = 2;
-                            //        try
-                            //        {
-                            //            t = Convert.ToInt32(reader[0].ToString());
-                            //        }
-                            //        catch
-                            //        {
-                            //        }
-                            //        reader.Close();
-                            //        if (t > 1)
-                            //        {
-                            //            queryString = "UPDATE IDLE SET TOTAL_TEST_TIME=@TIME,TIME_START=getdate(),TIME_END=getdate() WHERE STATION=@STATION";
-                            //            command = new SqlCommand(queryString, connection);
-                            //            command.Parameters.Add("@TIME", SqlDbType.Int);
-                            //            command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
-
-                            //            command.Parameters["@TIME"].Value = tolTime.TotalSeconds;
-                            //            command.Parameters["@STATION"].Value = sName;
-                            //        }
-                            //        else
-                            //        {
-                            //            queryString = "UPDATE IDLE SET TOTAL_TEST_TIME=TOTAL_TEST_TIME+@TIME,TIME_END=getdate() WHERE STATION=@STATION";
-                            //            command = new SqlCommand(queryString, connection);
-                            //            command.Parameters.Add("@TIME", SqlDbType.Int);
-                            //            command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
-
-                            //            command.Parameters["@TIME"].Value = tolTime.TotalSeconds;
-                            //            command.Parameters["@STATION"].Value = sName;
-                            //        }
-                            //        command.ExecuteNonQuery();
-                            //        connection.Close();
-                            //    }
-                            //}
                         }
                         catch (Exception err)
                         {
@@ -4138,116 +3742,8 @@ namespace ShowUIApp
                                     error_detail = "";
                                 }
 
-                                //if (fake == false)
-                                //{
-                                //    lblTotalRate.Text = totalRate + "%";
-
-                                //    lblYeildRate.Text = yeildRate + "%";
-                                //    if (iFPR == "1")
-                                //    {
-                                //        lblFPR.Visible = true;
-                                //        lblRetestRate.Visible = false;
-                                //        lblRYR.Visible = true;
-                                //        lblRR.Visible = false;
-                                //        lblFPR.Text = FirstPassYR + "%";
-                                //    }
-                                //    else
-                                //    {
-                                //        lblRetestRate.Text = retestRate + "%";
-                                //        lblFPR.Visible = false;
-                                //        lblRetestRate.Visible = true;
-                                //        lblRYR.Visible = false;
-                                //        lblRR.Visible = true;
-
-                                //    }
-                                //}
-
                                 if (ConnectServer37 == "0")
                                 {
-                                    //using (SqlConnection connection = new SqlConnection(connectionStringSrv37))
-                                    //{
-                                    //    try
-                                    //    {
-                                    //        // 2.4.2016 update TEMP for fake every time
-                                    //        double TMP_TRR = retestRate;
-                                    //        if (retestRate > 2.9999)
-                                    //        {
-                                    //            TMP_TRR = 1.99 + ul.RandDoubleInRange(0, 0.5);
-
-                                    //            //RetestRate = Math.Round(retestRate / (130 - Convert.ToSingle(RTRStopSpec)), 2);
-                                    //        }
-                                    //        TMP_TRR = Math.Round(TMP_TRR, 2);
-
-                                    //        connection.Open();
-                                    //        SqlDataReader reader;
-                                    //        string queryString = "SELECT STATION_NAME FROM STATION WHERE STATION_IP=@IP";
-                                    //        SqlCommand command = new SqlCommand(queryString, connection);
-                                    //        command.Parameters.Add("@IP", SqlDbType.NVarChar, 50);
-                                    //        command.Parameters["@IP"].Value = client_ip;
-                                    //        reader = command.ExecuteReader();
-                                    //        if (reader.HasRows)
-                                    //        {
-                                    //            //reader.Read();
-
-                                    //            reader.Close();
-                                    //            queryString = "UPDATE Station SET STATION_NAME = @STATION, MODEL_ID=@MODEL,MODEL_NAME=@MODELNAME,STATION_RETEST_RATE=@SRR,TOTAL_RETEST_RATE=@TRR,ERROR=@ERROR,DATE_TIME=getdate() WHERE STATION_IP=@IP";
-                                    //            command = new SqlCommand(queryString, connection);
-
-                                    //            command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
-                                    //            command.Parameters.Add("@MODEL", SqlDbType.NVarChar, 50);
-                                    //            command.Parameters.Add("@MODELNAME", SqlDbType.NVarChar, 50);
-                                    //            command.Parameters.Add("@SRR", SqlDbType.Decimal, 2);
-                                    //            command.Parameters.Add("@TRR", SqlDbType.Decimal, 2);
-                                    //            command.Parameters.Add("@ERROR", SqlDbType.Text);
-                                    //            command.Parameters.Add("@IP", SqlDbType.NVarChar, 50);
-                                    //            //command.Parameters.Add("@TEM_TRR", SqlDbType.Decimal, 2);
-
-                                    //            command.Parameters["@STATION"].Value = sName;
-                                    //            command.Parameters["@MODEL"].Value = _Model;
-                                    //            command.Parameters["@MODELNAME"].Value = szmodelName;
-                                    //            command.Parameters["@SRR"].Value = retestRate;
-                                    //            command.Parameters["@TRR"].Value = totalRate;
-                                    //            command.Parameters["@ERROR"].Value = error_detail;
-                                    //            command.Parameters["@IP"].Value = client_ip;
-                                    //            //command.Parameters["@TEM_TRR"].Value = TMP_TRR;
-                                    //            command.ExecuteNonQuery();
-                                    //        }
-                                    //        else
-                                    //        {
-                                    //            reader.Close();
-                                    //            queryString = "INSERT INTO Station (STATION_NAME,MODEL_ID,MODEL_NAME,STATION_RETEST_RATE,TOTAL_RETEST_RATE,YEILD_RATE,ERROR,DATE_TIME,STATION_IP,TEMP_RETEST_RATE) VALUES (@STATION,@MODEL,@MODELNAME,@SRR,@TRR,@YR,@ERROR,getdate(),@IP,@TEM_TRR)";
-
-                                    //            command = new SqlCommand(queryString, connection);
-
-                                    //            command.Parameters.Add("@MODEL", SqlDbType.NVarChar, 50);
-                                    //            command.Parameters.Add("@MODELNAME", SqlDbType.NVarChar, 50);
-                                    //            command.Parameters.Add("@SRR", SqlDbType.Decimal, 2);
-                                    //            command.Parameters.Add("@TRR", SqlDbType.Decimal, 2);
-                                    //            command.Parameters.Add("@YR", SqlDbType.Decimal, 2);
-                                    //            command.Parameters.Add("@ERROR", SqlDbType.Text);
-                                    //            command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
-                                    //            command.Parameters.Add("@IP", SqlDbType.NVarChar, 50);
-                                    //            command.Parameters.Add("@TEM_TRR", SqlDbType.Decimal, 2);
-
-                                    //            command.Parameters["@MODEL"].Value = _Model;
-                                    //            command.Parameters["@MODELNAME"].Value = szmodelName;
-                                    //            command.Parameters["@SRR"].Value = retestRate;
-                                    //            command.Parameters["@TRR"].Value = totalRate;
-                                    //            command.Parameters["@YR"].Value = yeildRate;
-                                    //            command.Parameters["@ERROR"].Value = error_detail;
-                                    //            command.Parameters["@STATION"].Value = sName;
-                                    //            command.Parameters["@IP"].Value = client_ip;
-                                    //            command.Parameters["@TEM_TRR"].Value = TMP_TRR;
-                                    //            command.ExecuteNonQuery();
-                                    //        }
-
-                                    //        connection.Close();
-                                    //    }
-                                    //    catch (Exception exp)
-                                    //    {
-                                    //        event_log("ARS system: " + exp.Message.ToString());
-                                    //    }
-                                    //}
                                 }
                             }
                             catch (Exception err)
@@ -4433,7 +3929,7 @@ namespace ShowUIApp
                     if ((DateTime.Now.Hour == 8 && DateTime.Now.Minute == 31 && DateTime.Now.Second <= 12) || (DateTime.Now.Hour == 20 && DateTime.Now.Minute == 31 && DateTime.Now.Second <= 12))
                     {
                         // delete sanderpatrick row
-                        ul.ResetArsSystem(connectionStringSrv37, ConnectServer37);
+                        //ul.ResetArsSystem(connectionStringSrv37, ConnectServer37);
                     }
 
                     // Reset TestedDUT every shift
@@ -4521,126 +4017,6 @@ namespace ShowUIApp
             UpdateYR.Enabled = true;
             //}//
         }
-
-        //bool flagCommander = true;
-        //public void AutoNotice()
-        //{
-        //    try
-        //    {
-        //        if (TestedDUT == 10)
-        //        {
-        //            //ShowUI.B05_SERVICE_CENTER.B05_Service sv = new ShowUI.B05_SERVICE_CENTER.B05_Service();
-        //            ToDB conn = new ToDB();
-        //            string tempKey = "";
-        //            string SFISDATASTRING = "";
-        //            try
-        //            {
-        //                RegistryKey kiwi = Registry.LocalMachine.OpenSubKey(subkey, true);
-        //                string[] _Key = kiwi.GetValue("OpenKey", null).ToString().Split('\\');
-        //                string _Model = _Key[1];
-        //                string _Sta = _Key[2];
-        //                kiwi = Registry.LocalMachine.OpenSubKey(subkey + "\\" + _Model + "\\" + _Sta, true);
-        //                tempKey = subkey + "\\" + _Model + "\\" + _Sta;
-        //                SFISDATASTRING = kiwi.GetValue("SFISDATA", "").ToString();
-        //            }
-        //            catch (Exception)
-        //            {
-        //                //
-        //            }
-
-        //            string checkExistSql = "select * from Status where model_name ='" + _model_name + "' and  line_name = '" + _line_name + "' and station_name = '" + _station_name + "' and  ate_name ='" + _ate_name + "' and ate_ip='" + _ate_ip + "'";
-        //            DataTable dt = conn.DataTable_Sql(checkExistSql, serverIp);
-
-        //            string err_desc = "";
-        //            if (SFISDATASTRING == "")
-        //            {
-        //                err_desc = "string sfisdata is empty or dont exist";
-
-        //                //MessageBox.Show(checkExistSql + "++" + serverIp);
-        //                if (_line_name != "" && _model_name != "X")
-        //                {
-        //                    if (dt.Rows.Count != 0)
-        //                    {
-        //                        string updateSql = "update Status set model_name ='" + _model_name + "', line_name = '" + _line_name + "', station_name = '" + _station_name + "' , ate_name ='" + _ate_name + "', ate_ip='" + _ate_ip + "', date_time = '" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "',stop_status ='0',stop_ate = null,bug_record='" + err_desc + "',reg_path='" + tempKey + "'";
-        //                        updateSql += " where model_name ='" + _model_name + "' and  line_name = '" + _line_name + "' and station_name = '" + _station_name + "' and  ate_name ='" + _ate_name + "' and ate_ip='" + _ate_ip + "'";
-
-        //                        conn.Execute_NonSQL(updateSql, serverIp);
-        //                        //event_log("Auto_MO: updateSql -> " + updateSql);
-        //                    }
-        //                    else
-        //                    {
-        //                        string insertSql = "insert into Status(mo_status,stop_status,model_name,line_name,station_name,ate_name,ate_ip,date_time,bug_record,reg_path) ";
-        //                        insertSql += " values(0,'0','" + _model_name + "','" + _line_name + "','" + _station_name + "','" + _ate_name + "','" + _ate_ip + "','" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "','" + err_desc + "','" + tempKey + "')";
-
-        //                        conn.Execute_NonSQL(insertSql, serverIp);
-        //                        //event_log("Auto_MO: insertSql -> " + insertSql);
-        //                    }
-        //                }
-        //            }
-
-        //            if (!checkTestFlag && flagCommander == true)
-        //            {
-        //                flagCommander = false;
-        //                err_desc = "dont update testflag = 1";
-        //                if (_line_name != "" && _model_name != "X")
-        //                {
-        //                    if (dt.Rows.Count != 0)
-        //                    {
-        //                        string updateSql = "update Status set model_name ='" + _model_name + "', line_name = '" + _line_name + "', station_name = '" + _station_name + "' , ate_name ='" + _ate_name + "', ate_ip='" + _ate_ip + "', date_time = '" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "',stop_status ='0',stop_ate = null,bug_record='" + err_desc + "',reg_path='" + tempKey + "'";
-        //                        updateSql += " where model_name ='" + _model_name + "' and  line_name = '" + _line_name + "' and station_name = '" + _station_name + "' and  ate_name ='" + _ate_name + "' and ate_ip='" + _ate_ip + "'";
-
-        //                        conn.Execute_NonSQL(updateSql, serverIp);
-        //                        //MessageBox.Show(updateSql);
-        //                    }
-        //                    else
-        //                    {
-        //                        string insertSql = "insert into Status(mo_status,stop_status,model_name,line_name,station_name,ate_name,ate_ip,date_time,bug_record,reg_path) ";
-        //                        insertSql += " values(0,'0','" + _model_name + "','" + _line_name + "','" + _station_name + "','" + _ate_name + "','" + _ate_ip + "','" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "','" + err_desc + "','" + tempKey + "')";
-
-        //                        conn.Execute_NonSQL(insertSql, serverIp);
-        //                        //MessageBox.Show(insertSql);
-        //                    }
-        //                    //
-        //                }
-        //            }
-
-        //            string CtrTimePath = GetCableCtrlTimesPath();
-        //            err_desc = "CableCtrlTime.ini file not exist " + CtrTimePath;
-        //            int nCable = 0;
-        //            if (File.Exists(CtrTimePath))
-        //            {
-        //                Int32.TryParse(IniFile.ReadIniFile("ConnectControl", "TotalCable ", null, CtrTimePath), out nCable);
-        //            }
-        //            else
-        //            {
-        //                if (_line_name != "" && _model_name != "X")
-        //                {
-        //                    if (dt.Rows.Count != 0)
-        //                    {
-        //                        string updateSql = "update Status set model_name ='" + _model_name + "', line_name = '" + _line_name + "', station_name = '" + _station_name + "' , ate_name ='" + _ate_name + "', ate_ip='" + _ate_ip + "', date_time = '" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "',stop_status ='0',stop_ate = null,bug_record='" + err_desc + "',reg_path='" + tempKey + "'";
-        //                        updateSql += " where model_name ='" + _model_name + "' and  line_name = '" + _line_name + "' and station_name = '" + _station_name + "' and  ate_name ='" + _ate_name + "' and ate_ip='" + _ate_ip + "'";
-
-        //                        conn.Execute_NonSQL(updateSql, serverIp);
-        //                        //MessageBox.Show(updateSql);
-        //                    }
-        //                    else
-        //                    {
-        //                        string insertSql = "insert into Status(mo_status,stop_status,model_name,line_name,station_name,ate_name,ate_ip,date_time,bug_record,reg_path) ";
-        //                        insertSql += " values(0,'0','" + _model_name + "','" + _line_name + "','" + _station_name + "','" + _ate_name + "','" + _ate_ip + "','" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "','" + err_desc + "','" + tempKey + "')";
-
-        //                        conn.Execute_NonSQL(insertSql, serverIp);
-        //                        //MessageBox.Show(insertSql);
-        //                    }
-        //                }//
-        //            }
-        //            //
-        //        }// end if
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        event_log("AutoNotice Exception: "+ e.ToString());
-        //    }
-        //}
 
         private void lblYeildRate_TextChanged(object sender, EventArgs e)
         {
@@ -4769,66 +4145,9 @@ namespace ShowUIApp
 
         private void btnCall_Click(object sender, MouseEventArgs e)
         {
-            using (ShowUI.frmEmpAuthentication ea = new ShowUI.frmEmpAuthentication("2"))
-            {
-                ea.ShowDialog();
-            }
-            //using (WarningButton wb = new WarningButton())
+            //using (ShowUI.frmEmpAuthentication ea = new ShowUI.frmEmpAuthentication("2"))
             //{
-            //    if (wb.ShowDialog() == DialogResult.OK)
-            //    {
-            //        using (SqlConnection connection = new SqlConnection(connectionString))
-            //        {
-            //            try
-            //            {
-            //                connection.Open();
-            //                SqlDataReader reader;
-            //                string queryString = "SELECT Users FROM tblUser WHERE Users = @ur AND PASS=@pw";
-            //                SqlCommand command = new SqlCommand(queryString, connection);
-            //                command.Parameters.Add("@ur", SqlDbType.NVarChar, 50);
-            //                command.Parameters["@ur"].Value = wb.getUsername();
-            //                command.Parameters.Add("@pw", SqlDbType.NVarChar, 50);
-            //                command.Parameters["@pw"].Value = wb.getPassword();
-            //                reader = command.ExecuteReader();
-            //                if (!reader.HasRows)
-            //                {
-            //                    reader.Close();
-            //                    MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu !", "Jerry", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //                }
-            //                else
-            //                {
-            //                    queryString = "SELECT ID FROM Abnormal WHERE STATION_NAME =@STATION_NAME AND SOLVED = 0";
-            //                    command = new SqlCommand(queryString, connection);
-            //                    command.Parameters.Add("@STATION_NAME", SqlDbType.NVarChar, 50);
-            //                    command.Parameters["@STATION_NAME"].Value = sName;
-            //                    reader.Close();
-            //                    reader = command.ExecuteReader();
-            //                    if (!reader.HasRows)
-            //                    {
-            //                        reader.Close();
-            //                        string error_detail = _StationKey.GetValue("ERRORCODE", "").ToString().Trim();
-            //                        queryString = "INSERT INTO Abnormal (STATION_NAME,SOLVED,ERROR,DATE_TIME_START,USER_CALL) " +
-            //                            "VALUES (@STATION,0,@ERROR,getdate(),@USERCALL)";
-            //                        command = new SqlCommand(queryString, connection);
-            //                        command.Parameters.Add("@ERROR", SqlDbType.NVarChar, 128);
-            //                        command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
-            //                        command.Parameters.Add("@USERCALL", SqlDbType.NVarChar, 50);
-            //                        command.Parameters["@STATION"].Value = sName;
-            //                        command.Parameters["@ERROR"].Value = error_detail;
-            //                        command.Parameters["@USERCALL"].Value = wb.getUsername();
-            //                        command.ExecuteNonQuery();
-            //                    }
-            //                    MessageBox.Show("Already call TE !" + Environment.NewLine + "Đã thông báo cho TE, thanks !", "Jerry", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //                    connection.Close();
-            //                }
-            //            }
-            //            catch (Exception exp)
-            //            {
-            //                //MessageBox.Show("Can't connect to server !","Error",MessageBoxButtons.OK,MessageBoxIcon.Stop);
-            //                event_log("Call TE: " + exp.Message.ToString());
-            //            }
-            //        }
-            //    }
+            //    ea.ShowDialog();
             //}
         }
 
@@ -4850,97 +4169,97 @@ namespace ShowUIApp
         {
             if (ConnectServer37 == "0" && NetWorkConnection == true)
             {
-                using (SqlConnection connection = new SqlConnection(connectionStringSrv37))
-                {
-                    try
-                    {
-                        connection.Open();
-                        SqlDataReader reader;
-                        // 18.9.2015 change to check by ip
-                        string queryString = "SELECT STATION_IP FROM StationInfo WHERE STATION_IP=@IP";
-                        SqlCommand command = new SqlCommand(queryString, connection);
-                        command.Parameters.Add("@IP", SqlDbType.NVarChar, 50);
-                        command.Parameters["@IP"].Value = client_ip;
+                //using (SqlConnection connection = new SqlConnection(connectionStringSrv37))
+                //{
+                //    try
+                //    {
+                //        connection.Open();
+                //        SqlDataReader reader;
+                //        // 18.9.2015 change to check by ip
+                //        string queryString = "SELECT STATION_IP FROM StationInfo WHERE STATION_IP=@IP";
+                //        SqlCommand command = new SqlCommand(queryString, connection);
+                //        command.Parameters.Add("@IP", SqlDbType.NVarChar, 50);
+                //        command.Parameters["@IP"].Value = client_ip;
 
-                        string line = sName.Substring(sName.IndexOf("L") + 1, sName.Length - sName.IndexOf("L") - 1);
-                        char[] aline = line.ToCharArray();
-                        string testline = "";
-                        int tmpLine = 0;
-                        for (int i = 0; i < aline.Length; i++)
-                        {
-                            int x;
-                            bool isNum = Int32.TryParse(aline[i].ToString(), out x);
-                            if (!isNum)
-                            {
-                                break;
-                            }
-                            testline += aline[i];
-                            tmpLine = Convert.ToInt32(testline);
-                        }
+                //        string line = sName.Substring(sName.IndexOf("L") + 1, sName.Length - sName.IndexOf("L") - 1);
+                //        char[] aline = line.ToCharArray();
+                //        string testline = "";
+                //        int tmpLine = 0;
+                //        for (int i = 0; i < aline.Length; i++)
+                //        {
+                //            int x;
+                //            bool isNum = Int32.TryParse(aline[i].ToString(), out x);
+                //            if (!isNum)
+                //            {
+                //                break;
+                //            }
+                //            testline += aline[i];
+                //            tmpLine = Convert.ToInt32(testline);
+                //        }
 
-                        if (tmpLine == 0)
-                        {
-                            testline = "";
-                        }
+                //        if (tmpLine == 0)
+                //        {
+                //            testline = "";
+                //        }
 
-                        if (testline.StartsWith("0"))
-                        {
-                            testline = testline.Replace("0", "");
-                        }
+                //        if (testline.StartsWith("0"))
+                //        {
+                //            testline = testline.Replace("0", "");
+                //        }
 
-                        reader = command.ExecuteReader();
-                        if (reader.HasRows)
-                        {
-                            //MessageBox.Show("Co du lieu");
-                            reader.Close();
-                            if (testline != "" && sType != "")
-                            {
-                                queryString = "UPDATE StationInfo SET STATION_NAME=@STATION,MAC_ADDR=@MAC_ADDR,LINE=@LINE,TYPE=@TYPE WHERE STATION_IP =@IP";
-                                command = new SqlCommand(queryString, connection);
-                                command.Parameters.Add("@IP", SqlDbType.NVarChar, 50);
-                                command.Parameters.Add("@MAC_ADDR", SqlDbType.NVarChar, 50);
-                                command.Parameters.Add("@LINE", SqlDbType.VarChar, 10);
-                                command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
-                                command.Parameters.Add("@TYPE", SqlDbType.NVarChar, 10);
-                                command.Parameters["@IP"].Value = client_ip;
-                                command.Parameters["@MAC_ADDR"].Value = client_mac;
-                                command.Parameters["@LINE"].Value = testline;
-                                command.Parameters["@STATION"].Value = sName;
-                                command.Parameters["@TYPE"].Value = sType;
+                //        reader = command.ExecuteReader();
+                //        if (reader.HasRows)
+                //        {
+                //            //MessageBox.Show("Co du lieu");
+                //            reader.Close();
+                //            if (testline != "" && sType != "")
+                //            {
+                //                queryString = "UPDATE StationInfo SET STATION_NAME=@STATION,MAC_ADDR=@MAC_ADDR,LINE=@LINE,TYPE=@TYPE WHERE STATION_IP =@IP";
+                //                command = new SqlCommand(queryString, connection);
+                //                command.Parameters.Add("@IP", SqlDbType.NVarChar, 50);
+                //                command.Parameters.Add("@MAC_ADDR", SqlDbType.NVarChar, 50);
+                //                command.Parameters.Add("@LINE", SqlDbType.VarChar, 10);
+                //                command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
+                //                command.Parameters.Add("@TYPE", SqlDbType.NVarChar, 10);
+                //                command.Parameters["@IP"].Value = client_ip;
+                //                command.Parameters["@MAC_ADDR"].Value = client_mac;
+                //                command.Parameters["@LINE"].Value = testline;
+                //                command.Parameters["@STATION"].Value = sName;
+                //                command.Parameters["@TYPE"].Value = sType;
 
-                                command.ExecuteNonQuery();
-                            }
-                        }
-                        else
-                        {
-                            //MessageBox.Show("K co du lieu");
-                            reader.Close();
-                            if (testline != "" && sType != "")
-                            {
-                                queryString = "INSERT INTO StationInfo (STATION_NAME,STATION_IP,MAC_ADDR,LINE,TYPE) VALUES (@STATION,@IP,@MAC_ADDR,@LINE,@TYPE)";
-                                command = new SqlCommand(queryString, connection);
-                                command.Parameters.Add("@IP", SqlDbType.NVarChar, 50);
-                                command.Parameters.Add("@MAC_ADDR", SqlDbType.NVarChar, 50);
-                                command.Parameters.Add("@LINE", SqlDbType.VarChar, 10);
-                                command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
-                                command.Parameters.Add("@TYPE", SqlDbType.NVarChar, 10);
-                                command.Parameters["@IP"].Value = client_ip;
-                                command.Parameters["@MAC_ADDR"].Value = client_mac;
-                                command.Parameters["@LINE"].Value = testline;
-                                command.Parameters["@STATION"].Value = sName;
-                                command.Parameters["@TYPE"].Value = sType;
-                                command.ExecuteNonQuery();
-                            }
-                        }
+                //                command.ExecuteNonQuery();
+                //            }
+                //        }
+                //        else
+                //        {
+                //            //MessageBox.Show("K co du lieu");
+                //            reader.Close();
+                //            if (testline != "" && sType != "")
+                //            {
+                //                queryString = "INSERT INTO StationInfo (STATION_NAME,STATION_IP,MAC_ADDR,LINE,TYPE) VALUES (@STATION,@IP,@MAC_ADDR,@LINE,@TYPE)";
+                //                command = new SqlCommand(queryString, connection);
+                //                command.Parameters.Add("@IP", SqlDbType.NVarChar, 50);
+                //                command.Parameters.Add("@MAC_ADDR", SqlDbType.NVarChar, 50);
+                //                command.Parameters.Add("@LINE", SqlDbType.VarChar, 10);
+                //                command.Parameters.Add("@STATION", SqlDbType.NVarChar, 50);
+                //                command.Parameters.Add("@TYPE", SqlDbType.NVarChar, 10);
+                //                command.Parameters["@IP"].Value = client_ip;
+                //                command.Parameters["@MAC_ADDR"].Value = client_mac;
+                //                command.Parameters["@LINE"].Value = testline;
+                //                command.Parameters["@STATION"].Value = sName;
+                //                command.Parameters["@TYPE"].Value = sType;
+                //                command.ExecuteNonQuery();
+                //            }
+                //        }
 
-                        connection.Close();
-                    }
-                    catch (Exception exp)
-                    {
-                        //MessageBox.Show();
-                        event_log("Update Stationinfo: " + client_ip + "--" + client_mac + "--" + GetLineOfTester() + "--" + sName + "--" + sType + "--->" + exp.Message.ToString());
-                    }
-                }
+                //        connection.Close();
+                //    }
+                //    catch (Exception exp)
+                //    {
+                //        //MessageBox.Show();
+                //        event_log("Update Stationinfo: " + client_ip + "--" + client_mac + "--" + GetLineOfTester() + "--" + sName + "--" + sType + "--->" + exp.Message.ToString());
+                //    }
+                //}
             } // end if connectserver37
         }
 
@@ -4962,7 +4281,6 @@ namespace ShowUIApp
                 Thread _tReturnWidth = new Thread(ReturnWith);
                 _tReturnWidth.IsBackground = true;
                 _tReturnWidth.Start();
-                
             }
             xxx = "";
             running = false;
@@ -6729,11 +6047,11 @@ namespace ShowUIApp
                 string localProduct = ul.GetProduct();
                 if (localStation.StartsWith("S_"))
                 {
-                    if (localProduct != "U12I345" || localStation != "RC") // prevent rc arlo pro if reautodl need reset base
-                        ul.ShellExecute("TASKKILL /IM NetgearAutoDL.exe /T /F");
+                    //if (localProduct != "U12I345" || localStation != "RC") // prevent rc arlo pro if reautodl need reset base
+                    //    ul.ShellExecute("TASKKILL /IM NetgearAutoDL.exe /T /F");
 
-                    string tpg = ul.GetValueByKey("TPG_NAME");
-                    ul.ShellExecute("TASKKILL /IM " + tpg + " /T /F");
+                    //string tpg = ul.GetValueByKey("TPG_NAME");
+                    //ul.ShellExecute("TASKKILL /IM " + tpg + " /T /F");
                 }
                 //close lucifer
                 //Application.Exit();
@@ -7460,7 +6778,7 @@ namespace ShowUIApp
                 timercheckGoiTE.Enabled = false;
             }
 
-            btnCall.Visible = true;
+            //btnCall.Visible = true;
             timercheckGoiTE.Enabled = true;
         }
 
@@ -8494,7 +7812,6 @@ namespace ShowUIApp
 
         private void timercheckGoiTE_Tick(object sender, EventArgs e)
         {
-
         }
 
         private double GetPercentFreeSpace(string driveName)
@@ -8941,9 +8258,9 @@ namespace ShowUIApp
 
             #endregion suport tool
 
-            Thread _infoPC = new Thread(InfoPC);
-            _infoPC.IsBackground = true;
-            _infoPC.Start();
+            //Thread _infoPC = new Thread(InfoPC);
+            //_infoPC.IsBackground = true;
+            //_infoPC.Start();
 
             Thread _qtyMachine = new Thread(setQtyMachine);
             _qtyMachine.IsBackground = true;
@@ -9002,16 +8319,40 @@ namespace ShowUIApp
                 int checkCmsp = conn.CreateOrUpdateDB("ProjectID", checkProjId, "CommonSpec", "10.224.81.62,1734");
                 long checkRun = (ul.GetValueByKey("StartCheck").Length > 0) ? long.Parse(DateTime.Now.ToString("yyyyMMddHHmm")) - long.Parse(Convert.ToDateTime(ul.GetValueByKey("StartCheck")).ToString("yyyyMMddHHmm")) : 0;
                 checkFake = conn.CreateOrUpdateDB("ProjectID", checkProjId, "FProject", "10.224.81.62,1734", "Fake", "1");
+
+                //check fake
+
+                if (checkFake != 0)
+                {
+                    this.lblRetestRateFake.Show();
+                    this.lblTotalRateFake.Show();
+                    this.lblYeildRateFake.Show();
+                    this.lblRetestRate.Hide();
+                    this.lblTotalRate.Hide();
+                    this.lblYeildRate.Hide();
+                }
+                else
+                {
+                    this.lblRetestRateFake.Hide();
+                    this.lblTotalRateFake.Hide();
+                    this.lblYeildRateFake.Hide();
+
+                    this.lblRetestRate.Show();
+                    this.lblTotalRate.Show();
+                    this.lblYeildRate.Show();
+                    return;
+                }
+
                 //if (checkProjId != 0 && firstCmsp == true)
                 //{
                 //    specFakeload = conn.DataTable_Sql($"select top 1 * from Spec where ProjectID={checkProjId}", "10.224.81.62,1734");
                 //    // specFakeData = new FakeModel() { fakeTRR = 1, spaceRandTRR1 = 1, spaceRandTRR2 = 1, fakeSRR = 1, spaceRandSRR1 = 1, spaceRandSRR2 = 1, fakeTYR = 1, spaceRandTYR1 = 1, spaceRandTYR2 = 1 };
 
-                   if (checkProjId != 0 && checkCmsp == 0)
-                   {
-                       string insertCmsp = $"insert into CommonSpec(TRRcmsp,TYRcmsp,ProjectID) values(3,98.7,{checkProjId})";
-                        cmspID = conn.CreateAndGetID("10.224.81.62,1734", insertCmsp, "CommonSpec");
-                  }
+                if (checkProjId != 0 && checkCmsp == 0)
+                {
+                    string insertCmsp = $"insert into CommonSpec(TRRcmsp,TYRcmsp,ProjectID) values(3,98.7,{checkProjId})";
+                    cmspID = conn.CreateAndGetID("10.224.81.62,1734", insertCmsp, "CommonSpec");
+                }
                 //    else
                 //    {
                 //        string updateCmsp = $"update CommonSpec set TRRcmsp=2.45, TYRcmsp = 98.6 where ProjectID={checkProjId}";
@@ -9134,28 +8475,6 @@ namespace ShowUIApp
                             }
                         }
                     }
-                }
-
-                //check fake
-
-                if (checkFake != 0)
-                {
-                    this.lblRetestRateFake.Show();
-                    this.lblTotalRateFake.Show();
-                    this.lblYeildRateFake.Show();
-                    this.lblRetestRate.Hide();
-                    this.lblTotalRate.Hide();
-                    this.lblYeildRate.Hide();
-                }
-                else
-                {
-                    this.lblRetestRateFake.Hide();
-                    this.lblTotalRateFake.Hide();
-                    this.lblYeildRateFake.Hide();
-
-                    this.lblRetestRate.Show();
-                    this.lblTotalRate.Show();
-                    this.lblYeildRate.Show();
                 }
 
                 // var configFake = fake.FakeUI(_Model, ul.GetStation());
