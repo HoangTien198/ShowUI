@@ -234,6 +234,7 @@
     <Compile Include="ToDB.cs" />
     <Compile Include="ToSSO.cs" />
     <Compile Include="Utilities.cs" />
+    <Compile Include="Wallpaper.cs" />
     <Compile Include="Web References\ATE_CHECKLIST\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

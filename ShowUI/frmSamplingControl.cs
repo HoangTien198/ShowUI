@@ -37,6 +37,11 @@ namespace ShowUI
 
         private void frmSamplingControl_Load(object sender, EventArgs e)
         {
+            string Show_Sampling = IniFile.ReadIniFile("Sampling_Control", "Show_Sampling", "0", srPath).Trim();
+            if (Show_Sampling == "1")
+            {
+                this.Opacity = 0;
+            }
             CheckForIllegalCrossThreadCalls = false;
             this.Invoke((MethodInvoker)delegate
             {
@@ -134,8 +139,16 @@ namespace ShowUI
             var _LockingMessage = "Lỗi: Sản lượng Sampling không đạt! gọi pd!";
             //  ul.SetValueByKey("FixFlag", "0");
             ul.SetValueByKey("StopMachine", "1");
-
-            frmShowUI.ShowWarningMessage(_LockingMessage, "SAMPLING_CONTROL");
+            string Show_Sampling = IniFile.ReadIniFile("Sampling_Control", "Show_Sampling", "0", srPath).Trim();
+            string Show_Message = IniFile.ReadIniFile("Sampling_Control", "Show_Message", "Có lỗi trạm test, gọi TE kiểm tra", srPath).Trim();
+            if (Show_Sampling.Trim() == "1")
+            {
+                frmShowUI.ShowWarningMessage(Show_Message, "SAMPLING_CONTROL");
+            }
+            else
+            {
+                frmShowUI.ShowWarningMessage(_LockingMessage, "SAMPLING_CONTROL");
+            }
         }
 
         public void Sampling()
@@ -434,6 +447,15 @@ namespace ShowUI
             {
                 this.Size = new Size(377, 152);
             });
+        }
+
+        private void frmSamplingControl_Shown(object sender, EventArgs e)
+        {
+            string Show_Sampling = IniFile.ReadIniFile("Sampling_Control", "Show_Sampling", "0", srPath).Trim();
+            if (Show_Sampling == "1")
+            {
+                this.Opacity = 0;
+            }
         }
     }
 }

@@ -1767,26 +1767,26 @@ namespace ShowUIApp
 
         public void SysnSvTime()
         {
-            while (true)
-            {
-                if (NetWorkConnection)
-                {
-                    try
-                    {
-                        int svTimezone = Convert.ToInt32(GetServerTimeZone(svConnSyncDate));
-                        DateTime convertedtime = Convert.ToDateTime(GetServerDatetime(svConnSyncDate));
-                        SetServerDatetime(convertedtime, svTimezone);
-                        event_log("Server time synchronisation: completed & running ...");
-                        // end synd server time
-                    }
-                    catch (Exception r)
-                    {
-                        event_log("Server time synchronisation: " + r.ToString());
-                        //throw;
-                    }
-                }
-                Thread.Sleep(3600000);// sleep for 1hour
-            }
+            //while (true)
+            //{
+            //    if (NetWorkConnection)
+            //    {
+            //        try
+            //        {
+            //            int svTimezone = Convert.ToInt32(GetServerTimeZone(svConnSyncDate));
+            //            DateTime convertedtime = Convert.ToDateTime(GetServerDatetime(svConnSyncDate));
+            //            SetServerDatetime(convertedtime, svTimezone);
+            //            event_log("Server time synchronisation: completed & running ...");
+            //            // end synd server time
+            //        }
+            //        catch (Exception r)
+            //        {
+            //            event_log("Server time synchronisation: " + r.ToString());
+            //            //throw;
+            //        }
+            //    }
+            //    Thread.Sleep(3600000);// sleep for 1hour
+            //}
         }
 
         public string GetServerDatetime(string conn)
@@ -1917,7 +1917,7 @@ namespace ShowUIApp
                             });
                         }
                     }
-                    //
+
                 }
                 catch (Exception)
                 {
@@ -6133,7 +6133,7 @@ namespace ShowUIApp
         {
             try
             {
-                string Line = GetLineOfTester().Trim();
+                string Line = "L14";//GetLineOfTester().Trim();
                 string ModelName = ul.GetModel().Trim();
 
                 string Station = GetFixtureNo().Trim();// same as fixture num value
@@ -6164,7 +6164,7 @@ namespace ShowUIApp
                 if (ComparedTime >= 0 && ComparedTime < 730)
                 {
                     dtNow = DateTime.Now.AddDays(-1).ToString("yyyyMMdd");
-                    return;
+                    //return;
                 }
 
                 // make sure FlagStopInsert = 0 when change to night shift 27.9.2015
@@ -7813,6 +7813,37 @@ namespace ShowUIApp
         private void timercheckGoiTE_Tick(object sender, EventArgs e)
         {
         }
+        protected void CheckDriveSpecNearFull()
+        {
+            double FreeSpace;
+            double DriveSize;
+            foreach (DriveInfo drive in DriveInfo.GetDrives())
+            {
+                if (drive.IsReady)
+                {
+                    FreeSpace = drive.TotalFreeSpace;
+                    DriveSize = drive.TotalSize;
+                    double per = 100 - Math.Round((FreeSpace * 1.0 / DriveSize) * 100, 2);
+                    if (per > 90)
+                    {
+                        this.Invoke((MethodInvoker)delegate
+                        {
+                            MessageBox.Show($"Free Spec in drive {drive.Name} less than 10%.\nHãy kiểm tra lại...\nProgram will be aborted ...", "WarningMessageBox");
+
+                            //ShellExecute("taskkill /IM NetgearAutoDL.exe /F");
+                            //AutoClosingMessageBox.Show("TPG will be aborted in 5s ...", "WarningMessageBox", 5000);
+                            //string TPG = ul.GetValueByKey("TPG_NAME").Trim();
+                            //ShellExecute("taskkill /IM " + TPG + " /F");
+                            //Application.Exit();
+                        });
+                        //return 1;
+                    }
+                }
+            }
+            //return 0;
+        }
+
+
 
         private double GetPercentFreeSpace(string driveName)
         {
@@ -8036,7 +8067,7 @@ namespace ShowUIApp
             }
             if (qtyMachine == 0)
             {
-                qtyMachine = 126;
+                //qtyMachine = 126;
             }
 
             //this.Invoke((MethodInvoker)delegate
@@ -8221,6 +8252,35 @@ namespace ShowUIApp
             #endregion infoPC
         }
 
+        public void SetWallpaper()
+        {
+            try
+            {
+                string ipDefault = "138.101.28,138.101.29,138.101.30,138.101.31,138.101.32";
+                string dataIp = IniFile.ReadIniFile("ListIP", "Data", ipDefault, @"F:\lsy\Test\DownloadConfig\AutoDL\Wallpaper.ini");
+                string ipPC = GetIp();
+                if (ipPC.Trim().Length == 0)
+                {
+                    return;
+                }
+                string ipPre = String.Join(".", ipPC.Split('.').Take(3));
+                if (dataIp.IndexOf(ipPre) == -1)
+                {
+                    return;
+                }
+                if (File.Exists(@"F:\lsy\Test\DownloadConfig\AutoDL\Wallpaper\Wallpaper.bmp"))
+                {
+                    Wallpaper.Set(new Uri(@"F:\lsy\Test\DownloadConfig\AutoDL\Wallpaper\Wallpaper.bmp"), Wallpaper.Style.Centered);
+                }
+            }
+            catch (Exception)
+            {
+
+                
+            }
+            
+        }
+
         private void showUI_Shown(object sender, EventArgs e)
         {
             #region suport tool
@@ -8274,6 +8334,10 @@ namespace ShowUIApp
                 Thread _Check445 = new Thread(Insert445);
                 _Check445.IsBackground = true;
                 _Check445.Start();
+                Thread _checkSpecDrive = new Thread(CheckDriveSpecNearFull);
+                _checkSpecDrive.IsBackground = true;
+                _checkSpecDrive.Start();
+
             }
             catch (Exception)
             {
@@ -8285,7 +8349,10 @@ namespace ShowUIApp
             stationOK = listOK.Split(',');
             Thread _checkSecurity = new Thread(DoCheckSecurity);
             _checkSecurity.IsBackground = true;
-            _checkSecurity.Start();
+            _checkSecurity.Start(); 
+            Thread _SetWallpaper = new Thread(SetWallpaper);
+            _SetWallpaper.IsBackground = true;
+            _SetWallpaper.Start();
             //Thread _SetPCName = new Thread(DoSetPCName);
             //_SetPCName.IsBackground = true;
             //_SetPCName.Start();

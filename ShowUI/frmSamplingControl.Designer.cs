@@ -202,6 +202,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Load += new System.EventHandler(this.frmSamplingControl_Load);
+            this.Shown += new System.EventHandler(this.frmSamplingControl_Shown);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
