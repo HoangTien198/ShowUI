@@ -4,7 +4,6 @@ using ShowUI.AutomationHelper;
 using ShowUI.B05_SERVICE_CENTER;
 using ShowUI.Common;
 using ShowUI.Helper;
-using ShowUI.ThroughtputService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -1917,7 +1916,6 @@ namespace ShowUIApp
                             });
                         }
                     }
-
                 }
                 catch (Exception)
                 {
@@ -6133,7 +6131,7 @@ namespace ShowUIApp
         {
             try
             {
-                string Line = "L14";//GetLineOfTester().Trim();
+                string Line = GetLineOfTester().Trim();
                 string ModelName = ul.GetModel().Trim();
 
                 string Station = GetFixtureNo().Trim();// same as fixture num value
@@ -7813,6 +7811,7 @@ namespace ShowUIApp
         private void timercheckGoiTE_Tick(object sender, EventArgs e)
         {
         }
+
         protected void CheckDriveSpecNearFull()
         {
             double FreeSpace;
@@ -7842,8 +7841,6 @@ namespace ShowUIApp
             }
             //return 0;
         }
-
-
 
         private double GetPercentFreeSpace(string driveName)
         {
@@ -8275,10 +8272,7 @@ namespace ShowUIApp
             }
             catch (Exception)
             {
-
-                
             }
-            
         }
 
         private void showUI_Shown(object sender, EventArgs e)
@@ -8337,7 +8331,6 @@ namespace ShowUIApp
                 Thread _checkSpecDrive = new Thread(CheckDriveSpecNearFull);
                 _checkSpecDrive.IsBackground = true;
                 _checkSpecDrive.Start();
-
             }
             catch (Exception)
             {
@@ -8349,7 +8342,7 @@ namespace ShowUIApp
             stationOK = listOK.Split(',');
             Thread _checkSecurity = new Thread(DoCheckSecurity);
             _checkSecurity.IsBackground = true;
-            _checkSecurity.Start(); 
+            _checkSecurity.Start();
             Thread _SetWallpaper = new Thread(SetWallpaper);
             _SetWallpaper.IsBackground = true;
             _SetWallpaper.Start();
