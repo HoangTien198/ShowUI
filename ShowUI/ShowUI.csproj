@@ -275,11 +275,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <Compile Include="Web References\ThroughtputService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="frmCableChange.resx">
       <DependentUpon>frmCableChange.cs</DependentUpon>
     </EmbeddedResource>
@@ -403,17 +398,8 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\SvFPS\WebService.wsdl" />
-    <None Include="Web References\ThroughtputService\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\ThroughtputService\ThroughtputService.wsdl" />
-    <None Include="Web References\ThroughtputService\WipPCModel.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web References\ThroughtputService\ThroughtputService.disco" />
     <None Include="Web References\ISCB05_Service\B05_Service.disco" />
     <None Include="Web References\ISC_Service\Servicepostdata.disco" />
     <None Include="Web References\SFISB05_SQL_SV\webservicesql.disco" />
@@ -457,17 +443,6 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://10.224.81.49/sampling/Services/ThroughtputService.asmx">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\ThroughtputService\</RelPath>
-      <UpdateFromURL>http://10.224.81.49/sampling/Services/ThroughtputService.asmx</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>ShowUI_ThroughtputService_ThroughtputService</CachedSettingsPropName>
-    </WebReferenceUrl>
     <WebReferenceUrl Include="http://10.224.81.154/service/Servicepostdata.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\GET_ATE_SUM_TESTED_DUT\</RelPath>

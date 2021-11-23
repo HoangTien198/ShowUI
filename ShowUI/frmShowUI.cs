@@ -206,7 +206,7 @@ namespace ShowUIApp
                     label4.Visible = true;
                     Connect117 conn = new Connect117();
                     string sql = $"DELETE FROM [dbo].[OpenMap] WHERE PCName='{Environment.MachineName.Trim()}'";
-                    conn.Execute_NonSQL(sql, "10.224.81.49,1734");
+                    conn.Execute_NonSQL(sql, "10.224.81.162,1734");
                     Thread.Sleep(100);
                     //if (GetIp().Trim().Length <= 0)
                     //{
@@ -220,7 +220,7 @@ namespace ShowUIApp
                             ('{Environment.MachineName.Trim()}'
                             ,'{GetIp()}'
                             ,{1})";
-                    conn.Execute_NonSQL(sql, "10.224.81.49,1734");
+                    conn.Execute_NonSQL(sql, "10.224.81.162,1734");
                 }
             }
             catch (Exception)
@@ -403,7 +403,7 @@ namespace ShowUIApp
                     {
                         sqlNumCard = $@"DELETE FROM[dbo].[NumberCardPC]
                                  WHERE IpPc='{IpLocal}'";
-                        conn.Execute_NonSQL(sqlNumCard, "10.224.81.49,1734");
+                        conn.Execute_NonSQL(sqlNumCard, "10.224.81.162,1734");
                         sqlNumCard = $@"INSERT INTO[dbo].[NumberCardPC] ([IpPc], [NumberCard] ,[PCName])
                                          VALUES ('{IpLocal}','{numCard}','{Environment.MachineName}')";
                     }
@@ -417,14 +417,14 @@ namespace ShowUIApp
                     if (!isWin10)
                     {
                         sqlWin10 = $@"DELETE FROM[dbo].[OSPC] WHERE IpPc='{IpLocal}'";
-                        conn.Execute_NonSQL(sqlWin10, "10.224.81.49,1734");
+                        conn.Execute_NonSQL(sqlWin10, "10.224.81.162,1734");
                         sqlWin10 = $@"INSERT INTO [dbo].[OSPC]([IpPc] ,[OS],[PCName])
                                   VALUES ('{IpLocal}','Win 7' ,'{Environment.MachineName}')";
                     }
                     else if (isWin10)
                     {
                         sqlWin10 = $@"DELETE FROM[dbo].[OSPC] WHERE IpPc='{IpLocal}'";
-                        conn.Execute_NonSQL(sqlWin10, "10.224.81.49,1734");
+                        conn.Execute_NonSQL(sqlWin10, "10.224.81.162,1734");
                         sqlWin10 = $@"INSERT INTO [dbo].[OSPC]([IpPc] ,[OS],[PCName])
                                   VALUES ('{IpLocal}','Win 10' ,'{Environment.MachineName}')";
                     }
@@ -440,13 +440,13 @@ namespace ShowUIApp
                         sqlVirut = $@"DELETE FROM [dbo].[VirutPC]
                                   WHERE IpPc='{IpLocal}'";
                         smC.Dispose();
-                        conn.Execute_NonSQL(sqlVirut, "10.224.81.49,1734");
+                        conn.Execute_NonSQL(sqlVirut, "10.224.81.162,1734");
                     }
                     catch (Exception)
                     {
                         sqlVirut = $@"DELETE FROM [dbo].[VirutPC]
                                   WHERE IpPc='{IpLocal}'";
-                        conn.Execute_NonSQL(sqlVirut, "10.224.81.49,1734");
+                        conn.Execute_NonSQL(sqlVirut, "10.224.81.162,1734");
                         sqlVirut = $@"INSERT INTO [dbo].[VirutPC] ([IpPc] ,[AntiVirut] ,[PCName])
                              VALUES ('{IpLocal}' ,'No Setup' ,'{Environment.MachineName}')";
                     }
@@ -464,7 +464,7 @@ namespace ShowUIApp
                             Sql_SecureCRT = $@"DELETE FROM [dbo].[SecureCRTs]
                                   WHERE IpPc='{IpLocal}'";
 
-                            conn.Execute_NonSQL(Sql_SecureCRT, "10.224.81.49,1734");
+                            conn.Execute_NonSQL(Sql_SecureCRT, "10.224.81.162,1734");
                             Sql_SecureCRT = $@"INSERT INTO [dbo].[SecureCRTs] ([IpPc] ,[PCName] ,[Status])
                              VALUES ('{IpLocal}','{Environment.MachineName}','{Status_CRT_run}')";
                         }
@@ -473,7 +473,7 @@ namespace ShowUIApp
                             Sql_SecureCRT = $@"DELETE FROM [dbo].[SecureCRTs]
                                   WHERE IpPc='{IpLocal}'";
 
-                            conn.Execute_NonSQL(Sql_SecureCRT, "10.224.81.49,1734");
+                            conn.Execute_NonSQL(Sql_SecureCRT, "10.224.81.162,1734");
                             Sql_SecureCRT = $@"INSERT INTO [dbo].[SecureCRTs] ([IpPc] ,[PCName] ,[Status])
                              VALUES ('{IpLocal}','{Environment.MachineName}','{Status_CRT_notRun}')";
                         }
@@ -483,15 +483,15 @@ namespace ShowUIApp
                         Sql_SecureCRT = $@"DELETE FROM [dbo].[SecureCRTs]
                                   WHERE IpPc='{IpLocal}'";
 
-                        conn.Execute_NonSQL(Sql_SecureCRT, "10.224.81.49,1734");
+                        conn.Execute_NonSQL(Sql_SecureCRT, "10.224.81.162,1734");
                         Sql_SecureCRT = $@"INSERT INTO [dbo].[SecureCRTs] ([IpPc] ,[PCName] ,[Status])
                              VALUES ('{IpLocal}','{Environment.MachineName}','{Status_CRT_notRun}')";
                     }
 
-                    conn.Execute_NonSQL(sqlNumCard, "10.224.81.49,1734");
-                    conn.Execute_NonSQL(sqlWin10, "10.224.81.49,1734");
-                    conn.Execute_NonSQL(sqlVirut, "10.224.81.49,1734");
-                    conn.Execute_NonSQL(Sql_SecureCRT, "10.224.81.49,1734");
+                    conn.Execute_NonSQL(sqlNumCard, "10.224.81.162,1734");
+                    conn.Execute_NonSQL(sqlWin10, "10.224.81.162,1734");
+                    conn.Execute_NonSQL(sqlVirut, "10.224.81.162,1734");
+                    conn.Execute_NonSQL(Sql_SecureCRT, "10.224.81.162,1734");
                 }
             }
             catch (Exception)
@@ -1762,7 +1762,7 @@ namespace ShowUIApp
 
         //start synd server time
         [DllImport("kernel32.dll", EntryPoint = "SetSystemTime", SetLastError = true)]
-        public extern static bool Win32SetSystemTime(ref SystemTime sysTime);
+        public static extern bool Win32SetSystemTime(ref SystemTime sysTime);
 
         public void SysnSvTime()
         {

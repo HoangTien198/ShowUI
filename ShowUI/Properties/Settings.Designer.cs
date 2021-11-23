@@ -12,7 +12,7 @@ namespace ShowUI.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -118,16 +118,6 @@ namespace ShowUI.Properties {
         public string ShowUI_ISCB05_Service_B05_Service {
             get {
                 return ((string)(this["ShowUI_ISCB05_Service_B05_Service"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://10.224.81.49/sampling/Services/ThroughtputService.asmx")]
-        public string ShowUI_ThroughtputService_ThroughtputService {
-            get {
-                return ((string)(this["ShowUI_ThroughtputService_ThroughtputService"]));
             }
         }
     }
