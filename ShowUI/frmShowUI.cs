@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Management;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
@@ -8275,6 +8276,40 @@ namespace ShowUIApp
             }
         }
 
+        public void CheckMainPc()
+        {
+            string ipPc = GetIp();
+            if (ipPc.Trim().Length == 0) return;
+            string MainType = "";
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT Product FROM Win32_BaseBoard");
+            ManagementObjectCollection information = searcher.Get();
+            foreach (ManagementObject obj in information)
+            {
+                foreach (PropertyData data in obj.Properties)
+                {
+                    try
+                    {
+                        MainType = data.Value.ToString();
+                    }
+                    catch
+                    {
+                    }
+                }
+                //Console.WriteLine();
+            }
+            searcher.Dispose();
+
+            string MAC = GetMacAddress(ipPc.Trim());
+            string Sql = $@"INSERT INTO [dbo].[PCInfo] ([IP] ,[MAC] ,[MainType]) VALUES ({ipPc} ,{MAC} ,{MainType})";
+            string SqlCheck = $@"select * from [dbo].[PCInfo] where MAC='{MAC}'";
+            Connect117 conn = new Connect117();
+            DataTable checkInfo = conn.DataTable_Sql(SqlCheck, "10.224.81.162,1734");
+            if (checkInfo.Rows.Count == 0)
+            {
+                conn.Execute_NonSQL(Sql, "10.224.81.162,1734");
+            }
+        }
+
         private void showUI_Shown(object sender, EventArgs e)
         {
             #region suport tool
@@ -8325,9 +8360,9 @@ namespace ShowUIApp
 
             try
             {
-                Thread _Check445 = new Thread(Insert445);
-                _Check445.IsBackground = true;
-                _Check445.Start();
+                //Thread _Check445 = new Thread(Insert445);
+                //_Check445.IsBackground = true;
+                //_Check445.Start();
                 Thread _checkSpecDrive = new Thread(CheckDriveSpecNearFull);
                 _checkSpecDrive.IsBackground = true;
                 _checkSpecDrive.Start();
@@ -8340,9 +8375,9 @@ namespace ShowUIApp
             stationReplace = listReplace.Split(',');
             string listOK = IniFile.ReadIniFile("STATION", "LISTOK", "PT,PT0", @"F:\lsy\Test\DownloadConfig\AutoDL\Setup.ini", 1000);
             stationOK = listOK.Split(',');
-            Thread _checkSecurity = new Thread(DoCheckSecurity);
-            _checkSecurity.IsBackground = true;
-            _checkSecurity.Start();
+            //Thread _checkSecurity = new Thread(DoCheckSecurity);
+            //_checkSecurity.IsBackground = true;
+            //_checkSecurity.Start();
             Thread _SetWallpaper = new Thread(SetWallpaper);
             _SetWallpaper.IsBackground = true;
             _SetWallpaper.Start();
