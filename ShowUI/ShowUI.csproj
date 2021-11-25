@@ -119,6 +119,7 @@
     <Compile Include="Common\WipPCModel.cs" />
     <Compile Include="ConnectShowUI.cs" />
     <Compile Include="CRC32Calc.cs" />
+    <Compile Include="DBHelper.cs" />
     <Compile Include="DbHHEmp.cs" />
     <Compile Include="FakeUI.cs" />
     <Compile Include="Fii.cs" />

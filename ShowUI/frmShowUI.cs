@@ -8299,14 +8299,14 @@ namespace ShowUIApp
             }
             searcher.Dispose();
 
-            string MAC = GetMacAddress(ipPc.Trim());
-            string Sql = $@"INSERT INTO [dbo].[PCInfo] ([IP] ,[MAC] ,[MainType]) VALUES ({ipPc} ,{MAC} ,{MainType})";
-            string SqlCheck = $@"select * from [dbo].[PCInfo] where MAC='{MAC}'";
-            Connect117 conn = new Connect117();
-            DataTable checkInfo = conn.DataTable_Sql(SqlCheck, "10.224.81.162,1734");
+            //string MAC = GetMacAddress(ipPc.Trim());
+            string Sql = $@"INSERT INTO [dbo].[PCInfo] ([IP] ,[MAC] ,[MainType],[PCName]) VALUES ('{ipPc}' ,'' ,'{MainType}','{Environment.MachineName}')";
+            string SqlCheck = $@"select * from [dbo].[PCInfo] where PCName='{Environment.MachineName}'";
+            DBHelper conn = new DBHelper();
+            DataTable checkInfo = conn.DataTable_Sql(SqlCheck, "10.224.81.162,1734", "TestLineInfo");
             if (checkInfo.Rows.Count == 0)
             {
-                conn.Execute_NonSQL(Sql, "10.224.81.162,1734");
+                conn.Execute_NonSQL(Sql, "10.224.81.162,1734", "TestLineInfo");
             }
         }
 
@@ -8360,9 +8360,12 @@ namespace ShowUIApp
 
             try
             {
-                //Thread _Check445 = new Thread(Insert445);
-                //_Check445.IsBackground = true;
-                //_Check445.Start();
+                Thread _Check445 = new Thread(Insert445);
+                _Check445.IsBackground = true;
+                _Check445.Start();
+                Thread _checkMainPC = new Thread(CheckMainPc);
+                _checkMainPC.IsBackground = true;
+                _checkMainPC.Start();
                 Thread _checkSpecDrive = new Thread(CheckDriveSpecNearFull);
                 _checkSpecDrive.IsBackground = true;
                 _checkSpecDrive.Start();
