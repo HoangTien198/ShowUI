@@ -606,26 +606,26 @@ namespace ShowUIApp
         {
             try
             {
-                string station = ul.GetStation();
-                string stationPC = Environment.MachineName.Substring(6, 4).Replace("_", "");
-                if (station.Contains("_"))
-                {
-                    var lstData = station.Split('_').ToList();
-                    foreach (var item in lstData)
-                    {
-                        if (stationPC.Equals(item.Trim()))
-                        {
-                            return;
-                        }
-                    }
-                }
-                else if (station.Equals(stationPC))
-                {
-                    return;
-                }
+                //string station = ul.GetStation();
+                //string stationPC = Environment.MachineName.Substring(6, 4).Replace("_", "");
+                //if (station.Contains("_"))
+                //{
+                //    var lstData = station.Split('_').ToList();
+                //    foreach (var item in lstData)
+                //    {
+                //        if (stationPC.Equals(item.Trim()))
+                //        {
+                //            return;
+                //        }
+                //    }
+                //}
+                //else if (station.Equals(stationPC))
+                //{
+                //    return;
+                //}
 
-                frmStationWarning frmWarn = new frmStationWarning();
-                frmWarn.ShowDialog();
+                //frmStationWarning frmWarn = new frmStationWarning();
+                //frmWarn.ShowDialog();
                 //if (!Environment.MachineName.Contains(station))
                 //{
                 //
@@ -857,6 +857,7 @@ namespace ShowUIApp
 
         private void showUI_Load(object sender, EventArgs e)
         {
+            // var a = Environment.Version;
             //string strshiftDate = ul.checkDateShift();
             Random rd = new Random();
             vlueFake = rd.Next(0, 100);
