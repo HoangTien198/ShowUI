@@ -111,6 +111,7 @@
             this.CheckAntivirut = new System.Windows.Forms.Timer(this.components);
             this.FtpLog = new System.Windows.Forms.Timer(this.components);
             this.tmQty = new System.Windows.Forms.Timer(this.components);
+            this.tmTemperature = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxDebug)).BeginInit();
             this.fPanelHData.SuspendLayout();
@@ -953,6 +954,12 @@
             this.tmQty.Interval = 60000;
             this.tmQty.Tick += new System.EventHandler(this.tmQty_Tick);
             // 
+            // tmTemperature
+            // 
+            this.tmTemperature.Enabled = true;
+            this.tmTemperature.Interval = 14400000;
+            this.tmTemperature.Tick += new System.EventHandler(this.Temperature_Tick);
+            // 
             // showUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -1085,6 +1092,7 @@
         private System.Windows.Forms.Timer FtpLog;
         private System.Windows.Forms.Label label4;
         public System.Windows.Forms.Timer tmQty;
+        private System.Windows.Forms.Timer tmTemperature;
     }
 }
 

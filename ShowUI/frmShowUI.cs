@@ -5939,13 +5939,17 @@ namespace ShowUIApp
 
         public void ShowWarningMessage(string _LockingCondition, string _KindOfError)
         {
+            if (_KindOfError.Contains("Temperature"))
+            {
+                Process.Start("shutdown", "/s /t 300");
+            }
             //if (isNTGR == 0)
             //{
             //	return;
             //}
 
             //locking with new err
-            if (_KindOfError.Contains("low") || _KindOfError.Contains("Virus") || _KindOfError.Contains("SAMPLING_CONTROL") || _KindOfError.Contains("Rate") || _KindOfError.Contains("Pathloss"))
+            if (_KindOfError.Contains("Temperature") || _KindOfError.Contains("low") || _KindOfError.Contains("Virus") || _KindOfError.Contains("SAMPLING_CONTROL") || _KindOfError.Contains("Rate") || _KindOfError.Contains("Pathloss"))
             {
                 //// When frmLocking is open, pc completed testing, then dont call again
                 try
@@ -7863,6 +7867,31 @@ namespace ShowUIApp
 
         private ShowUI.frmSamplingControl frmSC = new ShowUI.frmSamplingControl();
 
+        private void Temperature_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                var lstTemperature = Temperature.Temperatures;
+                bool isLockTemperature = false;
+                foreach (var item in lstTemperature)
+                {
+                    if (item.CurrentValue > 70)
+                    {
+                        isLockTemperature = true;
+                        break;
+                    }
+                }
+                if (isLockTemperature)
+                {
+                    ShowWarningMessage("CPU Temperature is Hot(lager than 70 Degrees)", "CPU Temperature over spec");
+                }
+            }
+            catch (Exception)
+            {
+                //throw;
+            }
+        }
+
         protected void getShiftDate(out string date, out string shift)
         {
             date = ""; shift = "";
@@ -8828,12 +8857,10 @@ namespace ShowUIApp
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.RedirectStandardError = true;
                 process.StartInfo.RedirectStandardOutput = true;
-                process.Start();
-                //proc.Start();
 
-                process.BeginErrorReadLine();
-                process.BeginOutputReadLine();
-                process.WaitForExit();
+                process.Start();
+
+                process.WaitForExit(10000);
                 if (process.ExitCode > 0)
                 {
                     return false;

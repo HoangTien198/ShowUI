@@ -232,6 +232,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistryKey.cs" />
+    <Compile Include="Temperature.cs" />
     <Compile Include="ToDB.cs" />
     <Compile Include="ToSSO.cs" />
     <Compile Include="Utilities.cs" />
