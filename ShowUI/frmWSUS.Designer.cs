@@ -61,6 +61,7 @@
             this.ShowInTaskbar = false;
             this.Text = "frmWSUS";
             this.Load += new System.EventHandler(this.frmWSUS_Load);
+            this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.frmWSUS_MouseDoubleClick);
             this.ResumeLayout(false);
             this.PerformLayout();
 
