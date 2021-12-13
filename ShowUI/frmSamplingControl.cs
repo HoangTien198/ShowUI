@@ -37,11 +37,11 @@ namespace ShowUI
 
         private void frmSamplingControl_Load(object sender, EventArgs e)
         {
-            string Show_Sampling = IniFile.ReadIniFile("Sampling_Control", "Show_Sampling", "0", srPath).Trim();
-            if (Show_Sampling == "1")
-            {
-                this.Opacity = 0;
-            }
+            //string Show_Sampling = IniFile.ReadIniFile("Sampling_Control", "Show_Sampling", "0", srPath).Trim();
+            //if (Show_Sampling == "1")
+            //{
+            //    this.Opacity = 0;
+            //}
             CheckForIllegalCrossThreadCalls = false;
             this.Invoke((MethodInvoker)delegate
             {
@@ -373,13 +373,13 @@ namespace ShowUI
                     ul.event_log("SamplingTimeOut: " + ul.GetValueByKey("SamplingTimeOut") + "StopMachine: " + ul.GetValueByKey("StopMachine"));
                     try
                     {
-                        CheckNTGR checkNtgr = new CheckNTGR();
-                        if (checkNtgr.CheckLockSP())
-                        {
-                            Thread _lockUI = new Thread(LockShowUI);
-                            _lockUI.IsBackground = true;
-                            _lockUI.Start();
-                        }
+                        //CheckNTGR checkNtgr = new CheckNTGR();
+                        //if (checkNtgr.CheckLockSP())
+                        //{
+                        Thread _lockUI = new Thread(LockShowUI);
+                        _lockUI.IsBackground = true;
+                        _lockUI.Start();
+                        //}
                     }
                     catch (Exception ex)
                     {

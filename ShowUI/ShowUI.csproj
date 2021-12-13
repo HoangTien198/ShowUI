@@ -402,6 +402,7 @@
     <None Include="Web References\SvFPS\WebService.wsdl" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Web References\ATE_CHECKLIST\WebService.disco" />
     <None Include="Web References\ISCB05_Service\B05_Service.disco" />
     <None Include="Web References\ISC_Service\Servicepostdata.disco" />
     <None Include="Web References\SFISB05_SQL_SV\webservicesql.disco" />
@@ -409,7 +410,6 @@
     <None Include="Web References\B05_SERVICE_CENTER\B05_Service.disco" />
     <None Include="Web References\SvFPS\WebService.disco" />
     <None Include="Web References\GET_ATE_SUM_TESTED_DUT\Servicepostdata.disco" />
-    <None Include="Web References\ATE_CHECKLIST\WebService.disco" />
     <None Include="images\green.png" />
     <None Include="images\red.png" />
     <None Include="images\triangle-red.png" />
@@ -456,6 +456,17 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>ShowUI4_6_GET_ATE_SUM_TESTED_DUT_Servicepostdata</CachedSettingsPropName>
     </WebReferenceUrl>
+    <WebReferenceUrl Include="http://10.224.81.166/pckpi/Service/WebService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ATE_CHECKLIST\</RelPath>
+      <UpdateFromURL>http://10.224.81.166/pckpi/Service/WebService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>ShowUI_ATE_CHECKLIST_WebService</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="http://10.224.81.63/FPS/WebService.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\SvFPS\</RelPath>
@@ -466,17 +477,6 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>ShowUI4_6_SvFPS_WebService</CachedSettingsPropName>
-    </WebReferenceUrl>
-    <WebReferenceUrl Include="http://10.224.81.75/PCKPI/Service/WebService.asmx ">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\ATE_CHECKLIST\</RelPath>
-      <UpdateFromURL>http://10.224.81.75/PCKPI/Service/WebService.asmx </UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>ShowUI4_6_ATE_CHECKLIST_WebService</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="http://10.224.81.63/Servicecenter/Services/B05_Service.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>

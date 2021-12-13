@@ -680,10 +680,10 @@
   </wsdl:binding>
   <wsdl:service name="WebService">
     <wsdl:port name="WebServiceSoap" binding="tns:WebServiceSoap">
-      <soap:address location="http://10.224.81.75/PCKPI/Service/WebService.asmx" />
+      <soap:address location="http://10.224.81.166/pckpi/Service/WebService.asmx" />
     </wsdl:port>
     <wsdl:port name="WebServiceSoap12" binding="tns:WebServiceSoap12">
-      <soap12:address location="http://10.224.81.75/PCKPI/Service/WebService.asmx" />
+      <soap12:address location="http://10.224.81.166/pckpi/Service/WebService.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

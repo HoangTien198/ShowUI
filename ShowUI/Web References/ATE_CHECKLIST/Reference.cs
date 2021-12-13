@@ -62,7 +62,7 @@ namespace ShowUI.ATE_CHECKLIST {
         
         /// <remarks/>
         public WebService() {
-            this.Url = global::ShowUI.Properties.Settings.Default.ShowUI4_6_ATE_CHECKLIST_WebService;
+            this.Url = global::ShowUI.Properties.Settings.Default.ShowUI_ATE_CHECKLIST_WebService;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;

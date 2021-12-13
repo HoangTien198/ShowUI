@@ -36,7 +36,9 @@ namespace ShowUI
         private string _BufferDUT = "50";
         private DateTime startTime = DateTime.Now;
 
-        private string conn, connectionString;
+        //private string conn;
+        private string connectionString;
+
         private int idFii;
 
         public frmLocking()
@@ -649,152 +651,153 @@ namespace ShowUI
                 //_model_name = "CM500-100NASV1";
                 // if testedDUT less than and equal to 10 pcs, dont care
 
-                if (inputPCS > 10)
-                {
-                    //globalUsedMode = "2";
-                    //sName = "B05-L13-PT01";
-                    string linename = GetLineOfTester().Trim();
-                    SqlConnection connection = new SqlConnection(conn);
-                    connection.Open();
-                    SqlDataReader reader;
-                    //globalUsedMode = "2";
-                    //string sqlStr = @"select * from tblStopMachineSpec join tblTypeOfProduct on tblStopMachineSpec.Type = tblTypeOfProduct.Type where tblTypeOfProduct.Line='" + GetLineOfTester() + "'";
-                    string sqlStr = "";
-                    if (_globalUsedMode == "1")
-                    {
-                        //sqlStr = @"select UsedMode,TmpRTRate,TmpYRate,LowerNumDUT,UpperNumDUT,RTRSpec,YRSpec from tblTypeOfProductExt join tblTypeOfProduct on tblTypeOfProductExt.LineName = tblTypeOfProduct.Line where tblTypeOfProduct.Line='" + linename + "' and " + TestedDUT + " > tblTypeOfProductExt.LowerNumDUT and " + TestedDUT + " <=tblTypeOfProductExt.UpperNumDUT";
-                        // mode = 1 is
-                        sqlStr += "select UsedMode,TmpRTRate,TmpYRate,LowerNumDUT,UpperNumDUT,RTRSpec,YRSpec";
-                        sqlStr += " from tblTypeOfProductExt a,tblTypeOfProduct b";
-                        sqlStr += " where a.LineName = b.Line and b.Line='" + linename + "' ";
-                        sqlStr += " and " + inputPCS + " > a.LowerNumDUT and " + inputPCS + " <=a.UpperNumDUT";
-                        sqlStr += " union all ";
-                        sqlStr += "select UsedMode,TmpRTRate,TmpYRate,LowerNumDUT,UpperNumDUT,RTRSpec,YRSpec ";
-                        sqlStr += " from tblTypeOfProductExt a, tblTypeOfProduct b ";
-                        sqlStr += " where a.LineName = b.Line and b.Line='" + linename + "' ";
-                        sqlStr += " and  a.UpperNumDUT = (select max(a.UpperNumDUT) from tblTypeOfProductExt a, tblTypeOfProduct b where a.LineName = b.Line and b.Line='" + linename + "')";
-                    }
-                    else if (_globalUsedMode == "2")
-                    {//B05-L13-PT08
-                        //sqlStr = @"select * from tblTypeOfProduct a, tblTypeOfProductDetail b where a.currentmodel = b.model_name and b.ate_name ='"+sName+"' and b.ate_ip='"+client_ip+"' and b.model_name='"+ul.GetModel().Trim()+"'";
-                        sqlStr += "select LowerNumDUT,UpperNumDUT,RTRSpec,YRSpec from tblTypeOfProductDetail";
-                        sqlStr += " where ate_name ='" + sName + "'";
-                        sqlStr += " and ate_ip='" + client_ip + "'";
-                        sqlStr += " and model_name='" + _model_name + "'";
-                        sqlStr += " and lowerNumDUT < " + inputPCS + " and UpperNumDUT >= " + inputPCS + "";
-                        sqlStr += " union all ";
-                        sqlStr += "select LowerNumDUT,UpperNumDUT,RTRSpec,YRSpec from tblTypeOfProductDetail";
-                        sqlStr += " where  ate_name ='" + sName + "'";
-                        sqlStr += " and ate_ip='" + client_ip + "'";
-                        sqlStr += " and model_name='" + _model_name + "'";
-                        sqlStr += " and  UpperNumDUT = (select max(UpperNumDUT)";
-                        sqlStr += " from tblTypeOfProductDetail";
-                        sqlStr += " where ate_name ='" + sName + "'";
-                        sqlStr += " and ate_ip='" + client_ip + "'";
-                        sqlStr += " and model_name='" + _model_name + "')";
-                    }
-                    else
-                    {
-                        sqlStr = @"select TmpRTRate,TmpYRate from  tblTypeOfProduct where line ='" + linename + "'";
-                    }
-                    //event_log(sqlStr);
-                    SqlCommand cmd = new SqlCommand(sqlStr, connection);
-                    SqlDataAdapter da = new SqlDataAdapter(sqlStr, conn);
-                    DataSet ds = new DataSet();
-                    da.Fill(ds);
-                    reader = cmd.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        if (_globalUsedMode == "2" || _globalUsedMode == "1")
-                        {
-                            if (type.Contains("YRate"))
-                                rturnValue = ds.Tables[0].Rows[0]["YRSpec"].ToString();
-                            if (type.Contains("RTRate"))
-                                rturnValue = ds.Tables[0].Rows[0]["RTRSpec"].ToString();
-                        }
-                        else
-                        {
-                            if (type.Contains("YRate"))
-                                rturnValue = ds.Tables[0].Rows[0]["TmpYRate"].ToString();
-                            if (type.Contains("RTRate"))
-                                rturnValue = ds.Tables[0].Rows[0]["TmpRTRate"].ToString();
-                        }
-                    }
-                    else
-                    {
-                        da.Dispose();
-                        reader.Close();
-                        cmd.Dispose();
+                //if (inputPCS > 10)
+                //{
+                //    //globalUsedMode = "2";
+                //    //sName = "B05-L13-PT01";
+                //    string linename = GetLineOfTester().Trim();
+                //    SqlConnection connection = new SqlConnection(conn);
+                //    connection.Open();
+                //    SqlDataReader reader;
+                //    //globalUsedMode = "2";
+                //    //string sqlStr = @"select * from tblStopMachineSpec join tblTypeOfProduct on tblStopMachineSpec.Type = tblTypeOfProduct.Type where tblTypeOfProduct.Line='" + GetLineOfTester() + "'";
+                //    string sqlStr = "";
+                //    if (_globalUsedMode == "1")
+                //    {
+                //        //sqlStr = @"select UsedMode,TmpRTRate,TmpYRate,LowerNumDUT,UpperNumDUT,RTRSpec,YRSpec from tblTypeOfProductExt join tblTypeOfProduct on tblTypeOfProductExt.LineName = tblTypeOfProduct.Line where tblTypeOfProduct.Line='" + linename + "' and " + TestedDUT + " > tblTypeOfProductExt.LowerNumDUT and " + TestedDUT + " <=tblTypeOfProductExt.UpperNumDUT";
+                //        // mode = 1 is
+                //        sqlStr += "select UsedMode,TmpRTRate,TmpYRate,LowerNumDUT,UpperNumDUT,RTRSpec,YRSpec";
+                //        sqlStr += " from tblTypeOfProductExt a,tblTypeOfProduct b";
+                //        sqlStr += " where a.LineName = b.Line and b.Line='" + linename + "' ";
+                //        sqlStr += " and " + inputPCS + " > a.LowerNumDUT and " + inputPCS + " <=a.UpperNumDUT";
+                //        sqlStr += " union all ";
+                //        sqlStr += "select UsedMode,TmpRTRate,TmpYRate,LowerNumDUT,UpperNumDUT,RTRSpec,YRSpec ";
+                //        sqlStr += " from tblTypeOfProductExt a, tblTypeOfProduct b ";
+                //        sqlStr += " where a.LineName = b.Line and b.Line='" + linename + "' ";
+                //        sqlStr += " and  a.UpperNumDUT = (select max(a.UpperNumDUT) from tblTypeOfProductExt a, tblTypeOfProduct b where a.LineName = b.Line and b.Line='" + linename + "')";
+                //    }
+                //    else if (_globalUsedMode == "2")
+                //    {//B05-L13-PT08
+                //        //sqlStr = @"select * from tblTypeOfProduct a, tblTypeOfProductDetail b where a.currentmodel = b.model_name and b.ate_name ='"+sName+"' and b.ate_ip='"+client_ip+"' and b.model_name='"+ul.GetModel().Trim()+"'";
+                //        sqlStr += "select LowerNumDUT,UpperNumDUT,RTRSpec,YRSpec from tblTypeOfProductDetail";
+                //        sqlStr += " where ate_name ='" + sName + "'";
+                //        sqlStr += " and ate_ip='" + client_ip + "'";
+                //        sqlStr += " and model_name='" + _model_name + "'";
+                //        sqlStr += " and lowerNumDUT < " + inputPCS + " and UpperNumDUT >= " + inputPCS + "";
+                //        sqlStr += " union all ";
+                //        sqlStr += "select LowerNumDUT,UpperNumDUT,RTRSpec,YRSpec from tblTypeOfProductDetail";
+                //        sqlStr += " where  ate_name ='" + sName + "'";
+                //        sqlStr += " and ate_ip='" + client_ip + "'";
+                //        sqlStr += " and model_name='" + _model_name + "'";
+                //        sqlStr += " and  UpperNumDUT = (select max(UpperNumDUT)";
+                //        sqlStr += " from tblTypeOfProductDetail";
+                //        sqlStr += " where ate_name ='" + sName + "'";
+                //        sqlStr += " and ate_ip='" + client_ip + "'";
+                //        sqlStr += " and model_name='" + _model_name + "')";
+                //    }
+                //    else
+                //    {
+                //        sqlStr = @"select TmpRTRate,TmpYRate from  tblTypeOfProduct where line ='" + linename + "'";
+                //    }
+                //    //event_log(sqlStr);
+                //    SqlCommand cmd = new SqlCommand(sqlStr, connection);
+                //    SqlDataAdapter da = new SqlDataAdapter(sqlStr, conn);
+                //    DataSet ds = new DataSet();
+                //    da.Fill(ds);
+                //    reader = cmd.ExecuteReader();
+                //    if (reader.HasRows)
+                //    {
+                //        if (_globalUsedMode == "2" || _globalUsedMode == "1")
+                //        {
+                //            if (type.Contains("YRate"))
+                //                rturnValue = ds.Tables[0].Rows[0]["YRSpec"].ToString();
+                //            if (type.Contains("RTRate"))
+                //                rturnValue = ds.Tables[0].Rows[0]["RTRSpec"].ToString();
+                //        }
+                //        else
+                //        {
+                //            if (type.Contains("YRate"))
+                //                rturnValue = ds.Tables[0].Rows[0]["TmpYRate"].ToString();
+                //            if (type.Contains("RTRate"))
+                //                rturnValue = ds.Tables[0].Rows[0]["TmpRTRate"].ToString();
+                //        }
+                //    }
+                //    else
+                //    {
+                //        da.Dispose();
+                //        reader.Close();
+                //        cmd.Dispose();
 
-                        // if globalUsedMode == 2 but dont exist, insert new
-                        if (_globalUsedMode == "2")
-                        {
-                            string sqlGetSpec = "select LowerNumDUT,UpperNumDUT,RTRate,YRate from tblStopMachineSpec order by LowerNumDUT asc";
-                            cmd = new SqlCommand(sqlGetSpec, connection);
-                            da = new SqlDataAdapter(sqlGetSpec, conn);
-                            ds = new DataSet();
-                            da.Fill(ds);
-                            reader = cmd.ExecuteReader();
-                            if (reader.HasRows)
-                            {
-                                string[,] specValue = new string[ds.Tables[0].Rows.Count, ds.Tables[0].Columns.Count];
-                                for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
-                                {
-                                    for (int k = 0; k < ds.Tables[0].Columns.Count; k++)
-                                    {
-                                        specValue[j, k] = ds.Tables[0].Rows[j][k].ToString();
-                                    }
-                                }
+                //        // if globalUsedMode == 2 but dont exist, insert new
+                //        if (_globalUsedMode == "2")
+                //        {
+                //            string sqlGetSpec = "select LowerNumDUT,UpperNumDUT,RTRate,YRate from tblStopMachineSpec order by LowerNumDUT asc";
+                //            cmd = new SqlCommand(sqlGetSpec, connection);
+                //            da = new SqlDataAdapter(sqlGetSpec, conn);
+                //            ds = new DataSet();
+                //            da.Fill(ds);
+                //            reader = cmd.ExecuteReader();
+                //            if (reader.HasRows)
+                //            {
+                //                string[,] specValue = new string[ds.Tables[0].Rows.Count, ds.Tables[0].Columns.Count];
+                //                for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+                //                {
+                //                    for (int k = 0; k < ds.Tables[0].Columns.Count; k++)
+                //                    {
+                //                        specValue[j, k] = ds.Tables[0].Rows[j][k].ToString();
+                //                    }
+                //                }
 
-                                cmd.Dispose();
-                                reader.Close();
-                                da.Dispose();
-                                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                                {
-                                    sqlStr = @"insert into tblTypeOfProductDetail(ate_ip,ate_name,station_name,date_time,lowerNumDUT,upperNumDUT,RTRSpec,YRSpec,model_name)";
-                                    sqlStr += "values(@_client_ip,@_sName,@_station,@_date_time,@_lowerDUT,@_upperDUT,@_RTRSpec,@_YRSpec,@_model)";
-                                    cmd = new SqlCommand(sqlStr, connection);//'" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")'" + _model_name + "'
-                                    cmd.Parameters.Add("@_client_ip", SqlDbType.NVarChar, 50);
-                                    cmd.Parameters.Add("@_sName", SqlDbType.NVarChar, 50);
-                                    cmd.Parameters.Add("@_station", SqlDbType.NVarChar, 50);
-                                    cmd.Parameters.Add("@_date_time", SqlDbType.DateTime);
-                                    cmd.Parameters.Add("@_lowerDUT", SqlDbType.Int);
-                                    cmd.Parameters.Add("@_upperDUT", SqlDbType.Int);
-                                    cmd.Parameters.Add("@_RTRSpec", SqlDbType.NVarChar, 50);
-                                    cmd.Parameters.Add("@_YRSpec", SqlDbType.NVarChar, 50);
-                                    cmd.Parameters.Add("@_model", SqlDbType.NVarChar, 50);
+                //                cmd.Dispose();
+                //                reader.Close();
+                //                da.Dispose();
+                //                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                //                {
+                //                    sqlStr = @"insert into tblTypeOfProductDetail(ate_ip,ate_name,station_name,date_time,lowerNumDUT,upperNumDUT,RTRSpec,YRSpec,model_name)";
+                //                    sqlStr += "values(@_client_ip,@_sName,@_station,@_date_time,@_lowerDUT,@_upperDUT,@_RTRSpec,@_YRSpec,@_model)";
+                //                    cmd = new SqlCommand(sqlStr, connection);//'" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")'" + _model_name + "'
+                //                    cmd.Parameters.Add("@_client_ip", SqlDbType.NVarChar, 50);
+                //                    cmd.Parameters.Add("@_sName", SqlDbType.NVarChar, 50);
+                //                    cmd.Parameters.Add("@_station", SqlDbType.NVarChar, 50);
+                //                    cmd.Parameters.Add("@_date_time", SqlDbType.DateTime);
+                //                    cmd.Parameters.Add("@_lowerDUT", SqlDbType.Int);
+                //                    cmd.Parameters.Add("@_upperDUT", SqlDbType.Int);
+                //                    cmd.Parameters.Add("@_RTRSpec", SqlDbType.NVarChar, 50);
+                //                    cmd.Parameters.Add("@_YRSpec", SqlDbType.NVarChar, 50);
+                //                    cmd.Parameters.Add("@_model", SqlDbType.NVarChar, 50);
 
-                                    cmd.Parameters["@_client_ip"].Value = client_ip;
-                                    cmd.Parameters["@_sName"].Value = sName;
-                                    cmd.Parameters["@_station"].Value = ul.GetStation().Trim();
-                                    cmd.Parameters["@_date_time"].Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-                                    cmd.Parameters["@_lowerDUT"].Value = Convert.ToInt32(specValue[i, 0]);
-                                    cmd.Parameters["@_upperDUT"].Value = Convert.ToInt32(specValue[i, 1]);
-                                    cmd.Parameters["@_RTRSpec"].Value = specValue[i, 2];
-                                    cmd.Parameters["@_YRSpec"].Value = specValue[i, 3];
-                                    cmd.Parameters["@_model"].Value = _model_name;
+                //                    cmd.Parameters["@_client_ip"].Value = client_ip;
+                //                    cmd.Parameters["@_sName"].Value = sName;
+                //                    cmd.Parameters["@_station"].Value = ul.GetStation().Trim();
+                //                    cmd.Parameters["@_date_time"].Value = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                //                    cmd.Parameters["@_lowerDUT"].Value = Convert.ToInt32(specValue[i, 0]);
+                //                    cmd.Parameters["@_upperDUT"].Value = Convert.ToInt32(specValue[i, 1]);
+                //                    cmd.Parameters["@_RTRSpec"].Value = specValue[i, 2];
+                //                    cmd.Parameters["@_YRSpec"].Value = specValue[i, 3];
+                //                    cmd.Parameters["@_model"].Value = _model_name;
 
-                                    cmd.ExecuteNonQuery();
-                                    cmd.Dispose();
-                                }
-                            }
-                            else
-                            { //
-                                da.Dispose();
-                                reader.Close();
-                            }
-                        }//end if
-                    } //end if
-                    cmd.Dispose();
-                    da.Dispose();
-                    reader.Close();
-                    connection.Close();
-                } // end if inpcs > 10
+                //                    cmd.ExecuteNonQuery();
+                //                    cmd.Dispose();
+                //                }
+                //            }
+                //            else
+                //            { //
+                //                da.Dispose();
+                //                reader.Close();
+                //            }
+                //        }//end if
+                //    } //end if
+                //    cmd.Dispose();
+                //    da.Dispose();
+                //    reader.Close();
+                //    connection.Close();
+                // } // end if inpcs > 10
             }
             catch (Exception e)
             {
                 ul.event_log("GetStopmachineSpec Exception: " + e.ToString());
             }
+
             //AutoClosingMessageBox.Show("GetStopmachineSpec: UseSpecMode->" + UseSpecMode.ToString() + "  Retest Rate/Yeild Rate->" + RTRate + "/" + YRate, "sss", 5000);
             return rturnValue;
         }
@@ -1018,9 +1021,9 @@ namespace ShowUI
         {
             try
             {
-                conn = @"Data Source=10.224.81.62,1734;Initial Catalog=dbGeneral;uid=sa;pwd=********;Connection Timeout=5";
-                string svIp = "10.224.81.62,1734";//ul.GetServerIP("SSO", "10.224.81.37");
-                connectionString = @"Data Source=10.224.81.62,1734;Initial Catalog=SSO;uid=sa;pwd=********;Connection Timeout=5";
+                //conn = @"Data Source=10.224.81.162,1734;Initial Catalog=dbGeneral;uid=sa;pwd=********;Connection Timeout=5";
+                string svIp = "10.224.81.162,1734";//ul.GetServerIP("SSO", "10.224.81.37");
+                connectionString = @"Data Source=10.224.81.162,1734;Initial Catalog=SSO;uid=sa;pwd=********;Connection Timeout=5";
 
                 // Get ServrerIp for ToDB() dbMO
                 serverIp = IniFile.ReadIniFile("DATABASE", "SERVER_NAME", "10.224.81.37", @"F:\Temp\TE-PROGRAM\TE-DATABASE\SOURCE.ini");

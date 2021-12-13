@@ -99,7 +99,7 @@ namespace ShowUI
             DbHHEmp hhEmp = new DbHHEmp();
             try
             {
-                int ex = hhEmp.Execute_NonSQL(sql, "10.224.81.62,1734");
+                int ex = hhEmp.Execute_NonSQL(sql, "10.224.81.162,1734");
                 this.DialogResult = DialogResult.OK;
             }
             catch (Exception)
@@ -113,7 +113,7 @@ namespace ShowUI
             string queryEmp = "select * from Employee where HonHaiCode = '" + txtUser.Text.Trim() + "' and PassWord = '" + txtPass.Text.Trim() + "'";
 
             DbHHEmp hhEmp = new DbHHEmp();
-            DataTable dt = hhEmp.DataTable_Sql(queryEmp, "10.224.81.62,1734");
+            DataTable dt = hhEmp.DataTable_Sql(queryEmp, "10.224.81.162,1734");
             if (dt.Rows.Count == 0)
             {
                 return false;

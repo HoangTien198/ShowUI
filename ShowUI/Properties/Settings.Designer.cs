@@ -26,16 +26,6 @@ namespace ShowUI.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://10.224.81.75/PCKPI/Service/WebService.asmx")]
-        public string ShowUI4_6_ATE_CHECKLIST_WebService {
-            get {
-                return ((string)(this["ShowUI4_6_ATE_CHECKLIST_WebService"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
         [global::System.Configuration.DefaultSettingValueAttribute("http://10.224.81.154/service/Servicepostdata.asmx")]
         public string ShowUI4_6_GET_ATE_SUM_TESTED_DUT_Servicepostdata {
             get {
@@ -118,6 +108,16 @@ namespace ShowUI.Properties {
         public string ShowUI_ISCB05_Service_B05_Service {
             get {
                 return ((string)(this["ShowUI_ISCB05_Service_B05_Service"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.224.81.166/pckpi/Service/WebService.asmx")]
+        public string ShowUI_ATE_CHECKLIST_WebService {
+            get {
+                return ((string)(this["ShowUI_ATE_CHECKLIST_WebService"]));
             }
         }
     }
