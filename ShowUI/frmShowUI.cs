@@ -7837,7 +7837,7 @@ namespace ShowUIApp
                     {
                         this.Invoke((MethodInvoker)delegate
                         {
-                            MessageBox.Show($"Free Spec in drive {drive.Name} less than 10%.\nHãy kiểm tra lại...\nProgram will be aborted ...", "WarningMessageBox");
+                            AutoClosingMessageBox.Show($"Free Spec in drive {drive.Name} less than 10%.\nHãy kiểm tra lại...\nProgram will be aborted ...", "WarningMessageBox", 10000);
 
                             //ShellExecute("taskkill /IM NetgearAutoDL.exe /F");
                             //AutoClosingMessageBox.Show("TPG will be aborted in 5s ...", "WarningMessageBox", 5000);

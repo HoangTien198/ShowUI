@@ -109,5 +109,52 @@ namespace ShowUI
                 timer2.Enabled = true;
             });
         }
+
+        private void FrmPathloss_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                ShowUI.Utilities ul = new ShowUI.Utilities();
+                string Modalname = ul.GetModel();
+                string Station = ul.GetStation();
+                AutomationCopyPathlossHelper copyToServerAuto = new AutomationCopyPathlossHelper();
+                if (!Directory.Exists(LocalPath))
+                {
+                    // MessageBox.Show(LocalPath);
+                    return;
+                }
+                bool isLock = false;
+                copyToServerAuto.CopyToAutomationServerDB(LocalPath, out isLock);
+            }
+            catch (Exception)
+            {
+            }
+            try
+            {
+                this.TopMost = true;
+                if (File.Exists("ErrorPathloss.txt"))
+                {
+                    string label = "";
+                    var data = File.ReadAllLines("ErrorPathloss.txt").ToList();
+                    if (data.Count < 1)
+                    {
+                        label = "PASS";
+                        this.BackColor = Color.Green;
+                    }
+                    else
+                    {
+                        foreach (var item in data)
+                        {
+                            label += item + Environment.NewLine;
+                        }
+                        this.BackColor = Color.Red;
+                    }
+                    label1.Text = label;
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
     }
 }

@@ -169,6 +169,7 @@ namespace ShowUI
                 mo_s = ul.GetValueByKey("SN").ToString();
                 string SN = rSN.GetValue("SN", "").ToString();
                 string SN_s = ul.GetValueByKey("SN").ToString();
+
                 bool flagOKConditions = false;
                 if (stationInfo != "A_B")
                 {
@@ -227,20 +228,21 @@ namespace ShowUI
                         //    Thread.Sleep(759);
                         //}
                         //
-                        while ((SN == "" || SN == "DEFAULT") && (SN_s == "" || SN_s == "DEFAULT")) // wait untill have sn
-                        {
-                            Thread.Sleep(759);
-                        }
 
-                        while (mo == "" && mo_s == "")
-                        {
-                            Thread.Sleep(759);
-                        }
+                        //while ((SN == "" || SN == "DEFAULT") && (SN_s == "" || SN_s == "DEFAULT")) // wait untill have sn
+                        //{
+                        //    Thread.Sleep(759);
+                        //}
 
-                        DataTable dtCurrentStationTestedDUT = objSfisSv.GET_TOTAL_PASSFAIL(checkingStation.Trim(), sShiftDate[0].Trim(), sShiftDate[1].Trim(), sShiftDate[2].Trim(), mo.Trim());
+                        //while (mo == "" && mo_s == "")
+                        //{
+                        //    Thread.Sleep(759);
+                        //}
+                        string _now = DateTime.Now.ToString("yyyyMMdd");
+                        DataTable dtCurrentStationTestedDUT = objSfisSv.GET_TOTAL_PASSFAIL_MODEL(checkingStation.Trim(), sShiftDate[0].Trim(), _now + "01", _now + "24", ul.GetModel());
 
                         ul.event_log("Sampling checkingStation: " + dtCurrentStationTestedDUT.Rows.Count + " " + checkingStation.Trim() + " " + sShiftDate[0].Trim() + " " + sShiftDate[1].Trim() + " " + sShiftDate[2].Trim() + " " + mo.Trim());
-                        ul.event_log("MO: " + ul.GetValueByKey("MO").ToString());
+                        ul.event_log("Product: " + ul.GetModel());
 
                         //DataTable dtCurrentStationTestedDUT = objSfisSv.GET_TOTAL_PASSFAIL("FT6", "D", "201703090730", "201703091830", mo.Trim());
 
@@ -249,8 +251,8 @@ namespace ShowUI
                             iCurrentStationTestedDUT = int.Parse(dtCurrentStationTestedDUT.Rows[0][0].ToString());
                         }
 
-                        DataTable dtSampleStationTestedDUT = objSfisSv.GET_TOTAL_PASSFAIL(sampleStation, sShiftDate[0].Trim(), sShiftDate[1].Trim(), sShiftDate[2].Trim(), mo.Trim());
-                        ul.event_log("Sampling sampleStation: " + dtSampleStationTestedDUT.Rows.Count + " " + checkingStation.Trim() + " " + sShiftDate[0].Trim() + " " + sShiftDate[1].Trim() + " " + sShiftDate[2].Trim() + " " + mo.Trim());
+                        DataTable dtSampleStationTestedDUT = objSfisSv.GET_TOTAL_PASSFAIL_MODEL(sampleStation, sShiftDate[0].Trim(), _now + "01", _now + "24", ul.GetModel());
+                        ul.event_log("Sampling sampleStation: " + ul.GetModel());
 
                         //MessageBox.Show(iSampleStationTestedDUT + "  " + iSampleStationTestedDUT);
                         if (dtSampleStationTestedDUT.Rows.Count != 0)

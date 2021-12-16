@@ -39,6 +39,27 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="R_CUSTSN_T_WIP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SN" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="R_CUSTSN_T_WIPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="R_CUSTSN_T_WIPResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="H_STATION_REC_T">
         <s:complexType>
           <s:sequence>
@@ -118,6 +139,21 @@
                 </s:sequence>
               </s:complexType>
             </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GET_STOP_MACHINE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Station" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ErrorCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GET_STOP_MACHINEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GET_STOP_MACHINEResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -205,6 +241,27 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="WIP_R">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DATA" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WIP_RResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="WIP_RResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="FIND_MO_NUMBER">
         <s:complexType>
           <s:sequence>
@@ -253,6 +310,27 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="Z_WIP_TRACKING_TResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GET_INPUT_BY_STATION">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="STATION_NAME" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GET_INPUT_BY_STATIONResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GET_INPUT_BY_STATIONResult">
               <s:complexType>
                 <s:sequence>
                   <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
@@ -639,6 +717,31 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GET_TOTAL_PASSFAIL_MODEL">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="group_name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="shift" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="start_date" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="end_date" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="model_name" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GET_TOTAL_PASSFAIL_MODELResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GET_TOTAL_PASSFAIL_MODELResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GET_STATION_PASS_FAIL">
         <s:complexType>
           <s:sequence>
@@ -773,6 +876,12 @@
   <wsdl:message name="R_NETG_PRIN_ALL_TSoapOut">
     <wsdl:part name="parameters" element="tns:R_NETG_PRIN_ALL_TResponse" />
   </wsdl:message>
+  <wsdl:message name="R_CUSTSN_T_WIPSoapIn">
+    <wsdl:part name="parameters" element="tns:R_CUSTSN_T_WIP" />
+  </wsdl:message>
+  <wsdl:message name="R_CUSTSN_T_WIPSoapOut">
+    <wsdl:part name="parameters" element="tns:R_CUSTSN_T_WIPResponse" />
+  </wsdl:message>
   <wsdl:message name="H_STATION_REC_TSoapIn">
     <wsdl:part name="parameters" element="tns:H_STATION_REC_T" />
   </wsdl:message>
@@ -796,6 +905,12 @@
   </wsdl:message>
   <wsdl:message name="Get_SN_DETAILSoapOut">
     <wsdl:part name="parameters" element="tns:Get_SN_DETAILResponse" />
+  </wsdl:message>
+  <wsdl:message name="GET_STOP_MACHINESoapIn">
+    <wsdl:part name="parameters" element="tns:GET_STOP_MACHINE" />
+  </wsdl:message>
+  <wsdl:message name="GET_STOP_MACHINESoapOut">
+    <wsdl:part name="parameters" element="tns:GET_STOP_MACHINEResponse" />
   </wsdl:message>
   <wsdl:message name="R_BPCS_MOPLAN_TSoapIn">
     <wsdl:part name="parameters" element="tns:R_BPCS_MOPLAN_T" />
@@ -821,6 +936,12 @@
   <wsdl:message name="R_WIP_TRACKING_TSoapOut">
     <wsdl:part name="parameters" element="tns:R_WIP_TRACKING_TResponse" />
   </wsdl:message>
+  <wsdl:message name="WIP_RSoapIn">
+    <wsdl:part name="parameters" element="tns:WIP_R" />
+  </wsdl:message>
+  <wsdl:message name="WIP_RSoapOut">
+    <wsdl:part name="parameters" element="tns:WIP_RResponse" />
+  </wsdl:message>
   <wsdl:message name="FIND_MO_NUMBERSoapIn">
     <wsdl:part name="parameters" element="tns:FIND_MO_NUMBER" />
   </wsdl:message>
@@ -838,6 +959,12 @@
   </wsdl:message>
   <wsdl:message name="Z_WIP_TRACKING_TSoapOut">
     <wsdl:part name="parameters" element="tns:Z_WIP_TRACKING_TResponse" />
+  </wsdl:message>
+  <wsdl:message name="GET_INPUT_BY_STATIONSoapIn">
+    <wsdl:part name="parameters" element="tns:GET_INPUT_BY_STATION" />
+  </wsdl:message>
+  <wsdl:message name="GET_INPUT_BY_STATIONSoapOut">
+    <wsdl:part name="parameters" element="tns:GET_INPUT_BY_STATIONResponse" />
   </wsdl:message>
   <wsdl:message name="R_MO_BASE_TSoapIn">
     <wsdl:part name="parameters" element="tns:R_MO_BASE_T" />
@@ -941,6 +1068,12 @@
   <wsdl:message name="GET_TOTAL_PASSFAILSoapOut">
     <wsdl:part name="parameters" element="tns:GET_TOTAL_PASSFAILResponse" />
   </wsdl:message>
+  <wsdl:message name="GET_TOTAL_PASSFAIL_MODELSoapIn">
+    <wsdl:part name="parameters" element="tns:GET_TOTAL_PASSFAIL_MODEL" />
+  </wsdl:message>
+  <wsdl:message name="GET_TOTAL_PASSFAIL_MODELSoapOut">
+    <wsdl:part name="parameters" element="tns:GET_TOTAL_PASSFAIL_MODELResponse" />
+  </wsdl:message>
   <wsdl:message name="GET_STATION_PASS_FAILSoapIn">
     <wsdl:part name="parameters" element="tns:GET_STATION_PASS_FAIL" />
   </wsdl:message>
@@ -985,6 +1118,12 @@
   <wsdl:message name="R_NETG_PRIN_ALL_THttpGetOut">
     <wsdl:part name="Body" element="tns:DataTable" />
   </wsdl:message>
+  <wsdl:message name="R_CUSTSN_T_WIPHttpGetIn">
+    <wsdl:part name="SN" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="R_CUSTSN_T_WIPHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
   <wsdl:message name="H_STATION_REC_THttpGetIn">
     <wsdl:part name="start_time" type="s:string" />
     <wsdl:part name="end_time" type="s:string" />
@@ -1008,6 +1147,13 @@
   </wsdl:message>
   <wsdl:message name="Get_SN_DETAILHttpGetOut">
     <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_STOP_MACHINEHttpGetIn">
+    <wsdl:part name="Station" type="s:string" />
+    <wsdl:part name="ErrorCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_STOP_MACHINEHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
   </wsdl:message>
   <wsdl:message name="R_BPCS_MOPLAN_THttpGetIn">
     <wsdl:part name="start_time" type="s:string" />
@@ -1040,6 +1186,12 @@
   <wsdl:message name="R_WIP_TRACKING_THttpGetOut">
     <wsdl:part name="Body" element="tns:DataTable" />
   </wsdl:message>
+  <wsdl:message name="WIP_RHttpGetIn">
+    <wsdl:part name="DATA" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="WIP_RHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
   <wsdl:message name="FIND_MO_NUMBERHttpGetIn">
     <wsdl:part name="serial" type="s:string" />
     <wsdl:part name="mac" type="s:string" />
@@ -1058,6 +1210,12 @@
     <wsdl:part name="end_time" type="s:string" />
   </wsdl:message>
   <wsdl:message name="Z_WIP_TRACKING_THttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_INPUT_BY_STATIONHttpGetIn">
+    <wsdl:part name="STATION_NAME" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_INPUT_BY_STATIONHttpGetOut">
     <wsdl:part name="Body" element="tns:DataTable" />
   </wsdl:message>
   <wsdl:message name="R_MO_BASE_THttpGetIn">
@@ -1195,6 +1353,16 @@
   <wsdl:message name="GET_TOTAL_PASSFAILHttpGetOut">
     <wsdl:part name="Body" element="tns:DataTable" />
   </wsdl:message>
+  <wsdl:message name="GET_TOTAL_PASSFAIL_MODELHttpGetIn">
+    <wsdl:part name="group_name" type="s:string" />
+    <wsdl:part name="shift" type="s:string" />
+    <wsdl:part name="start_date" type="s:string" />
+    <wsdl:part name="end_date" type="s:string" />
+    <wsdl:part name="model_name" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_TOTAL_PASSFAIL_MODELHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
   <wsdl:message name="GET_STATION_PASS_FAILHttpGetIn">
     <wsdl:part name="model_name" type="s:string" />
     <wsdl:part name="station_name" type="s:string" />
@@ -1250,6 +1418,12 @@
   <wsdl:message name="R_NETG_PRIN_ALL_THttpPostOut">
     <wsdl:part name="Body" element="tns:DataTable" />
   </wsdl:message>
+  <wsdl:message name="R_CUSTSN_T_WIPHttpPostIn">
+    <wsdl:part name="SN" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="R_CUSTSN_T_WIPHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
   <wsdl:message name="H_STATION_REC_THttpPostIn">
     <wsdl:part name="start_time" type="s:string" />
     <wsdl:part name="end_time" type="s:string" />
@@ -1273,6 +1447,13 @@
   </wsdl:message>
   <wsdl:message name="Get_SN_DETAILHttpPostOut">
     <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_STOP_MACHINEHttpPostIn">
+    <wsdl:part name="Station" type="s:string" />
+    <wsdl:part name="ErrorCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_STOP_MACHINEHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
   </wsdl:message>
   <wsdl:message name="R_BPCS_MOPLAN_THttpPostIn">
     <wsdl:part name="start_time" type="s:string" />
@@ -1305,6 +1486,12 @@
   <wsdl:message name="R_WIP_TRACKING_THttpPostOut">
     <wsdl:part name="Body" element="tns:DataTable" />
   </wsdl:message>
+  <wsdl:message name="WIP_RHttpPostIn">
+    <wsdl:part name="DATA" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="WIP_RHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
   <wsdl:message name="FIND_MO_NUMBERHttpPostIn">
     <wsdl:part name="serial" type="s:string" />
     <wsdl:part name="mac" type="s:string" />
@@ -1323,6 +1510,12 @@
     <wsdl:part name="end_time" type="s:string" />
   </wsdl:message>
   <wsdl:message name="Z_WIP_TRACKING_THttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GET_INPUT_BY_STATIONHttpPostIn">
+    <wsdl:part name="STATION_NAME" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_INPUT_BY_STATIONHttpPostOut">
     <wsdl:part name="Body" element="tns:DataTable" />
   </wsdl:message>
   <wsdl:message name="R_MO_BASE_THttpPostIn">
@@ -1460,6 +1653,16 @@
   <wsdl:message name="GET_TOTAL_PASSFAILHttpPostOut">
     <wsdl:part name="Body" element="tns:DataTable" />
   </wsdl:message>
+  <wsdl:message name="GET_TOTAL_PASSFAIL_MODELHttpPostIn">
+    <wsdl:part name="group_name" type="s:string" />
+    <wsdl:part name="shift" type="s:string" />
+    <wsdl:part name="start_date" type="s:string" />
+    <wsdl:part name="end_date" type="s:string" />
+    <wsdl:part name="model_name" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GET_TOTAL_PASSFAIL_MODELHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
   <wsdl:message name="GET_STATION_PASS_FAILHttpPostIn">
     <wsdl:part name="model_name" type="s:string" />
     <wsdl:part name="station_name" type="s:string" />
@@ -1510,6 +1713,10 @@
       <wsdl:input message="tns:R_NETG_PRIN_ALL_TSoapIn" />
       <wsdl:output message="tns:R_NETG_PRIN_ALL_TSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="R_CUSTSN_T_WIP">
+      <wsdl:input message="tns:R_CUSTSN_T_WIPSoapIn" />
+      <wsdl:output message="tns:R_CUSTSN_T_WIPSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="H_STATION_REC_T">
       <wsdl:input message="tns:H_STATION_REC_TSoapIn" />
       <wsdl:output message="tns:H_STATION_REC_TSoapOut" />
@@ -1525,6 +1732,10 @@
     <wsdl:operation name="Get_SN_DETAIL">
       <wsdl:input message="tns:Get_SN_DETAILSoapIn" />
       <wsdl:output message="tns:Get_SN_DETAILSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_STOP_MACHINE">
+      <wsdl:input message="tns:GET_STOP_MACHINESoapIn" />
+      <wsdl:output message="tns:GET_STOP_MACHINESoapOut" />
     </wsdl:operation>
     <wsdl:operation name="R_BPCS_MOPLAN_T">
       <wsdl:input message="tns:R_BPCS_MOPLAN_TSoapIn" />
@@ -1542,6 +1753,10 @@
       <wsdl:input message="tns:R_WIP_TRACKING_TSoapIn" />
       <wsdl:output message="tns:R_WIP_TRACKING_TSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="WIP_R">
+      <wsdl:input message="tns:WIP_RSoapIn" />
+      <wsdl:output message="tns:WIP_RSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="FIND_MO_NUMBER">
       <wsdl:input message="tns:FIND_MO_NUMBERSoapIn" />
       <wsdl:output message="tns:FIND_MO_NUMBERSoapOut" />
@@ -1553,6 +1768,10 @@
     <wsdl:operation name="Z_WIP_TRACKING_T">
       <wsdl:input message="tns:Z_WIP_TRACKING_TSoapIn" />
       <wsdl:output message="tns:Z_WIP_TRACKING_TSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_INPUT_BY_STATION">
+      <wsdl:input message="tns:GET_INPUT_BY_STATIONSoapIn" />
+      <wsdl:output message="tns:GET_INPUT_BY_STATIONSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="R_MO_BASE_T">
       <wsdl:input message="tns:R_MO_BASE_TSoapIn" />
@@ -1622,6 +1841,10 @@
       <wsdl:input message="tns:GET_TOTAL_PASSFAILSoapIn" />
       <wsdl:output message="tns:GET_TOTAL_PASSFAILSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GET_TOTAL_PASSFAIL_MODEL">
+      <wsdl:input message="tns:GET_TOTAL_PASSFAIL_MODELSoapIn" />
+      <wsdl:output message="tns:GET_TOTAL_PASSFAIL_MODELSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GET_STATION_PASS_FAIL">
       <wsdl:input message="tns:GET_STATION_PASS_FAILSoapIn" />
       <wsdl:output message="tns:GET_STATION_PASS_FAILSoapOut" />
@@ -1652,6 +1875,10 @@
       <wsdl:input message="tns:R_NETG_PRIN_ALL_THttpGetIn" />
       <wsdl:output message="tns:R_NETG_PRIN_ALL_THttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="R_CUSTSN_T_WIP">
+      <wsdl:input message="tns:R_CUSTSN_T_WIPHttpGetIn" />
+      <wsdl:output message="tns:R_CUSTSN_T_WIPHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="H_STATION_REC_T">
       <wsdl:input message="tns:H_STATION_REC_THttpGetIn" />
       <wsdl:output message="tns:H_STATION_REC_THttpGetOut" />
@@ -1667,6 +1894,10 @@
     <wsdl:operation name="Get_SN_DETAIL">
       <wsdl:input message="tns:Get_SN_DETAILHttpGetIn" />
       <wsdl:output message="tns:Get_SN_DETAILHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_STOP_MACHINE">
+      <wsdl:input message="tns:GET_STOP_MACHINEHttpGetIn" />
+      <wsdl:output message="tns:GET_STOP_MACHINEHttpGetOut" />
     </wsdl:operation>
     <wsdl:operation name="R_BPCS_MOPLAN_T">
       <wsdl:input message="tns:R_BPCS_MOPLAN_THttpGetIn" />
@@ -1684,6 +1915,10 @@
       <wsdl:input message="tns:R_WIP_TRACKING_THttpGetIn" />
       <wsdl:output message="tns:R_WIP_TRACKING_THttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="WIP_R">
+      <wsdl:input message="tns:WIP_RHttpGetIn" />
+      <wsdl:output message="tns:WIP_RHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="FIND_MO_NUMBER">
       <wsdl:input message="tns:FIND_MO_NUMBERHttpGetIn" />
       <wsdl:output message="tns:FIND_MO_NUMBERHttpGetOut" />
@@ -1695,6 +1930,10 @@
     <wsdl:operation name="Z_WIP_TRACKING_T">
       <wsdl:input message="tns:Z_WIP_TRACKING_THttpGetIn" />
       <wsdl:output message="tns:Z_WIP_TRACKING_THttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_INPUT_BY_STATION">
+      <wsdl:input message="tns:GET_INPUT_BY_STATIONHttpGetIn" />
+      <wsdl:output message="tns:GET_INPUT_BY_STATIONHttpGetOut" />
     </wsdl:operation>
     <wsdl:operation name="R_MO_BASE_T">
       <wsdl:input message="tns:R_MO_BASE_THttpGetIn" />
@@ -1764,6 +2003,10 @@
       <wsdl:input message="tns:GET_TOTAL_PASSFAILHttpGetIn" />
       <wsdl:output message="tns:GET_TOTAL_PASSFAILHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="GET_TOTAL_PASSFAIL_MODEL">
+      <wsdl:input message="tns:GET_TOTAL_PASSFAIL_MODELHttpGetIn" />
+      <wsdl:output message="tns:GET_TOTAL_PASSFAIL_MODELHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="GET_STATION_PASS_FAIL">
       <wsdl:input message="tns:GET_STATION_PASS_FAILHttpGetIn" />
       <wsdl:output message="tns:GET_STATION_PASS_FAILHttpGetOut" />
@@ -1794,6 +2037,10 @@
       <wsdl:input message="tns:R_NETG_PRIN_ALL_THttpPostIn" />
       <wsdl:output message="tns:R_NETG_PRIN_ALL_THttpPostOut" />
     </wsdl:operation>
+    <wsdl:operation name="R_CUSTSN_T_WIP">
+      <wsdl:input message="tns:R_CUSTSN_T_WIPHttpPostIn" />
+      <wsdl:output message="tns:R_CUSTSN_T_WIPHttpPostOut" />
+    </wsdl:operation>
     <wsdl:operation name="H_STATION_REC_T">
       <wsdl:input message="tns:H_STATION_REC_THttpPostIn" />
       <wsdl:output message="tns:H_STATION_REC_THttpPostOut" />
@@ -1809,6 +2056,10 @@
     <wsdl:operation name="Get_SN_DETAIL">
       <wsdl:input message="tns:Get_SN_DETAILHttpPostIn" />
       <wsdl:output message="tns:Get_SN_DETAILHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_STOP_MACHINE">
+      <wsdl:input message="tns:GET_STOP_MACHINEHttpPostIn" />
+      <wsdl:output message="tns:GET_STOP_MACHINEHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="R_BPCS_MOPLAN_T">
       <wsdl:input message="tns:R_BPCS_MOPLAN_THttpPostIn" />
@@ -1826,6 +2077,10 @@
       <wsdl:input message="tns:R_WIP_TRACKING_THttpPostIn" />
       <wsdl:output message="tns:R_WIP_TRACKING_THttpPostOut" />
     </wsdl:operation>
+    <wsdl:operation name="WIP_R">
+      <wsdl:input message="tns:WIP_RHttpPostIn" />
+      <wsdl:output message="tns:WIP_RHttpPostOut" />
+    </wsdl:operation>
     <wsdl:operation name="FIND_MO_NUMBER">
       <wsdl:input message="tns:FIND_MO_NUMBERHttpPostIn" />
       <wsdl:output message="tns:FIND_MO_NUMBERHttpPostOut" />
@@ -1837,6 +2092,10 @@
     <wsdl:operation name="Z_WIP_TRACKING_T">
       <wsdl:input message="tns:Z_WIP_TRACKING_THttpPostIn" />
       <wsdl:output message="tns:Z_WIP_TRACKING_THttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GET_INPUT_BY_STATION">
+      <wsdl:input message="tns:GET_INPUT_BY_STATIONHttpPostIn" />
+      <wsdl:output message="tns:GET_INPUT_BY_STATIONHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="R_MO_BASE_T">
       <wsdl:input message="tns:R_MO_BASE_THttpPostIn" />
@@ -1906,6 +2165,10 @@
       <wsdl:input message="tns:GET_TOTAL_PASSFAILHttpPostIn" />
       <wsdl:output message="tns:GET_TOTAL_PASSFAILHttpPostOut" />
     </wsdl:operation>
+    <wsdl:operation name="GET_TOTAL_PASSFAIL_MODEL">
+      <wsdl:input message="tns:GET_TOTAL_PASSFAIL_MODELHttpPostIn" />
+      <wsdl:output message="tns:GET_TOTAL_PASSFAIL_MODELHttpPostOut" />
+    </wsdl:operation>
     <wsdl:operation name="GET_STATION_PASS_FAIL">
       <wsdl:input message="tns:GET_STATION_PASS_FAILHttpPostIn" />
       <wsdl:output message="tns:GET_STATION_PASS_FAILHttpPostOut" />
@@ -1940,6 +2203,15 @@
     </wsdl:operation>
     <wsdl:operation name="R_NETG_PRIN_ALL_T">
       <soap:operation soapAction="http://tempuri.org/R_NETG_PRIN_ALL_T" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="R_CUSTSN_T_WIP">
+      <soap:operation soapAction="http://tempuri.org/R_CUSTSN_T_WIP" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1983,6 +2255,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GET_STOP_MACHINE">
+      <soap:operation soapAction="http://tempuri.org/GET_STOP_MACHINE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="R_BPCS_MOPLAN_T">
       <soap:operation soapAction="http://tempuri.org/R_BPCS_MOPLAN_T" style="document" />
       <wsdl:input>
@@ -2019,6 +2300,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="WIP_R">
+      <soap:operation soapAction="http://tempuri.org/WIP_R" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="FIND_MO_NUMBER">
       <soap:operation soapAction="http://tempuri.org/FIND_MO_NUMBER" style="document" />
       <wsdl:input>
@@ -2039,6 +2329,15 @@
     </wsdl:operation>
     <wsdl:operation name="Z_WIP_TRACKING_T">
       <soap:operation soapAction="http://tempuri.org/Z_WIP_TRACKING_T" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_INPUT_BY_STATION">
+      <soap:operation soapAction="http://tempuri.org/GET_INPUT_BY_STATION" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2199,6 +2498,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GET_TOTAL_PASSFAIL_MODEL">
+      <soap:operation soapAction="http://tempuri.org/GET_TOTAL_PASSFAIL_MODEL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GET_STATION_PASS_FAIL">
       <soap:operation soapAction="http://tempuri.org/GET_STATION_PASS_FAIL" style="document" />
       <wsdl:input>
@@ -2265,6 +2573,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="R_CUSTSN_T_WIP">
+      <soap12:operation soapAction="http://tempuri.org/R_CUSTSN_T_WIP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="H_STATION_REC_T">
       <soap12:operation soapAction="http://tempuri.org/H_STATION_REC_T" style="document" />
       <wsdl:input>
@@ -2294,6 +2611,15 @@
     </wsdl:operation>
     <wsdl:operation name="Get_SN_DETAIL">
       <soap12:operation soapAction="http://tempuri.org/Get_SN_DETAIL" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_STOP_MACHINE">
+      <soap12:operation soapAction="http://tempuri.org/GET_STOP_MACHINE" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -2337,6 +2663,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="WIP_R">
+      <soap12:operation soapAction="http://tempuri.org/WIP_R" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="FIND_MO_NUMBER">
       <soap12:operation soapAction="http://tempuri.org/FIND_MO_NUMBER" style="document" />
       <wsdl:input>
@@ -2357,6 +2692,15 @@
     </wsdl:operation>
     <wsdl:operation name="Z_WIP_TRACKING_T">
       <soap12:operation soapAction="http://tempuri.org/Z_WIP_TRACKING_T" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_INPUT_BY_STATION">
+      <soap12:operation soapAction="http://tempuri.org/GET_INPUT_BY_STATION" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -2517,6 +2861,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GET_TOTAL_PASSFAIL_MODEL">
+      <soap12:operation soapAction="http://tempuri.org/GET_TOTAL_PASSFAIL_MODEL" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GET_STATION_PASS_FAIL">
       <soap12:operation soapAction="http://tempuri.org/GET_STATION_PASS_FAIL" style="document" />
       <wsdl:input>
@@ -2583,6 +2936,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="R_CUSTSN_T_WIP">
+      <http:operation location="/R_CUSTSN_T_WIP" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="H_STATION_REC_T">
       <http:operation location="/H_STATION_REC_T" />
       <wsdl:input>
@@ -2612,6 +2974,15 @@
     </wsdl:operation>
     <wsdl:operation name="Get_SN_DETAIL">
       <http:operation location="/Get_SN_DETAIL" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_STOP_MACHINE">
+      <http:operation location="/GET_STOP_MACHINE" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -2655,6 +3026,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="WIP_R">
+      <http:operation location="/WIP_R" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="FIND_MO_NUMBER">
       <http:operation location="/FIND_MO_NUMBER" />
       <wsdl:input>
@@ -2675,6 +3055,15 @@
     </wsdl:operation>
     <wsdl:operation name="Z_WIP_TRACKING_T">
       <http:operation location="/Z_WIP_TRACKING_T" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_INPUT_BY_STATION">
+      <http:operation location="/GET_INPUT_BY_STATION" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -2828,6 +3217,15 @@
     </wsdl:operation>
     <wsdl:operation name="GET_TOTAL_PASSFAIL">
       <http:operation location="/GET_TOTAL_PASSFAIL" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_TOTAL_PASSFAIL_MODEL">
+      <http:operation location="/GET_TOTAL_PASSFAIL_MODEL" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -2901,6 +3299,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="R_CUSTSN_T_WIP">
+      <http:operation location="/R_CUSTSN_T_WIP" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="H_STATION_REC_T">
       <http:operation location="/H_STATION_REC_T" />
       <wsdl:input>
@@ -2930,6 +3337,15 @@
     </wsdl:operation>
     <wsdl:operation name="Get_SN_DETAIL">
       <http:operation location="/Get_SN_DETAIL" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_STOP_MACHINE">
+      <http:operation location="/GET_STOP_MACHINE" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
@@ -2973,6 +3389,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="WIP_R">
+      <http:operation location="/WIP_R" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="FIND_MO_NUMBER">
       <http:operation location="/FIND_MO_NUMBER" />
       <wsdl:input>
@@ -2993,6 +3418,15 @@
     </wsdl:operation>
     <wsdl:operation name="Z_WIP_TRACKING_T">
       <http:operation location="/Z_WIP_TRACKING_T" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_INPUT_BY_STATION">
+      <http:operation location="/GET_INPUT_BY_STATION" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
@@ -3146,6 +3580,15 @@
     </wsdl:operation>
     <wsdl:operation name="GET_TOTAL_PASSFAIL">
       <http:operation location="/GET_TOTAL_PASSFAIL" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GET_TOTAL_PASSFAIL_MODEL">
+      <http:operation location="/GET_TOTAL_PASSFAIL_MODEL" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

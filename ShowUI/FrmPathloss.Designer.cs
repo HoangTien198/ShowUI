@@ -52,7 +52,7 @@
             // timer2
             // 
             this.timer2.Enabled = true;
-            this.timer2.Interval = 5000;
+            this.timer2.Interval = 1800000;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // FrmPathloss
@@ -68,6 +68,7 @@
             this.ShowInTaskbar = false;
             this.Text = "FrmPathloss";
             this.Load += new System.EventHandler(this.FrmPathloss_Load);
+            this.DoubleClick += new System.EventHandler(this.FrmPathloss_DoubleClick);
             this.ResumeLayout(false);
             this.PerformLayout();
 

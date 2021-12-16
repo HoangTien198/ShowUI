@@ -21,9 +21,8 @@ namespace ShowUI.SFISB05_SV {
     using System.Xml.Serialization;
     using System.ComponentModel;
     using System.Data;
-    using System.Net;
-
-
+    
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -35,6 +34,8 @@ namespace ShowUI.SFISB05_SV {
         
         private System.Threading.SendOrPostCallback R_NETG_PRIN_ALL_TOperationCompleted;
         
+        private System.Threading.SendOrPostCallback R_CUSTSN_T_WIPOperationCompleted;
+        
         private System.Threading.SendOrPostCallback H_STATION_REC_TOperationCompleted;
         
         private System.Threading.SendOrPostCallback C_ROUTE_CONTROL_TOperationCompleted;
@@ -42,6 +43,8 @@ namespace ShowUI.SFISB05_SV {
         private System.Threading.SendOrPostCallback C_GROUP_NOROUTE_TOperationCompleted;
         
         private System.Threading.SendOrPostCallback Get_SN_DETAILOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GET_STOP_MACHINEOperationCompleted;
         
         private System.Threading.SendOrPostCallback R_BPCS_MOPLAN_TOperationCompleted;
         
@@ -51,11 +54,15 @@ namespace ShowUI.SFISB05_SV {
         
         private System.Threading.SendOrPostCallback R_WIP_TRACKING_TOperationCompleted;
         
+        private System.Threading.SendOrPostCallback WIP_ROperationCompleted;
+        
         private System.Threading.SendOrPostCallback FIND_MO_NUMBEROperationCompleted;
         
         private System.Threading.SendOrPostCallback AUTO_SEND_MAILOperationCompleted;
         
         private System.Threading.SendOrPostCallback Z_WIP_TRACKING_TOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GET_INPUT_BY_STATIONOperationCompleted;
         
         private System.Threading.SendOrPostCallback R_MO_BASE_TOperationCompleted;
         
@@ -91,6 +98,8 @@ namespace ShowUI.SFISB05_SV {
         
         private System.Threading.SendOrPostCallback GET_TOTAL_PASSFAILOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GET_TOTAL_PASSFAIL_MODELOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GET_STATION_PASS_FAILOperationCompleted;
         
         private System.Threading.SendOrPostCallback GET_INFO_FIRSTPCBOperationCompleted;
@@ -106,22 +115,6 @@ namespace ShowUI.SFISB05_SV {
         /// <remarks/>
         public Servicepostdata() {
             this.Url = global::ShowUI.Properties.Settings.Default.ShowUI5_3_SFISB05_SV_Servicepostdata;
-            //try
-            //{
-            //    var myrequest = (HttpWebRequest)WebRequest.Create(this.Url);
-            //    myrequest.Timeout = 1000;
-            //    var response = (HttpWebResponse)myrequest.GetResponse();
-            //    if (response.StatusCode != HttpStatusCode.OK)
-            //    {
-            //        this.Url = "http://10.224.81.156/B05/Servicepostdata.asmx";
-            //    }
-            //}
-            //catch (Exception)
-            //{
-
-            //    this.Url = "http://10.224.81.156/B05/Servicepostdata.asmx";
-            //}
-
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;
@@ -162,6 +155,9 @@ namespace ShowUI.SFISB05_SV {
         public event R_NETG_PRIN_ALL_TCompletedEventHandler R_NETG_PRIN_ALL_TCompleted;
         
         /// <remarks/>
+        public event R_CUSTSN_T_WIPCompletedEventHandler R_CUSTSN_T_WIPCompleted;
+        
+        /// <remarks/>
         public event H_STATION_REC_TCompletedEventHandler H_STATION_REC_TCompleted;
         
         /// <remarks/>
@@ -172,6 +168,9 @@ namespace ShowUI.SFISB05_SV {
         
         /// <remarks/>
         public event Get_SN_DETAILCompletedEventHandler Get_SN_DETAILCompleted;
+        
+        /// <remarks/>
+        public event GET_STOP_MACHINECompletedEventHandler GET_STOP_MACHINECompleted;
         
         /// <remarks/>
         public event R_BPCS_MOPLAN_TCompletedEventHandler R_BPCS_MOPLAN_TCompleted;
@@ -186,6 +185,9 @@ namespace ShowUI.SFISB05_SV {
         public event R_WIP_TRACKING_TCompletedEventHandler R_WIP_TRACKING_TCompleted;
         
         /// <remarks/>
+        public event WIP_RCompletedEventHandler WIP_RCompleted;
+        
+        /// <remarks/>
         public event FIND_MO_NUMBERCompletedEventHandler FIND_MO_NUMBERCompleted;
         
         /// <remarks/>
@@ -193,6 +195,9 @@ namespace ShowUI.SFISB05_SV {
         
         /// <remarks/>
         public event Z_WIP_TRACKING_TCompletedEventHandler Z_WIP_TRACKING_TCompleted;
+        
+        /// <remarks/>
+        public event GET_INPUT_BY_STATIONCompletedEventHandler GET_INPUT_BY_STATIONCompleted;
         
         /// <remarks/>
         public event R_MO_BASE_TCompletedEventHandler R_MO_BASE_TCompleted;
@@ -244,6 +249,9 @@ namespace ShowUI.SFISB05_SV {
         
         /// <remarks/>
         public event GET_TOTAL_PASSFAILCompletedEventHandler GET_TOTAL_PASSFAILCompleted;
+        
+        /// <remarks/>
+        public event GET_TOTAL_PASSFAIL_MODELCompletedEventHandler GET_TOTAL_PASSFAIL_MODELCompleted;
         
         /// <remarks/>
         public event GET_STATION_PASS_FAILCompletedEventHandler GET_STATION_PASS_FAILCompleted;
@@ -319,6 +327,35 @@ namespace ShowUI.SFISB05_SV {
             if ((this.R_NETG_PRIN_ALL_TCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.R_NETG_PRIN_ALL_TCompleted(this, new R_NETG_PRIN_ALL_TCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/R_CUSTSN_T_WIP", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataTable R_CUSTSN_T_WIP(string SN) {
+            object[] results = this.Invoke("R_CUSTSN_T_WIP", new object[] {
+                        SN});
+            return ((System.Data.DataTable)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void R_CUSTSN_T_WIPAsync(string SN) {
+            this.R_CUSTSN_T_WIPAsync(SN, null);
+        }
+        
+        /// <remarks/>
+        public void R_CUSTSN_T_WIPAsync(string SN, object userState) {
+            if ((this.R_CUSTSN_T_WIPOperationCompleted == null)) {
+                this.R_CUSTSN_T_WIPOperationCompleted = new System.Threading.SendOrPostCallback(this.OnR_CUSTSN_T_WIPOperationCompleted);
+            }
+            this.InvokeAsync("R_CUSTSN_T_WIP", new object[] {
+                        SN}, this.R_CUSTSN_T_WIPOperationCompleted, userState);
+        }
+        
+        private void OnR_CUSTSN_T_WIPOperationCompleted(object arg) {
+            if ((this.R_CUSTSN_T_WIPCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.R_CUSTSN_T_WIPCompleted(this, new R_CUSTSN_T_WIPCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -437,6 +474,37 @@ namespace ShowUI.SFISB05_SV {
             if ((this.Get_SN_DETAILCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.Get_SN_DETAILCompleted(this, new Get_SN_DETAILCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GET_STOP_MACHINE", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string GET_STOP_MACHINE(string Station, string ErrorCode) {
+            object[] results = this.Invoke("GET_STOP_MACHINE", new object[] {
+                        Station,
+                        ErrorCode});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GET_STOP_MACHINEAsync(string Station, string ErrorCode) {
+            this.GET_STOP_MACHINEAsync(Station, ErrorCode, null);
+        }
+        
+        /// <remarks/>
+        public void GET_STOP_MACHINEAsync(string Station, string ErrorCode, object userState) {
+            if ((this.GET_STOP_MACHINEOperationCompleted == null)) {
+                this.GET_STOP_MACHINEOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGET_STOP_MACHINEOperationCompleted);
+            }
+            this.InvokeAsync("GET_STOP_MACHINE", new object[] {
+                        Station,
+                        ErrorCode}, this.GET_STOP_MACHINEOperationCompleted, userState);
+        }
+        
+        private void OnGET_STOP_MACHINEOperationCompleted(object arg) {
+            if ((this.GET_STOP_MACHINECompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GET_STOP_MACHINECompleted(this, new GET_STOP_MACHINECompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -571,6 +639,35 @@ namespace ShowUI.SFISB05_SV {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/WIP_R", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataTable WIP_R(string DATA) {
+            object[] results = this.Invoke("WIP_R", new object[] {
+                        DATA});
+            return ((System.Data.DataTable)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WIP_RAsync(string DATA) {
+            this.WIP_RAsync(DATA, null);
+        }
+        
+        /// <remarks/>
+        public void WIP_RAsync(string DATA, object userState) {
+            if ((this.WIP_ROperationCompleted == null)) {
+                this.WIP_ROperationCompleted = new System.Threading.SendOrPostCallback(this.OnWIP_ROperationCompleted);
+            }
+            this.InvokeAsync("WIP_R", new object[] {
+                        DATA}, this.WIP_ROperationCompleted, userState);
+        }
+        
+        private void OnWIP_ROperationCompleted(object arg) {
+            if ((this.WIP_RCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WIP_RCompleted(this, new WIP_RCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/FIND_MO_NUMBER", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public System.Data.DataTable FIND_MO_NUMBER(string serial, string mac) {
             object[] results = this.Invoke("FIND_MO_NUMBER", new object[] {
@@ -658,6 +755,35 @@ namespace ShowUI.SFISB05_SV {
             if ((this.Z_WIP_TRACKING_TCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.Z_WIP_TRACKING_TCompleted(this, new Z_WIP_TRACKING_TCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GET_INPUT_BY_STATION", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataTable GET_INPUT_BY_STATION(string STATION_NAME) {
+            object[] results = this.Invoke("GET_INPUT_BY_STATION", new object[] {
+                        STATION_NAME});
+            return ((System.Data.DataTable)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GET_INPUT_BY_STATIONAsync(string STATION_NAME) {
+            this.GET_INPUT_BY_STATIONAsync(STATION_NAME, null);
+        }
+        
+        /// <remarks/>
+        public void GET_INPUT_BY_STATIONAsync(string STATION_NAME, object userState) {
+            if ((this.GET_INPUT_BY_STATIONOperationCompleted == null)) {
+                this.GET_INPUT_BY_STATIONOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGET_INPUT_BY_STATIONOperationCompleted);
+            }
+            this.InvokeAsync("GET_INPUT_BY_STATION", new object[] {
+                        STATION_NAME}, this.GET_INPUT_BY_STATIONOperationCompleted, userState);
+        }
+        
+        private void OnGET_INPUT_BY_STATIONOperationCompleted(object arg) {
+            if ((this.GET_INPUT_BY_STATIONCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GET_INPUT_BY_STATIONCompleted(this, new GET_INPUT_BY_STATIONCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -1221,6 +1347,43 @@ namespace ShowUI.SFISB05_SV {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GET_TOTAL_PASSFAIL_MODEL", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataTable GET_TOTAL_PASSFAIL_MODEL(string group_name, string shift, string start_date, string end_date, string model_name) {
+            object[] results = this.Invoke("GET_TOTAL_PASSFAIL_MODEL", new object[] {
+                        group_name,
+                        shift,
+                        start_date,
+                        end_date,
+                        model_name});
+            return ((System.Data.DataTable)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GET_TOTAL_PASSFAIL_MODELAsync(string group_name, string shift, string start_date, string end_date, string model_name) {
+            this.GET_TOTAL_PASSFAIL_MODELAsync(group_name, shift, start_date, end_date, model_name, null);
+        }
+        
+        /// <remarks/>
+        public void GET_TOTAL_PASSFAIL_MODELAsync(string group_name, string shift, string start_date, string end_date, string model_name, object userState) {
+            if ((this.GET_TOTAL_PASSFAIL_MODELOperationCompleted == null)) {
+                this.GET_TOTAL_PASSFAIL_MODELOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGET_TOTAL_PASSFAIL_MODELOperationCompleted);
+            }
+            this.InvokeAsync("GET_TOTAL_PASSFAIL_MODEL", new object[] {
+                        group_name,
+                        shift,
+                        start_date,
+                        end_date,
+                        model_name}, this.GET_TOTAL_PASSFAIL_MODELOperationCompleted, userState);
+        }
+        
+        private void OnGET_TOTAL_PASSFAIL_MODELOperationCompleted(object arg) {
+            if ((this.GET_TOTAL_PASSFAIL_MODELCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GET_TOTAL_PASSFAIL_MODELCompleted(this, new GET_TOTAL_PASSFAIL_MODELCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GET_STATION_PASS_FAIL", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public int GET_STATION_PASS_FAIL(string model_name, string station_name) {
             object[] results = this.Invoke("GET_STATION_PASS_FAIL", new object[] {
@@ -1460,6 +1623,32 @@ namespace ShowUI.SFISB05_SV {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void R_CUSTSN_T_WIPCompletedEventHandler(object sender, R_CUSTSN_T_WIPCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class R_CUSTSN_T_WIPCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal R_CUSTSN_T_WIPCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataTable Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataTable)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void H_STATION_REC_TCompletedEventHandler(object sender, H_STATION_REC_TCompletedEventArgs e);
     
     /// <remarks/>
@@ -1558,6 +1747,32 @@ namespace ShowUI.SFISB05_SV {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((System.Data.DataTable)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void GET_STOP_MACHINECompletedEventHandler(object sender, GET_STOP_MACHINECompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GET_STOP_MACHINECompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GET_STOP_MACHINECompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
             }
         }
     }
@@ -1668,6 +1883,32 @@ namespace ShowUI.SFISB05_SV {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void WIP_RCompletedEventHandler(object sender, WIP_RCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WIP_RCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WIP_RCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataTable Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataTable)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     public delegate void FIND_MO_NUMBERCompletedEventHandler(object sender, FIND_MO_NUMBERCompletedEventArgs e);
     
     /// <remarks/>
@@ -1731,6 +1972,32 @@ namespace ShowUI.SFISB05_SV {
         private object[] results;
         
         internal Z_WIP_TRACKING_TCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataTable Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataTable)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void GET_INPUT_BY_STATIONCompletedEventHandler(object sender, GET_INPUT_BY_STATIONCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GET_INPUT_BY_STATIONCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GET_INPUT_BY_STATIONCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -2173,6 +2440,32 @@ namespace ShowUI.SFISB05_SV {
         private object[] results;
         
         internal GET_TOTAL_PASSFAILCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataTable Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataTable)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    public delegate void GET_TOTAL_PASSFAIL_MODELCompletedEventHandler(object sender, GET_TOTAL_PASSFAIL_MODELCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GET_TOTAL_PASSFAIL_MODELCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GET_TOTAL_PASSFAIL_MODELCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
