@@ -1021,12 +1021,13 @@ namespace ShowUI
         {
             try
             {
-                //conn = @"Data Source=10.224.81.162,1734;Initial Catalog=dbGeneral;uid=sa;pwd=********;Connection Timeout=5";
-                string svIp = "10.224.81.162,1734";//ul.GetServerIP("SSO", "10.224.81.37");
-                connectionString = @"Data Source=10.224.81.162,1734;Initial Catalog=SSO;uid=sa;pwd=********;Connection Timeout=5";
+                serverIp = IniFile.ReadIniFile("DATABASE", "SERVER_NAME", "10.220.130.103,1734", @"F:\lsy\Test\DownloadConfig\AutoDL\SOURCE.ini");
+                //conn = @"Data Source=10.220.130.103,1734;Initial Catalog=dbGeneral;uid=sa;pwd=********;Connection Timeout=5";
+                //string svIp = "10.220.130.103,1734";//ul.GetServerIP("SSO", "10.224.81.37");
+                connectionString = @"Data Source="+ serverIp + ";Initial Catalog=SSO;uid=sa;pwd=********;Connection Timeout=5";
 
                 // Get ServrerIp for ToDB() dbMO
-                serverIp = IniFile.ReadIniFile("DATABASE", "SERVER_NAME", "10.224.81.37", @"F:\Temp\TE-PROGRAM\TE-DATABASE\SOURCE.ini");
+                
                 client_ip = ul.GetNICGatewayIP();
 
                 _model_name = ul.GetValueByKey("SFISMODEL").Trim();

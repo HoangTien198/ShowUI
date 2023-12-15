@@ -30,7 +30,13 @@
       <Value Profile="(Default)">http://10.224.81.99/ServiceCenter/Services/B05_Service.asmx</Value>
     </Setting>
     <Setting Name="ShowUI_ATE_CHECKLIST_WebService" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://10.224.81.166/pckpi/Service/WebService.asmx</Value>
+      <Value Profile="(Default)">http://10.224.81.167/pckpi/Service/WebService.asmx</Value>
+    </Setting>
+    <Setting Name="ShowUI_SFIS_QZ_Servicepostdata" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://10.220.130.104:8080/Servicepostdata.asmx</Value>
+    </Setting>
+    <Setting Name="ShowUI_SFIS_QZ_80_Servicepostdata" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://10.220.130.80:8080/Servicepostdata.asmx</Value>
     </Setting>
   </Settings>
 </SettingsFile>

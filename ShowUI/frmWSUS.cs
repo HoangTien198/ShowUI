@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Windows.Forms;
-
+using ShowUIApp;
 namespace ShowUI
 {
     public partial class frmWSUS : Form
@@ -16,8 +16,10 @@ namespace ShowUI
             InitializeComponent();
         }
 
+        string serverIp = "";
         private void frmWSUS_Load(object sender, EventArgs e)
         {
+            serverIp = IniFile.ReadIniFile("DATABASE", "SERVER_NAME", "10.220.130.103,1734", @"F:\lsy\Test\DownloadConfig\AutoDL\SOURCE.ini");
             this.TopMost = true;
             this.Location = new Point(Screen.PrimaryScreen.Bounds.Right - this.Width,
                                       Screen.PrimaryScreen.Bounds.Height - (Screen.PrimaryScreen.Bounds.Height - this.Height + 2));
@@ -54,14 +56,14 @@ namespace ShowUI
             string SqlCheck = $@"select * from [dbo].[PCInfo] where PCName='{Environment.MachineName}'";
             string SqlUpdate = $@"UPDATE [dbo].[PCInfo] SET [Winver] = '{winver}'  WHERE PCName='{Environment.MachineName}'";
 
-            DataTable checkInfo = conn.DataTable_Sql(SqlCheck, "10.224.81.162,1734", "TestLineInfo");
+            DataTable checkInfo = conn.DataTable_Sql(SqlCheck, serverIp, "TestLineInfo");
             if (checkInfo.Rows.Count == 0)
             {
-                // conn.Execute_NonSQL(Sql, "10.224.81.162,1734", "TestLineInfo");
+                // conn.Execute_NonSQL(Sql, "10.220.130.103,1734", "TestLineInfo");
             }
             else
             {
-                conn.Execute_NonSQL(SqlUpdate, "10.224.81.162,1734", "TestLineInfo");
+                conn.Execute_NonSQL(SqlUpdate, serverIp, "TestLineInfo");
             }
         }
 

@@ -112,6 +112,7 @@
             this.FtpLog = new System.Windows.Forms.Timer(this.components);
             this.tmQty = new System.Windows.Forms.Timer(this.components);
             this.tmTemperature = new System.Windows.Forms.Timer(this.components);
+            this.tmCheckATE = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxDebug)).BeginInit();
             this.fPanelHData.SuspendLayout();
@@ -180,7 +181,7 @@
             this.lblRR.AutoSize = true;
             this.lblRR.Font = new System.Drawing.Font("Tahoma", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRR.ForeColor = System.Drawing.Color.Lime;
-            this.lblRR.Location = new System.Drawing.Point(578, 4);
+            this.lblRR.Location = new System.Drawing.Point(581, 4);
             this.lblRR.Name = "lblRR";
             this.lblRR.Size = new System.Drawing.Size(45, 17);
             this.lblRR.TabIndex = 6;
@@ -271,6 +272,7 @@
             this.lblChecksum.Size = new System.Drawing.Size(92, 18);
             this.lblChecksum.TabIndex = 12;
             this.lblChecksum.Text = "ControlRun";
+            this.lblChecksum.MouseHover += new System.EventHandler(this.lblChecksum_MouseHover);
             // 
             // lblSta
             // 
@@ -622,7 +624,7 @@
             this.cableCtrlThayCápToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.rightMenu.Name = "rightMenu";
-            this.rightMenu.Size = new System.Drawing.Size(182, 70);
+            this.rightMenu.Size = new System.Drawing.Size(183, 70);
             this.rightMenu.Opening += new System.ComponentModel.CancelEventHandler(this.rightMenu_Opening);
             // 
             // mnTool
@@ -640,7 +642,7 @@
             this.pathlossErrorListToolStripMenuItem});
             this.mnTool.Image = ((System.Drawing.Image)(resources.GetObject("mnTool.Image")));
             this.mnTool.Name = "mnTool";
-            this.mnTool.Size = new System.Drawing.Size(181, 22);
+            this.mnTool.Size = new System.Drawing.Size(182, 22);
             this.mnTool.Text = "Utilities (Tiện ích)";
             this.mnTool.Click += new System.EventHandler(this.mnTool_Click);
             // 
@@ -739,7 +741,7 @@
             // 
             this.cableCtrlThayCápToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("cableCtrlThayCápToolStripMenuItem.Image")));
             this.cableCtrlThayCápToolStripMenuItem.Name = "cableCtrlThayCápToolStripMenuItem";
-            this.cableCtrlThayCápToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.cableCtrlThayCápToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.cableCtrlThayCápToolStripMenuItem.Text = "CableCtrl (Thay cáp)";
             this.cableCtrlThayCápToolStripMenuItem.Click += new System.EventHandler(this.CableChange_Click);
             // 
@@ -747,7 +749,7 @@
             // 
             this.exitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exitToolStripMenuItem.Image")));
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -960,6 +962,11 @@
             this.tmTemperature.Interval = 14400000;
             this.tmTemperature.Tick += new System.EventHandler(this.Temperature_Tick);
             // 
+            // tmCheckATE
+            // 
+            this.tmCheckATE.Interval = 1800000;
+            this.tmCheckATE.Tick += new System.EventHandler(this.tmCheckATE_Tick);
+            // 
             // showUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -1093,6 +1100,7 @@
         private System.Windows.Forms.Label label4;
         public System.Windows.Forms.Timer tmQty;
         private System.Windows.Forms.Timer tmTemperature;
+        private System.Windows.Forms.Timer tmCheckATE;
     }
 }
 

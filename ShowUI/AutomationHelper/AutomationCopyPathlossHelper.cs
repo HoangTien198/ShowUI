@@ -88,7 +88,7 @@ namespace ShowUI.AutomationHelper
             Connect117 conn = new Connect117();
             string sql = $@"INSERT INTO dbo.PathLoss(Dotname,Station,PCName,DateTest,DataPathLoss,FilePathLoss,TimeUpload,TimePathloss,IsPass)
                             VALUES('{Model}','{Station}','{PCName}','{DateTime.Now.ToString("yyyyMMdd")}','{Data}','{FilePathloss}','{DateTime.Now}','{datePathlossFile}','{status}')";
-            int a = conn.Execute_NonSQL(sql, "10.224.81.162,1734");
+            int a = conn.Execute_NonSQL(sql, "10.224.81.133,1734");
         }
 
         public void UpdateRecordDb(string Model, string Station, string Data, string FileName)
@@ -96,7 +96,7 @@ namespace ShowUI.AutomationHelper
             Connect117 conn = new Connect117();
             string sql = $@"INSERT INTO RecordPathloss(Dotname,Station,PCName,DateTest,TimeUpload,FileName,RecordPathloss)
                             VALUES('{Model}','{Station}','{Environment.MachineName}','{DateTime.Now.ToString("yyyyMMdd")}','{DateTime.Now}','{FileName}','{Data}')";
-            int a = conn.Execute_NonSQL(sql, "10.224.81.162,1734");
+            int a = conn.Execute_NonSQL(sql, "10.224.81.133,1734");
         }
 
         public void UploadFile(string Localpath, string Serverpath, string UserId, string Password)
@@ -176,7 +176,7 @@ namespace ShowUI.AutomationHelper
                             and PCName= '{PCName}'
                             and FilePathLoss= '{PathLossFileName}'
                             order by TimeUpload desc";
-                var dt = conn.DataTable_Sql(sql, "10.224.81.162,1734");
+                var dt = conn.DataTable_Sql(sql, "10.224.81.133,1734");
                 string hutt = "";
                 if (dt.Rows.Count > 0)
                 {
@@ -405,7 +405,7 @@ namespace ShowUI.AutomationHelper
                             and PCName= '{PCName}'
                             and FilePathLoss= '{PathLossFileName}'
                             order by TimeUpload desc";
-            var dt = conn.DataTable_Sql(sql, "10.224.81.162,1734");
+            var dt = conn.DataTable_Sql(sql, "10.224.81.133,1734");
             //var data = dt.AsEnumerable();//.Select(x => x.Field<int>("DataPathLoss")).FirstOrDefault();
             string hutt = "";
             if (dt.Rows.Count > 0)
@@ -479,7 +479,7 @@ namespace ShowUI.AutomationHelper
                             set Status = '{Status}'
                             where Dotname='{DotName}' and Station='{Station}'
                             and DateTest='{_now}' and Shift={shift} and PCName='{Environment.MachineName}'";
-            conn.Execute_NonSQL(_sql, "10.224.81.162,1734");
+            conn.Execute_NonSQL(_sql, "10.224.81.133,1734");
         }
 
         public int CheckDataShift(string DotName, string Station)
@@ -495,7 +495,7 @@ namespace ShowUI.AutomationHelper
                             and Shift={shift}
                             and DateTest ='{_now}'";
             Connect117 conn = new Connect117();
-            DataTable dt = conn.DataTable_Sql(sql, "10.224.81.162,1734");
+            DataTable dt = conn.DataTable_Sql(sql, "10.224.81.133,1734");
             if (dt.Rows.Count > 0)
             {
                 return 1;
@@ -504,7 +504,7 @@ namespace ShowUI.AutomationHelper
             {
                 string _sqlInsert = $@"INSERT INTO PathlossByShift (Dotname,Station,PCName,DateTest,Shift,Status)
                                      VALUES('{DotName}','{Station}','{Environment.MachineName}','{_now}',{shift},'Pass')";
-                conn.Execute_NonSQL(_sqlInsert, "10.224.81.162,1734");
+                conn.Execute_NonSQL(_sqlInsert, "10.224.81.133,1734");
                 return 0;
             }
         }

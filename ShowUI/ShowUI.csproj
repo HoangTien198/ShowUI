@@ -77,9 +77,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\AutoDL\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\lsy\Test\DownloadConfig\AutoDL\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -272,6 +272,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\SFIS_QZ\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SFIS_QZ_80\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Compile Include="Web References\SvFPS\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -292,6 +302,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmEmpAuthentication.resx">
       <DependentUpon>frmEmpAuthentication.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLocking.resx">
       <DependentUpon>frmLocking.cs</DependentUpon>
@@ -395,6 +406,16 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\SFISB05_SV\Servicepostdata.wsdl" />
+    <None Include="Web References\SFIS_QZ\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SFIS_QZ\Servicepostdata.wsdl" />
+    <None Include="Web References\SFIS_QZ_80\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SFIS_QZ_80\Servicepostdata.wsdl" />
     <None Include="Web References\SvFPS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -402,6 +423,8 @@
     <None Include="Web References\SvFPS\WebService.wsdl" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Web References\SFIS_QZ_80\Servicepostdata.disco" />
+    <None Include="Web References\SFIS_QZ\Servicepostdata.disco" />
     <None Include="Web References\ATE_CHECKLIST\WebService.disco" />
     <None Include="Web References\ISCB05_Service\B05_Service.disco" />
     <None Include="Web References\ISC_Service\Servicepostdata.disco" />
@@ -445,6 +468,28 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
+    <WebReferenceUrl Include="http://10.220.130.104:8080/">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SFIS_QZ\</RelPath>
+      <UpdateFromURL>http://10.220.130.104:8080/</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>ShowUI_SFIS_QZ_Servicepostdata</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://10.220.130.80:8080/">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SFIS_QZ_80\</RelPath>
+      <UpdateFromURL>http://10.220.130.80:8080/</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>ShowUI_SFIS_QZ_80_Servicepostdata</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="http://10.224.81.154/service/Servicepostdata.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\GET_ATE_SUM_TESTED_DUT\</RelPath>
@@ -456,10 +501,10 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>ShowUI4_6_GET_ATE_SUM_TESTED_DUT_Servicepostdata</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://10.224.81.166/pckpi/Service/WebService.asmx">
+    <WebReferenceUrl Include="http://10.224.81.167/pckpi/Service/WebService.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\ATE_CHECKLIST\</RelPath>
-      <UpdateFromURL>http://10.224.81.166/pckpi/Service/WebService.asmx</UpdateFromURL>
+      <UpdateFromURL>http://10.224.81.167/pckpi/Service/WebService.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

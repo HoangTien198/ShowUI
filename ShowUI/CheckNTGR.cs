@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using ShowUI.Common;
 using System.Data;
+using ShowUIApp;
 
 namespace ShowUI
 {
@@ -8,14 +9,16 @@ namespace ShowUI
     {
         private ShowUI.Utilities ul = new ShowUI.Utilities();
 
+        string serverIp = "";
         public int CheckModel()
         {
             try
             {
+                serverIp = IniFile.ReadIniFile("DATABASE", "SERVER_NAME", "10.220.130.103,1734", @"F:\lsy\Test\DownloadConfig\AutoDL\SOURCE.ini");
                 string ModelName = ul.GetProduct();
                 string checkNetgearSql = $"select * from ProjectName where ProjectName ='{ModelName}'";
                 ConnectShowUI connCheckNt = new ConnectShowUI();
-                DataTable checkNt = connCheckNt.DataTable_Sql(checkNetgearSql, "10.224.81.162,1734");
+                DataTable checkNt = connCheckNt.DataTable_Sql(checkNetgearSql, serverIp);
                 if (checkNt.Rows.Count > 0)
                 {
                     return 1;
@@ -35,11 +38,12 @@ namespace ShowUI
         {
             try
             {
+                serverIp = IniFile.ReadIniFile("DATABASE", "SERVER_NAME", "10.220.130.103,1734", @"F:\lsy\Test\DownloadConfig\AutoDL\SOURCE.ini");
                 string ModelName = ul.GetProduct();
                 string Station = ul.GetStation();
                 string checkLockSql = $"select * from LockShowUITE where Model ='{ModelName}' and Station='{Station}' and Lock = 1";
                 ConnectShowUI connCheckNt = new ConnectShowUI();
-                DataTable checkNt = connCheckNt.DataTable_Sql(checkLockSql, "10.224.81.162,1734");
+                DataTable checkNt = connCheckNt.DataTable_Sql(checkLockSql, serverIp);
                 if (checkNt.Rows.Count > 0)
                 {
                     return 1;
@@ -59,11 +63,12 @@ namespace ShowUI
         {
             try
             {
+                serverIp = IniFile.ReadIniFile("DATABASE", "SERVER_NAME", "10.220.130.103,1734", @"F:\lsy\Test\DownloadConfig\AutoDL\SOURCE.ini");
                 string ModelName = ul.GetProduct();
                 string Station = ul.GetStation();
                 string checkLockSql = $"select * from LockShowUITE where Model ='{ModelName}' and Station='{Station}' and LockSampling = 1 ";
                 ConnectShowUI connCheckNt = new ConnectShowUI();
-                DataTable checkNt = connCheckNt.DataTable_Sql(checkLockSql, "10.224.81.162,1734");
+                DataTable checkNt = connCheckNt.DataTable_Sql(checkLockSql, serverIp);
                 if (checkNt.Rows.Count > 0)
                 {
                     return false;
@@ -83,11 +88,12 @@ namespace ShowUI
         {
             try
             {
+                serverIp = IniFile.ReadIniFile("DATABASE", "SERVER_NAME", "10.220.130.103,1734", @"F:\lsy\Test\DownloadConfig\AutoDL\SOURCE.ini");
                 string ModelName = ul.GetProduct();
                 string Station = ul.GetStation();
                 string checkLockSql = $"select top 1 TimeLock from LockShowUITE where Model ='{ModelName}' and Station='{Station}' and Lock = 1";
                 ConnectShowUI connCheckNt = new ConnectShowUI();
-                DataTable checkNt = connCheckNt.DataTable_Sql(checkLockSql, "10.224.81.162,1734");
+                DataTable checkNt = connCheckNt.DataTable_Sql(checkLockSql, serverIp);
 
                 if (checkNt.Rows.Count > 0)
                 {
@@ -109,11 +115,12 @@ namespace ShowUI
         {
             try
             {
+                serverIp = IniFile.ReadIniFile("DATABASE", "SERVER_NAME", "10.220.130.103,1734", @"F:\lsy\Test\DownloadConfig\AutoDL\SOURCE.ini");
                 string ModelName = ul.GetProduct();
                 string Station = ul.GetStation();
                 string checkLockSql = $"select top 1 ConfigLock from LockShowUITE where Model ='{ModelName}' and Station='{Station}' and Lock = 1";
                 ConnectShowUI connCheckNt = new ConnectShowUI();
-                DataTable checkNt = connCheckNt.DataTable_Sql(checkLockSql, "10.224.81.162,1734");
+                DataTable checkNt = connCheckNt.DataTable_Sql(checkLockSql, serverIp);
                 if (checkNt.Rows.Count > 0)
                 {
                     var data = JsonConvert.DeserializeObject<ConfigLockModal>(checkNt.Rows[0][0].ToString());

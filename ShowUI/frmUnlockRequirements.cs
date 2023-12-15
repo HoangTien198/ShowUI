@@ -99,7 +99,7 @@ namespace ShowUI
             DbHHEmp hhEmp = new DbHHEmp();
             try
             {
-                int ex = hhEmp.Execute_NonSQL(sql, "10.224.81.162,1734");
+                int ex = hhEmp.Execute_NonSQL(sql, serverIp);
                 this.DialogResult = DialogResult.OK;
             }
             catch (Exception)
@@ -113,7 +113,7 @@ namespace ShowUI
             string queryEmp = "select * from Employee where HonHaiCode = '" + txtUser.Text.Trim() + "' and PassWord = '" + txtPass.Text.Trim() + "'";
 
             DbHHEmp hhEmp = new DbHHEmp();
-            DataTable dt = hhEmp.DataTable_Sql(queryEmp, "10.224.81.162,1734");
+            DataTable dt = hhEmp.DataTable_Sql(queryEmp, serverIp);
             if (dt.Rows.Count == 0)
             {
                 return false;
@@ -167,9 +167,10 @@ namespace ShowUI
                 this.Close();
             }
         }
-
+        string serverIp = "";
         private void frmUnlockRequirements_Load(object sender, EventArgs e)
         {
+            serverIp = IniFile.ReadIniFile("DATABASE", "SERVER_NAME", "10.220.130.103,1734", @"F:\lsy\Test\DownloadConfig\AutoDL\SOURCE.ini");
             txtUser.Text = "V0974919";
             txtPass.Text = "123456";
             this.TopMost = true;

@@ -92,7 +92,7 @@ namespace ShowUI
      VALUES('{tbEmp.Text}','{model}','{station}','{Environment.MachineName}','{cbType}','{dateChange}','{timeChange}','{cbLife}','{cbUseTime}','{resion}')";
             try
             {
-                string stringConn = @"Data Source=10.224.81.162,1734;Initial Catalog=CableDB;uid=sa;pwd=********;";
+                string stringConn = @"Data Source=10.220.130.103,1734;Initial Catalog=CableDB;uid=sa;pwd=********;";
                 SqlConnection conn = new SqlConnection(stringConn);
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 int row = 0;

@@ -25,7 +25,8 @@ namespace ShowUI
         private string stationInfo = "";
         private string srPath = "";
         private string rateFix = "";
-        private ShowUI.SFISB05_SV.Servicepostdata objSfisSv = new ShowUI.SFISB05_SV.Servicepostdata();
+        //private ShowUI.SFISB05_SV.Servicepostdata objSfisSv = new ShowUI.SFISB05_SV.Servicepostdata();
+        private ShowUI.SFIS_QZ_80.Servicepostdata objSfisSv = new ShowUI.SFIS_QZ_80.Servicepostdata();
         private bool isUpdateQtyFinish = true;
 
         //bool isFinishThread = false;

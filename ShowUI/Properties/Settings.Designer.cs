@@ -12,7 +12,7 @@ namespace ShowUI.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -114,10 +114,30 @@ namespace ShowUI.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://10.224.81.166/pckpi/Service/WebService.asmx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.224.81.167/pckpi/Service/WebService.asmx")]
         public string ShowUI_ATE_CHECKLIST_WebService {
             get {
                 return ((string)(this["ShowUI_ATE_CHECKLIST_WebService"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.220.130.104:8080/Servicepostdata.asmx")]
+        public string ShowUI_SFIS_QZ_Servicepostdata {
+            get {
+                return ((string)(this["ShowUI_SFIS_QZ_Servicepostdata"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.220.130.80:8080/Servicepostdata.asmx")]
+        public string ShowUI_SFIS_QZ_80_Servicepostdata {
+            get {
+                return ((string)(this["ShowUI_SFIS_QZ_80_Servicepostdata"]));
             }
         }
     }
