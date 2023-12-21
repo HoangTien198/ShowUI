@@ -92,7 +92,7 @@
             this.toolTipVirus = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipUSB = new System.Windows.Forms.ToolTip(this.components);
             this.timerEnableTimer = new System.Windows.Forms.Timer(this.components);
-            this.label1 = new System.Windows.Forms.Label();
+            this.label_IP = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lbMTPVer = new System.Windows.Forms.Label();
             this.lbMTP = new System.Windows.Forms.Label();
@@ -298,6 +298,7 @@
             // 
             // UpdateYR
             // 
+            this.UpdateYR.Enabled = true;
             this.UpdateYR.Interval = 6000;
             this.UpdateYR.Tick += new System.EventHandler(this.UpdateYR_Tick);
             // 
@@ -624,7 +625,7 @@
             this.cableCtrlThayCápToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.rightMenu.Name = "rightMenu";
-            this.rightMenu.Size = new System.Drawing.Size(183, 70);
+            this.rightMenu.Size = new System.Drawing.Size(182, 70);
             this.rightMenu.Opening += new System.ComponentModel.CancelEventHandler(this.rightMenu_Opening);
             // 
             // mnTool
@@ -642,7 +643,7 @@
             this.pathlossErrorListToolStripMenuItem});
             this.mnTool.Image = ((System.Drawing.Image)(resources.GetObject("mnTool.Image")));
             this.mnTool.Name = "mnTool";
-            this.mnTool.Size = new System.Drawing.Size(182, 22);
+            this.mnTool.Size = new System.Drawing.Size(181, 22);
             this.mnTool.Text = "Utilities (Tiện ích)";
             this.mnTool.Click += new System.EventHandler(this.mnTool_Click);
             // 
@@ -741,7 +742,7 @@
             // 
             this.cableCtrlThayCápToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("cableCtrlThayCápToolStripMenuItem.Image")));
             this.cableCtrlThayCápToolStripMenuItem.Name = "cableCtrlThayCápToolStripMenuItem";
-            this.cableCtrlThayCápToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.cableCtrlThayCápToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.cableCtrlThayCápToolStripMenuItem.Text = "CableCtrl (Thay cáp)";
             this.cableCtrlThayCápToolStripMenuItem.Click += new System.EventHandler(this.CableChange_Click);
             // 
@@ -749,7 +750,7 @@
             // 
             this.exitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exitToolStripMenuItem.Image")));
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -810,17 +811,17 @@
             this.timerEnableTimer.Enabled = true;
             this.timerEnableTimer.Tick += new System.EventHandler(this.timerEnableTimer_Tick);
             // 
-            // label1
+            // label_IP
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Arial", 16.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(350, 37);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 26);
-            this.label1.TabIndex = 35;
-            this.label1.Text = "label1";
-            this.label1.Visible = false;
+            this.label_IP.AutoSize = true;
+            this.label_IP.Font = new System.Drawing.Font("Arial", 16.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_IP.ForeColor = System.Drawing.Color.Blue;
+            this.label_IP.Location = new System.Drawing.Point(350, 37);
+            this.label_IP.Name = "label_IP";
+            this.label_IP.Size = new System.Drawing.Size(39, 26);
+            this.label_IP.TabIndex = 35;
+            this.label_IP.Text = "IP:";
+            this.label_IP.Visible = false;
             // 
             // panel2
             // 
@@ -940,7 +941,6 @@
             // 
             // CheckAntivirut
             // 
-            this.CheckAntivirut.Enabled = true;
             this.CheckAntivirut.Interval = 5000;
             this.CheckAntivirut.Tick += new System.EventHandler(this.CheckAntivirut_Tick);
             // 
@@ -971,7 +971,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
+            this.BackColor = System.Drawing.Color.LavenderBlush;
             this.ClientSize = new System.Drawing.Size(1018, 79);
             this.ContextMenuStrip = this.rightMenu;
             this.Controls.Add(this.fPanelHData);
@@ -979,7 +979,7 @@
             this.Controls.Add(this.fPanelDate);
             this.Controls.Add(this.flowPanel);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label_IP);
             this.Controls.Add(this.btnCall);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1046,7 +1046,7 @@
         private System.Windows.Forms.ToolStripMenuItem cableCtrlThayCápToolStripMenuItem;
         public System.Windows.Forms.Timer CheckUpdate;
         public System.Windows.Forms.Timer timerEnableTimer;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label_IP;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lbMTP;
         private System.Windows.Forms.Label lbMTPVer;

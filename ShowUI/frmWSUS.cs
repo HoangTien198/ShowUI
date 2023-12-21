@@ -25,26 +25,29 @@ namespace ShowUI
                                       Screen.PrimaryScreen.Bounds.Height - (Screen.PrimaryScreen.Bounds.Height - this.Height + 2));
             string valueUpdateOSReg = "";
             string valueWinverion = "";
-            RegistryKey UpdateOSReg = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate", true);
-            RegistryKey Winverion = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion", true);
+            
             try
             {
+                RegistryKey UpdateOSReg = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate", true);
+                RegistryKey Winverion = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion", true);
                 valueUpdateOSReg = UpdateOSReg.GetValue("WUServer", "").ToString().Replace("http://", "").Replace(":8530", "");
+
+                valueWinverion = Winverion.GetValue("DisplayVersion", "").ToString();
+                if (valueWinverion.Trim().Length == 0)
+                {
+                    valueWinverion = Winverion.GetValue("ReleaseId", "").ToString();
+                }
+                label1.Text = "Winver: " + valueWinverion + " - WSUS: " + valueUpdateOSReg;
+                if (valueWinverion.Trim().Length > 0)
+                {
+                    InsertWinver(valueWinverion);
+                }
             }
             catch (Exception ex)
             {
                 valueUpdateOSReg = "";
             }
-            valueWinverion = Winverion.GetValue("DisplayVersion", "").ToString();
-            if (valueWinverion.Trim().Length == 0)
-            {
-                valueWinverion = Winverion.GetValue("ReleaseId", "").ToString();
-            }
-            label1.Text = "Winver: " + valueWinverion + " - WSUS: " + valueUpdateOSReg;
-            if (valueWinverion.Trim().Length > 0)
-            {
-                InsertWinver(valueWinverion);
-            }
+            
         }
 
         public void InsertWinver(string winver)

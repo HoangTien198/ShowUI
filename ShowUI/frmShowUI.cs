@@ -24,6 +24,10 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using static System.Collections.Specialized.BitVector32;
+using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
+using static ShowUIApp.showUI;
 
 namespace ShowUIApp
 {
@@ -123,6 +127,7 @@ namespace ShowUIApp
                 catch (Exception e)
                 {
                     lines = null;
+                    event_log($"checkPort445 Exception: ${e}");
                 }
 
                 if (lines != null)
@@ -149,8 +154,9 @@ namespace ShowUIApp
                                 tcpclient.Connect(i, 445);
                                 return true;
                             }
-                            catch (Exception)
+                            catch (Exception e)
                             {
+                                
                             }
                         }
                     }
@@ -204,8 +210,9 @@ namespace ShowUIApp
                         }
                         Process.Start(@"D:\AutoDl\Security445\SecurityIT.exe");
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
+                        event_log($"Insert445 check445 Exception: ${e}");
                     }
                     label4.Show();
                     label4.Visible = true;
@@ -228,8 +235,9 @@ namespace ShowUIApp
                     conn.Execute_NonSQL(sql, serverIp);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                event_log($"Insert445 Exception: ${e}");
             }
         }
 
@@ -388,7 +396,7 @@ namespace ShowUIApp
             var host = Dns.GetHostEntry(Dns.GetHostName()).AddressList.Where(x => x.AddressFamily == AddressFamily.InterNetwork).ToList();
             foreach (var ip in host)
             {
-                if (ip.ToString().Contains("138.101") || ip.ToString().Contains("172.16")) return ip.ToString();
+                if (ip.ToString().Contains("138.101") || ip.ToString().Contains("172.18")) return ip.ToString();
             }
 
             return "";
@@ -566,8 +574,9 @@ namespace ShowUIApp
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                event_log($"LockFail3in10 Exception: ${e}");
             }
         }
 
@@ -865,6 +874,8 @@ namespace ShowUIApp
 
         private void showUI_Load(object sender, EventArgs e)
         {
+            this.TransparencyKey = Color.LavenderBlush;
+
             serverIp = IniFile.ReadIniFile("DATABASE", "SERVER_NAME", "10.220.130.103,1734", @"F:\lsy\Test\DownloadConfig\AutoDL\SOURCE.ini");
             //string strshiftDate = ul.checkDateShift();
             Random rd = new Random();
@@ -882,6 +893,10 @@ namespace ShowUIApp
             Thread _checkCorrectStation = new Thread(CheckStationCorrectPCName);
             _checkCorrectStation.IsBackground = true;
             _checkCorrectStation.Start();
+
+            Thread _tSamplingControl = new Thread(SamplingControl);
+            _tSamplingControl.IsBackground = true;
+            _tSamplingControl.Start();
 
             #region timerCounter
 
@@ -1233,7 +1248,22 @@ namespace ShowUIApp
 
                 //checkValueCurrent();
 
-                lblStation.Text = sName;
+                //2023-06-36
+                //lblStation.Text = sName;
+                if (!CheckStationName())
+                {
+                    if (!IsWindowsShown("Station Name Error"))
+                    {
+                        lblStation.Text = sName;
+                        MessageBox.Show("AutoDL Station and Local Station do not match. Please call TE to change Local Station name!", "Station Name Error");
+                    }
+                }
+                else
+                {
+                    lblStation.Text = sName;
+                }
+
+
                 if (NetWorkConnection)
                 {
                     ModelConfig = new IniFile(@"F:\lsy\Test\DownloadConfig\ModelConfig.ini");
@@ -1497,7 +1527,68 @@ namespace ShowUIApp
         }
 
         private string globalUsedMode = "0";
+        // 2023-06-24 Add check correct MachineName with Station AutoDL
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern int GetWindowText(IntPtr hWnd, out string lpString, int nMaxCount);
+        public bool IsWindowsShown(string title)
+        {
+            IntPtr hWnd = FindWindow(null, title);
+            if (hWnd != IntPtr.Zero)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool CheckStationName()
+        {
+            try
+            {
+                string cDirectory = Directory.GetCurrentDirectory();
+                if (File.Exists(Path.Combine(cDirectory, "nocheckname.txt")))
+                {
+                    return true;
+                }
+
+                const string StationName_key = @"SOFTWARE\Netgear\AutoDL";
+                using (RegistryKey key = Registry.LocalMachine.OpenSubKey(StationName_key, true))
+                {
+                    if (key == null)
+                    {
+                        return false;
+                    }
+
+                    string stationValue = key.GetValue("STATION")?.ToString()?.Trim();
+                    if (string.IsNullOrEmpty(stationValue))
+                    {
+                        key.SetValue("STATION", ul.GetStation());
+                        stationValue = key.GetValue("STATION")?.ToString()?.Trim();
+                    }
+                    char[] specialChars = { '-', '_', '+', '=', '|', ',', '.' };
+
+                    string[] stationNames = stationValue.Split(specialChars, StringSplitOptions.RemoveEmptyEntries);
+
+                    foreach (string stationName in stationNames)
+                    {
+                        if (sName.Contains(stationName))
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                event_log("Check AutoDL Station and Local Station Error: " + ex.Message);
+                return false;
+            }
+        }
         public void downLoadDll()
         {
             try
@@ -2250,14 +2341,36 @@ namespace ShowUIApp
 
         protected string GetCableCtrlTimesPath()
         {
-            string Station = ul.GetStation();
+            RegistryKey rAutoDL = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Netgear\AutoDL", true);
+            string CtrlCableUsetimesPath = rAutoDL.GetValue("LOCAL_PATH", "") + "CableCtrlTime.ini";
+            try
+            {
+
+                if (File.Exists(CtrlCableUsetimesPath))
+                {
+                    return CtrlCableUsetimesPath;
+                }
+                else
+                {
+                    event_log("GetCableCtrlTimesPath: Not Exist CableCtrlTime.ini file: " + CtrlCableUsetimesPath);
+                    return string.Empty;
+                }
+            }
+            catch (Exception e)
+            {
+                event_log("GetCableCtrlTimesPath Exception: " + e.ToString());
+                return string.Empty;
+            }
+        }
+        protected string GetCableCtrlTimesPath_Backup()
+        {
             string Product = ul.GetProduct();
+            string Station = ul.GetStation();
             string sfisModel = ul.GetModel().Trim();
             Station = Station.ToUpper();
             string tmpPathDownloadConfig = @"F:\lsy\Test\DownloadConfig\" + Product + ".ini";
             string tmpPathProduct = "";
             string CtrlCableUsetimesPath = "";
-            //_OpenKey = Registry.LocalMachine.OpenSubKey(SubKey);
 
             try
             {
@@ -2270,10 +2383,9 @@ namespace ShowUIApp
                     CtrlCableUsetimesPath = tmpPathProduct + "CableCtrlTime.ini";
 
                     if (File.Exists(CtrlCableUsetimesPath))
-
                         CtrlCableUsetimesPath = tmpPathProduct + "CableCtrlTime.ini";
-                    else
-                        event_log("GetCableCtrlTimesPath: Cant get content of CableCtrlTime.ini file: SectionModel = " + SectionModel + " Station = " + Station + " > " + CtrlCableUsetimesPath);
+                    //else
+                    //    event_log("GetCableCtrlTimesPath: Cant get content of CableCtrlTime.ini file: SectionModel = " + SectionModel + " Station = " + Station + " > " + CtrlCableUsetimesPath);
                 }
                 else
                 {
@@ -2288,35 +2400,28 @@ namespace ShowUIApp
             }
             return CtrlCableUsetimesPath;
         }
-
-        protected int GetNumOfCable()
+        protected int GetNumOfCable(string CtrTimePath = "")
         {
-            int NumCable = 1;
-            string CtrTimePath = GetCableCtrlTimesPath();
-            int bufferCable;
-            if (File.Exists(CtrTimePath))
+            if (string.IsNullOrEmpty(CtrTimePath)) CtrTimePath = GetCableCtrlTimesPath();
+
+            if (!string.IsNullOrEmpty(CtrTimePath)) // Get path OK
             {
-                string cbn = IniFile.ReadIniFile("ConnectControl", "TotalCable ", "f", CtrTimePath);
-                //MessageBox.Show(cbn + "<<");
+                string TotalCable = IniFile.ReadIniFile("ConnectControl", "TotalCable ", "0", CtrTimePath);
                 try
                 {
-                    Int32.TryParse(cbn, out NumCable);
-                    bufferCable = NumCable;
+                    return int.Parse(TotalCable);
                 }
                 catch (Exception)
                 {
                     event_log("GetNumOfCable Exception:  " + CtrTimePath + " has wrong config");
+                    return 1;
                 }
             }
-            else
+            else // Get path fail
             {
-                // fake cable = 1
-                NumCable = 1;
-
                 event_log("GetNumOfCable :  " + CtrTimePath + " not exist");
+                return 1;
             }
-
-            return NumCable;
         }
 
         protected string GetProductPath()
@@ -2330,41 +2435,77 @@ namespace ShowUIApp
 
             try
             {
-                keys = Registry.LocalMachine.OpenSubKey(KeyPlace, true);
+                /* 2023-04-21 */
+                //keys = Registry.LocalMachine.OpenSubKey(KeyPlace, true);
+                keys = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\ShowUI\Cable", true);
+                /* --- */
                 if (keys == null)
                 {
-                    keys = Registry.LocalMachine.OpenSubKey(OpenSubKey + @"\" + Product, true);
+                    /* 2023-04-21 */
+                    //keys = Registry.LocalMachine.OpenSubKey(OpenSubKey + @"\" + Product, true);
+                    keys = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\ShowUI", true);
+                    /* --- */
                     if (keys == null)
                     {
-                        keys = Registry.LocalMachine.OpenSubKey(OpenSubKey, true);
-                        keys.CreateSubKey(Product);
-                        keys = Registry.LocalMachine.OpenSubKey(OpenSubKey + @"\" + Product, true);
-                        keys.CreateSubKey(Stattion);
-                        keys = Registry.LocalMachine.OpenSubKey(KeyPlace, true);
+                        /* 2023-04-21 */
+                        //keys = Registry.LocalMachine.OpenSubKey(OpenSubKey, true);
+                        //keys.CreateSubKey(Product);
+                        //keys = Registry.LocalMachine.OpenSubKey(OpenSubKey + @"\" + Product, true);
+                        //keys.CreateSubKey(Stattion);
+                        //keys = Registry.LocalMachine.OpenSubKey(KeyPlace, true);
+
+                        keys = Registry.LocalMachine.OpenSubKey(@"SOFTWARE", true);
+                        keys.CreateSubKey("ShowUI");
+                        keys = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\ShowUI", true);
+                        keys.CreateSubKey("Cable");
+                        keys = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\ShowUI\Cable", true);
+                        /* --- */
+
+                        NumOfCable = 1;
                         for (int i = 0; i < NumOfCable; i++)
                         {
                             keys.SetValue("Cable" + i, "0");
+                            keys.SetValue("SpecCable" + i, "5000");
                         }
                     }
                     else
                     {
-                        keys = Registry.LocalMachine.OpenSubKey(OpenSubKey + @"\" + Product, true);
-                        keys.CreateSubKey(Stattion);
-                        keys = Registry.LocalMachine.OpenSubKey(KeyPlace, true);
+                        /* 2023-04-21 */
+                        //keys = Registry.LocalMachine.OpenSubKey(OpenSubKey + @"\" + Product, true);
+                        //keys.CreateSubKey(Stattion);
+                        //keys = Registry.LocalMachine.OpenSubKey(KeyPlace, true);
+
+                        keys = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\ShowUI", true);
+                        keys.CreateSubKey("Cable");
+                        keys = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\ShowUI\Cable", true);
+                        /* --- */
                         //newKeyCreate = keys.CreateSubKey(Station);
+                        NumOfCable = 1;
                         for (int i = 0; i < NumOfCable; i++)
                         {
                             keys.SetValue("Cable" + i, "0");
+                            keys.SetValue("SpecCable" + i, "5000");
                         }
                     }
                 }
                 else
                 {
                     // keys = Registry.LocalMachine.OpenSubKey(KeyPlace, true);
+                    NumOfCable = 1;
                     for (int i = 0; i < NumOfCable; i++)
                     {
                         int tmpVal = GetConnectorUsingTimes("Cable" + i);
+                        int spaceVal = 5000;
+
+                        try
+                        {
+                            spaceVal = GetConnectorUsingTimes("SpecCable" + i);
+                            if (spaceVal == 0) spaceVal = 5000;
+                        }
+                        catch { }
+
                         keys.SetValue("Cable" + i, tmpVal.ToString());
+                        keys.SetValue("SpecCable" + i, spaceVal.ToString());
                     }
                 }
                 ProductPath = KeyPlace;
@@ -2386,217 +2527,123 @@ namespace ShowUIApp
         private ShowUI.ATE_CHECKLIST.WebService SvConnectorsUseTimes = new ShowUI.ATE_CHECKLIST.WebService();
         private int tenp = 0;
 
+
+        private string rKeyCable = @"SOFTWARE\ShowUI\Cable";
+        private List<string> listCableName;
+        private List<int> listCableSpec;
+        private List<int> listCableUseTime;
+        private List<string> listCableNameFake = new List<string>()
+        {
+            "USB_Cable",
+            "RF1_Cable",
+            "RF3_Cable",
+            "LAN1_Cable",
+            "Power_Cable",
+            "RF2_Cable",
+            "LAN2_Cable",
+            "USB1_Cable",
+            "Ethernet1_Cable",
+            "RF4_Cable",
+            "Ethernet2_Cable",
+            "Coxial_Cable"
+        };
+
         protected void CableStatus()
         {
-            isUpdateConnectorUsingTimesDone = true;
-            event_log("CableStatus Start OK -> CheckCableStatus " + CheckCableStatus.ToString());
-            while (true)
+            try
             {
-                try
+                //event_log("CheckCableStatus " + CheckCableStatus.ToString());
+                if (CheckCableStatus)
                 {
-                    if (isUpdateConnectorUsingTimesDone)
+                    timerBlinkCable.Enabled = false;
+
+                    string CtrlCableUsetimesPath = GetCableCtrlTimesPath();
+                    int NumOfCable = GetNumOfCable(CtrlCableUsetimesPath);
+
+                    listCableName = new List<string>();
+                    listCableSpec = new List<int>();
+                    listCableUseTime = new List<int>();
+
+                    for (int i = 0; i < NumOfCable; i++)
                     {
-                        isUpdateConnectorUsingTimesDone = false;
-                        if (CheckCableStatus)
+                        string rCabbleUseTime = $"Cable_{i}";
+                        string cableUseTime = Registry.LocalMachine.OpenSubKey(rKeyCable, true).GetValue(rCabbleUseTime, "").ToString();
+                        /* --- */
+
+                        if (string.IsNullOrEmpty(cableUseTime))
                         {
-                            //isUpdateConnectorUsingTimesDone = false;
-                            //int NumOfCable = GetNumOfCable();
-                            string CtrlCableUsetimesPath = GetCableCtrlTimesPath();
-                            string ProductPath = GetProductPath();
-                            MainInfo[0] = GetLineOfTester().Trim();
-                            MainInfo[1] = ul.GetStation().Trim();
-                            MainInfo[2] = sName;
-                            MainInfo[3] = client_ip;
-                            MainInfo[4] = ul.GetModel().Trim();
-                            MainInfo[5] = ul.GetProduct().Trim();
-                            _OpenKey = Registry.LocalMachine.OpenSubKey(subkey);
+                            Registry.LocalMachine.OpenSubKey(rKeyCable, true).SetValue(rCabbleUseTime, "0");
+                        }
 
-                            timerBlinkCable.Enabled = false;
+                        string cableNameFake = (i > listCableNameFake.Count - 1) ? listCableNameFake[0] : listCableNameFake[i];
+                        string cableName = IniFile.ReadIniFile("CableName", $"Cable_{i}", cableNameFake, CtrlCableUsetimesPath);
+                        string cableSpec = IniFile.ReadIniFile("MaxTimes", $"Cable_{i}", "5000", CtrlCableUsetimesPath);
 
-                            // Khoi tao mang picbox va tooltip
-                            ///Control fControl = null;
+                        if (string.IsNullOrEmpty(cableName)) cableName = listCableNameFake[i];
 
-                            if (_OpenKey != null)
+                        listCableName.Add(cableName);
+                        listCableSpec.Add(int.Parse(cableSpec));
+                        listCableUseTime.Add(int.Parse(cableUseTime));
+                    }
+
+                    BlinkFlag = new int[NumOfCable];
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        for (int i = 0; i < NumOfCable; i++)
+                        {
+                            int UnderSpec = 85 * (listCableSpec[i] / 100);
+                            int UpperSpec = listCableSpec[i];
+                            if (listCableUseTime[i] < UnderSpec)
                             {
-                                //if (CtrlCableUsetimesPath != "")
-                                //{
-                                if (ProductPath != "")
-                                {
-                                    TopMostUseCableName = new string[NumOfCable];
-                                    TopMostUseCableSpec = new string[NumOfCable];
-                                    TopMostUseCableNameUseTimes = new double[NumOfCable];
-                                    //double[] TopPercentageUseTimes = new double[NumOfCable];
-                                    RegistryKey keys = Registry.LocalMachine.OpenSubKey(ProductPath, true);
-                                    int tmpNumOfCable = 0;
-                                    for (int i = 0; i < NumOfCable; i++)
-                                    {
-                                        string cabble = "Cable" + i;
-                                        string UseTimes = keys.GetValue(cabble, "").ToString();
-
-                                        if (UseTimes != "")
-                                        {
-                                            string[] FakeCableName = new string[12] {
-                                                "USB_Cable",
-                                                "RF1_Cable",
-                                                "RF3_Cable",
-                                                "LAN1_Cable",
-                                                "Power_Cable",
-                                                "RF2_Cable",
-                                                "LAN2_Cable",
-                                                "USB1_Cable",
-                                                "Ethernet1_Cable",
-                                                "RF4_Cable",
-                                                "Ethernet2_Cable",
-                                                "Coxial_Cable"
-                                            };
-                                            string CableName = IniFile.ReadIniFile("CableName", "Cable_" + tmpNumOfCable, FakeCableName[0], CtrlCableUsetimesPath);
-                                            if (NumOfCable >= FakeCableName.Length)
-                                            {
-                                                CableName = "ConnectorTimes (" + (i + 1) + ")";
-                                            }
-                                            else
-                                            {
-                                                CableName = IniFile.ReadIniFile("CableName", "Cable_" + tmpNumOfCable, FakeCableName[i], CtrlCableUsetimesPath);
-                                            }
-                                            //MessageBox.Show(CableName);
-                                            TopMostUseCableName[tmpNumOfCable] = CableName;
-                                            string Spec = IniFile.ReadIniFile("MaxTimes", "Cable_" + tmpNumOfCable, "5000", CtrlCableUsetimesPath);
-                                            TopMostUseCableSpec[tmpNumOfCable] = Spec;
-                                            TopMostUseCableNameUseTimes[tmpNumOfCable] = Convert.ToDouble(UseTimes);
-                                            tmpNumOfCable++;
-                                        }
-                                    }
-
-                                    try
-                                    {
-                                        // 3.11.2015 Change to Check Connectors Using Times Via DB, not from Registry
-
-                                        if (UpdateConnectorsUseTime == 1 && ConnectServer63 == "0" && NetWorkConnection == true) // for for case database is freeze then use registry values
-                                        {
-                                            ////MainInfo[0]="L1";
-                                            //double[] NewUseTimes = SvConnectorsUseTimes.ConnectorsUseTimes(MainInfo, TopMostUseCableName, TopMostUseCableNameUseTimes, TopMostUseCableSpec, 0, "", "", "");
-                                            /////* debug cod
-                                            //// *
-                                            ////double[] NewUseTimes = new double[1] { 4900 };
-
-                                            ////if (tenp!=0)
-                                            ////{
-                                            ////    NewUseTimes = new double[1] { 0 };
-                                            ////}
-                                            ////tenp++;
-
-                                            //if (NewUseTimes.Length != 0)
-                                            //{
-                                            //    TopMostUseCableNameUseTimes = NewUseTimes;
-                                            //    //MessageBox.Show(BoolUpdate + "---" + NewUseTimes.Length.ToString());
-                                            //    if (BoolUpdateConnectorUsingTime == "1")
-                                            //    {
-                                            //        for (int i = 0; i < TopMostUseCableNameUseTimes.Length; i++)
-                                            //        {
-                                            //            //MessageBox.Show(BoolUpdate);
-                                            //            keys.SetValue("Cable" + i, TopMostUseCableNameUseTimes[i].ToString());
-                                            //        }
-
-                                            //    }
-                                            //}
-                                        }
-                                    }
-                                    catch (Exception r)
-                                    {
-                                        event_log("ConnectorsUseTimesUpdateInsert: " + r.ToString());
-                                    }
-                                    //
-
-                                    BlinkFlag = new int[tmpNumOfCable];
-                                    NumOfCable = tmpNumOfCable;
-
-                                    this.Invoke((MethodInvoker)delegate
-                                    {
-                                        for (int count = 0; count < NumOfCable; count++)
-                                        {
-                                            int Spec = Convert.ToInt32(TopMostUseCableSpec[count]);
-                                            int UnderSpec = 85 * (Spec / 100);
-                                            int UpperSpec = 100 * (Spec / 100);
-                                            int UseTimes = Convert.ToInt32(TopMostUseCableNameUseTimes[count]);
-
-                                            if (UnderSpec <= UseTimes && UseTimes <= UpperSpec)
-                                            {
-                                                tl[count].ToolTipIcon = ToolTipIcon.Warning;
-                                                pbCable[count].Image = ShowUI.Properties.Resources.yellow;
-                                                BlinkFlag[count] = 888;
-                                            }
-                                            else if (UseTimes < UnderSpec)
-                                            {
-                                                tl[count].ToolTipIcon = ToolTipIcon.Info;
-                                                pbCable[count].Image = ShowUI.Properties.Resources.green;
-                                                BlinkFlag[count] = 888;
-                                            }
-                                            else if (UseTimes > UpperSpec)
-                                            {
-                                                tl[count].ToolTipIcon = ToolTipIcon.Warning;
-                                                pbCable[count].Image = ShowUI.Properties.Resources.red;
-                                                BlinkFlag[count] = count;
-                                                timerBlinkCable.Enabled = true;
-                                                CheckCableStatus = false;
-                                                //MessageBox.Show(pbCable[count], UseTimes + "/" + Spec + "");
-                                            }
-                                            tl[count].ToolTipTitle = TopMostUseCableName[count];
-                                            tl[count].SetToolTip(pbCable[count], UseTimes + "/" + Spec + "");
-                                        }
-                                    });
-                                }
-                                else
-                                {
-                                    this.Invoke((MethodInvoker)delegate
-                                    {
-                                        //else CableCtrl.ini = null
-                                        //NumOfCable = GetNumOfCable();
-                                        BlinkFlag = new int[NumOfCable];
-                                        for (int i = 0; i < NumOfCable; i++)
-                                        {
-                                            BlinkFlag[i] = 888;
-                                        }
-                                        timerCableStatus.Enabled = false;
-                                        timerBlinkCable.Enabled = false;
-                                        // MessageBox.Show("Don't exist file CableCtrlTimes.ini! Không tồn tại file CableCtrlTimes.ini");
-                                    });
-                                }
+                                tl[i].ToolTipIcon = ToolTipIcon.Info;
+                                pbCable[i].Image = ShowUI.Properties.Resources.green;
+                                BlinkFlag[i] = 888;
+                            }
+                            else if (UnderSpec <= listCableUseTime[i] && listCableUseTime[i] < UpperSpec)
+                            {
+                                tl[i].ToolTipIcon = ToolTipIcon.Warning;
+                                pbCable[i].Image = ShowUI.Properties.Resources.yellow;
+                                BlinkFlag[i] = 888;
                             }
                             else
                             {
-                                this.Invoke((MethodInvoker)delegate
+                                tl[i].ToolTipIcon = ToolTipIcon.Warning;
+                                pbCable[i].Image = ShowUI.Properties.Resources.red;
+                                BlinkFlag[i] = i;
+
+                                timerBlinkCable.Enabled = true;
+                                CheckCableStatus = false;
+
+                                string ms = $"Số lần sử dụng cable {listCableName[i]} lớn hơn space ({listCableUseTime[i]}/{UpperSpec}).Gọi TE...";
+                                frmLocking frmlock = new frmLocking("cable", ms, "Login to Unlock", listCableName[i], i.ToString(), listCableName);
+                                if (!lockscreenCheck)
                                 {
-                                    //else _OpenKey/ Station = null
-                                    //NumOfCable = GetNumOfCable();
-                                    BlinkFlag = new int[NumOfCable];
-                                    for (int i = 0; i < NumOfCable; i++)
+                                    frmlock.ShowDialog();
+                                    lockscreenCheck = true;
+                                    if (frmlock.DialogResult == DialogResult.OK)
                                     {
+                                        lockscreenCheck = false;
+                                        CheckCableStatus = true;
+                                        tl[i].ToolTipIcon = ToolTipIcon.Info;
+                                        pbCable[i].Image = ShowUI.Properties.Resources.green;
                                         BlinkFlag[i] = 888;
+
+                                        string cableSpec = Registry.LocalMachine.OpenSubKey(rKeyCable, true).GetValue($"SpecCable_{i}", "").ToString();
+                                        IniFile.WriteValue("MaxTimes", $"Cable_{i}", cableSpec, CtrlCableUsetimesPath);
                                     }
-
-                                    timerCableStatus.Enabled = false;
-                                    timerBlinkCable.Enabled = false;
-                                    // MessageBox.Show("Don't exist station name! Không tồn tại tên trạm testing!");
-                                });
+                                }
                             }
-                            //event_log("CableStatus update OK -> CheckCableStatus " + CheckCableStatus.ToString());
-                            isUpdateConnectorUsingTimesDone = true;
-                        }// end if CheckCableStatus == true
-                        else
-                        {
-                            event_log("CableStatus Update Break OK");
-                            isUpdateConnectorUsingTimesDone = true;
-                            break;
+                            /* --- */
+                            tl[i].ToolTipTitle = listCableName[i];
+                            tl[i].SetToolTip(pbCable[i], listCableUseTime[i] + "/" + listCableSpec[i] + "");
                         }
-                    }
+                    });
                 }
-                catch (Exception)
-                {
-                    event_log("CableStatus Update Exception -> CheckCableStatus " + CheckCableStatus.ToString());
-                }
-
-                Thread.Sleep(2000);
-            }//end while
+            }
+            catch (Exception)
+            {
+                event_log("CableStatus Update Exception -> CheckCableStatus " + CheckCableStatus.ToString());
+            }
         }
 
         private bool isUpdateConnectorUsingTimesDone = true;
@@ -2609,7 +2656,12 @@ namespace ShowUIApp
             try
             {
                 AntiVirusInfo();
-                //CableStatus();
+                this.Invoke((MethodInvoker)delegate
+                {
+                    Thread tThread = new Thread(() => { CableStatus(); });
+                    tThread.Start();
+                    ;
+                });
             }
             catch (Exception)
             {
@@ -2710,7 +2762,10 @@ namespace ShowUIApp
                         //NumOfCable = GetNumOfCable(); ;
 
                         int tmpNumOfCable = 0;
-                        RegistryKey keys = Registry.LocalMachine.OpenSubKey(ProductPath, true);
+                        /* 2023-04-21 */
+                        //RegistryKey keys = Registry.LocalMachine.OpenSubKey(ProductPath, true);
+                        RegistryKey keys = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\ShowUI\Cable", true);
+                        /* --- */
 
                         for (int i = 0; i < NumOfCable; i++)
                         {
@@ -2788,7 +2843,11 @@ namespace ShowUIApp
                                                     List<string> _ListUpdateTopMostUseCableSpec = new List<string>();
                                                     List<string> _ListUpdateTopMostUseCableNameUseTimes = new List<string>();
                                                     int tmpNumOfCable = 0;
-                                                    RegistryKey keys = Registry.LocalMachine.OpenSubKey(ProductPath, true);
+
+                                                    /* 2023-04-21 */
+                                                    //RegistryKey keys = Registry.LocalMachine.OpenSubKey(ProductPath, true);
+                                                    RegistryKey keys = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\ShowUI\Cable", true);
+                                                    /* --- */
 
                                                     for (int i = 0; i < NumOfCable; i++)
                                                     {
@@ -2987,6 +3046,9 @@ namespace ShowUIApp
                         lblDate.Text = b_date;
                     }
                 }
+
+                // 2023-12-20
+                lblShowUI.Text = GetProgramVersion();
             }
             catch (Exception)
             {
@@ -3349,9 +3411,12 @@ namespace ShowUIApp
             {
                 string KeyUsingTimesPlace = @"SYSTEM\CurrentControlSet\services";
                 RegistryKey keys;
-                string Product = ul.GetProduct().Trim();
-                string Station = ul.GetStation().Trim();
-                string Kplace = KeyUsingTimesPlace + @"\" + Product + @"\" + Station;
+                //string Product = ul.GetProduct().Trim();
+                // string Station = ul.GetStation().Trim();
+                //string Kplace = KeyUsingTimesPlace + @"\" + Product + @"\" + Station;
+
+                string Kplace = @"SOFTWARE\ShowUI\Cable";
+
                 keys = Registry.LocalMachine.OpenSubKey(Kplace, true);
 
                 keys.SetValue(NameVal, insertVal);
@@ -3367,9 +3432,12 @@ namespace ShowUIApp
             try
             {
                 RegistryKey keys;
-                string Product = ul.GetProduct().Trim();
-                string Station = ul.GetStation().Trim();
-                string Kplace = @"SYSTEM\CurrentControlSet\services" + @"\" + Product + @"\" + Station;
+                //string Product = ul.GetProduct().Trim();
+                //string Station = ul.GetStation().Trim();
+                //string Kplace = @"SYSTEM\CurrentControlSet\services" + @"\" + Product + @"\" + Station;
+
+                string Kplace = @"SOFTWARE\ShowUI\Cable";
+
                 keys = Registry.LocalMachine.OpenSubKey(Kplace, true);
 
                 int rVal = Convert.ToInt32(keys.GetValue(KeyName).ToString());
@@ -3519,11 +3587,30 @@ namespace ShowUIApp
         //bool checkTestFlag = false;
         public void UpdateYR_Tick(object sender, EventArgs e)
         {
+            Thread thread = new Thread(UpdateYR_TRR_SRR);
+            thread.IsBackground = true;
+            thread.Start();
+        }
+
+        bool FakeFlag = false;
+        private void UpdateYR_TRR_SRR()
+        {
             //UpdateYR.Enabled = false;
             // reset 20161222
             //ul.SetValueByKey("ERRORCODE", "");
 
             //Adele show Qty by Tester
+
+
+            //Add check station name
+            if (!CheckStationName())
+            {
+                if (!IsWindowsShown("Station Name Error"))
+                {
+                    MessageBox.Show("AutoDL Station and Local Station do not match. Please call TE to change Local Station name!", "Station Name Error");
+                }
+            }
+            // end
 
             string Qty = ul.GetValueByKey("QtybyTester");
             if (Qty == null || Qty == "")
@@ -3705,6 +3792,8 @@ namespace ShowUIApp
                             ul.SetValueByKey("DateTimeNow", DateTime.Now.ToString());
 
                             // lblQty.Text = QtybyTester.ToString();
+                            // 2023-06-27 setInputQty by testFlag (Test Done)
+                            setQtyMachine();
 
                             float FirstPassYR = Convert.ToSingle(dataNew.Substring(67, 5));
                         }
@@ -3794,17 +3883,18 @@ namespace ShowUIApp
 
                         //22.2.2016 for count connector using time by ShowUI
                         //22.2.2016 for count connector using time by ShowUI
+                        NumOfCable = GetNumOfCable();
                         for (int i = 0; i < NumOfCable; i++)
                         {
-                            int tmpValUsingTimes = GetConnectorUsingTimes("Cable" + i);
+                            int tmpValUsingTimes = GetConnectorUsingTimes("Cable_" + i);
                             tmpValUsingTimes++;
-                            SetConnectorUsingTimes("Cable" + i, tmpValUsingTimes.ToString());
+                            SetConnectorUsingTimes("Cable_" + i, tmpValUsingTimes.ToString());
                         }
 
                         if (debug == "1")
                         {
-                            label1.Visible = true;
-                            label1.Text = Convert.ToString(TestedDUT);
+                            label_IP.Visible = true;
+                            label_IP.Text = Convert.ToString(TestedDUT);
                         }
 
                         //string[] tmpSpec = GetStopmachineSpec().Split('_');
@@ -5342,6 +5432,8 @@ namespace ShowUIApp
             return fQty;
         }
 
+        private bool lockscreenCheck = false;
+        private System.Timers.Timer TimerCheckAfterShowFullDriver = new System.Timers.Timer();
         public void SetStopMachineStatusImediately()
         {
             //Antivirus False
@@ -5468,13 +5560,42 @@ namespace ShowUIApp
                     ShowWarningMessage(_LockingMessage, "USB Not Disable");
                 }
 
-                if (GetPercentFreeSpace("D:\\") < 0)
-                {
-                    ul.SetValueByKey("StopMachine", "1");
-                    _LockingMessage = "Lỗi: Dung lượng trống ổ đĩa D < 15% ! gọi TE!";
-                    //UpdateStopMachineStatus(true);
-                    _IsExistErrorr = true;
-                    ShowWarningMessage(_LockingMessage, "Drive Full");
+                //if (GetPercentFreeSpace("D:\\") < 0)
+                //{
+                //    ul.SetValueByKey("StopMachine", "1");
+                //    _LockingMessage = "Lỗi: Dung lượng trống ổ đĩa D < 15% ! gọi TE!";
+                //    //UpdateStopMachineStatus(true);
+                //    _IsExistErrorr = true;
+                //    ShowWarningMessage(_LockingMessage, "Drive Full");
+                //}
+
+                if (GetPercentFreeSpace("D:\\") < 0.05 && !TimerCheckAfterShowFullDriver.Enabled) {
+
+                    /* 
+                    *   (0 < GetPercentFreeSpace() < 1)
+                    *   check disk space < 5% - 2023-04-26
+                    */
+                    string ms = $"Lỗi: Dung lượng trống ổ đĩa D < 15 % !gọi TE!";
+                    frmLocking frmlock = new frmLocking("drive", ms, "Login to Unlock"); ;
+                    if (!lockscreenCheck)
+                    {
+                        TimerCheckAfterShowFullDriver.Enabled = true;
+                        TimerCheckAfterShowFullDriver.Start();
+
+                        frmlock.ShowDialog();
+                        lockscreenCheck = true;
+                        if (frmlock.DialogResult == DialogResult.OK)
+                        {
+                            lockscreenCheck = false;
+                            frmlock.Close();
+                        }
+                    }
+
+                    //ul.SetValueByKey("StopMachine", "1");
+                    //_LockingMessage = "Lỗi: Dung lượng trống ổ đĩa D < 15% ! gọi TE!";
+                    ////UpdateStopMachineStatus(true);
+                    //_IsExistErrorr = true;
+                    //ShowWarningMessage(_LockingMessage, "Drive Full");                    
                 }
 
                 //
@@ -6260,17 +6381,18 @@ namespace ShowUIApp
                         }
                         else
                         {
-                            //if (ConnectServer63 == "0")
+                            // 2023-12-20 lock ATE check list if service not found
+
+                            //ShowUI.ATE_CHECKLIST.WebService svATE = new ShowUI.ATE_CHECKLIST.WebService();
+                            //int ReturnStatus = svATE.InsertChecklistATE(Line, ModelName, Station, Shift, ProgramandVersion, ChkSum, FixtureNo, UpdateVirusT, dtNow);
+                            //FlagStopInsert = 1;
+                            //flagToCheckPathlossByWeek = 1;
+                            //if (ReturnStatus != 0)
                             //{
-                            ShowUI.ATE_CHECKLIST.WebService svATE = new ShowUI.ATE_CHECKLIST.WebService();
-                            int ReturnStatus = svATE.InsertChecklistATE(Line, ModelName, Station, Shift, ProgramandVersion, ChkSum, FixtureNo, UpdateVirusT, dtNow);
-                            FlagStopInsert = 1;
-                            flagToCheckPathlossByWeek = 1;
-                            if (ReturnStatus != 0)
-                            {
-                                event_log("ATE CHECKLIST OK -->: " + ul.GetValueByKey("SN").Trim() + " -> CurrentShift: " + CurrentShift + " -> Shift: " + Shift + " " + ModelNameChangeATE + " -> Test Time: " + ul.GetValueByKey("Testtime").Trim() + " --> " + TestedDUT + " pcs");
-                            }
+                            //    event_log("ATE CHECKLIST OK -->: " + ul.GetValueByKey("SN").Trim() + " -> CurrentShift: " + CurrentShift + " -> Shift: " + Shift + " " + ModelNameChangeATE + " -> Test Time: " + ul.GetValueByKey("Testtime").Trim() + " --> " + TestedDUT + " pcs");
                             //}
+                            
+
                         }
                     }
                     catch (Exception er)
@@ -6327,13 +6449,17 @@ namespace ShowUIApp
                 if (UpdateTime == "")
                 {
                     UpdateTime = keyUpdate.GetValue("NAVCORP_70", "1990-05-06 12:00:00").ToString();
+                    // 2023-04-28
+                    //UpdateTime = keyUpdate.GetValue("NAVCORP_70", "1990-05-06 12:00:00").ToString();
+
+                    UpdateTime = keyUpdate.GetValue("NAVCORP_70", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")).ToString();
                 }
 
                 for (int i = 0; i <= 7; i++)
                 {
                     DateTime dtNow = DateTime.Now.AddDays(-(i));
 
-                    if (UpdateTime.Contains(dtNow.ToString("yyyyMMdd")))
+                    if (UpdateTime.Contains(dtNow.ToString("yyyy-MM-dd")))
                     {
                         UpdateTime = dtNow.ToString("yyyy-MM-dd hh:mm:ss");
                     }
@@ -6342,7 +6468,7 @@ namespace ShowUIApp
             }
             catch (Exception)
             {
-                return "1990-05-06 12:00:00";
+                return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             }
         }
 
@@ -6834,8 +6960,9 @@ namespace ShowUIApp
         public string ShowfPanelHStation()
         {
             string StationName = "";
-
-            while (true)
+            try
+            {
+                while (true)
             {
                 if (!NetWorkConnection)
                 {
@@ -6863,6 +6990,11 @@ namespace ShowUIApp
                 Thread.Sleep(10000);
             }
             event_log("ShowfPanelHStation: globalStation= " + globalStation);
+            }
+            catch (Exception ex)
+            {
+                event_log("ShowfPanelHStation(), " + ex.Message);
+            }
             return globalStation;
         }
 
@@ -7486,66 +7618,74 @@ namespace ShowUIApp
 
         private void TimerIQTestTime_Tick(object sender, EventArgs e)
         {
-            //string ModelName = ul.GetProduct();
-            int IQ_Netgear = System.Convert.ToInt32(IniFile.ReadIniFile("COMMON", "IQ_Netgear", "0", ".\\Setup.ini"));
-            if (IQ_Netgear == 1)
+            try
             {
-                try
+                //string ModelName = ul.GetProduct();
+                int IQ_Netgear = System.Convert.ToInt32(IniFile.ReadIniFile("COMMON", "IQ_Netgear", "0", ".\\Setup.ini"));
+                if (IQ_Netgear == 1)
                 {
-                    _model_name = ul.GetValueByKey("SFISMODEL").Trim();
-                    string stationLocal = ul.GetStation();
-                    string ModelName = ul.GetProduct();
-                    string pathCopy = IniFile.ReadIniFile(ModelName, ul.GetStation(), "loser", ".\\IQTESTTIME\\LocalDetailLog.ini");
-                    string checkStation = IniFile.ReadIniFile("IQCheckStation", _model_name, "0", ".\\IQTESTTIME\\IQCheckStation.ini");
+                    try
+                    {
+                        _model_name = ul.GetValueByKey("SFISMODEL").Trim();
+                        string stationLocal = ul.GetStation();
+                        string ModelName = ul.GetProduct();
+                        string pathCopy = IniFile.ReadIniFile(ModelName, ul.GetStation(), "loser", ".\\IQTESTTIME\\LocalDetailLog.ini");
+                        string checkStation = IniFile.ReadIniFile("IQCheckStation", _model_name, "0", ".\\IQTESTTIME\\IQCheckStation.ini");
 
-                    string checkNetgearSql = $"select * from ProjectName where ProjectName ='{ModelName}'";
-                    ConnectShowUI connCheckNt = new ConnectShowUI();
-                    DataTable checkNt = connCheckNt.DataTable_Sql(checkNetgearSql, serverIp);
-                    if (checkNt.Rows.Count > 0)
-                    {
-                        string dicr = @"C:\LitePoint";
-                        if (System.IO.Directory.Exists(dicr) && pathCopy.Contains("loser"))
+                        string checkNetgearSql = $"select * from ProjectName where ProjectName ='{ModelName}'";
+                        ConnectShowUI connCheckNt = new ConnectShowUI();
+                        DataTable checkNt = connCheckNt.DataTable_Sql(checkNetgearSql, serverIp);
+                        if (checkNt.Rows.Count > 0)
                         {
-                            if (Process.GetProcessesByName("IQTestTimes").Length < 1 && Process.GetProcessesByName("IQTestTimesDetail").Length < 1)
+                            string dicr = @"C:\LitePoint";
+                            if (System.IO.Directory.Exists(dicr) && pathCopy.Contains("loser"))
                             {
-                                ProcessStartInfo startProgram = new ProcessStartInfo();
-                                startProgram.FileName = @"C:\LitePoint\IQTestTimes.exe";
-                                startProgram.WorkingDirectory = @"C:\LitePoint\";
-                                //startProgram.WorkingDirectory = Environment.CurrentDirectory;
-                                Process.Start(startProgram);
+                                if (Process.GetProcessesByName("IQTestTimes").Length < 1 && Process.GetProcessesByName("IQTestTimesDetail").Length < 1)
+                                {
+                                    ProcessStartInfo startProgram = new ProcessStartInfo();
+                                    startProgram.FileName = @"C:\LitePoint\IQTestTimes.exe";
+                                    startProgram.WorkingDirectory = @"C:\LitePoint\";
+                                    //startProgram.WorkingDirectory = Environment.CurrentDirectory;
+                                    Process.Start(startProgram);
+                                }
                             }
-                        }
-                        else if (!pathCopy.Contains("loser"))
-                        {
-                            if (Process.GetProcessesByName("IQTestTimesDetail").Length < 1 && Process.GetProcessesByName("IQTestTimes").Length < 1)
+                            else if (!pathCopy.Contains("loser"))
                             {
-                                ProcessStartInfo startProgram = new ProcessStartInfo();
-                                startProgram.FileName = pathCopy + $"{_model_name}\\{stationLocal}\\IQTestTimesDetail.exe";
-                                startProgram.WorkingDirectory = pathCopy + $"{_model_name}\\{stationLocal}\\";
-                                //startProgram.WorkingDirectory = Environment.CurrentDirectory;
-                                Process.Start(startProgram);
+                                if (Process.GetProcessesByName("IQTestTimesDetail").Length < 1 && Process.GetProcessesByName("IQTestTimes").Length < 1)
+                                {
+                                    ProcessStartInfo startProgram = new ProcessStartInfo();
+                                    startProgram.FileName = pathCopy + $"{_model_name}\\{stationLocal}\\IQTestTimesDetail.exe";
+                                    startProgram.WorkingDirectory = pathCopy + $"{_model_name}\\{stationLocal}\\";
+                                    //startProgram.WorkingDirectory = Environment.CurrentDirectory;
+                                    Process.Start(startProgram);
+                                }
                             }
                         }
                     }
+                    catch (Exception)
+                    {
+                    }
                 }
-                catch (Exception)
+                else
                 {
+                    string dicr = @"C:\LitePoint";
+                    if (System.IO.Directory.Exists(dicr))
+                    {
+                        if (Process.GetProcessesByName("IQTestTimes").Length < 1)
+                        {
+                            ProcessStartInfo startProgram = new ProcessStartInfo();
+                            startProgram.FileName = @"C:\LitePoint\IQTestTimes.exe";
+                            //startProgram.WorkingDirectory = Environment.CurrentDirectory;
+                            Process.Start(startProgram);
+                        }
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                string dicr = @"C:\LitePoint";
-                if (System.IO.Directory.Exists(dicr))
-                {
-                    if (Process.GetProcessesByName("IQTestTimes").Length < 1)
-                    {
-                        ProcessStartInfo startProgram = new ProcessStartInfo();
-                        startProgram.FileName = @"C:\LitePoint\IQTestTimes.exe";
-                        //startProgram.WorkingDirectory = Environment.CurrentDirectory;
-                        Process.Start(startProgram);
-                    }
-                }
+                event_log($"TimerIQTestTime_Tick Exception: ${e}");
             }
+            
         }
 
         private void iQSNToolStripMenuItem_Click(object sender, EventArgs e)
@@ -7850,7 +7990,7 @@ namespace ShowUIApp
             double DriveSize;
             foreach (DriveInfo drive in DriveInfo.GetDrives())
             {
-                if (drive.IsReady)
+                if (drive.IsReady && drive.Name.Contains("D"))//tony dont' check D drive for debug
                 {
                     FreeSpace = drive.TotalFreeSpace;
                     DriveSize = drive.TotalSize;
@@ -8052,6 +8192,12 @@ namespace ShowUIApp
             }
         }
 
+        private void TimerCheckAfterShowFullDriver_Tick(object sender, EventArgs e)
+        {
+            TimerCheckAfterShowFullDriver.Enabled = false;
+            TimerCheckAfterShowFullDriver.Stop();
+        }
+
         private void FtpLog_Tick(object sender, EventArgs e)
         {
             try
@@ -8096,9 +8242,14 @@ namespace ShowUIApp
         {
             try
             {
-                ul.event_log("SamplingControl test");
+                string srPath = @"F:\lsy\Test\DownloadConfig\" + ul.GetProduct() + ".ini";
+                useFuncSamplingControl = IniFile.ReadIniFile("Sampling_Control", "Enable_" + ul.GetStation(), "0", srPath); // default not use
+
+                event_log($"SamplingControl test: {srPath}, Enable_{ul.GetStation()} = {useFuncSamplingControl}");
+
                 if (useFuncSamplingControl == "0")
                     return;
+
                 string str = ul.GetValueByKey("SamplingTime");
                 string CountDownFinish = ul.GetValueByKey("SamplingCountDown");
                 DateTime dt = DateTime.Now;
@@ -8159,19 +8310,47 @@ namespace ShowUIApp
                 qtyMachine = sf_qz.GET_STATION_PASS_FAIL(model, Environment.MachineName);
                 // MessageBox.Show("Model: " + model + " MachineName: " + Environment.MachineName + " " + qtyMachine + "pcs");
             }
-            catch
+            catch (Exception ex)
             {
                 qtyMachine = 0;
-            }
-            if (qtyMachine == 0)
-            {
-                //qtyMachine = 126;
+                ul.event_log($"setQtyMachine ERROR 1: {ex}");
             }
 
-            //this.Invoke((MethodInvoker)delegate
-            //{
+
+            // 2023-12-20
+            try
+            {
+                if(qtyMachine == 0)
+                {
+                    GetModelName();
+
+                    ShowUI.SFIS_QZ_80.Servicepostdata sf_qz = new ShowUI.SFIS_QZ_80.Servicepostdata();
+                    foreach(string modelname in ListModel)
+                    {
+                        qtyMachine += sf_qz.GET_STATION_PASS_FAIL(modelname, Environment.MachineName);
+                    }
+
+                    if (qtyMachine == 0)
+                    {
+                        string localQty = ul.GetValueByKey("QtybyTester");
+                        ul.event_log($"Quantity Machine = 0 => Get Quantity Local: {localQty}");
+                        if (localQty != string.Empty)
+                        {
+                            qtyMachine = int.Parse(localQty);
+                        }
+                        else
+                        {
+                            qtyMachine = 0;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ul.event_log($"setQtyMachine ERROR 2: {ex}");
+            }
+
             lblQty.Text = qtyMachine.ToString();
-            // });
         }
 
         private void reportErrorCodeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -8215,20 +8394,35 @@ namespace ShowUIApp
                 bool bok = false;
                 for (int i = 0; i < stationOK.Length; i++)
                 {
-                    if (station == stationOK[i])
+                    try
                     {
-                        bok = true;
-                        break;
+                        if (station == stationOK[i])
+                        {
+                            bok = true;
+                            break;
+                        }
                     }
+                    catch
+                    {
+                        continue;
+                    }
+                    
                 }
                 if (!bok)
                 {
                     for (int i = 0; i < stationReplace.Length; i++)
                     {
-                        if (station.Contains(stationReplace[i]))
+                        try
                         {
-                            station = station.Replace(stationReplace[i], "");
-                            break;
+                            if (station.Contains(stationReplace[i]))
+                            {
+                                station = station.Replace(stationReplace[i], "");
+                                break;
+                            }
+                        }
+                        catch
+                        {
+                            continue;
                         }
                     }
                 }
@@ -8536,6 +8730,49 @@ namespace ShowUIApp
             //Thread _SupportAgent = new Thread(DotAgentDP);
             //_SupportAgent.IsBackground = true;
             //_SupportAgent.Start();
+
+            Thread thread = new Thread(UpdateYR_TRR_SRR);
+            thread.IsBackground = true;
+            thread.Start();
+
+            string ipPC = GetIp();
+            if (ipPC.Trim().Length == 0)
+            {
+
+            }
+            else
+            {
+                try
+                {
+                    //string ipPre = String.Join(".", ipPC.Split('.').Take(3));
+                    string[] arr = ipPC.Split('.');
+                    label_IP.Text = "IP:" + arr[2] + "." + arr[3];
+                }
+                catch (Exception)
+                { }
+            }
+
+        }
+
+        public static string GetIPAddress()
+        {
+            string IP_Tester = "";
+            try
+            {
+                var hosts = Dns.GetHostEntry(Dns.GetHostName());
+                foreach (var ip in hosts.AddressList)
+                {
+                    if (ip.ToString().StartsWith("138.101") || ip.ToString().StartsWith("10.224") || ip.ToString().StartsWith("172.18") || ip.ToString().StartsWith("10.220"))
+                    {
+                        IP_Tester = ip.ToString();
+                        break;
+                    }
+                }
+                return IP_Tester;
+            }
+            catch
+            { }
+            return IP_Tester;
         }
 
         private string[] stationReplace;
@@ -8766,8 +9003,9 @@ namespace ShowUIApp
 
                 //}
             }
-            catch
+            catch (Exception ex)
             {
+                event_log($"Update ss ${ex}");
             }
             //TimerFakeShowUI.Enabled = true;
         }
@@ -9005,5 +9243,112 @@ namespace ShowUIApp
             }
             return false;
         }
+
+
+        // Tien - 2023-12-20
+        public string GetProgramVersion()
+        {
+            try
+            {
+                Assembly asb = Assembly.GetEntryAssembly();
+                AssemblyName asbName = asb.GetName();
+                Version this_ver = asbName.Version;
+
+                System.Diagnostics.FileVersionInfo ui_server = System.Diagnostics.FileVersionInfo.GetVersionInfo(@"F:\lsy\Test\DownloadConfig\AutoDL\ShowUI.exx");
+                Version server_ver = new Version(ui_server.FileVersion);
+
+                string localVer = $"V{this_ver.Major}.{this_ver.Minor}";
+                string serverVer = $"V{server_ver.Major}.{server_ver.Minor}";
+
+                event_log($"Checkupdate: Local ver: {localVer} - Server ver: {serverVer}");
+
+                if (!localVer.Equals(serverVer))
+                {
+
+                    File.Copy(@"F:\lsy\Test\DownloadConfig\AutoDL\HP.exx", @"D:\AutoDL\Update.exe", true);
+                    event_log("Update ShowUI ...");
+                    System.Diagnostics.Process.Start(@"D:\AutoDL\Update.exe");
+                }
+
+                return localVer;
+
+            }
+            catch
+            {
+                return "V8.X";
+            }
+        }
+
+        private List<string> ListModel = new List<string>();
+        private void GetModelName()
+        {
+            try
+            {
+                // Get Open key
+                _OpenKey = Registry.LocalMachine.OpenSubKey(subkey);
+                if (_OpenKey == null) return;
+
+                // Get Arlo Folder 
+                string[] keys = _OpenKey.GetValue("OpenKey", "").ToString().Split('\\');
+                string[] LogFolders = Directory.GetDirectories(@"D:\Arlo_Logs");
+                if (keys.Length <= 1 || LogFolders.Length == 0) return;
+
+                // Get Arlo log folder by model
+                var FolderLogs = LogFolders.Where(s => Path.GetFileName(s).StartsWith(keys[1])).ToArray();
+                if (FolderLogs.Length == 0) return;
+
+                // Get modelname
+                foreach (string FolderLog in FolderLogs)
+                {
+                    if (!Directory.Exists(FolderLog)) continue;
+
+                    string[] folders = Directory.GetDirectories(FolderLog);
+                    if (folders.Length == 0) continue;
+
+                    foreach (string foldername in folders)
+                    {
+                        string modelName = foldername.Split('\\').Last();
+                        if (!ListModel.Any(s => s == modelName))
+                        {
+                            ListModel.Add(modelName);
+                        }
+                    }
+                }
+
+                string model_1 = ul.GetValueByKey("RYRDATA") ?? string.Empty;
+                if (model_1 != string.Empty)
+                {
+                    model_1 = model_1.Substring(5, 25).Trim();
+                    if (!ListModel.Any(s => s == model_1))
+                    {
+                        ListModel.Add(model_1);
+                    }
+                }
+
+                string model_2 = ul.GetValueByKey("SFISDATA") ?? string.Empty;
+                if (model_2 != string.Empty)
+                {
+                    model_2 = model_2.Substring(5, 25).Trim();
+                    if (!ListModel.Any(s => s == model_2))
+                    {
+                        ListModel.Add(model_2);
+                    }
+                }
+
+                string model_3 = ul.GetValueByKey("ShowUIdata") ?? string.Empty;
+                if (model_3 != string.Empty)
+                {
+                    model_3 = model_3.Substring(5, 25).Trim();
+                    if (!ListModel.Any(s => s == model_3))
+                    {
+                        ListModel.Add(model_3);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                event_log($"GetModelName Exception: " + ex.ToString());
+            }
+        }       
     }
 }

@@ -18,6 +18,10 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -32,10 +36,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -77,9 +77,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=13.0.1.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lsy\Test\DownloadConfig\AutoDL\Newtonsoft.Json.dll</HintPath>
+      <HintPath>D:\AutoDl\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -97,10 +97,11 @@
     <Reference Include="System.Xml" />
     <Reference Include="ZedGraph, Version=5.1.5.28844, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Release\ZedGraph.dll</HintPath>
+      <HintPath>D:\AutoDl\ZedGraph.dll</HintPath>
     </Reference>
-    <Reference Include="zxing">
-      <HintPath>..\..\..\..\THU VIEN\zxing.dll</HintPath>
+    <Reference Include="zxing, Version=0.14.0.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\AutoDl\zxing.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -212,6 +213,12 @@
     </Compile>
     <Compile Include="frmTextBox.Designer.cs">
       <DependentUpon>frmTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmUnlockChange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUnlockChange.Designer.cs">
+      <DependentUpon>frmUnlockChange.cs</DependentUpon>
     </Compile>
     <Compile Include="frmUnlockRequirements.cs">
       <SubType>Form</SubType>
@@ -332,6 +339,9 @@
     <EmbeddedResource Include="frmTextBox.resx">
       <DependentUpon>frmTextBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmUnlockChange.resx">
+      <DependentUpon>frmUnlockChange.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmUnlockRequirements.resx">
       <DependentUpon>frmUnlockRequirements.cs</DependentUpon>
     </EmbeddedResource>
@@ -356,6 +366,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -450,6 +461,7 @@
     <None Include="Resources\security_offyellow.png" />
     <None Include="Resources\grey.png" />
     <None Include="images\blink.gif" />
+    <Content Include="License-LGPL.txt" />
     <Content Include="showUI.ico" />
   </ItemGroup>
   <ItemGroup>

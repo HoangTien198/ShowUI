@@ -1508,6 +1508,24 @@
   <metadata name="rightMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>342, 17</value>
   </metadata>
+  <data name="mnTool.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6
+        JQAAgIMAAPn/AACA6AAAdTAAAOpgAAA6lwAAF2+XqZnUAAACsElEQVQ4T2P4//8/RRjOMDU1WRUWFvJa
+        QkK8FiZmY2OjJi0tvcfKyuqNiYnJWVtbW1GYHAzDGYyMjGweHu7Ply9b9Nva2mofsiIHBwcZDw+Pr66u
+        rl/4+fkbkOUYNDQ0JktISOSAOQwMnOnpaf+jIiP+IisCYRkZmRNtbW3/CwsLfwoICEyAiTPY29s/am1t
+        /sDMzFzGzs5eXVxU+N/ayuo1smYQ1tXVfQz00v/29vb/QPqbtrY2G9iA9PR0JS8vz999vd1/+vt6gApa
+        /wO98r62toYXptnHx+fguXPn/gcFBX0BGdLY2Pgf6HKwN8EKsrKyatzd3P4A/fgOaNiHCf29/318vN41
+        NNQLgzRfvXr1//bt2z/Kyso2GxoayomIiBxMSkp6Awzcy3AnAgETiK6oqOAFGvJu2vTp/yMjI3+BNO/e
+        vfsTSDNMrbq6+oKIiIjfwsLCfXADkLGwrHZ/84Ij/won7Pi/eeuOf1qamlPR1QDDgB1EowiCMJ+UVueU
+        tee/bzh8579Jwsz/WZU9/2fNnP4F6IJWdLUgjMIRkNPvn77hws/tJ+79N02c+V9E1frZxIkTv2/ftvn/
+        ooXzfigrK/UiqwdhOENQwXjKzE0Xf+858/C/WdKs/0IqVk/lrOIFgfHfuXD+3F+HDu79v2b1il/A0Efx
+        DpgQVrGcPWfLpb97zz78b5E8G6jZ+pWsZZw4TJGSktIkoOY/Z08f/79184Y/uro68+AGmKQuYfKILvl1
+        4Pyj/5Ypc4Cabd7JWsUpwhTAsKaGxrwd2zf/u3ThzP/lyxb/BqZecJiAJeX1XZYp2cT+E1ax/gi0WQtZ
+        IzIGpsaVaanJf0JDgh9VVJQjDAACNhmzSH8BRTMLIFsciEWBWBiIBYFYBErzAbEAMG0EFuTnT/D39+f6
+        //8/AwCc9Dml/e50RAAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="abnormalToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -1546,24 +1564,6 @@
         dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAB2SURBVChTjdAxCoAwEETRgJVgJXgSK3trW8/jSQQr
         IYcRvNA6sxgIySZavCJhPoQ4EVHjNH/irhR0yVmVgg1uGKI7ZQULyCuLrKCBHczICkJ0QBbVghN+BRx7
         COMLqk9awRyTFRC/leM+ulOlgNrkrGqBSUTcA/QOzVH1z3RfAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="mnTool.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6
-        JQAAgIMAAPn/AACA6AAAdTAAAOpgAAA6lwAAF2+XqZnUAAACsElEQVQ4T2P4//8/RRjOMDU1WRUWFvJa
-        QkK8FiZmY2OjJi0tvcfKyuqNiYnJWVtbW1GYHAzDGYyMjGweHu7Ply9b9Nva2mofsiIHBwcZDw+Pr66u
-        rl/4+fkbkOUYNDQ0JktISOSAOQwMnOnpaf+jIiP+IisCYRkZmRNtbW3/CwsLfwoICEyAiTPY29s/am1t
-        /sDMzFzGzs5eXVxU+N/ayuo1smYQ1tXVfQz00v/29vb/QPqbtrY2G9iA9PR0JS8vz999vd1/+vt6gApa
-        /wO98r62toYXptnHx+fguXPn/gcFBX0BGdLY2Pgf6HKwN8EKsrKyatzd3P4A/fgOaNiHCf29/318vN41
-        NNQLgzRfvXr1//bt2z/Kyso2GxoayomIiBxMSkp6Awzcy3AnAgETiK6oqOAFGvJu2vTp/yMjI3+BNO/e
-        vfsTSDNMrbq6+oKIiIjfwsLCfXADkLGwrHZ/84Ij/won7Pi/eeuOf1qamlPR1QDDgB1EowiCMJ+UVueU
-        tee/bzh8579Jwsz/WZU9/2fNnP4F6IJWdLUgjMIRkNPvn77hws/tJ+79N02c+V9E1frZxIkTv2/ftvn/
-        ooXzfigrK/UiqwdhOENQwXjKzE0Xf+858/C/WdKs/0IqVk/lrOIFgfHfuXD+3F+HDu79v2b1il/A0Efx
-        DpgQVrGcPWfLpb97zz78b5E8G6jZ+pWsZZw4TJGSktIkoOY/Z08f/79184Y/uro68+AGmKQuYfKILvl1
-        4Pyj/5Ypc4Cabd7JWsUpwhTAsKaGxrwd2zf/u3ThzP/lyxb/BqZecJiAJeX1XZYp2cT+E1ax/gi0WQtZ
-        IzIGpsaVaanJf0JDgh9VVJQjDAACNhmzSH8BRTMLIFsciEWBWBiIBYFYBErzAbEAMG0EFuTnT/D39+f6
-        //8/AwCc9Dml/e50RAAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="cableCtrlThayCápToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -2514,7 +2514,7 @@
     <value>106, 134</value>
   </metadata>
   <metadata name="tmTemperature.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>192, 134</value>
+    <value>188, 134</value>
   </metadata>
   <metadata name="tmCheckATE.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>328, 134</value>

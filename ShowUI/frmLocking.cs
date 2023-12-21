@@ -35,6 +35,7 @@ namespace ShowUI
         private string _globalUsedMode = "0";
         private string _BufferDUT = "50";
         private DateTime startTime = DateTime.Now;
+        List<string> listCableName;
 
         //private string conn;
         private string connectionString;
@@ -46,7 +47,7 @@ namespace ShowUI
             InitializeComponent();
             lbBoom.Text = "Cable over spec! gọi Te!";
         }
-
+        
         public frmLocking(string _LockCondition, string _Error, bool UseSpecMode, int TestedDUT, string globalUsedMode, string BufferDUT, int _idFii)
         {
             InitializeComponent();
@@ -92,7 +93,33 @@ namespace ShowUI
             TestDUTCount = _BufferDUT;
             //
         }
-
+        //add for lock if drive full 2023-04-26
+        string UnlockTitle = "Login to Unlock";
+        string ErrorMessage = "ERROR";
+        string CableName = "USB_Cable";
+        string CableNum = "0";
+        string TypeLock = "normal";
+        public frmLocking(string typeLock, string errorMessage, string unlockTitle)
+        {
+            InitializeComponent();
+            TypeLock = typeLock;
+            ErrorMessage = errorMessage;
+            UnlockTitle = unlockTitle;
+            lbBoom.Text = ErrorMessage;
+        }
+        // add for lock if cable use time > cable use time spec
+        public frmLocking(string typeLock, string errorMessage, string unlockTitle, string cableName, string cableNum, List<string> ListCableName)
+        {
+            InitializeComponent();
+            TypeLock = typeLock;
+            ErrorMessage = errorMessage;
+            UnlockTitle = unlockTitle;
+            CableName = cableName;
+            CableNum = cableNum;
+            lbBoom.Text = ErrorMessage;
+            listCableName = ListCableName;
+        }
+        // ------
         private string FixEmpID = "";
         private bool flagInsert = false;
         private ShowUI.SvFPS.WebService svSaveErrs = new SvFPS.WebService();
@@ -1380,15 +1407,16 @@ namespace ShowUI
 
         private void tbl_unlockData_Click(object sender, EventArgs e)
         {
-            using (frmUnlockRequirements frm = new frmUnlockRequirements(true, lbBoom.Text, startTime))
+            using (frmUnlockChange frm = new frmUnlockChange(UnlockTitle, TypeLock, CableNum, listCableName))
             {
-                this.TopMost = false;
+                frm.TopMost = false;
                 frm.TopMost = true;
-
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     ul.SetValueByKey("StopMachine", "0");
                     ul.SetValueByKey("LockTime", DateTime.Now.ToString());
+
+                    this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
                 else
