@@ -111,6 +111,9 @@ namespace ShowUIApp
         public showUI()
         {
             InitializeComponent();
+
+            this.BackColor = Color.Black;
+            this.TransparencyKey = Color.Black;
             //CompareStation();
             // checkValueCurrent();
         }
@@ -874,8 +877,6 @@ namespace ShowUIApp
 
         private void showUI_Load(object sender, EventArgs e)
         {
-            this.TransparencyKey = Color.LavenderBlush;
-
             serverIp = IniFile.ReadIniFile("DATABASE", "SERVER_NAME", "10.220.130.103,1734", @"F:\lsy\Test\DownloadConfig\AutoDL\SOURCE.ini");
             //string strshiftDate = ul.checkDateShift();
             Random rd = new Random();
@@ -1069,9 +1070,11 @@ namespace ShowUIApp
 
             try
             {
-                lblTotalRateFake.Hide();
-                lblRetestRateFake.Hide();
-                lblYeildRateFake.Hide();
+                TimerFakeShowUI_Tick(sender, e);
+
+                //lblTotalRateFake.Hide();
+                //lblRetestRateFake.Hide();
+                //lblYeildRateFake.Hide();
 
                 CheckForIllegalCrossThreadCalls = false;
                 event_log("ShowUI starting ...");
@@ -2566,24 +2569,27 @@ namespace ShowUIApp
 
                     for (int i = 0; i < NumOfCable; i++)
                     {
+                        var keyCable = Registry.LocalMachine.OpenSubKey(rKeyCable, true);
                         string rCabbleUseTime = $"Cable_{i}";
-                        string cableUseTime = Registry.LocalMachine.OpenSubKey(rKeyCable, true).GetValue(rCabbleUseTime, "").ToString();
-                        /* --- */
-
-                        if (string.IsNullOrEmpty(cableUseTime))
+                        if (keyCable != null)
                         {
+                            string cableUseTime = keyCable.GetValue(rCabbleUseTime, "").ToString();
+                            /* --- */
+                            string cableNameFake = (i > listCableNameFake.Count - 1) ? listCableNameFake[0] : listCableNameFake[i];
+                            string cableName = IniFile.ReadIniFile("CableName", $"Cable_{i}", cableNameFake, CtrlCableUsetimesPath);
+                            string cableSpec = IniFile.ReadIniFile("MaxTimes", $"Cable_{i}", "5000", CtrlCableUsetimesPath);
+
+                            if (string.IsNullOrEmpty(cableName)) cableName = listCableNameFake[i];
+
+                            listCableName.Add(cableName);
+                            listCableSpec.Add(int.Parse(cableSpec));
+                            listCableUseTime.Add(int.Parse(cableUseTime));
+                        }
+                        else
+                        {
+                            Registry.LocalMachine.CreateSubKey(rKeyCable);
                             Registry.LocalMachine.OpenSubKey(rKeyCable, true).SetValue(rCabbleUseTime, "0");
                         }
-
-                        string cableNameFake = (i > listCableNameFake.Count - 1) ? listCableNameFake[0] : listCableNameFake[i];
-                        string cableName = IniFile.ReadIniFile("CableName", $"Cable_{i}", cableNameFake, CtrlCableUsetimesPath);
-                        string cableSpec = IniFile.ReadIniFile("MaxTimes", $"Cable_{i}", "5000", CtrlCableUsetimesPath);
-
-                        if (string.IsNullOrEmpty(cableName)) cableName = listCableNameFake[i];
-
-                        listCableName.Add(cableName);
-                        listCableSpec.Add(int.Parse(cableSpec));
-                        listCableUseTime.Add(int.Parse(cableUseTime));
                     }
 
                     BlinkFlag = new int[NumOfCable];
@@ -3588,8 +3594,9 @@ namespace ShowUIApp
         public void UpdateYR_Tick(object sender, EventArgs e)
         {
             Thread thread = new Thread(UpdateYR_TRR_SRR);
-            thread.IsBackground = true;
             thread.Start();
+            thread.IsBackground = true;
+            thread.Join();
         }
 
         bool FakeFlag = false;
@@ -5433,7 +5440,6 @@ namespace ShowUIApp
         }
 
         private bool lockscreenCheck = false;
-        private System.Timers.Timer TimerCheckAfterShowFullDriver = new System.Timers.Timer();
         public void SetStopMachineStatusImediately()
         {
             //Antivirus False
@@ -8300,49 +8306,51 @@ namespace ShowUIApp
         public void setQtyMachine()
         {
             int qtyMachine = 0;
-            try
-            {
-                string model = ul.GetModel();
-                ShowUI.SFISB05_SV.Servicepostdata sf = new ShowUI.SFISB05_SV.Servicepostdata();
-                ShowUI.SFIS_QZ_80.Servicepostdata sf_qz = new ShowUI.SFIS_QZ_80.Servicepostdata();
-                //qtyMachine = WhereGetService =="1" ? sf.GET_STATION_PASS_FAIL(model, Environment.MachineName) : sf_qz.GET_STATION_PASS_FAIL(model, Environment.MachineName);
-                //Lisa modify 2022.06.08 only for QuangZhou
-                qtyMachine = sf_qz.GET_STATION_PASS_FAIL(model, Environment.MachineName);
-                // MessageBox.Show("Model: " + model + " MachineName: " + Environment.MachineName + " " + qtyMachine + "pcs");
-            }
-            catch (Exception ex)
-            {
-                qtyMachine = 0;
-                ul.event_log($"setQtyMachine ERROR 1: {ex}");
-            }
+            //try
+            //{
+            //    string model = ul.GetModel();
+            //    ShowUI.SFISB05_SV.Servicepostdata sf = new ShowUI.SFISB05_SV.Servicepostdata();
+            //    ShowUI.SFIS_QZ_80.Servicepostdata sf_qz = new ShowUI.SFIS_QZ_80.Servicepostdata();
+            //    //qtyMachine = WhereGetService =="1" ? sf.GET_STATION_PASS_FAIL(model, Environment.MachineName) : sf_qz.GET_STATION_PASS_FAIL(model, Environment.MachineName);
+            //    //Lisa modify 2022.06.08 only for QuangZhou
+            //    qtyMachine = sf_qz.GET_STATION_PASS_FAIL(model, Environment.MachineName);
+            //    // MessageBox.Show("Model: " + model + " MachineName: " + Environment.MachineName + " " + qtyMachine + "pcs");
+            //}
+            //catch (Exception ex)
+            //{
+            //    qtyMachine = 0;
+            //    ul.event_log($"setQtyMachine ERROR 1: {ex}");
+            //}
 
 
             // 2023-12-20
             try
             {
-                if(qtyMachine == 0)
+                GetModelName();
+
+                ShowUI.SFIS_QZ_80.Servicepostdata sf_qz = new ShowUI.SFIS_QZ_80.Servicepostdata();
+                foreach (string modelname in ListModel)
                 {
-                    GetModelName();
+                    var modelQty = sf_qz.GET_STATION_PASS_FAIL(modelname, Environment.MachineName);
+                    qtyMachine += modelQty;
+                    if(modelQty > 0)
+                        ul.event_log($"Quantity Machine = {qtyMachine} => Get Quantity {modelname}: {modelQty}");
+                }
 
-                    ShowUI.SFIS_QZ_80.Servicepostdata sf_qz = new ShowUI.SFIS_QZ_80.Servicepostdata();
-                    foreach(string modelname in ListModel)
+                if (qtyMachine == 0)
+                {
+                    string localQty = ul.GetValueByKey("QtybyTester");
+                    
+                    if (localQty != string.Empty)
                     {
-                        qtyMachine += sf_qz.GET_STATION_PASS_FAIL(modelname, Environment.MachineName);
+                        qtyMachine = int.Parse(localQty);
+                    }
+                    else
+                    {
+                        qtyMachine = 0;
                     }
 
-                    if (qtyMachine == 0)
-                    {
-                        string localQty = ul.GetValueByKey("QtybyTester");
-                        ul.event_log($"Quantity Machine = 0 => Get Quantity Local: {localQty}");
-                        if (localQty != string.Empty)
-                        {
-                            qtyMachine = int.Parse(localQty);
-                        }
-                        else
-                        {
-                            qtyMachine = 0;
-                        }
-                    }
+                    ul.event_log($"SFIS Quantity Machine = 0 => Get Quantity Local: {qtyMachine}");
                 }
             }
             catch (Exception ex)
@@ -8426,16 +8434,41 @@ namespace ShowUIApp
                         }
                     }
                 }
-                //string dataNew = WhereGetService =="1" ? sfisB05.SHOWUI_TEST(model, station) : sfis_qz.SHOWUI_TEST(model, station);
+                //string dataNew = WhereGetService =="1" ? sfisB05.SHOWUI_TEST(model, station) : sfis_qz.SHOWUI_TEST(model, station);                
                 string dataNew = sfis_qz.SHOWUI_TEST(model, station);
                 ul.SetValueByKey("RYRDATA", dataNew);
                 string RRYRdata = _StationKey.GetValue("RYRDATA", "").ToString();
 
-                ul.event_log("Update YR-RR 30s: " + dataNew);
-
                 totalRate = Convert.ToSingle(dataNew.Substring(42, 6));
                 retestRate = Convert.ToSingle(dataNew.Substring(48, 6));
                 yeildRate = Convert.ToSingle(dataNew.Substring(54, 6));
+
+                ul.event_log($"Update YR-RR 30s: totalRateT: {totalRate}, retestRateT: {retestRate}, yeildRateT: {yeildRate}");
+
+                // 2023-12-26
+                if (totalRate == 0 && retestRate == 0 && yeildRate == 100)
+                {
+                    GetModelName();
+                    foreach (string modelll in ListModel)
+                    {
+                        string sfisString = string.Format("{0,-5}{1,-25}{2,12}", "RR-YR", modelll, Environment.MachineName.Trim());
+                        string result = sfis_qz.SHOWUI_TEST(sfisString, ul.GetStation().Replace("_RB", ""));
+
+                        float totalRateT = Convert.ToSingle(result.Substring(42, 6));
+                        float retestRateT = Convert.ToSingle(result.Substring(48, 6));
+                        float yeildRateT = Convert.ToSingle(result.Substring(54, 6));
+
+                        ul.event_log($"Update YR-RR 30s - {modelll}: totalRateT: {totalRateT}, retestRateT: {retestRateT}, yeildRateT: {yeildRateT}");
+                        if (totalRateT > 0 || retestRateT > 0 || yeildRateT < 100)
+                        {
+                            totalRate = totalRateT;
+                            retestRate = retestRateT;
+                            yeildRate = yeildRateT;
+                            break;
+                        }
+                    }
+                }
+                // ------
 
                 lblTotalRate.Text = totalRate + "%";
                 lblRetestRate.Text = retestRate + "%";
@@ -8443,13 +8476,12 @@ namespace ShowUIApp
 
                 //Wi
                 //2022.08.06 Lisa close for Robot
-                //if(AutoDL_Station.Contains("RB"))
-                //{
-                //    event_log("RB");
-                //    lblRetestRate.Text = "0.0%";
-                //    lblTotalRate.Text = "0.0%";
-                //}
-                
+                if (AutoDL_Station.Contains("RB"))
+                {
+                    event_log("RB");
+                    lblRetestRate.Text = "0.0%";
+                }
+
             }
             catch (Exception ex)
             {
@@ -8781,233 +8813,198 @@ namespace ShowUIApp
         private string preTT = "";
 
         #region TimmerFakeShowUIComment
-
+        int count = 0;
         private void TimerFakeShowUI_Tick(object sender, EventArgs e)
         {
-           // WhereGetService 
-            //TimerFakeShowUI.Enabled = false;
-            try
+            Thread thread = new Thread(() =>
             {
-                ConnectShowUI conn = new ConnectShowUI();
-                FakeShowUIHelper fake = new FakeShowUIHelper();
-                int checkFake = 0;
-                int cmspID = 0;
-                DataTable specFakeload;
-                int checkLockPc = int.Parse(IniFile.ReadIniFile("Common", "LockPC", "0", ".\\FShowUIConfig.txt"));
-                long timeRand = long.Parse(IniFile.ReadIniFile("Common", "TimeRand", "2", ".\\FShowUIConfig.txt"));
-                //FakeModel specFakeData;
-                int checkStation = conn.CreateOrUpdateDB("SationName", ul.GetStation(), "StationInfo", serverIp);
-                int checkProjId = conn.CreateOrUpdateDB("DotNamePro", ul.GetModel(), "ProjectInfo", serverIp, "StationID", checkStation.ToString()); ;
-                int checkCmsp = conn.CreateOrUpdateDB("ProjectID", checkProjId, "CommonSpec", serverIp);
-                long checkRun = (ul.GetValueByKey("StartCheck").Length > 0) ? long.Parse(DateTime.Now.ToString("yyyyMMddHHmm")) - long.Parse(Convert.ToDateTime(ul.GetValueByKey("StartCheck")).ToString("yyyyMMddHHmm")) : 0;
-                checkFake = conn.CreateOrUpdateDB("ProjectID", checkProjId, "FProject", serverIp, "Fake", "1");
-
-                //check fake
-
-                if (checkFake != 0)
+                try
                 {
-                    event_log("S-" + checkFake);
-                    this.lblRetestRateFake.Show();
-                    this.lblTotalRateFake.Show();
-                    this.lblYeildRateFake.Show();
-                    this.lblRetestRate.Hide();
-                    this.lblTotalRate.Hide();
-                    this.lblYeildRate.Hide();
-                }
-                else
-                {
-                    event_log("S-" + checkFake);
-                    this.lblRetestRateFake.Hide();
-                    this.lblTotalRateFake.Hide();
-                    this.lblYeildRateFake.Hide();
+                    ConnectShowUI conn = new ConnectShowUI();
+                    FakeShowUIHelper fake = new FakeShowUIHelper();
+                    int checkFake = 0;
+                    int cmspID = 0;
+                    DataTable specFakeload;
+                    int checkLockPc = int.Parse(IniFile.ReadIniFile("Common", "LockPC", "0", ".\\FShowUIConfig.txt"));
+                    long timeRand = long.Parse(IniFile.ReadIniFile("Common", "TimeRand", "2", ".\\FShowUIConfig.txt"));
+                    //FakeModel specFakeData;
+                    int checkStation = conn.CreateOrUpdateDB("SationName", ul.GetStation(), "StationInfo", serverIp);
+                    int checkProjId = conn.CreateOrUpdateDB("DotNamePro", ul.GetModel(), "ProjectInfo", serverIp, "StationID", checkStation.ToString()); ;
+                    int checkCmsp = conn.CreateOrUpdateDB("ProjectID", checkProjId, "CommonSpec", serverIp);
+                    long checkRun = (ul.GetValueByKey("StartCheck").Length > 0) ? long.Parse(DateTime.Now.ToString("yyyyMMddHHmm")) - long.Parse(Convert.ToDateTime(ul.GetValueByKey("StartCheck")).ToString("yyyyMMddHHmm")) : 0;
+                    checkFake = conn.CreateOrUpdateDB("ProjectID", checkProjId, "FProject", serverIp, "Fake", "1");
 
-                    this.lblRetestRate.Show();
-                    this.lblTotalRate.Show();
-                    this.lblYeildRate.Show();
-                    return;
-                }
+                    //check fake
+                    //count++;
+                    //event_log("Count: " + count);
 
-                //if (checkProjId != 0 && firstCmsp == true)
-                //{
-                //    specFakeload = conn.DataTable_Sql($"select top 1 * from Spec where ProjectID={checkProjId}", "10.220.130.103,1734");
-                //    // specFakeData = new FakeModel() { fakeTRR = 1, spaceRandTRR1 = 1, spaceRandTRR2 = 1, fakeSRR = 1, spaceRandSRR1 = 1, spaceRandSRR2 = 1, fakeTYR = 1, spaceRandTYR1 = 1, spaceRandTYR2 = 1 };
+                    if (checkFake != 0)
+                    {
+                        event_log("S-" + checkFake);
+                        this.lblRetestRateFake.Show();
+                        this.lblTotalRateFake.Show();
+                        this.lblYeildRateFake.Show();
 
-                if (checkProjId != 0 && checkCmsp == 0)
-                {
-                    string insertCmsp = $"insert into CommonSpec(TRRcmsp,TYRcmsp,ProjectID) values(3,98.7,{checkProjId})";
-                    cmspID = conn.CreateAndGetID(serverIp, insertCmsp, "CommonSpec");
-                }
-                //    else
-                //    {
-                //        string updateCmsp = $"update CommonSpec set TRRcmsp=2.45, TYRcmsp = 98.6 where ProjectID={checkProjId}";
-                //        cmspID = conn.CreateAndGetID("10.220.130.103,1734", updateCmsp, "CommonSpec", "ProjectID", checkProjId.ToString());
-                //    }
+                        this.lblRetestRate.Hide();
+                        this.lblTotalRate.Hide();
+                        this.lblYeildRate.Hide();
+                    }
+                    else
+                    {
+                        event_log("S-" + checkFake);
+                        this.lblRetestRateFake.Hide();
+                        this.lblTotalRateFake.Hide();
+                        this.lblYeildRateFake.Hide();
 
-                //    if (checkFake != 0)
-                //    {
-                //        firstCmsp = false;
-                //        conn.Execute_NonSQL($@"update CommonSpec
-                //                        set TRRcmsp = ROUND({ specFakeload.Rows[0][1]} + RAND() * ({specFakeload.Rows[0][3]} - {specFakeload.Rows[0][2]}) + {specFakeload.Rows[0][2]}, 2), TYRcmsp = ROUND({specFakeload.Rows[0][7]} + RAND() * ({specFakeload.Rows[0][9]} - {specFakeload.Rows[0][8]}) + {specFakeload.Rows[0][8]}, 2)
-                //                        where ProjectID = {checkProjId}", "10.220.130.103,1734"); //param sql
-                //    }
-                //}
-                if (checkProjId != 0 && checkRun >= timeRand)
-                {
-                    specFakeload = conn.DataTable_Sql($"select top 1 * from Spec where ProjectID={checkProjId}", serverIp);
-                    ul.SetValueByKey("StartCheck", DateTime.Now.ToString());
-                    conn.Execute_NonSQL($@"update CommonSpec
+                        this.lblRetestRate.Show();
+                        this.lblTotalRate.Show();
+                        this.lblYeildRate.Show();
+                        return;
+                    }
+                    if (checkProjId != 0 && checkCmsp == 0)
+                    {
+                        string insertCmsp = $"insert into CommonSpec(TRRcmsp,TYRcmsp,ProjectID) values(3,98.7,{checkProjId})";
+                        cmspID = conn.CreateAndGetID(serverIp, insertCmsp, "CommonSpec");
+                    }
+
+                    if (checkProjId != 0 && checkRun >= timeRand)
+                    {
+                        specFakeload = conn.DataTable_Sql($"select top 1 * from Spec where ProjectID={checkProjId}", serverIp);
+                        ul.SetValueByKey("StartCheck", DateTime.Now.ToString());
+                        conn.Execute_NonSQL($@"update CommonSpec
                                         set TRRcmsp = ROUND({specFakeload.Rows[0][1]} + RAND() * (0.15 - (-0.15)) + (-0.15), 2), TYRcmsp = ROUND({specFakeload.Rows[0][7]} + RAND() * (0.15 - (-0.15)) + (-0.15), 2)
                                         where ProjectID = {checkProjId}", serverIp);
-                }
-                bool checkChange = false;
-                //set value fake
-                DataTable dataFake = conn.DataTable_Sql($"select top 1 * from CommonSpec where ProjectID = {checkProjId}", serverIp);
-                DataTable isFake = conn.DataTable_Sql($"select top 1 * from FProject where ProjectID = {checkProjId}", serverIp);
-                if (dataFake.Rows.Count > 0 && isFake.Rows.Count > 0)
-                {
-                    this.lblTotalRateFake.Text = dataFake.Rows[0][1] + "%";
-                    this.lblYeildRateFake.Text = dataFake.Rows[0][2] + "%";
-                    //check limit value
-                    if (fake.ConvertToDouble(lblTotalRateFake.Text) < 0.1)
-                    {
-                        this.lblTotalRateFake.Text = "2.21%";
-                        checkChange = true;
                     }
-                    if (fake.ConvertToDouble(lblTotalRateFake.Text) > 10)
+                    bool checkChange = false;
+                    //set value fake
+                    DataTable dataFake = conn.DataTable_Sql($"select top 1 * from CommonSpec where ProjectID = {checkProjId}", serverIp);
+                    DataTable isFake = conn.DataTable_Sql($"select top 1 * from FProject where ProjectID = {checkProjId}", serverIp);
+                    if (dataFake.Rows.Count > 0 && isFake.Rows.Count > 0)
                     {
-                        this.lblTotalRateFake.Text = "6.13%";
-                        checkChange = true;
-                    }
+                        this.lblTotalRateFake.Text = dataFake.Rows[0][1] + "%";
+                        this.lblYeildRateFake.Text = dataFake.Rows[0][2] + "%";
+                        //check limit value
+                        if (fake.ConvertToDouble(lblTotalRateFake.Text) < 0.1)
+                        {
+                            this.lblTotalRateFake.Text = "2.21%";
+                            checkChange = true;
+                        }
+                        if (fake.ConvertToDouble(lblTotalRateFake.Text) > 10)
+                        {
+                            this.lblTotalRateFake.Text = "6.13%";
+                            checkChange = true;
+                        }
 
-                    if (fake.ConvertToDouble(lblYeildRateFake.Text) >= 100)
-                    {
-                        this.lblYeildRateFake.Text = "99.51%";
-                        checkChange = true;
-                    }
-                    //if (fake.ConvertToDouble(lblYeildRateFake.Text) >= 99.9)
-                    //{
-                    //    this.lblYeildRateFake.Text = "99.51%";
-                    //    checkChange = true;
-                    //}
-                    if (fake.ConvertToDouble(lblYeildRateFake.Text) < 98.7)
-                    {
-                        this.lblYeildRateFake.Text = "98.81%";
-                        checkChange = true;
-                    }
-                    if (checkChange == true)
-                    {
-                        conn.Execute_NonSQL($@"update CommonSpec
+                        if (fake.ConvertToDouble(lblYeildRateFake.Text) >= 100)
+                        {
+                            this.lblYeildRateFake.Text = "99.51%";
+                            checkChange = true;
+                        }
+                        //if (fake.ConvertToDouble(lblYeildRateFake.Text) >= 99.9)
+                        //{
+                        //    this.lblYeildRateFake.Text = "99.51%";
+                        //    checkChange = true;
+                        //}
+                        if (fake.ConvertToDouble(lblYeildRateFake.Text) < 98.7)
+                        {
+                            this.lblYeildRateFake.Text = "98.81%";
+                            checkChange = true;
+                        }
+                        if (checkChange == true)
+                        {
+                            conn.Execute_NonSQL($@"update CommonSpec
                                         set TRRcmsp = {fake.ConvertToDouble(this.lblTotalRateFake.Text)}, TYRcmsp = {fake.ConvertToDouble(this.lblYeildRateFake.Text)}
                                         where ProjectID = {checkProjId}", serverIp);
-                    }
-                    //
-                    //int index = 0;
-                    //DataTable dataPC = conn.DataTable_Sql($"select * from PCInfo where ProjectID = {checkProjId}", "10.220.130.103,1734");
+                        }
+                        //
+                        //int index = 0;
+                        //DataTable dataPC = conn.DataTable_Sql($"select * from PCInfo where ProjectID = {checkProjId}", "10.220.130.103,1734");
 
-                    //for (int i = 0; i < dataPC.Rows.Count-1; i++)
-                    //{
-                    //    foreach (var item in dataPC.Rows[i].ItemArray)
-                    //    {
-                    //        if (item.ToString().Contains(client_ip))
-                    //        {
-                    //            index = i;
-                    //        }
-                    //    }
-                    //}
-                    //var a = double.Parse("1.5");
-                    specFakeload = conn.DataTable_Sql($"select top 1 * from Spec where ProjectID={checkProjId}", serverIp);
-                    if (!preTT.Contains(lblTotalRateFake.Text))
+                        //for (int i = 0; i < dataPC.Rows.Count-1; i++)
+                        //{
+                        //    foreach (var item in dataPC.Rows[i].ItemArray)
+                        //    {
+                        //        if (item.ToString().Contains(client_ip))
+                        //        {
+                        //            index = i;
+                        //        }
+                        //    }
+                        //}
+                        //var a = double.Parse("1.5");
+                        specFakeload = conn.DataTable_Sql($"select top 1 * from Spec where ProjectID={checkProjId}", serverIp);
+                        if (!preTT.Contains(lblTotalRateFake.Text))
+                        {
+                            preTT = lblTotalRateFake.Text;
+                            //if (index < double.Parse((dataPC.Rows.Count / 2).ToString()))
+                            //{
+                            //    this.lblRetestRateFake.Text = Math.Round((double.Parse(dataFake.Rows[0][1].ToString()) + fake.RandomTwoValue(0, double.Parse(specFakeload.Rows[0][6].ToString()))), 2) + "%";
+                            //}
+                            //else
+                            //{
+                            //    this.lblRetestRateFake.Text = Math.Round((double.Parse(dataFake.Rows[0][1].ToString()) + fake.RandomTwoValue(double.Parse(specFakeload.Rows[0][5].ToString()), 0)),2) + "%";
+
+                            //}
+                            if (this.lblRetestRate.Text.Contains("0.0%") && this.lblTotalRate.Text.Contains("0.0%"))
+                            {
+                                if (vlueFake <= 50)
+                                {
+                                    this.lblRetestRateFake.Text = Math.Round((fake.ConvertToDouble(lblTotalRateFake.Text) + fake.RandomTwoValue(0, double.Parse(specFakeload.Rows[0][6].ToString()))), 2) + "%";
+                                }
+                                else
+                                {
+                                    this.lblRetestRateFake.Text = Math.Round((fake.ConvertToDouble(lblTotalRateFake.Text) + fake.RandomTwoValue(double.Parse(specFakeload.Rows[0][5].ToString()), 0)), 2) + "%";
+                                }
+                            }
+                            else
+                            {
+                                if (fake.ConvertToDouble(lblRetestRate.Text) > fake.ConvertToDouble(lblTotalRate.Text))
+                                {
+                                    this.lblRetestRateFake.Text = Math.Round((fake.ConvertToDouble(lblTotalRateFake.Text) + fake.RandomTwoValue(0, double.Parse(specFakeload.Rows[0][6].ToString()))), 2) + "%";
+                                }
+                                else if (fake.ConvertToDouble(lblRetestRate.Text) == fake.ConvertToDouble(lblTotalRate.Text))
+                                {
+                                    this.lblRetestRateFake.Text = lblTotalRateFake.Text;
+                                }
+                                else
+                                {
+                                    this.lblRetestRateFake.Text = Math.Round((fake.ConvertToDouble(lblTotalRateFake.Text) + fake.RandomTwoValue(double.Parse(specFakeload.Rows[0][5].ToString()), 0)), 2) + "%";
+                                }
+                                if (fake.ConvertToDouble(lblRetestRateFake.Text) < 0.1)
+                                {
+                                    this.lblRetestRateFake.Text = "0.24%";
+                                }
+                            }
+                        }
+                    }
+                    
+                    //Wi
+                    //if (checkFake != 0)
+                    if (AutoDL_Station.Contains("RB"))
                     {
-                        preTT = lblTotalRateFake.Text;
-                        //if (index < double.Parse((dataPC.Rows.Count / 2).ToString()))
-                        //{
-                        //    this.lblRetestRateFake.Text = Math.Round((double.Parse(dataFake.Rows[0][1].ToString()) + fake.RandomTwoValue(0, double.Parse(specFakeload.Rows[0][6].ToString()))), 2) + "%";
-                        //}
-                        //else
-                        //{
-                        //    this.lblRetestRateFake.Text = Math.Round((double.Parse(dataFake.Rows[0][1].ToString()) + fake.RandomTwoValue(double.Parse(specFakeload.Rows[0][5].ToString()), 0)),2) + "%";
-
-                        //}
-                        if (this.lblRetestRate.Text.Contains("0.0%") && this.lblTotalRate.Text.Contains("0.0%"))
-                        {
-                            if (vlueFake <= 50)
-                            {
-                                this.lblRetestRateFake.Text = Math.Round((fake.ConvertToDouble(lblTotalRateFake.Text) + fake.RandomTwoValue(0, double.Parse(specFakeload.Rows[0][6].ToString()))), 2) + "%";
-                            }
-                            else
-                            {
-                                this.lblRetestRateFake.Text = Math.Round((fake.ConvertToDouble(lblTotalRateFake.Text) + fake.RandomTwoValue(double.Parse(specFakeload.Rows[0][5].ToString()), 0)), 2) + "%";
-                            }
-                        }
-                        else
-                        {
-                            if (fake.ConvertToDouble(lblRetestRate.Text) > fake.ConvertToDouble(lblTotalRate.Text))
-                            {
-                                this.lblRetestRateFake.Text = Math.Round((fake.ConvertToDouble(lblTotalRateFake.Text) + fake.RandomTwoValue(0, double.Parse(specFakeload.Rows[0][6].ToString()))), 2) + "%";
-                            }
-                            else if (fake.ConvertToDouble(lblRetestRate.Text) == fake.ConvertToDouble(lblTotalRate.Text))
-                            {
-                                this.lblRetestRateFake.Text = lblTotalRateFake.Text;
-                            }
-                            else
-                            {
-                                this.lblRetestRateFake.Text = Math.Round((fake.ConvertToDouble(lblTotalRateFake.Text) + fake.RandomTwoValue(double.Parse(specFakeload.Rows[0][5].ToString()), 0)), 2) + "%";
-                            }
-                            if (fake.ConvertToDouble(lblRetestRateFake.Text) < 0.1)
-                            {
-                                this.lblRetestRateFake.Text = "0.24%";
-                            }
-                        }
+                        event_log("RB-F");
+                        lblRetestRate.Text = "0.0%";
+                        //lblTotalRate.Text = "0.0%";
+                        this.lblRetestRateFake.Text = "0.0%";
+                       // this.lblTotalRateFake.Text = "0.0%";
                     }
+
+                    // var configFake = fake.FakeUI(_Model, ul.GetStation());
+                    var path = IniFile.ReadIniFile("Path", "path", @"D:\AutoDL\ConfigLock.txt", ".\\ConfigCheck.txt");
+
+                    string checkTR = IniFile.ReadIniFile(_Model, "TRR", "-1", path);
+                    string checkSR = IniFile.ReadIniFile(_Model, "SRR", "-1", path);
+
+                    SetColorFakeLabel(fake.ConvertToDouble(lblTotalRateFake.Text), fake.ConvertToDouble(lblRetestRateFake.Text), fake.ConvertToDouble(lblYeildRateFake.Text));
+
                 }
-                //Wi
-                //if (checkFake != 0)
-                if (AutoDL_Station.Contains("RB"))
+                catch (Exception ex)
                 {
-                    event_log("RB-F");
-                    lblRetestRate.Text = "0.0%";
-                    lblTotalRate.Text = "0.0%";
-                    this.lblRetestRateFake.Text = "0.0%";
-                    this.lblTotalRateFake.Text = "0.0%";
-                }                
-
-                // var configFake = fake.FakeUI(_Model, ul.GetStation());
-                var path = IniFile.ReadIniFile("Path", "path", @"D:\AutoDL\ConfigLock.txt", ".\\ConfigCheck.txt");
-
-                string checkTR = IniFile.ReadIniFile(_Model, "TRR", "-1", path);
-                string checkSR = IniFile.ReadIniFile(_Model, "SRR", "-1", path);
-
-                SetColorFakeLabel(fake.ConvertToDouble(lblTotalRateFake.Text), fake.ConvertToDouble(lblRetestRateFake.Text), fake.ConvertToDouble(lblYeildRateFake.Text));
-
-                //var dataYR = (checkFake == 0) ? lblYeildRate.Text : lblYeildRateFake.Text;
-                //var dataSR = (checkFake == 0) ? lblRetestRate.Text : lblRetestRateFake.Text;
-                //var dataTR = (checkFake == 0) ? lblTotalRate.Text : lblTotalRateFake.Text;
-                //long checkLockHour = (ul.GetValueByKey("LockTime").Length > 0) ? long.Parse(DateTime.Now.ToString("yyyyMMddHHmm")) - long.Parse(Convert.ToDateTime(ul.GetValueByKey("LockTime")).ToString("yyyyMMddHHmm")) : 0;
-
-                //if (firstLock == true && checkLockPc != 0)
-                //{
-                //	LockPC(fake.ConvertToDouble(dataYR), 1);
-
-                //	LockPC(fake.ConvertToDouble(dataTR), 3);
-
-                //	LockPC(fake.ConvertToDouble(dataSR), 2);
-
-                //}
-                //else if (checkLockHour >= 120)
-                //{
-                //	LockPC(fake.ConvertToDouble(dataYR), 1);
-
-                //	LockPC(fake.ConvertToDouble(dataTR), 3);
-
-                //	LockPC(fake.ConvertToDouble(dataSR), 2);
-
-                //}
-            }
-            catch (Exception ex)
-            {
-                event_log($"Update ss ${ex}");
-            }
-            //TimerFakeShowUI.Enabled = true;
+                    event_log($"Update RR Exception: ${ex}");
+                }
+            });
+            thread.Start();
+            thread.IsBackground = true;
+            thread.Join();
         }
 
         #endregion TimmerFakeShowUIComment
@@ -9284,65 +9281,49 @@ namespace ShowUIApp
         {
             try
             {
-                // Get Open key
-                _OpenKey = Registry.LocalMachine.OpenSubKey(subkey);
-                if (_OpenKey == null) return;
-
-                // Get Arlo Folder 
-                string[] keys = _OpenKey.GetValue("OpenKey", "").ToString().Split('\\');
-                string[] LogFolders = Directory.GetDirectories(@"D:\Arlo_Logs");
-                if (keys.Length <= 1 || LogFolders.Length == 0) return;
-
-                // Get Arlo log folder by model
-                var FolderLogs = LogFolders.Where(s => Path.GetFileName(s).StartsWith(keys[1])).ToArray();
-                if (FolderLogs.Length == 0) return;
-
-                // Get modelname
-                foreach (string FolderLog in FolderLogs)
-                {
-                    if (!Directory.Exists(FolderLog)) continue;
-
-                    string[] folders = Directory.GetDirectories(FolderLog);
-                    if (folders.Length == 0) continue;
-
-                    foreach (string foldername in folders)
-                    {
-                        string modelName = foldername.Split('\\').Last();
-                        if (!ListModel.Any(s => s == modelName))
-                        {
-                            ListModel.Add(modelName);
-                        }
-                    }
-                }
-
-                string model_1 = ul.GetValueByKey("RYRDATA") ?? string.Empty;
+                string model_1 = ul.GetValueByKey("MODELNAME") ?? string.Empty;
                 if (model_1 != string.Empty)
                 {
-                    model_1 = model_1.Substring(5, 25).Trim();
                     if (!ListModel.Any(s => s == model_1))
                     {
                         ListModel.Add(model_1);
                     }
                 }
-
-                string model_2 = ul.GetValueByKey("SFISDATA") ?? string.Empty;
+                string model_2 = ul.GetValueByKey("SFISMODEL") ?? string.Empty;
                 if (model_2 != string.Empty)
                 {
-                    model_2 = model_2.Substring(5, 25).Trim();
                     if (!ListModel.Any(s => s == model_2))
                     {
                         ListModel.Add(model_2);
                     }
                 }
 
-                string model_3 = ul.GetValueByKey("ShowUIdata") ?? string.Empty;
+                string model_3 = ul.GetModel();
                 if (model_3 != string.Empty)
                 {
-                    model_3 = model_3.Substring(5, 25).Trim();
                     if (!ListModel.Any(s => s == model_3))
                     {
                         ListModel.Add(model_3);
                     }
+                }
+
+                string[] LogFolders = Directory.GetDirectories(@"D:\Arlo_Logs");
+                if(LogFolders.Length > 0)
+                {
+                    var product = ul.GetProduct().Substring(0, 7);
+                    var FolderLogs = LogFolders.Where(s => Directory.Exists(s) && Path.GetFileName(s).StartsWith(product)).ToArray();
+
+                    FolderLogs.SelectMany(FolderLog => Directory.GetDirectories(FolderLog))
+                              .Where(foldername => Directory.Exists(foldername))
+                              .Select(foldername => foldername.Split('\\').Last())
+                              .Distinct()
+                              .ToList()
+                              .ForEach(modelName => {
+                                  if (modelName != "MODEL NAME" && !ListModel.Any(m => m == modelName))
+                                  {
+                                      ListModel.Add(modelName);
+                                  }
+                              });
                 }
             }
             catch (Exception ex)

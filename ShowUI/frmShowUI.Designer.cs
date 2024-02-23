@@ -113,6 +113,7 @@
             this.tmQty = new System.Windows.Forms.Timer(this.components);
             this.tmTemperature = new System.Windows.Forms.Timer(this.components);
             this.tmCheckATE = new System.Windows.Forms.Timer(this.components);
+            this.TimerCheckAfterShowFullDriver = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxDebug)).BeginInit();
             this.fPanelHData.SuspendLayout();
@@ -590,11 +591,11 @@
             this.flowPanel.BackColor = System.Drawing.Color.Transparent;
             this.flowPanel.Controls.Add(this.pbVirus);
             this.flowPanel.Controls.Add(this.pbUsb);
-            this.flowPanel.Location = new System.Drawing.Point(730, 33);
+            this.flowPanel.Location = new System.Drawing.Point(887, 33);
             this.flowPanel.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.flowPanel.Name = "flowPanel";
             this.flowPanel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.flowPanel.Size = new System.Drawing.Size(218, 30);
+            this.flowPanel.Size = new System.Drawing.Size(61, 30);
             this.flowPanel.TabIndex = 34;
             // 
             // pbVirus
@@ -814,6 +815,7 @@
             // label_IP
             // 
             this.label_IP.AutoSize = true;
+            this.label_IP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label_IP.Font = new System.Drawing.Font("Arial", 16.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_IP.ForeColor = System.Drawing.Color.Blue;
             this.label_IP.Location = new System.Drawing.Point(350, 37);
@@ -821,7 +823,6 @@
             this.label_IP.Size = new System.Drawing.Size(39, 26);
             this.label_IP.TabIndex = 35;
             this.label_IP.Text = "IP:";
-            this.label_IP.Visible = false;
             // 
             // panel2
             // 
@@ -931,7 +932,7 @@
             // TimerFakeShowUI
             // 
             this.TimerFakeShowUI.Enabled = true;
-            this.TimerFakeShowUI.Interval = 4000;
+            this.TimerFakeShowUI.Interval = 30000;
             this.TimerFakeShowUI.Tick += new System.EventHandler(this.TimerFakeShowUI_Tick);
             // 
             // TimerIQTestTime
@@ -967,11 +968,16 @@
             this.tmCheckATE.Interval = 1800000;
             this.tmCheckATE.Tick += new System.EventHandler(this.tmCheckATE_Tick);
             // 
+            // TimerCheckAfterShowFullDriver
+            // 
+            this.TimerCheckAfterShowFullDriver.Interval = 600000;
+            this.TimerCheckAfterShowFullDriver.Tick += new System.EventHandler(this.TimerCheckAfterShowFullDriver_Tick);
+            // 
             // showUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LavenderBlush;
+            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1018, 79);
             this.ContextMenuStrip = this.rightMenu;
             this.Controls.Add(this.fPanelHData);
@@ -1101,6 +1107,7 @@
         public System.Windows.Forms.Timer tmQty;
         private System.Windows.Forms.Timer tmTemperature;
         private System.Windows.Forms.Timer tmCheckATE;
+        private System.Windows.Forms.Timer TimerCheckAfterShowFullDriver;
     }
 }
 

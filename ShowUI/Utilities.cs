@@ -119,8 +119,8 @@ namespace ShowUI
         public string GetStation()
         {
             string Station = "";
-
-            _OpenKey = Registry.LocalMachine.OpenSubKey(SubKey);
+            RegistryKey baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
+            _OpenKey = baseKey.OpenSubKey(SubKey);
             try
             {
                 if (_OpenKey != null)
@@ -168,8 +168,8 @@ namespace ShowUI
         public string GetProduct()
         {
             string Product = "";
-
-            _OpenKey = Registry.LocalMachine.OpenSubKey(SubKey);
+            RegistryKey baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
+            _OpenKey = baseKey.OpenSubKey(SubKey);
             try
             {
                 if (_OpenKey != null)

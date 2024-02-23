@@ -10,7 +10,14 @@ namespace ShowUIApp
     {
         public frmChart()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception)
+            {
+            }
+           
         }
 
         private void frmChart_Load(object sender, EventArgs e)
