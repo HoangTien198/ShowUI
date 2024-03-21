@@ -1258,7 +1258,7 @@ namespace ShowUIApp
                     if (!IsWindowsShown("Station Name Error"))
                     {
                         lblStation.Text = sName;
-                        MessageBox.Show("AutoDL Station and Local Station do not match. Please call TE to change Local Station name!", "Station Name Error");
+                        Task.Factory.StartNew(() => MessageBox.Show("AutoDL Station and Local Station do not match. Please call TE to change Local Station name!", "Station Name Error"));
                     }
                 }
                 else
@@ -3614,7 +3614,7 @@ namespace ShowUIApp
             {
                 if (!IsWindowsShown("Station Name Error"))
                 {
-                    MessageBox.Show("AutoDL Station and Local Station do not match. Please call TE to change Local Station name!", "Station Name Error");
+                    Task.Factory.StartNew(() => MessageBox.Show("AutoDL Station and Local Station do not match. Please call TE to change Local Station name!", "Station Name Error"));
                 }
             }
             // end
@@ -8784,6 +8784,21 @@ namespace ShowUIApp
                 { }
             }
 
+
+            if (!IsBatProcessRunning("Kill_Ping.bat"))
+            {
+                string batFilePath = Path.Combine(@"F:\lsy\Test\DownloadConfig\AutoDL", "Kill_Ping.bat");
+
+                bool isBatchFileRunning = IsBatProcessRunning("Kill_Ping.bat");
+                if (!isBatchFileRunning)
+                {
+                    RunBatFile(batFilePath, false);
+                }
+                else
+                {
+                    event_log("Kill_Ping.bat already exists ...");
+                }
+            }          
         }
 
         public static string GetIPAddress()
@@ -9330,6 +9345,78 @@ namespace ShowUIApp
             {
                 event_log($"GetModelName Exception: " + ex.ToString());
             }
-        }       
+        }
+
+        // Tien - 2024-02-24
+        private void timerKillPingCmd_Tick(object sender, EventArgs e)
+        {
+            string batFilePath = Path.Combine(@"F:\lsy\Test\DownloadConfig\AutoDL", "Kill_Ping.bat");
+
+            bool isBatchFileRunning = IsBatProcessRunning("Kill_Ping.bat");
+            if (!isBatchFileRunning)
+            {
+                RunBatFile(batFilePath, false);
+            }
+            else
+            {
+                event_log("Kill_Ping.bat already exists ...");
+            }
+        }
+        private bool IsBatProcessRunning(string batFileName)
+        {
+            Process[] processes = Process.GetProcessesByName("cmd");
+            foreach (Process process in processes)
+            {
+                string commandLine = GetBatCommandLine(process);
+                if (commandLine.Contains(batFileName))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private static string GetBatCommandLine(Process process)
+        {
+            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher($"SELECT CommandLine FROM Win32_Process WHERE ProcessId = {process.Id}"))
+            {
+                foreach (ManagementObject @object in searcher.Get())
+                {
+                    return @object["CommandLine"]?.ToString();
+                }
+            }
+            return string.Empty;
+        }
+        public void RunBatFile(string batFilePath, bool IsShowWindow = true)
+        {
+            if (System.IO.File.Exists(batFilePath))
+            {
+                try
+                {
+                    // Tạo một ProcessStartInfo với thông tin về file batch
+                    ProcessStartInfo processInfo = new ProcessStartInfo();
+                    processInfo.FileName = batFilePath;
+                    processInfo.UseShellExecute = true;
+                    if (!IsShowWindow)
+                    {
+                        processInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    }
+
+                    // Khởi động process
+                    Process process = new Process();
+                    process.StartInfo = processInfo;
+                    process.Start();
+
+                    event_log("Run Kill_Ping.bat ...");
+                }
+                catch (Exception ex)
+                {
+                    event_log("Run file bat exception: " + ex.Message);
+                }
+            }
+            else
+            {
+                event_log($"File bat '{batFilePath}' does not exists.");
+            }
+        }          
     }
 }

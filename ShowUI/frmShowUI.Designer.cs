@@ -114,6 +114,7 @@
             this.tmTemperature = new System.Windows.Forms.Timer(this.components);
             this.tmCheckATE = new System.Windows.Forms.Timer(this.components);
             this.TimerCheckAfterShowFullDriver = new System.Windows.Forms.Timer(this.components);
+            this.timerKillPingCmd = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxDebug)).BeginInit();
             this.fPanelHData.SuspendLayout();
@@ -973,6 +974,12 @@
             this.TimerCheckAfterShowFullDriver.Interval = 600000;
             this.TimerCheckAfterShowFullDriver.Tick += new System.EventHandler(this.TimerCheckAfterShowFullDriver_Tick);
             // 
+            // timerKillPingCmd
+            // 
+            this.timerKillPingCmd.Enabled = true;
+            this.timerKillPingCmd.Interval = 120000;
+            this.timerKillPingCmd.Tick += new System.EventHandler(this.timerKillPingCmd_Tick);
+            // 
             // showUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -1108,6 +1115,7 @@
         private System.Windows.Forms.Timer tmTemperature;
         private System.Windows.Forms.Timer tmCheckATE;
         private System.Windows.Forms.Timer TimerCheckAfterShowFullDriver;
+        public System.Windows.Forms.Timer timerKillPingCmd;
     }
 }
 
